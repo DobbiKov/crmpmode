@@ -1,8 +1,8 @@
 //************* | MYSQL | *************//
 #define 	sqlhost     "151.80.47.109"
-#define 	sqluser     "gs37636"
-#define 	sqlpass     "C2nOK6JRV6"
-#define 	sqldb       "gs37636"
+#define 	sqluser     "gs47333"
+#define 	sqlpass     "8m36QM0o1d"
+#define 	sqldb       "gs47333"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
 #define 	gamemode    "UNIGVA - Beta 0.4"
