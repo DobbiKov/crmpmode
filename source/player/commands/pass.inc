@@ -3,6 +3,9 @@ CMD:pass(playerid, params[])
     extract params -> new to_player; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /pass [ID игрока]");
 
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
+    new Float:x, Float:y, Float:z;
+    GetPlayerPos(to_player, x, y, z);
+    if(!IsPlayerInRangeOfPoint(playerid, 10.0, x, y, z)) return SCM(playerid, red, "Игрок далеко от вас!");
 
 	new fmt_msg[128];
 

@@ -107,6 +107,9 @@ new Text:anim_TD;
 
 const training_td_size = 47;
 new PlayerText:training_td[MAX_PLAYERS][training_td_size];
+
+new Text:BuyClothes_TD[7];
+new PlayerText:BuyClothes_PTD[1][MAX_PLAYERS];
 //--------------------------------------
 
 
@@ -464,6 +467,8 @@ enum e_DIALOG_IDs
 	D_PAYMENT_FINE,
 	
 	D_CREATE_FAMILY,
+	
+	D_BUY_CLOTHES,
 };
 
 enum PInfo
@@ -471,7 +476,9 @@ enum PInfo
 	pID, pName[MAX_PLAYER_NAME],
 	pEmail[42], pKey[64], // Регистрационные данные
 	pLVL, pExp, pSex, pChar, pCash, pBCash, pDonate, bool:pLogin, pJail, pMute, pJailOffMess[256], pMuteOffMess[256], Float:pLastX, Float:pLastY, Float:pLastZ, pPinCode, pRegIP[16], pLastIP[16], pNewIp[16], pTruckLVL, pTruckEXP, // Система персонажа
-	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall, pPatr, pDrugs, pLomka,// система персонажа
+	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall,
+	pPatr, pDrugs, pLomka,// система персонажа
+	
 	pLicBiz, pLicGun, pLicFly, pVoen, pVoenEXP, pBizID, pCarID, pHomeID, pPodID, pKvartID,
 
 	pNeedToilet, pNeedEat, pNeedDrink, pNeedWash, pMask, pHeal, pPepsi, pBackPack, pSmoke, pBeer, pLighter, pChips,
@@ -604,6 +611,7 @@ enum
 #include "../source/systems/atm.inc"
 
 #include "../source/systems/family.inc"
+#include "../source/systems/clothes_shop.inc"
 
 #include "../source/systems/toilet.inc"
 #include "../source/systems/bath.inc"
@@ -2706,6 +2714,9 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pPaintKills] = 0;
 	PlayerInfo[playerid][pInvitePaintBall] = false;
 	
+	ClothesShopState[playerid] = 1;
+	IsBuyClothes[playerid] = false;
+	
 
 
 
@@ -3115,7 +3126,7 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/logotype.inc"
 	#include "../source/textdraws/autosalon.inc"
 	#include "../source/textdraws/anim.inc"
-	return 1;
+    #include "../source/textdraws/buyclothes.inc"
 }
 stock IsAPolice(playerid)
 {
