@@ -761,7 +761,7 @@ publics minuteupdate()
                 {
                     if(PlayerInfo[j][pBizID] == BusinessInfo[i][bID])
                     {
-                        SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
+                        SCM(j, green, "Ваш бизнесс был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
 
                         GiveBankMoney(j, (BusinessInfo[i][bPrice] / 10) * 8, "Неуплата бизнеса и в госс.");
                         PlayerInfo[j][pBizID] = -1;
