@@ -235,7 +235,7 @@ enum
 	CP_EXAM_DRIVING,
 	CP_WANTED,
 	CP_CALLING,
-	CP_GPS
+	CP_GPS,
 };
 new
 	MINER_PICK_ENTER,
@@ -488,6 +488,7 @@ enum e_DIALOG_IDs
 	D_GPS_ENTERTAINMENTS,
 	D_GPS_STATEORGANIZATIONS,
 	D_GPS_GANGS,
+	D_GPS_BUSINESS,
 };
 
 enum PInfo
@@ -612,7 +613,8 @@ enum
 
 // -------------- [ INCLUDES ] ------------------------------
 // --------- [ оепелеммше ] --------------
-#include "../source/systems/kvart_.inc"
+#include "../source/systems/kvart.h"
+#include "../source/systems/business.h"
 
 // ------- [ RULES ] ----------
 #include "../source/player/rules.inc"
@@ -692,6 +694,7 @@ enum
 #include "../source/player/commands/mynumber.inc"
 #include "../source/player/commands/tickets.inc"
 #include "../source/player/commands/paintlist.inc"
+#include "../source/player/commands/gps.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"

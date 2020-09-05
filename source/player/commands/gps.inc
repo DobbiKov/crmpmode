@@ -37,17 +37,18 @@ new gps_gangs[2][gps_struct] = { //заполняем массивы данными
 
 
 CMD:gps(playerid) { //команда, в игре будет так: /gps
+    if(GetPVarInt(playerid, "loader_job") == 1 || GetPVarInt(playerid, "diver_job") == 1 || GetPVarInt(playerid, "miner_job") == 1) return SCM(playerid, red, !"Вы не можете использовать навигатор, пока работаете на подработках.");
     ShowGpsDialog(playerid);
+    return 1;
 }
 stock ShowGpsDialog(playerid) {
-    ShowPlayerDialog(playerid, D_GPS, DIALOG_STYLE_LIST, "GPS", "\
-    {00C0FF}1. {FFFFFF}Общественные места\n\
-        {00C0FF}2. {FFFFFF}Подработки\n\
-        {00C0FF}3. {FFFFFF}Развлечения\n\
-        {00C0FF}5. {FFFFFF}Организации\n\
-        {00C0FF}6. {FFFFFF}Нелегальные организации\n\
-        {00C0FF}7. {FFFFFF}Бизнесы\
-    ", "Далее", "Отмена"); // функция, которая выводит игроку диалог. 
+    ShowPlayerDialog(playerid, D_GPS, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", "\
+    {"cblue"}1. {FFFFFF}Общественные места\n\
+    {"cblue"}2. {FFFFFF}Подработки\n\
+    {"cblue"}3. {FFFFFF}Развлечения\n\
+    {"cblue"}4. {FFFFFF}Организации\n\
+    {"cblue"}5. {FFFFFF}Нелегальные организации\n\
+    {"cblue"}6. {FFFFFF}Бизнесы", "Далее", "Отмена"); // функция, которая выводит игроку диалог. 
     //1-ый параметр(playerid) - id игрока, которому нужно вывести диалог
     //2-ой (D_GPS) - идентификатор диалога, id грубо говоря
     //3-ий (DIALOG_STYLE_LIST) - Тип диалога
@@ -65,6 +66,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
             else { //если первую, то ставим метку
                 SetPlayerCheckpoint(playerid, gps_publicplaces[listitem][gps_x], gps_publicplaces[listitem][gps_y], gps_publicplaces[listitem][gps_z], 3.0); //функция которая ставит метку в определенном месте определенного размера
                 SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте"); //функция которая выводит сообщение в чат
+                pCheckpoint[playerid] = CP_GPS;
             }
         }
         case D_GPS_JOBS: {
@@ -72,13 +74,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
             else {
                 SetPlayerCheckpoint(playerid, gps_jobs[listitem][gps_x], gps_jobs[listitem][gps_y], gps_jobs[listitem][gps_z], 3.0);
                 SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+                pCheckpoint[playerid] = CP_GPS;
             }
         }
         case D_GPS_ENTERTAINMENTS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, gps_entertainment[listitem][gps_x], gps_entertainments[listitem][gps_y], gps_entertainment[listitem][gps_z], 3.0);
+                SetPlayerCheckpoint(playerid, gps_entertainment[listitem][gps_x], gps_entertainment[listitem][gps_y], gps_entertainment[listitem][gps_z], 3.0);
                 SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+                pCheckpoint[playerid] = CP_GPS;
             }
         }
         case D_GPS_STATEORGANIZATIONS: {
@@ -86,6 +90,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
             else {
                 SetPlayerCheckpoint(playerid, gps_stateorganizations[listitem][gps_x], gps_stateorganizations[listitem][gps_y], gps_stateorganizations[listitem][gps_z], 3.0);
                 SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+                pCheckpoint[playerid] = CP_GPS;
             }
         }
         case D_GPS_GANGS: {
@@ -93,6 +98,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
             else {
                 SetPlayerCheckpoint(playerid, gps_gangs[listitem][gps_x], gps_gangs[listitem][gps_y], gps_gangs[listitem][gps_z], 3.0);
                 SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+                pCheckpoint[playerid] = CP_GPS;
+            }
+        }
+        case D_GPS_BUSINESS: {
+            if (!response) ShowGpsDialog(playerid);
+            else {
+                SetPlayerCheckpoint(playerid, BusinessInfo[listitem][bExitX], BusinessInfo[listitem][bExitY], BusinessInfo[listitem][bExitZ], 3.0);
+                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+                pCheckpoint[playerid] = CP_GPS;
             }
         }
         case D_GPS: {
@@ -102,46 +116,56 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                         new str[1024] = ""; //объявляем переменную
                         new string[128]; //объявляем переменную
                         for (new i = 0; i < 6; i++) { //перебираем, по размерности массива
-                            format(string, sizeof(string), "{"cblue"}%d. %s\n", i + 1, gps_publicplaces[i][gps_name]); //устонваливаем значение переменной string
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_publicplaces[i][gps_name]); //устонваливаем значение переменной string
                             strcat(str, string); //ставим в конец cтроки переменной str строку переменной string
                         }
-                        ShowPlayerDialog(playerid, D_GPS_PUBLICPLACES, DIALOG_STYLE_LIST, "GPS", str, "Далее", "Назад");
+                        ShowPlayerDialog(playerid, D_GPS_PUBLICPLACES, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", str, "Далее", "Назад");
                     }
                     case 1: {
                         new str[1024] = "";
                         new string[128];
                         for (new i = 0; i < 4; i++) {
-                            format(string, sizeof(string), "{"cblue"}%d. %s\n", i + 1, gps_jobs[i][gps_name]);
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_jobs[i][gps_name]);
                             strcat(str, string);
                         }
-                        ShowPlayerDialog(playerid, D_GPS_JOBS, DIALOG_STYLE_LIST, "GPS", str, "Далее", "Назад");
+                        ShowPlayerDialog(playerid, D_GPS_JOBS, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", str, "Далее", "Назад");
                     }
                     case 2: {
                         new str[1024] = "";
                         new string[128];
                         for (new i = 0; i < 2; i++) {
-                            format(string, sizeof(string), "{"cblue"}%d. %s\n", i + 1, gps_entertainment[i][gps_name]);
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_entertainment[i][gps_name]);
                             strcat(str, string);
                         }
-                        ShowPlayerDialog(playerid, D_GPS_ENTERTAINMENTS, DIALOG_STYLE_LIST, "GPS", str, "Далее", "Назад");
+                        ShowPlayerDialog(playerid, D_GPS_ENTERTAINMENTS, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", str, "Далее", "Назад");
                     }
-                     case 3: {
+                    case 3: {
                         new str[1024] = "";
                         new string[128];
                         for (new i = 0; i < 5; i++) {
-                            format(string, sizeof(string), "{"cblue"}%d. %s\n", i + 1, gps_stateorganizations[i][gps_name]);
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_stateorganizations[i][gps_name]);
                             strcat(str, string);
                         }
-                        ShowPlayerDialog(playerid, D_GPS_STATEORGANIZATIONS, DIALOG_STYLE_LIST, "GPS", str, "Далее", "Назад");
+                        ShowPlayerDialog(playerid, D_GPS_STATEORGANIZATIONS, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", str, "Далее", "Назад");
                     }
-                     case 4: {
+                    case 4: {
                         new str[1024] = "";
                         new string[128];
                         for (new i = 0; i < 2; i++) {
-                            format(string, sizeof(string), "{"cblue"}%d. %s\n", i + 1, gps_gangs[i][gps_name]);
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_gangs[i][gps_name]);
                             strcat(str, string);
                         }
-                        ShowPlayerDialog(playerid, D_GPS_GANGS, DIALOG_STYLE_LIST, "GPS", str, "Далее", "Назад");
+                        ShowPlayerDialog(playerid, D_GPS_GANGS, DIALOG_STYLE_LIST, "{"cblue"}Навигатор", str, "Далее", "Назад");
+                    }
+                    case 5:{
+                        new str[2048];
+                        new string[128];
+                        foreach(new i : Allbusiness)
+                        {
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, business_params[ BusinessInfo[i][bType] ][bname]);
+                            strcat(str, string);
+                        }
+                        SPD(playerid, D_GPS_BUSINESS, DIALOG_STYLE_LIST, !"{"cblue"}Навигатор", str, !"Далее", !"Назад");
                     }
                 }
             }
@@ -154,7 +178,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
     #endif
 }
 #if    defined    _ALS_OnDialogResponse
-    #undef    gps__OnDialogResponse
+    #undef    OnDialogResponse
 #else
     #define    _ALS_OnDialogResponse
 #endif
@@ -170,7 +194,8 @@ public OnPlayerEnterCheckpoint(playerid) //функция которая автоматически вызывае
 {
     switch(pCheckpoint[playerid])
     {
-        case CP_GPS: {
+        case CP_GPS: 
+        {
             DisablePlayerCheckpoint(playerid); //убираем чекпоинт
             SCM(playerid, blue, "Вы прибыли на место назначения"); //сообщение в чат
         }
