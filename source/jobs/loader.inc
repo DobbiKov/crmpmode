@@ -183,7 +183,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	forward loader__OnPlayerStateChange(playerid, newstate, oldstate); 
 #endif
 
-
 public OnPlayerEnterCheckpoint(playerid)
 {
     switch(pCheckpoint[playerid])

@@ -53,6 +53,8 @@ stock ShowDonateListDialog(playerid){
 	return 1;
 }
 
+
+
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
@@ -92,7 +94,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowPlayerDialog(playerid, D_DONATE_BUY_1_EXP, DIALOG_STYLE_MSGBOX, !"{"cblue"}Донат", !"{FFFFFF}Вы желаете приобрести 1 exp за 10 рублей?", !"Да", !"Нет");
 					}
 					case 6:{//+1 lvl
-						
+						ShowPlayerDialog(playerid, D_DONATE_BUY_1_LVL, DIALOG_STYLE_MSGBOX, !"{"cblue"}Донат", !"{FFFFFF}Вы желаете приобрести 1 lvl за 100 рублей?", !"Да", !"Нет");
 					}
 					case 7:{//оружие навыки
 						
@@ -103,9 +105,92 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+		case D_DONATE_BUY_1_LVL:{
+			if(!response) return ShowDonateListDialog(playerid); else{
+				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+				PlayerInfo[playerid][pDonate] -= 100;
+				PlayerInfo[playerid][pLVL]++;
+				SetPlayerScore(playerid, PlayerInfo[playerid][pLVL]);
+				SCM(playerid, blue, !"Вы повысили уровень за 100 кредитов.");
+				SCM(playerid, blue, !"Ваш уровень был повышен.");
+
+				if(PlayerInfo[playerid][pLVL] == 5 && PlayerInfo[playerid][pExp] == 0)
+				{
+					if(strlen(PlayerInfo[playerid][pReferal]) > 5)
+					{
+						static const fmt_query[] = "INSERT INTO `referals` (`login`, `login_invited`) VALUES ('%s', '%s')";
+						new query[sizeof(fmt_query)+(-2+MAX_PLAYER_NAME)];
+						format(query, sizeof(query), fmt_query, PlayerInfo[playerid][pReferal], PlayerInfo[playerid][pName]);
+						mysql_tquery(connects, query, "", "");
+
+						PlayerInfo[playerid][pBCash] += 50000;
+						SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому вы и ваш Реферал получили по 50.000!");
+
+						if(IsPlayerConnected(GetPlayerID(PlayerInfo[playerid][pReferal])))
+						{
+							PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash] += 50000;
+							stringer[0] = EOS;
+							format(stringer,512, "UPDATE `accounts` SET `pBCash` = '%d' WHERE `pName` = '%s'", PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash], PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pName]);
+							mysql_tquery(connects, stringer, "", "");
+
+							SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и вы получили по 50000!");
+						}
+						else
+						{
+							new mysqlstr[144];
+							mysql_format(connects,mysqlstr, sizeof(mysqlstr),"SELECT * FROM `accounts` WHERE `pName` = '%s'", PlayerInfo[playerid][pReferal]);
+							mysql_function_query(connects, mysqlstr, true, "PayDayReferal","ds", PlayerInfo[playerid][pReferal]);
+						}
+					}
+				}
+				SaveAccounts(playerid);
+			}
+		}
 		case D_DONATE_BUY_1_EXP:{
 			if(!response) return ShowDonateListDialog(playerid); else{
+				if(PlayerInfo[playerid][pDonate] < 10) return SCM(playerid, red, !"У вас недостаточно кредитов.");
 
+				PlayerInfo[playerid][pDonate] -= 10;
+				PlayerInfo[playerid][pExp]++;
+				SCM(playerid, blue, !"Вы приобрели 1 exp за 10 кредитов.");
+				if(PlayerInfo[playerid][pExp] >= (PlayerInfo[playerid][pLVL]*4)) {
+					PlayerInfo[playerid][pLVL]++;
+					SetPlayerScore(playerid, PlayerInfo[playerid][pLVL]);
+					PlayerInfo[playerid][pExp] = 0;
+					SCM(playerid, blue, !"Ваш уровень был повышен.");
+
+					if(PlayerInfo[playerid][pLVL] == 5 && PlayerInfo[playerid][pExp] == 0)
+					{
+						if(strlen(PlayerInfo[playerid][pReferal]) > 5)
+						{
+							static const fmt_query[] = "INSERT INTO `referals` (`login`, `login_invited`) VALUES ('%s', '%s')";
+							new query[sizeof(fmt_query)+(-2+MAX_PLAYER_NAME)];
+							format(query, sizeof(query), fmt_query, PlayerInfo[playerid][pReferal], PlayerInfo[playerid][pName]);
+							mysql_tquery(connects, query, "", "");
+
+							PlayerInfo[playerid][pBCash] += 50000;
+							SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому вы и ваш Реферал получили по 50.000!");
+
+							if(IsPlayerConnected(GetPlayerID(PlayerInfo[playerid][pReferal])))
+							{
+								PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash] += 50000;
+								stringer[0] = EOS;
+								format(stringer,512, "UPDATE `accounts` SET `pBCash` = '%d' WHERE `pName` = '%s'", PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash], PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pName]);
+								mysql_tquery(connects, stringer, "", "");
+
+								SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и вы получили по 50000!");
+							}
+							else
+							{
+								new mysqlstr[144];
+								mysql_format(connects,mysqlstr, sizeof(mysqlstr),"SELECT * FROM `accounts` WHERE `pName` = '%s'", PlayerInfo[playerid][pReferal]);
+								mysql_function_query(connects, mysqlstr, true, "PayDayReferal","ds", PlayerInfo[playerid][pReferal]);
+							}
+						}
+					}
+				}
+				SaveAccounts(playerid);
 			}
 		}
 		case D_DONATE_BUY_NULL_WARN:{
@@ -130,6 +215,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerInfo[playerid][pDonate] -= 50;
 				SetPlayerWanted(playerid, 0);
 				SCM(playerid, blue, !"Вы сняли с себя розыск за 50 кредитов."); 
+				SaveAccounts(playerid);
 			}
 		}
 		case D_DONATE_BUY_VOEN:{
@@ -139,6 +225,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerInfo[playerid][pVoen] = 1;
 				PlayerInfo[playerid][pDonate] -= 100;
 				SCM(playerid, blue, !"Вы успешно приобрели себе военный билет за 100 кредитов.");
+				SaveAccounts(playerid);
 			}
 		}
 		case D_DONATE_BUY_MONEY:{
@@ -153,6 +240,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new string[144];
 				format(string, sizeof(string), "Вы приобрели %d виртуальных рублей за %d кредитов.", strval(inputtext)*500, strval(inputtext));
 				SCM(playerid, blue, string);
+				SaveAccounts(playerid);
 			}
 		}
 	}
