@@ -483,6 +483,7 @@ CMD:yes(playerid)
 				SaveAccounts(proposition);
 				UpdateBusiness(i);
 				DeletePVar(playerid, "my_biz_id");
+				DeletePVar(proposition, "my_biz_id");
 			}
 
 			case PROPOSITION_TYPE_SELLCAR:

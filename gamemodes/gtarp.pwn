@@ -441,7 +441,16 @@ enum e_DIALOG_IDs
 	D_DONATE,
 	D_DONATE_LIST,
  	D_DONATE_BUY_MONEY,
-	
+	D_DONATE_BUY_VOEN,
+	D_DONATE_BUY_NULL_WANTED,
+	D_DONATE_BUY_NULL_WARN,
+	D_DONATE_BUY_1_EXP,
+	D_DONATE_BUY_1_LVL,
+	D_DONATE_BUY_VIP,
+	D_DONATE_BUY_VIP_7,
+	D_DONATE_BUY_VIP_30,
+	D_DONATE_BUY_VIP_365,
+
 	D_SELL_CAR,
 	D_MENU_POD,
 	D_ENTER_KVART,
@@ -1600,8 +1609,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    SCMR(TEAM_PPS, blue, string);
 		    SCMR(TEAM_FSB, blue, string);
 		    
-  			PlayerInfo[playerid][pWANTED] = 0;
-		    SetPlayerWantedLevel(playerid, 0);
+  			SetPlayerWanted(playerid, 0);
 
 		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как вы были в розыске.");
 		    SCM(playerid, red, string);
@@ -1615,8 +1623,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
 		    {
 		        GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
-		        if(PlayerInfo[playerid][pWANTED] < 6) PlayerInfo[killerid][pWANTED]++;
-		        SetPlayerWantedLevel(killerid, PlayerInfo[killerid][pWANTED]);
+		        if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
 
 		        format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
 		        SCMR(TEAM_PPS, blue, string);
@@ -2743,7 +2750,6 @@ stock ClearAccount(playerid)
 		PlayerInfo[playerid][pGun][i] = 0;
 		PlayerInfo[playerid][pAmmo][i] = 0;
 	}
-	PlayerInfo[playerid][pBizID] = 0;
 	return 1;
 }
 
@@ -3052,7 +3058,7 @@ stock SetPlayerDefaultVariables(playerid)
 	    PutPlayerInKPZ(playerid);
 	}
 	SetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
-	SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWANTED]);
+	SetPlayerWanted(playerid, PlayerInfo[playerid][pWANTED]);
 	
 	if(PlayerInfo[playerid][pMember] > 0) SetPlayerSkin(playerid, PlayerInfo[playerid][pFSkin]);
 	else SetPlayerSkin(playerid, PlayerInfo[playerid][pChar]);
@@ -3318,4 +3324,14 @@ CMD:allcars(playerid)
 	}
     format(string, sizeof(string), "Всего авто %d.", all);
     SCM(playerid, blue, string);
+}
+CMD:getmybizid(playerid){
+	new string[144];
+	format(string, sizeof(string), "%d", PlayerInfo[playerid][pBizID]);
+	SCM(playerid, blue, string);
+}
+
+stock SetPlayerWanted(playerid, lvl){
+	PlayerInfo[playerid][pWANTED] = lvl;
+	SetPlayerWantedLevel(playerid, lvl);
 }
