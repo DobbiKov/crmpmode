@@ -162,7 +162,7 @@ stock SetBuyClothes(playerid){
     format(string, sizeof(string), "%d rub", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
     PlayerTextDrawSetString(playerid, BuyClothes_PTD[0][playerid], string);
     SelectTextDraw(playerid, white);
-
+    TogglePlayerControllable(playerid, false);
     SCM(playerid, blue, "Что б отменить покупку - нажмите клавишу \"ESC\"");
 }
 
@@ -179,4 +179,5 @@ stock ExitBuyClothes(playerid){
     SetPlayerSkin(playerid, PlayerInfo[playerid][pMember] > 0 ? PlayerInfo[playerid][pFSkin] : PlayerInfo[playerid][pChar]);
     IsBuyClothes[playerid] = false;
     CancelSelectTextDraw(playerid);
+    FreezePlayer(playerid, 2000);
 }

@@ -761,7 +761,7 @@ publics minuteupdate()
                 {
                     if(PlayerInfo[j][pBizID] == BusinessInfo[i][bID])
                     {
-                        SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
+                        SCM(j, green, "Ваш бизнесс был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
 
                         GiveBankMoney(j, (BusinessInfo[i][bPrice] / 10) * 8, "Неуплата бизнеса и в госс.");
                         PlayerInfo[j][pBizID] = -1;
@@ -1141,7 +1141,11 @@ CMD:sellmybusiness(playerid, params[])
     if(PlayerInfo[to_player][pBizID] != -1) return SCM(playerid, red, "У игрока уже имеется бизнесс.");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока нет столько денег.");
     if(price < 0) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmybusiness [ID игрока] [цена]");
-    foreach(new i : Allbusiness) if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]) SetPVarInt(playerid, "my_biz_id", i);
+    foreach(new i : Allbusiness) if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]) 
+    {
+        SetPVarInt(playerid, "my_biz_id", i);
+        SetPVarInt(to_player, "my_biz_id", i);
+    }
     new i = GetPVarInt(playerid, "my_biz_id");
     if(!IsPlayerInRangeOfPoint(playerid, 10.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ])) return SCM(playerid, red, "Вы должны находится возле своего бизнеса!");
     return SendProposition(playerid, to_player, PROPOSITION_TYPE_SELLBIZ, price);
