@@ -42,6 +42,17 @@ CMD:donate(playerid)
 	return 1;
 }
 
+stock ShowDonateListDialog(playerid){
+	new fmt_dialog[528], string[128];
+	for(new i = 0; i < 8; i++)
+	{
+		format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i+1, donate_list[i][donate_name]);
+		strcat(fmt_dialog, string);
+	}
+	SPD(playerid, D_DONATE_LIST, DIALOG_STYLE_LIST, "{"cblue"}Дополнительные услуги", fmt_dialog, "Далее", "Отмена");	
+	return 1;
+}
+
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
@@ -51,13 +62,56 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response) return 1;
 			else
 			{
-				new fmt_dialog[528], string[128];
-				for(new i = 0; i < 8; i++)
-				{
-					format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i+1, donate_list[i][donate_name]);
-					strcat(fmt_dialog, string);
+				ShowDonateListDialog(playerid);
+			}
+		}
+		case D_DONATE_LIST:{
+			if(!response) return 1; else{
+				switch(listitem){
+					case 0: {
+						new string[256];
+						format(string, sizeof(string), "Введите количество доната, которое вы хотите перевести в рубли. В данный момент у вас: %d руб.", PlayerInfo[playerid][pDonate]);
+						SPD(playerid, D_DONATE_BUY_MONEY, DIALOG_STYLE_INPUT, !"{"cblue"}Донат", string, !"Далее", "Назад");
+					}
+					case 1:{
+						//смена имени
+					}
+					case 2:{
+						//снять все предупреждения
+					}
+					case 3:{
+						//снять розыск
+					}
+					case 4:{
+						//военный билет
+					}
+					case 5:{
+						//+1 exp
+					}
+					case 6:{
+						//+1 lvl
+					}
+					case 7:{
+						//оружие навыки
+					}
+					case 8:{
+						//випка
+					}
 				}
-				SPD(playerid, D_DONATE_LIST, DIALOG_STYLE_LIST, "{"cblue"}Дополнительные услуги", fmt_dialog, "Далее", "Отмена");
+			}
+		}
+		case D_DONATE_BUY_MONEY:{
+			if(!response) return ShowDonateListDialog(playerid);
+			else{
+				if(PlayerInfo[playerid][pDonate] < strval(inputtext))
+					return SCM(playerid, red, "У вас нет такого количество доната.");
+
+				GiveMoney(playerid, strval(inputtext)*500, "Через донат");
+				PlayerInfo[playerid][pDonate] -= strval(inputtext);
+
+				new string[144];
+				format(string, sizeof(string), "Вы приобрели %d виртуальных рублей за %d донат очков.", strval(inputtext)*500, strval(inputtext));
+				SCM(playerid, blue, string);
 			}
 		}
 	}
