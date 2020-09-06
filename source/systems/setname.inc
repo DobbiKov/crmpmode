@@ -74,13 +74,31 @@ stock ChangeName(playerid)
 	mysql_tquery(connects, stringer, "", "");
 
 	if(PlayerInfo[playerid][pBizID] != -1){
-
+		foreach(new i : Allbusiness){
+			if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]){
+				format(BusinessInfo[i][bOwner], 50, "%s", playerName);
+				UpdateBusiness(i);
+				break;
+			}
+		}
 	}
 	if(PlayerInfo[playerid][pHomeID] != -1){
-
+		foreach(new i : Allhouses){
+			if(HouseInfo[i][hID] == PlayerInfo[playerid][pHomeID]){
+				format(HouseInfo[i][hOwner], 50, "%s", playerName);
+				SaveHouse(i);
+				break;
+			}
+		}
 	}
 	if(PlayerInfo[playerid][pKvartID] != -1){
-		
+		foreach(new i : Allkvart){
+			if(KvartInfo[i][kvart_id] == PlayerInfo[playerid][pKvartID]){
+				format(KvartInfo[i][kvart_Owner], 50, "%s", playerName);
+				SaveKvart(i);
+				break;
+			}
+		}
 	}
 
  	stringer[0] = EOS;

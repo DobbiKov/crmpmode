@@ -447,10 +447,8 @@ enum e_DIALOG_IDs
 	D_DONATE_BUY_NULL_WARN,
 	D_DONATE_BUY_1_EXP,
 	D_DONATE_BUY_1_LVL,
+	D_DONATE_CHANGE_NAME,
 	D_DONATE_BUY_VIP,
-	D_DONATE_BUY_VIP_7,
-	D_DONATE_BUY_VIP_30,
-	D_DONATE_BUY_VIP_365,
 
 	D_SELL_CAR,
 	D_MENU_POD,
@@ -541,10 +539,10 @@ new stock FractionInfo[9][fInfo] =
 {
 	{"Гражданский",							0xFFFFFF30, 1823.5634,2528.6885,15.6825,	130.7277,			0,  0},
 	{"Администрация Поселка",  				0x00000000,	792.2339,795.0538,-68.2813,		70.0226,			0,	0},
-	{"СМИ",  								0x00000000,	1789.4912,2044.2119,-18.0000,	184.6829,			0,	0},
+	{"Новости 24",  								0x00000000,	1789.4912,2044.2119,-18.0000,	184.6829,			0,	0},
 	{"Полиция",  							0x00000000,	2567.3386,-2417.3921,22.3545,	357.1678,			0,	1},
 	{"Больница",  							0x00000000,	-817.8105,1857.1638,705.6800,	0.0,				0,	0},
-	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
+	{"Армия",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
 	{"ФСБ",  								0x00000000,	0.0,0.0,0.0,0.0,			0,	0}
@@ -552,7 +550,7 @@ new stock FractionInfo[9][fInfo] =
 
 
 new jobs_name[5][20] = {"Безработный", "Водитель автобуса", "Водитель Такси", "Автомеханик", "Дальнобойщик"};
-new stock GetMember[9][36] = {"Гражданский","Администрация Посёлка","СМИ","Полиция","Больница","ВДВ","ОПГ Ореховские","ОПГ Солнцевские", "ФСБ"};
+new stock GetMember[9][36] = {"Гражданский","Администрация Посёлка","Новости 24","Полиция","Больница","Армия","ОПГ Ореховские","ОПГ Солнцевские", "ФСБ"};
 new stock rangFractionID[9] = {10,10,10,10,10,10,10,10,10};
 
 new stock ChangeSkin[9][10] =
@@ -616,6 +614,9 @@ enum
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
 
+//---------[HEH]------------
+#include "../source/anticheat/isrpnick.inc"
+
 // ------- [ RULES ] ----------
 #include "../source/player/rules.inc"
 
@@ -664,7 +665,6 @@ enum
 #include "../source/anticheat/ac_tpinveh.inc"
 
 #include "../source/anticheat/teamkill.inc"
-#include "../source/anticheat/isrpnick.inc"
 
 // -------[ COMMANDS ] -----------
 #include "../source/player/commands/s.inc"
@@ -802,6 +802,7 @@ enum
 #include "../source/admin/commands/6 lvl/agivevoen.inc"
 #include "../source/admin/commands/6 lvl/setcarnumber.inc"
 #include "../source/admin/commands/6 lvl/setownablecar.inc"
+#include "../source/admin/commands/6 lvl/givedonate.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
@@ -1160,6 +1161,16 @@ publics LoginCallback(playerid, password[])
 	
 	format(string, sizeof(string), "Вы успешно авторизовались! Номер вашего аккаунта: %d", PlayerInfo[playerid][pID]);
 	SCM(playerid, need, string);
+
+	if(PlayerInfo[playerid][pVIP] > 0){
+		if(PlayerInfo[playerid][pVIP] < gettime()){ 
+			PlayerInfo[playerid][pVIP] = 0;
+			SCM(playerid, need, !"Срок действия вашего VIP аккаунта истёк.");
+		}else{
+			format(string, sizeof(string), "Вы вошли как VIP игрок. Срок действия: %d дней.", ((PlayerInfo[playerid][pVIP] - gettime()) / 86400) + 1);
+			SCM(playerid, need, string);
+		}
+	}
 	
 	if(PlayerInfo[playerid][bAdmin] > 0)
 	{
