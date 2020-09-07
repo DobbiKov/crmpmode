@@ -49,7 +49,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						stringer[0] = EOS;
 						format(stringer, 500, "\
 						{"cblue"}1. {FFFFFF}3D TextDraw\t\t| %s {"cred"}(BETA){"cwhite"}\n\
-						{"cblue"}2. {FFFFFF}Очистить чат",
+						{"cblue"}2. {FFFFFF}Очистить чат\n\
+						{"cblue"}3. {FFFFFF}Указать телеграм",
 						((PlayerInfo[playerid][pLogo] == 0) ? ("{"clred"}Отключен") : ("{"cblue"}Включен")));
 						SPD(playerid, 10, DIALOG_STYLE_LIST, "{"cblue"}Персональные настройки", stringer, "Далее", "Назад");
 					}
@@ -104,8 +105,43 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						SCM(playerid, white, "Вы успешно очистили чат!");
 					}
+					case 2:{
+						if(response){
+							SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
+							{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
+							Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+							Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
+							{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+							", !"Указать", !"Закрыть");
+						} else return 1;
+					}
 				}
 			}
+		}
+		case D_MENU_SET_TELEGRAM_ID:{
+			if(response){
+				if(!strlen(inputtext)){
+					SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
+					{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
+					Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+					Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
+					{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+					", !"Указать", !"Закрыть");
+					return 1;
+				}
+				if(!IsNumeric(inputtext)){
+					SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
+					{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
+					Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+					Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
+					{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+					", !"Указать", !"Закрыть");
+					return 1;					
+				}
+				PlayerInfo[playerid][pTelegramId] = strval(inputtext);
+				SaveAccounts(playerid);
+				SCM(playerid, blue, !"Вы успешно указали Telegram ID.");
+			}else return 1;
 		}
 		case 11:
 		{

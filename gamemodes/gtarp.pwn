@@ -300,6 +300,7 @@ enum e_DIALOG_IDs
     D_MENU_ASK_REP,
     D_MENU_ASK,
     D_MENU_REP,
+	D_MENU_SET_TELEGRAM_ID,
     D_APANEL_ANTI_CHEAT,
     D_17,
     D_SPAWN_LIST,
@@ -509,7 +510,7 @@ enum PInfo
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
- 	pFamID, pFamRang,
+ 	pFamID, pFamRang, pTelegramId,
 }
 new PlayerInfo[MAX_PLAYERS][PInfo];
 
@@ -995,6 +996,7 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][pPinCode] = cache_get_field_content_int(0, "pPinCode");
 
     PlayerInfo[playerid][pLVL] = cache_get_field_content_int(0, "pLVL");
+    PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pTelegramId");
     PlayerInfo[playerid][pBizID] = cache_get_field_content_int(0, "pBizID"); 
     PlayerInfo[playerid][pCarID] = cache_get_field_content_int(0, "pCarID");
     PlayerInfo[playerid][pHomeID] = cache_get_field_content_int(0, "pHomeID");
@@ -1308,7 +1310,8 @@ stock SaveAccounts(playerid)
 		`pFines` = '%d',\
 		`pSumFines` = '%d',\
 		`pFamID` = '%d',\
-		`pFamRang` = '%d' WHERE `pName` = '%s'",
+		`pFamRang` = '%d',\
+		`pTelegramId` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
 		PlayerInfo[playerid][pLastIP],
@@ -1401,6 +1404,7 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pSumFines],
 	  	PlayerInfo[playerid][pFamID],
 	 	PlayerInfo[playerid][pFamRang],
+	 	PlayerInfo[playerid][pTelegramId],
 	 	PlayerInfo[playerid][pName]
 	);
  	mysql_tquery(connects, all_sql_str, "", "");
