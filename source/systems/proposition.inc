@@ -36,9 +36,9 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 	if(incoming_proposition[to_player] != -1) return SCM(playerid, red, "У игрока есть активные предложения.");
 	if(send_proposition[playerid] != -1) return SCM(playerid, -1, "Используйте {FF9900}/cancel {FFFFFF}чтобы отозвать предыдущее предложение");
 	
-	send_proposition[playerid] = to_player;
-	incoming_proposition[to_player] = playerid;
-	incoming_proposition_type[to_player] = type;
+	send_proposition[playerid] = to_player; //кому я предложил
+	incoming_proposition[to_player] = playerid; //кто предложил тому, кому я предолжил (тоесть я)
+	incoming_proposition_type[to_player] = type; //тип входящего предложения
 	incoming_proposition_value[to_player][0] = value_1;
     incoming_proposition_value[to_player][1] = value_2;
 
@@ -52,7 +52,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы согласиться или {FF6600}N {FFFFFF}для отказа");
 
-			format(fmt_msg, sizeof fmt_msg, "Вы предложили %s сделать ремонт транспорта за %d руб", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
+			format(fmt_msg, sizeof fmt_msg, "Вы предложили %s сделать ремонт транспорта за %d руб", PlayerInfo[to_player][pName], value_1);
 			SCM(playerid, 0x3399FFFF, fmt_msg);
 		}
 		case PROPOSITION_TYPE_INVITE:

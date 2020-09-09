@@ -121,7 +121,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
         new string[144];
         format(string, sizeof(string), "Вы успешно приобрели скин за %d рублей.", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
         SCM(playerid, blue, string);
-        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет франкциооный скин.");
+        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет фракционый скин.");
         ExitBuyClothes(playerid);
         SaveAccounts(playerid);
     }

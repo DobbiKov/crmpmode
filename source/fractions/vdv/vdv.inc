@@ -24,7 +24,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         }
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1490.5315,1668.2097,-5.3244))
         {
-            if(PlayerInfo[playerid][pMember] == TEAM_VDV || PlayerInfo[playerid][pMember] == TEAM_FSB)SPD(playerid, D_GUN_VDV, DIALOG_STYLE_LIST, "{"cblue"}АРМИЯ | Оружие", "{"cblue"}1. {FFFFFF}Пистолет (9-mm)\n{"cblue"}2. {FFFFFF}Автомат Калашникова\n{"cblue"}3. {FFFFFF}Дубинка", "Далее", "Закрыть");
+            if(PlayerInfo[playerid][pMember] == TEAM_VDV || PlayerInfo[playerid][pMember] == TEAM_FSB)SPD(playerid, D_GUN_VDV, DIALOG_STYLE_LIST, "{"cblue"}ВДВ | Оружие", "{"cblue"}1. {FFFFFF}Пистолет (9-mm)\n{"cblue"}2. {FFFFFF}Автомат Калашникова\n{"cblue"}3. {FFFFFF}Дубинка", "Далее", "Закрыть");
         }
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1453.0112,1761.9174,-7.5053))
         {

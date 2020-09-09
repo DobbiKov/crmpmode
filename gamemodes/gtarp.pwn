@@ -541,10 +541,10 @@ new stock FractionInfo[9][fInfo] =
 {
 	{"Гражданский",							0xFFFFFF30, 1823.5634,2528.6885,15.6825,	130.7277,			0,  0},
 	{"Администрация Поселка",  				0x00000000,	792.2339,795.0538,-68.2813,		70.0226,			0,	0},
-	{"Новости 24",  								0x00000000,	1789.4912,2044.2119,-18.0000,	184.6829,			0,	0},
+	{"СМИ",  								0x00000000,	1789.4912,2044.2119,-18.0000,	184.6829,			0,	0},
 	{"Полиция",  							0x00000000,	2567.3386,-2417.3921,22.3545,	357.1678,			0,	1},
 	{"Больница",  							0x00000000,	-817.8105,1857.1638,705.6800,	0.0,				0,	0},
-	{"Армия",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
+	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
 	{"ФСБ",  								0x00000000,	0.0,0.0,0.0,0.0,			0,	0}
@@ -552,7 +552,7 @@ new stock FractionInfo[9][fInfo] =
 
 
 new jobs_name[5][20] = {"Безработный", "Водитель автобуса", "Водитель Такси", "Автомеханик", "Дальнобойщик"};
-new stock GetMember[9][36] = {"Гражданский","Администрация Посёлка","Новости 24","Полиция","Больница","Армия","ОПГ Ореховские","ОПГ Солнцевские", "ФСБ"};
+new stock GetMember[9][36] = {"Гражданский","Администрация Посёлка","СМИ","Полиция","Больница","ВДВ","ОПГ Ореховские","ОПГ Солнцевские", "ФСБ"};
 new stock rangFractionID[9] = {10,10,10,10,10,10,10,10,10};
 
 new stock ChangeSkin[9][10] =
@@ -850,6 +850,9 @@ enum
 #include "../source/fractions/chats/r.inc"
 #include "../source/fractions/chats/find.inc"
 
+// FSB
+#include "../source/fractions/fsb/switchskin.inc"
+
 // PPS
 #include "../source/fractions/pps/pps.inc"
 #include "../source/fractions/pps/stopcar.inc"
@@ -997,6 +1000,7 @@ publics LoginCallback(playerid, password[])
 
     PlayerInfo[playerid][pLVL] = cache_get_field_content_int(0, "pLVL");
     PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pTelegramId");
+    PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pDonate");
     PlayerInfo[playerid][pBizID] = cache_get_field_content_int(0, "pBizID"); 
     PlayerInfo[playerid][pCarID] = cache_get_field_content_int(0, "pCarID");
     PlayerInfo[playerid][pHomeID] = cache_get_field_content_int(0, "pHomeID");
@@ -1311,7 +1315,8 @@ stock SaveAccounts(playerid)
 		`pSumFines` = '%d',\
 		`pFamID` = '%d',\
 		`pFamRang` = '%d',\
-		`pTelegramId` = '%d' WHERE `pName` = '%s'",
+		`pTelegramId` = '%d',\
+		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
 		PlayerInfo[playerid][pLastIP],
@@ -1405,6 +1410,7 @@ stock SaveAccounts(playerid)
 	  	PlayerInfo[playerid][pFamID],
 	 	PlayerInfo[playerid][pFamRang],
 	 	PlayerInfo[playerid][pTelegramId],
+	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
  	mysql_tquery(connects, all_sql_str, "", "");
