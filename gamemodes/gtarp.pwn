@@ -111,6 +111,8 @@ new PlayerText:training_td[MAX_PLAYERS][training_td_size];
 
 new Text:BuyClothes_TD[7];
 new PlayerText:BuyClothes_PTD[1][MAX_PLAYERS];
+
+new Text:td_capture[4]; //bizwar
 //--------------------------------------
 
 
@@ -489,6 +491,8 @@ enum e_DIALOG_IDs
 	D_GPS_STATEORGANIZATIONS,
 	D_GPS_GANGS,
 	D_GPS_BUSINESS,
+
+	D_BIZ_WAR,
 };
 
 enum PInfo
@@ -641,6 +645,7 @@ enum
 #include "../source/systems/bath.inc"
 #include "../source/systems/need.inc"
 
+#include "../source/systems/bizwar.inc"
 #include "../source/systems/paintball.inc"
 #include "../source/systems/advertise.inc"
 #include "../source/systems/setname.inc"
@@ -901,6 +906,7 @@ enum
 #include "../source/fractions/opg_o/untie.inc"
 #include "../source/fractions/opg_o/close.inc"
 #include "../source/fractions/opg_o/drugs.inc"
+#include "../source/fractions/opg_o/bizwar.inc"
 
 //#include    <nex-ac>
 public OnGameModeInit()
@@ -1632,6 +1638,21 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    PlayerInfo[killerid][pPaintKills]++;
 		    GameTextForPlayer(killerid, "~g~+1 kill", 2000, 1);
 		    ResetPlayerWeaponsAC(playerid);
+		}
+		else if(g_capture[C_STATUS]){
+			if(IsAOpg(playerid) && IsAOpg(killerid)){
+				if(IsPlayerInDynamicArea(playerid, CaptureZone) && IsPlayerInDynamicArea(killerid, CaptureZone)){
+					new killer, player;
+					player = PlayerInfo[playerid][pMember];
+					killer = PlayerInfo[killerid][pMember];
+					if(player == g_capture[C_PROTECT_TEAM] && killer == g_capture[C_ATTACK_TEAM]){
+						g_capture[C_ATTACKER_KILLS]++;
+					}
+					if(player == g_capture[C_ATTACK_TEAM] && killer == g_capture[C_PROTECT_TEAM]){
+						g_capture[C_PROTECTOR_KILLS]++;
+					}
+				}
+			}
 		}
 		else if(PlayerInfo[playerid][pWANTED] > 0 && IsAPolice(killerid))
 		{
@@ -3166,6 +3187,7 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/spec.inc"
 	#include "../source/textdraws/logotype.inc"
 	#include "../source/textdraws/autosalon.inc"
+	#include "../source/textdraws/bizwar.inc"
 	#include "../source/textdraws/anim.inc"
     #include "../source/textdraws/buyclothes.inc"
 }

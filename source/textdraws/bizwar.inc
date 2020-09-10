@@ -1,0 +1,40 @@
+	td_capture[0] = TextDrawCreate(135.950088, 232.062500, "usebox");
+	TextDrawLetterSize(td_capture[0], 0.000000, 2.646385);
+	TextDrawTextSize(td_capture[0], -0.500000, 0.000000);
+	TextDrawAlignment(td_capture[0], 1);
+	TextDrawColor(td_capture[0], 0);
+	TextDrawUseBox(td_capture[0], true);
+	TextDrawBoxColor(td_capture[0], 102);
+	TextDrawSetShadow(td_capture[0], 0);
+	TextDrawSetOutline(td_capture[0], 0);
+	TextDrawFont(td_capture[0], 0);
+
+	td_capture[1] = TextDrawCreate(5.799997, 231.874984, "~y~Œœ√ ~w~Œ–≈’Œ¬— ¿ﬂ ~n~~y~Œœ√ ~w~—ŒÀÕ÷≈¬— ¿ﬂ");
+	TextDrawLetterSize(td_capture[1], 0.237899, 1.199688);
+	TextDrawAlignment(td_capture[1], 1);
+	TextDrawColor(td_capture[1], -1);
+	TextDrawSetShadow(td_capture[1], 0);
+	TextDrawSetOutline(td_capture[1], 1);
+	TextDrawBackgroundColor(td_capture[1], 51);
+	TextDrawFont(td_capture[1], 2);
+	TextDrawSetProportional(td_capture[1], 1);
+
+	td_capture[2] = TextDrawCreate(115.899940, 231.912536, "0");
+	TextDrawLetterSize(td_capture[2], 0.307199, 1.245625);
+	TextDrawAlignment(td_capture[2], 1);
+	TextDrawColor(td_capture[2], -16776961);
+	TextDrawSetShadow(td_capture[2], 0);
+	TextDrawSetOutline(td_capture[2], 1);
+	TextDrawBackgroundColor(td_capture[2], 51);
+	TextDrawFont(td_capture[2], 2);
+	TextDrawSetProportional(td_capture[2], 1);
+
+	td_capture[3] = TextDrawCreate(116.199996, 242.406326, "0");
+	TextDrawLetterSize(td_capture[3], 0.307199, 1.245625);
+	TextDrawAlignment(td_capture[3], 1);
+	TextDrawColor(td_capture[3], -16776961);
+	TextDrawSetShadow(td_capture[3], 0);
+	TextDrawSetOutline(td_capture[3], 1);
+	TextDrawBackgroundColor(td_capture[3], 51);
+	TextDrawFont(td_capture[3], 2);
+	TextDrawSetProportional(td_capture[3], 1);
