@@ -1006,7 +1006,7 @@ publics LoginCallback(playerid, password[])
 
     PlayerInfo[playerid][pLVL] = cache_get_field_content_int(0, "pLVL");
     PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pTelegramId");
-    PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pDonate");
+    PlayerInfo[playerid][pDonate] = cache_get_field_content_int(0, "pDonate");
     PlayerInfo[playerid][pBizID] = cache_get_field_content_int(0, "pBizID"); 
     PlayerInfo[playerid][pCarID] = cache_get_field_content_int(0, "pCarID");
     PlayerInfo[playerid][pHomeID] = cache_get_field_content_int(0, "pHomeID");
