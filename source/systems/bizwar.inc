@@ -7,7 +7,10 @@ enum E_CAPTURE_STRUCT
 	C_ATTACKER_KILLS,
 	C_PROTECTOR_KILLS,
 	C_TIME,
-	C_WAIT_TIME[8]
+	C_WAIT_TIME[8],
+    Float: bizwarX,
+    Float: bizwarY,
+    Float: bizwarZ
 }
 
 new g_capture[E_CAPTURE_STRUCT];
@@ -17,6 +20,9 @@ public OnGameModeInit()
 {
     CaptureZone = GangZoneCreate(1812.2565, 1277.7251, 1995.8712, 910.5800);
     g_capture[C_STATUS] = false;
+    g_capture[bizwarX] = 1899.4457;
+    g_capture[bizwarY] = 1110.6764;
+    g_capture[bizwarZ] = 27.7872;
 	#if	defined	bizwar__OnGameModeInit
 		return bizwar__OnGameModeInit();
 	#else
@@ -61,26 +67,9 @@ stock StartBizwar(playerid, opgId, bizOpgId, bizId){
 stock EndBizWar(){
     if(!g_capture[C_STATUS]) return 0;
     new bizId = g_capture[C_BIZ_ID], attackOpg = g_capture[C_ATTACK_TEAM], protectOpg = g_capture[C_PROTECT_TEAM], string[144];
-    if(g_capture[C_ATTACKER_KILLS] > g_capture[C_PROTECTOR_KILLS]){
+    if(g_capture[C_ATTACKER_KILLS] < g_capture[C_PROTECTOR_KILLS]){
         new BizId;
-        foreach(new i : Allbusines){
-            if(BusinessInfo[i][bID] == bizId){
-                BusinessInfo[i][bControl] = attackOpg;
-                UpdateBusiness(i);
-                BizId = i;
-                break;
-            }
-        }
-
-        format(string, sizeof(string), "[R] Вы одержали победу и теперь бизнесс %s [№%d] принадлежит вам.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
-        SCMR(attackOpg, green, string);
-
-        format(string, sizeof(string), "[R] Вы проиграли. Бизнесс %s [№%d] более вам не принадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
-        SCMR(protectOpg, green, string);
-    }
-    else{
-        new BizId;
-        foreach(new i : Allbusines){
+        foreach(new i : Allbusiness){
             if(BusinessInfo[i][bID] == bizId){
                 BusinessInfo[i][bControl] = protectOpg;
                 UpdateBusiness(i);
@@ -93,8 +82,29 @@ stock EndBizWar(){
         SCMR(attackOpg, green, string);
 
         format(string, sizeof(string), "[R] Вы выиграли. Бизнесс %s [№%d] остается под крышей вашей ОПГ.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
-        SCMR(protectOpg, green, string);       
+        SCMR(protectOpg, green, string);  
     }
+    else{
+        new BizId;
+        foreach(new i : Allbusiness){
+            if(BusinessInfo[i][bID] == bizId){
+                BusinessInfo[i][bControl] = attackOpg;
+                UpdateBusiness(i);
+                BizId = i;
+                break;
+            }
+        }
+
+        format(string, sizeof(string), "[R] Вы одержали победу и теперь бизнесс %s [№%d] принадлежит вам.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
+        SCMR(attackOpg, green, string);
+
+        format(string, sizeof(string), "[R] Вы проиграли. Бизнесс %s [№%d] более вам не принадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
+        SCMR(protectOpg, green, string);     
+    }
+
+    GangZoneHideForAll(CaptureZone);
+    for(new i = 0; i < 4; i++)
+        TextDrawHideForAll(td_capture[i]);
 
     g_capture[C_STATUS] = false;
     g_capture[C_BIZ_ID] = -1;
@@ -104,6 +114,7 @@ stock EndBizWar(){
     g_capture[C_PROTECTOR_KILLS] = 0;
     g_capture[C_TIME] = 0;
     g_capture[C_WAIT_TIME] = gettime() + 3600;
+    return 1;
 }
 
 stock UpdateBizWarTextDraw(){
@@ -121,6 +132,9 @@ publics secondupdate()
     if(g_capture[C_STATUS]){
         g_capture[C_TIME]--;
         UpdateBizWarTextDraw();
+        if(g_capture[C_TIME] <= 0){
+            return EndBizWar();
+        }
     }
 	#if	defined	bizwar__secondupdate
 		return bizwar__secondupdate();
@@ -154,7 +168,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 DeletePVar(playerid, "bizwar_biz_id");
 
                 new string[144];
-                format(string, sizeof(string), "[R] Внимание! %s %s[%d] начал захват бизнесса %s. Место фойны обозначено на карте.", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid, business_params[BusinessInfo[bizId][bType]][bname]);
+                format(string, sizeof(string), "[R] Внимание! %s %s[%d] начал захват бизнесса %s. Место войны обозначено на карте.", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid, business_params[BusinessInfo[bizId][bType]][bname]);
                 SCMR(PlayerInfo[playerid][pMember], green, string);
 
                 format(string, sizeof(string), "[R] Внимание! Кто-то начал захват вашего бизнесса: %s. Место войны обозначено на карте.", business_params[BusinessInfo[bizId][bType]][bname]);

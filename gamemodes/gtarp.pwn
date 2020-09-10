@@ -145,6 +145,8 @@ new OPG_O_METALL, OPG_O_PATRON, OPG_O_DRUGS, OPG_O_MONEY, OPG_O_STATUS;
 new OPG_S_METALL, OPG_S_PATRON, OPG_S_DRUGS, OPG_S_MONEY, OPG_S_STATUS;
 new ALL_NARKO;
 
+new smiMoney;
+
 new Text3D: RepositoryArmyText;
 new Text3D: SkladOPGOText;
 new Text3D: SkladOPGSText;
@@ -303,6 +305,8 @@ enum e_DIALOG_IDs
     D_MENU_ASK,
     D_MENU_REP,
 	D_MENU_SET_TELEGRAM_ID,
+	D_MENU_ORG_COMMANDS,
+	D_MENU_ORGS_COMMANDS,
     D_APANEL_ANTI_CHEAT,
     D_17,
     D_SPAWN_LIST,
@@ -1641,7 +1645,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		}
 		else if(g_capture[C_STATUS]){
 			if(IsAOpg(playerid) && IsAOpg(killerid)){
-				if(IsPlayerInDynamicArea(playerid, CaptureZone) && IsPlayerInDynamicArea(killerid, CaptureZone)){
+				if(IsPlayerInRangeOfPoint(playerid, 150.0, g_capture[bizwarX], g_capture[bizwarY], g_capture[bizwarZ]) && IsPlayerInRangeOfPoint(killerid, 150.0, g_capture[bizwarX], g_capture[bizwarY], g_capture[bizwarZ])){
 					new killer, player;
 					player = PlayerInfo[playerid][pMember];
 					killer = PlayerInfo[killerid][pMember];
@@ -1651,7 +1655,14 @@ public OnPlayerDeath(playerid, killerid, reason)
 					if(player == g_capture[C_ATTACK_TEAM] && killer == g_capture[C_PROTECT_TEAM]){
 						g_capture[C_PROTECTOR_KILLS]++;
 					}
+					SetPlayerPos(playerid, FractionInfo[ PlayerInfo[playerid][pMember] ][fPosX], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosY], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosZ]);
+					SetPlayerHealth(playerid, 100.0);
+				}else{
+					KillToHospital(playerid, killerid);
 				}
+			}
+			else{
+				KillToHospital(playerid, killerid);
 			}
 		}
 		else if(PlayerInfo[playerid][pWANTED] > 0 && IsAPolice(killerid))
@@ -1670,23 +1681,28 @@ public OnPlayerDeath(playerid, killerid, reason)
 		}
 		else
 		{
-			PlayerInfo[playerid][pHOSPITAL] = 1;
-			SCM(playerid, white, "Вы были сильно ранены и попали в больницу!");
-			GiveMoney(playerid, -200, "Попал в больницу");
-			PlayerInfo[playerid][pHP] = 5.0;
-		    if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
-		    {
-		        GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
-		        if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
-
-		        format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
-		        SCMR(TEAM_PPS, blue, string);
-		        SCMR(TEAM_FSB, blue, string);
-		    }
+			KillToHospital(playerid, killerid);
 		}
 	}
 	
 	return 1;
+}
+
+stock KillToHospital(&playerid, &killerid){
+	new string[144];
+	PlayerInfo[playerid][pHOSPITAL] = 1;
+	SCM(playerid, white, "Вы были сильно ранены и попали в больницу!");
+	GiveMoney(playerid, -200, "Попал в больницу");
+	PlayerInfo[playerid][pHP] = 5.0;
+	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
+	{
+		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
+		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
+
+		format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
+		SCMR(TEAM_PPS, blue, string);
+		SCMR(TEAM_FSB, blue, string);
+	}
 }
 
 public OnVehicleSpawn(vehicleid)
@@ -2845,6 +2861,7 @@ publics LoadOther()
         caps = cache_get_field_content_int(0, "caps");
         flood = cache_get_field_content_int(0, "flood");
         offtop = cache_get_field_content_int(0, "offtop");
+        smiMoney = cache_get_field_content_int(0, "smiMoney");
         
         XDay = cache_get_field_content_int(0, "XDay");
         server_pass_status = cache_get_field_content_int(0, "server_pass_status");
@@ -2961,6 +2978,13 @@ publics PlayerSecondTimer(playerid)
 publics secondupdate()
 {
 	return 1;
+}
+stock GiveSmiMoney(cash){
+	smiMoney += cash;
+
+	new sql[256];
+	format(sql, sizeof(sql), "UPDATE `other` SET `smiMoney` = '%d'", smiMoney);
+	mysql_tquery(connects, sql);
 }
 stock GiveMoney(p, money, reason[])
 {
