@@ -803,6 +803,7 @@ enum
 #include "../source/admin/commands/5 lvl/templeader.inc"
 #include "../source/admin/commands/5 lvl/tempjob.inc"
 #include "../source/admin/commands/5 lvl/createradar.inc"
+#include "../source/admin/commands/5 lvl/setskill.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
