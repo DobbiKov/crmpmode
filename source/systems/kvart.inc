@@ -175,41 +175,44 @@ publics minuteupdate()
     gettime(hour, minute, second);
     if(hour == 00 && minute == 20)
     {
-        foreach(new i : Allkvart) if(KvartInfo[i][kvart_Owned] == 1)
+        foreach(new i : Allkvart) 
         {
-            KvartInfo[i][kvart_days]--;
-            SaveKvart(i);
-            if(KvartInfo[i][kvart_days] <= 0)
+            if(KvartInfo[i][kvart_Owned] == 1)
             {
-                foreach(new j : Player)
-                {
-                    if(PlayerInfo[j][pKvartID] == KvartInfo[i][kvart_id])
-                    {
-                        SCM(j, green, "Ваша квартира была продана государству за неуплату.");
-
-                        PlayerInfo[j][pKvartID] = -1;
-
-                        KvartInfo[i][kvart_Owned] = 0;
-                        KvartInfo[i][kvart_days] = 3;
-                        KvartInfo[i][kvart_Owner] = EOS;
-                        format(KvartInfo[i][kvart_Owner], MAX_PLAYER_NAME, "None");
-                        SaveAccounts(j);
-                        SaveKvart(i);
-                        return BuyKvart(i);
-                    }
-                }
-                KvartInfo[i][kvart_days] = 3;
-                KvartInfo[i][kvart_Owned] = 0;
-                KvartInfo[i][kvart_Owner] = EOS;
-                format(KvartInfo[i][kvart_Owner], MAX_PLAYER_NAME, "None");
+                KvartInfo[i][kvart_days]--;
                 SaveKvart(i);
-                BuyKvart(i);
+                if(KvartInfo[i][kvart_days] <= 0)
+                {
+                    foreach(new j : Player)
+                    {
+                        if(PlayerInfo[j][pKvartID] == KvartInfo[i][kvart_id])
+                        {
+                            SCM(j, green, "Ваша квартира была продана государству за неуплату.");
 
-                new offkvartmess[144] = "Ваша квартира была передана государству, за неуплату.";
+                            PlayerInfo[j][pKvartID] = -1;
 
-                new sql[144];
-                format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
-                return mysql_tquery(connects, sql, "", "");
+                            KvartInfo[i][kvart_Owned] = 0;
+                            KvartInfo[i][kvart_days] = 3;
+                            KvartInfo[i][kvart_Owner] = EOS;
+                            format(KvartInfo[i][kvart_Owner], MAX_PLAYER_NAME, "None");
+                            SaveAccounts(j);
+                            SaveKvart(i);
+                            return BuyKvart(i);
+                        }
+                    }
+                    KvartInfo[i][kvart_days] = 3;
+                    KvartInfo[i][kvart_Owned] = 0;
+                    KvartInfo[i][kvart_Owner] = EOS;
+                    format(KvartInfo[i][kvart_Owner], MAX_PLAYER_NAME, "None");
+                    SaveKvart(i);
+                    BuyKvart(i);
+
+                    new offkvartmess[144] = "Ваша квартира была передана государству, за неуплату.";
+
+                    new sql[144];
+                    format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
+                    return mysql_tquery(connects, sql, "", "");
+                }
             }
         }
     }

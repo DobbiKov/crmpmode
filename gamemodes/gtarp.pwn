@@ -457,6 +457,7 @@ enum e_DIALOG_IDs
 	D_DONATE_BUY_1_LVL,
 	D_DONATE_CHANGE_NAME,
 	D_DONATE_BUY_VIP,
+	D_DONATE_GUN_SKILLS_LIST,
 
 	D_SELL_CAR,
 	D_MENU_POD,
@@ -513,6 +514,7 @@ enum PInfo
 	
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
+	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
@@ -617,6 +619,7 @@ enum
 	PROPOSITION_TYPE_SELLHOUSE,
 	PROPOSITION_TYPE_SELLDRUGS,
 	PROPOSITION_TYPE_DICE,
+	PROPOSITION_TYPE_SKILL,
 };
 
 // -------------- [ INCLUDES ] ------------------------------
@@ -665,6 +668,7 @@ enum
 #include "../source/systems/recipes.inc"
 #include "../source/systems/disc_cuffed.inc"
 #include "../source/systems/autosalon.inc"
+#include "../source/systems/skills.inc"
 
 //------------[ ANTICHEAT] ---------------
 #include "../source/anticheat/anticheat.inc"
@@ -706,6 +710,8 @@ enum
 #include "../source/player/commands/tickets.inc"
 #include "../source/player/commands/paintlist.inc"
 #include "../source/player/commands/gps.inc"
+#include "../source/player/commands/skill.inc"
+#include "../source/player/commands/recipes.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"
@@ -1121,6 +1127,20 @@ publics LoginCallback(playerid, password[])
 	new l_cb_needs[32];
     cache_get_field_content(0, "pNeeds", l_cb_needs, connects, sizeof(l_cb_needs));
     sscanf(l_cb_needs, "p<,>dddd", PlayerInfo[playerid][pNeedToilet], PlayerInfo[playerid][pNeedEat], PlayerInfo[playerid][pNeedDrink], PlayerInfo[playerid][pNeedWash]);
+
+	new skills[144];
+	cache_get_field_content(0, "pSkills", skills, connects, sizeof(skills));
+	sscanf
+	(
+		skills,
+		"p<,>dddddd",
+		PlayerInfo[playerid][SKILL_SD_PISTOL],
+		PlayerInfo[playerid][SKILL_AK_47],
+		PlayerInfo[playerid][SKILL_M4],
+		PlayerInfo[playerid][SKILL_MP5],
+		PlayerInfo[playerid][SKILL_DEAGLE],
+		PlayerInfo[playerid][SKILL_SHOTGUN]
+	); 
     
 	
 	new l_guns[56], l_ammo[56];
@@ -1444,7 +1464,20 @@ stock SaveAccounts(playerid)
 	PlayerInfo[playerid][pAmmo][8], PlayerInfo[playerid][pAmmo][9], PlayerInfo[playerid][pAmmo][10], PlayerInfo[playerid][pAmmo][11],
 	PlayerInfo[playerid][pAmmo][12]);
 
- 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, PlayerInfo[playerid][pName]);
+	new skills_string[144];
+	format
+	(
+		skills_string, sizeof(skills_string), 
+		"%d,%d,%d,%d,%d,%d",
+		PlayerInfo[playerid][SKILL_SD_PISTOL],
+		PlayerInfo[playerid][SKILL_AK_47],
+		PlayerInfo[playerid][SKILL_M4],
+		PlayerInfo[playerid][SKILL_MP5],
+		PlayerInfo[playerid][SKILL_DEAGLE],
+		PlayerInfo[playerid][SKILL_SHOTGUN]
+	);
+
+ 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s', `pSkills` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, skills_string, PlayerInfo[playerid][pName]);
  	mysql_tquery(connects, sql_str, "", "");
  	return 1;
 }
@@ -1580,6 +1613,7 @@ public OnPlayerSpawn(playerid)
 	PreloadAllAnimLibs(playerid);
 	if(PlayerInfo[playerid][pBackPack] == 1) SetPlayerAttachedObject(playerid, 1, 3026, 1, -0.176000, -0.066000, 0.0000,0.0000, 0.0000, 0.0000, 1.07600, 1.079999, 1.029000);
 	SetPlayerDefaultVariables(playerid);
+	SetPlayerSkills(playerid);
 	if(PlayerInfo[playerid][pPaintBall] == true)
 	{
 		GivePaintBallWeapon(playerid);
@@ -2792,6 +2826,20 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pPaintBall] = false;
 	PlayerInfo[playerid][pPaintKills] = 0;
 	PlayerInfo[playerid][pInvitePaintBall] = false;
+
+    PlayerInfo[playerid][SKILL_SD_PISTOL] = 0;
+    PlayerInfo[playerid][SKILL_DEAGLE] = 0;
+    PlayerInfo[playerid][SKILL_SHOTGUN] = 0;
+	PlayerInfo[playerid][SKILL_MP5] = 0;
+    PlayerInfo[playerid][SKILL_AK_47] = 0;
+	PlayerInfo[playerid][SKILL_M4] = 0;
+
+	SkillShoots[playerid][ESS_SD_PISTOL] = 0;
+	SkillShoots[playerid][ESS_DEAGLE] = 0;
+	SkillShoots[playerid][ESS_SHOTGUN] = 0;
+	SkillShoots[playerid][ESS_MP5] = 0;
+	SkillShoots[playerid][ESS_AK47] = 0;
+	SkillShoots[playerid][ESS_M4] = 0;
 	
 	ClothesShopState[playerid] = 1;
 	IsBuyClothes[playerid] = false;
@@ -2918,10 +2966,6 @@ publics PlayerToggle(playerid)
 {
 	TogglePlayerControllable(playerid, 1);
 	ClearAnimations(playerid);
-	return 1;
-}
-publics minuteupdate()
-{
 	return 1;
 }
 
@@ -3391,6 +3435,16 @@ stock SetPlayerWanted(playerid, lvl){
 	PlayerInfo[playerid][pWANTED] = lvl;
 	SetPlayerWantedLevel(playerid, lvl);
 }
+stock SetPlayerSkills(playerid)
+{
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL_SILENCED, PlayerInfo[playerid][SKILL_SD_PISTOL]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_DESERT_EAGLE, PlayerInfo[playerid][SKILL_DEAGLE]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_SHOTGUN, PlayerInfo[playerid][SKILL_SHOTGUN]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_MP5, PlayerInfo[playerid][SKILL_MP5]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_AK47, PlayerInfo[playerid][SKILL_AK_47]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_M4, PlayerInfo[playerid][SKILL_M4]*10);
+    return 1;
+}  
 
 
 #if defined DEBUG

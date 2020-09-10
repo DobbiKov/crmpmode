@@ -45,6 +45,16 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 	new fmt_msg[144];
 	switch(type)
 	{
+		case PROPOSITION_TYPE_SKILL:
+		{
+			format(fmt_msg, sizeof fmt_msg, "%s предлагает вам просмотреть его навыки владени€ оружием.", PlayerInfo[incoming_proposition[to_player]][pName]);
+			SCM(to_player, 0x3399FFFF, fmt_msg);
+
+			SCM(to_player, -1, "Ќажмите {00CC00}Y {FFFFFF}чтобы согласитьс€ или {FF6600}N {FFFFFF}дл€ отказа");
+
+			format(fmt_msg, sizeof fmt_msg, "¬ы предложили %s просмотреть ваши навыки владени€ оружием.", PlayerInfo[to_player][pName]);
+			SCM(playerid, 0x3399FFFF, fmt_msg);
+		}
 		case PROPOSITION_TYPE_REPAIR_CAR:
 		{
 			format(fmt_msg, sizeof fmt_msg, "%s предлагает починить ¬аш транспорт за %d руб", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
@@ -229,6 +239,41 @@ CMD:yes(playerid)
 
 		switch(type)
 		{
+			case PROPOSITION_TYPE_SKILL:
+			{
+				new fmt_msg[65];
+				format(fmt_msg, sizeof fmt_msg, "%s просмотрел ваши навыки владени€ оружием.", PlayerInfo[proposition][pName]);
+				SCM(playerid, 0x66CC00FF, fmt_msg);
+
+				format(fmt_msg, sizeof fmt_msg, "¬ы показали %s свои навыки владени€ оружием.", PlayerInfo[playerid][pName], value_1);
+				SCM(proposition, 0x66CC00FF, fmt_msg);
+
+				new fmt_dialog[526];
+				format
+				(
+					fmt_dialog, sizeof fmt_dialog,
+					"{ffffff}SDPistol:\t%d / 100%%\n\
+					Deagle:\t%d / 100%%\n\
+					ShotGun:\t%d / 100%%\n\
+					MP5:\t\t%d / 100%%\n\
+					AK-47:\t\t%d / 100%%\n\
+					M4A1:\t\t%d / 100%",
+					PlayerInfo[proposition][SKILL_SD_PISTOL],
+					PlayerInfo[proposition][SKILL_DEAGLE],
+					PlayerInfo[proposition][SKILL_SHOTGUN],
+					PlayerInfo[proposition][SKILL_MP5],
+					PlayerInfo[proposition][SKILL_AK_47],
+					PlayerInfo[proposition][SKILL_M4]
+				);
+				ShowPlayerDialog
+				(
+					playerid, D_NULL, DIALOG_STYLE_MSGBOX,
+					!"{"cblue"}Ќавыки владени€ оружием",
+					fmt_dialog,
+					!"«акрыть", !""
+				);
+			}
+
 			case PROPOSITION_TYPE_REPAIR_CAR:
 			{
 				new vehicleid = GetPlayerVehicleID(playerid);

@@ -98,7 +98,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowPlayerDialog(playerid, D_DONATE_BUY_1_LVL, DIALOG_STYLE_MSGBOX, !"{"cblue"}Донат", !"{FFFFFF}Вы желаете приобрести 1 lvl за 100 рублей?", !"Да", !"Нет");
 					}
 					case 7:{//оружие навыки
-						
+						ShowPlayerDialog
+						(
+							playerid, D_DONATE_GUN_SKILLS_LIST, DIALOG_STYLE_LIST,
+							!"{"cblue"}Донат | Навыки владения оружием",
+							!"\
+							{"cblue"}1. {FFFFFF}SD Pistol {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}2. {FFFFFF}Desert Eagle {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}3. {FFFFFF}ShotGun {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}4. {FFFFFF}MP5 {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}5. {FFFFFF}AK 47 {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}6. {FFFFFF}M4 {"cblue"}(50 кр.){FFFFFF}\n\
+							{"cblue"}7. {FFFFFF}Все навыки {"cblue"}(50 кр.){FFFFFF}\n\
+							",
+							!"Купить", !"Назад"
+						);
 					}
 					case 8:{//випка
 						ShowPlayerDialog(playerid, D_DONATE_BUY_VIP, DIALOG_STYLE_LIST, !"{"cblue"}Донат", !"\
@@ -106,6 +120,89 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{"cblue"}2. {ffffff}30 дней {"cblue"}(200 кр.)\n\
 						{"cblue"}3. {ffffff}365 дней {"cblue"}(600 кр.)\
 						", !"Купить", !"Назад");
+					}
+				}
+			}
+		}
+		case D_DONATE_GUN_SKILLS_LIST:{
+			if(!response) return ShowDonateListDialog(playerid); else{
+				switch(listitem)
+				{
+					case 0:{
+						if(PlayerInfo[playerid][SKILL_SD_PISTOL] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_SD_PISTOL] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием SD Pistol.");
+					}
+					case 1:{
+						if(PlayerInfo[playerid][SKILL_DEAGLE] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_DEAGLE] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием Desert Eagle.");
+					}
+					case 2:{
+						if(PlayerInfo[playerid][SKILL_SHOTGUN] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_SHOTGUN] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием ShotGun.");
+					}
+					case 3:{
+						if(PlayerInfo[playerid][SKILL_MP5] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_MP5] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием MP-5.");
+					}
+					case 4:{
+						if(PlayerInfo[playerid][SKILL_AK_47] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_AK_47] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием AK-47.");
+					}
+					case 5:{
+						if(PlayerInfo[playerid][SKILL_M4] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_M4] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 50;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием M4.");
+					}
+					case 6:{
+						if(PlayerInfo[playerid][SKILL_M4] >= 100 && PlayerInfo[playerid][SKILL_MP5] == 100 && PlayerInfo[playerid][SKILL_AK_47] == 100 && PlayerInfo[playerid][SKILL_SHOTGUN] == 100 && PlayerInfo[playerid][SKILL_SD_PISTOL] == 100 && PlayerInfo[playerid][SKILL_DEAGLE] == 10) 
+							return SCM(playerid, red, !"Вы уже достаточно овладели всеми видами оружия.");
+						if(PlayerInfo[playerid][pDonate] < 200) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+
+						PlayerInfo[playerid][SKILL_M4] = 100;
+						PlayerInfo[playerid][SKILL_AK_47] = 100;
+						PlayerInfo[playerid][SKILL_MP5] = 100;
+						PlayerInfo[playerid][SKILL_SHOTGUN] = 100;
+						PlayerInfo[playerid][SKILL_SD_PISTOL] = 100;
+						PlayerInfo[playerid][SKILL_DEAGLE] = 100;
+						SetPlayerSkills(playerid);
+						PlayerInfo[playerid][pDonate] -= 200;
+						SaveAccounts(playerid);
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения всем оружием.");
 					}
 				}
 			}
