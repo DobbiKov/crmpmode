@@ -11,8 +11,8 @@
 // #define 	sqldb       "gs47333"
 
 //*********** |  | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.4"
-#define     hostname    "[ Unigva RolePlay | Разработка с 0 ]"
+#define 	gamemode    "UNIGVA - Beta 0.5"
+#define     hostname    "[ Unigva RolePlay | ОБТ уже 20.09 ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "dobbikov.gq"
 #define     name_serv   "Unigva RolePlay"
