@@ -137,6 +137,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SCM(playerid, blue, "¬ы успешно арендовали уборочную машину!");
 				SCM(playerid, blue, "” вас есть {"cyellow"}45 секунд{"cblue"}, что б сесть в транспорт!");
 			    player_job_vehicle_created[playerid] = CreateVehicle(574,1821.0057,2257.3115,14.9980,180.1769,1,0, -1);
+				vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 				SetPlayerCheckpoint(playerid, 1821.0057,2257.3115,14.9980, 3.0);
 				pCheckpoint[playerid] = CP_CLEANER_AREND;
 				CleanTimer[playerid] = 45;

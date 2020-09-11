@@ -107,6 +107,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						
 						player_job_vehicle_created[playerid] = CreateVehicle(403,1782.5551,2298.8601,16.4054,90.0887,7,0, -1);
 						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
+						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
 						GiveMoney(playerid, -800, "Аренда фуры");
 						SetTimer("Arend_Truck", 45000, false);
@@ -124,6 +125,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
 						player_job_vehicle_created[playerid] = CreateVehicle(514,1782.5551,2298.8601,16.4054,90.0887,79,0, -1);
 						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
+						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
 						GiveMoney(playerid, -2000, "Аренда фуры");
 						SetTimer("Arend_Truck", 45000, false);
@@ -141,6 +143,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
 						player_job_vehicle_created[playerid] = CreateVehicle(515,1782.5551,2298.8601,16.4054,90.0887,1,0, -1);
 						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
+						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
 						GiveMoney(playerid, -4500, "Аренда фуры");
 						SetTimer("Arend_Truck", 45000, false);

@@ -1532,7 +1532,7 @@ public OnPlayerConnect(playerid)
 
 	format(string, sizeof(string), "[A] Игрок %s[%d] зашел на сервер (IP: %s)", PlayerInfo[playerid][pName], playerid, ip);
 	SCMA(grey, string);
-
+	PlayerInfo[playerid][pLogin] = false;
 	return 1;
 }
 
@@ -1570,11 +1570,17 @@ public OnPlayerDisconnect(playerid, reason)
 	strdel(PlayerInfo[playerid][pLastIP], 0, 16);
 	strmid(PlayerInfo[playerid][pLastIP], PlayerInfo[playerid][pNewIp], 0, 16);
 	if(GetPVarInt(playerid, "dima_ochko_moshonki") == 1) PlayerInfo[playerid][bAdmin] = GetPVarInt(playerid, "adminka_ochka");
-	if(PlayerInfo[playerid][pLogin] != false) SaveAccounts(playerid);
+	if(PlayerInfo[playerid][pLogin] == true) SaveAccounts(playerid);
 	
 	ResetPlayerWeaponsAC(playerid);
-	PlayerInfo[playerid][pLogin] = false;
 	KillTimer(player_second_timer[playerid]);
+	if(PlayerInfo[playerid][pLogin] == false)
+	{
+		ClearAccount(playerid);
+		return 0;
+	} 
+	PlayerInfo[playerid][pLogin] = false;
+	SaveAccounts(playerid);
 	return ClearAccount(playerid);
 }
 
@@ -2249,8 +2255,11 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 }
 public OnPlayerCommandReceived(playerid, cmdtext[])
 {
-	if(PlayerInfo[playerid][pLogin] == false) return SCM(playerid, red, !"Необходимо авторизоваться!");
-	
+	if(PlayerInfo[playerid][pLogin] == false) 
+	{
+		SCM(playerid, red, !"Необходимо авторизоваться!");
+		return 0;
+	}
  	if(GetPVarInt(playerid, "antiflood") > gettime())
     {
         SCM(playerid, red, "Не флудите!");
@@ -2744,7 +2753,6 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pChar] = 0;
 	PlayerInfo[playerid][pBCash] = 0;
 	PlayerInfo[playerid][pDonate] = 0;
-	PlayerInfo[playerid][pLogin] = false;
 	PlayerInfo[playerid][pJail] = 0;
 	PlayerInfo[playerid][pMute] = 0;
     PlayerInfo[playerid][pPinCode] = 0;
@@ -3147,7 +3155,6 @@ CMD:en(playerid)
 publics DelayedKick(playerid)
 {
     ResetPlayerWeaponsAC(playerid);
-    SaveAccounts(playerid);
 	return Kick(playerid);
 }
 // ---- APANEL ----
