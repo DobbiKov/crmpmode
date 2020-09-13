@@ -4,7 +4,7 @@ CMD:getmet(playerid, params[])
     if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1494.8928,1660.9591,-5.3171)) return SCM(playerid, red, "Вы не на складе!");
     if(PlayerInfo[playerid][pRang] < 8) return YouCannotUseThisFunc(playerid);
 
-    extract params -> new metall; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}/getmet [к-во патронов]");
+    extract params -> new metall; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}/getmet [кг металла]");
 
     if(REPOSITORY_ARMY_METALL < metall) return SCM(playerid, red, "На складе недостаточно металла!");
     if((PlayerInfo[playerid][pMetall] + metall) > 100) return SCM(playerid, red, "Вы не можете унести так много металла!");

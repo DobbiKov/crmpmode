@@ -627,6 +627,7 @@ enum
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
 
+#include "../source/fractions/opg_o/opg.h"
 //---------[HEH]------------
 #include "../source/anticheat/isrpnick.inc"
 
