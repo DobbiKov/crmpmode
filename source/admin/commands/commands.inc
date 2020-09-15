@@ -46,7 +46,7 @@ new Command2LVL[26][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[31][] = 
+new Command3LVL[32][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
@@ -67,6 +67,7 @@ new Command3LVL[31][] =
     {"{"cblue"}/offget {ffffff}- Статистика игрока в оффлайне\n"},
     {"{"cblue"}/ban {ffffff}- Заблокировать аккаунт игроку (онлайн/оффлайн)\n"},
     {"{"cblue"}/warn {ffffff}- выдать предупреждение на аккаунт игрока(онлайн/оффлайн)\n"},
+    {"{"cblue"}/unarrest {ffffff}- Выпустить игрока из КПЗ досрочно\n"},
     {"\n"},
     {"{"cblue"}Команды мероприятий:\n"},
     {"{"cblue"}/mpstart {ffffff}- Создать мероприятие\n"},

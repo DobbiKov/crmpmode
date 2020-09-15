@@ -787,6 +787,7 @@ enum
 #include "../source/admin/commands/3 lvl/givegun.inc"
 #include "../source/admin/commands/3 lvl/fly.inc"
 #include "../source/admin/commands/3 lvl/offget.inc"
+#include "../source/admin/commands/3 lvl/unarrest.inc"
 
 #include "../source/admin/commands/4 lvl/offmute.inc"
 #include "../source/admin/commands/4 lvl/offjail.inc"
@@ -3017,6 +3018,10 @@ publics PlayerSecondTimer(playerid)
 	    if(PlayerInfo[playerid][pKPZ] > 0)
 	    {
 	        PlayerInfo[playerid][pKPZ]--;
+			if(!IsPlayerInRangeOfPoint(playerid, 10.0, 2573.7654,-2413.5562,22.4170)){
+				PutPlayerInKPZ(playerid);
+				SCM(playerid, red, !"Больше не сбегайте из КПЗ.");
+			}
 	        if(PlayerInfo[playerid][pKPZ] < 1)
 	        {
 	            PlayerInfo[playerid][pKPZ] = -1;
