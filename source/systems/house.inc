@@ -773,6 +773,7 @@ publics SletHouse(i)
 
         new sql[144];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pHomeID` = '-1', `pHouseOffMess` = '%s', `pBCash` = '%d' WHERE `pID` = '%d'", houseoffmess, bmoney, player_id);
+        mysql_tquery(connects, sql, "", "");
     }
     else
     {

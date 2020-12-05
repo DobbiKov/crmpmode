@@ -1,6 +1,6 @@
 CMD:agl(playerid, params[])
 {
-    if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
+    if(PlayerInfo[playerid][bAdmin] < 5) return ShowCommandNotFound(playerid);
 
     extract params -> new to_player, what, count; else
 	{

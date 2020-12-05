@@ -46,7 +46,7 @@ new Command2LVL[26][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[31][] = 
+new Command3LVL[32][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
@@ -67,6 +67,7 @@ new Command3LVL[31][] =
     {"{"cblue"}/offget {ffffff}- Статистика игрока в оффлайне\n"},
     {"{"cblue"}/ban {ffffff}- Заблокировать аккаунт игроку (онлайн/оффлайн)\n"},
     {"{"cblue"}/warn {ffffff}- выдать предупреждение на аккаунт игрока(онлайн/оффлайн)\n"},
+    {"{"cblue"}/unarrest {ffffff}- Выпустить игрока из КПЗ досрочно\n"},
     {"\n"},
     {"{"cblue"}Команды мероприятий:\n"},
     {"{"cblue"}/mpstart {ffffff}- Создать мероприятие\n"},
@@ -94,30 +95,34 @@ new Command4LVL[9][] =
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
-new Command5LVL[5][] = 
+new Command5LVL[9][] = 
 {
     {"{"cblue"}/settime {ffffff}- Установить время на сервере\n"},
     {"{"cblue"}/setweather {ffffff}- Установить погоду на сервере\n"},
     {"{"cblue"}/templeader {ffffff}- Выдать временную лидерку\n"},
     {"{"cblue"}/createradar {ffffff}- Создать радар\n"},
-    {"{"cblue"}/serverpanel {ffffff}- Панель настройки сервера\n"}
+    {"{"cblue"}/serverpanel {ffffff}- Панель настройки сервера\n"},
+    {"{"cblue"}/setskill {ffffff}- Выдать навыки оружия игроку\n"},
+    {"{"cblue"}/setyoutube {ffffff}- Установить уровень Ютуберки\n"},
+    {"{"cblue"}/agl {ffffff}- Выдать игроку лицензии\n"},
+    {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
 new Command6LVL[13][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
     {"{"cblue"}/givemoney {ffffff}- Выдать игроку денег\n"},
-    {"{"cblue"}/setyoutube {ffffff}- Установить уровень Ютуберки\n"},
     {"{"cblue"}/setleader {ffffff}- Поставить игрока на пост лидера\n"},
-    {"{"cblue"}/agl {ffffff}- Выдать игроку лицензии\n"},
-    {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"},
     {"{"cblue"}/unlwarn {ffffff}- Снять выговор лидеру организации\n"},
     {"{"cblue"}/offlwarn {ffffff}- Выдать выговор лидеру в оффлайне\n"},
     {"{"cblue"}/awarn {ffffff}- Выдать выговор администратору\n"},
     {"{"cblue"}/offawarn {ffffff}- Выдать выговор администратору в оффлайне\n"},
     {"{"cblue"}/unawarn {ffffff}- Снять выговор администратору\n"},
     {"{"cblue"}/agivevoen {ffffff}- выдать военный билет игроку\n"},
-    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"}
+    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
+    {"{"cblue"}/setcarnumber {ffffff}- Установить номера на автомобиль игрока\n"},
+    {"{"cblue"}/setownablecar {ffffff}- Установить игроку личное авто\n"},
+    {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"}
 };
 
 new Command7LVL[15][] = 

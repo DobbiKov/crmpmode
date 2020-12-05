@@ -43,13 +43,63 @@ stock ChangeName(playerid)
 	format(stringer,512, "UPDATE `accounts` SET `pName` = '%s' WHERE `pName` = '%s' LIMIT 1",playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
 
-	format(stringer,100, "Игрок %s сменил имя на %s",PlayerInfo[playerid][pName],playerName);
-	SCMA(orange, stringer);
-	SetPVarInt(playerid,"changename_fix",true);
-	SetPlayerName(playerid, playerName);
-	strmid(PlayerInfo[playerid][pName], playerName, 0, strlen(playerName), 31);
+	format(stringer, 512, "UPDATE `referals` SET `login` = '%s' WHERE `login` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
 
- 	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Пропишите новый ник в окне CR-MP");
+	format(stringer, 512, "UPDATE `referals` SET `login_invited` = '%s' WHERE `login_invited` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	format(stringer, 512, "UPDATE `nakazania` SET `AdminName` = '%s' WHERE `AdminName` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	format(stringer, 512, "UPDATE `nakazania` SET `Name` = '%s' WHERE `Name` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `kvart` SET `kvart_Owner` = '%s' WHERE `kvart_Owner` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `houses` SET `hOwner` = '%s' WHERE `hOwner` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `fines` SET `fined` = '%s' WHERE `fined` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `familys` SET `fCreatorName` = '%s' WHERE `fCreatorName` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `bussines` SET `bOwner` = '%s' WHERE `bOwner` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `Bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	if(PlayerInfo[playerid][pBizID] != -1){
+		foreach(new i : Allbusiness){
+			if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]){
+				format(BusinessInfo[i][bOwner], 50, "%s", playerName);
+				UpdateBusiness(i);
+				break;
+			}
+		}
+	}
+	if(PlayerInfo[playerid][pHomeID] != -1){
+		foreach(new i : Allhouses){
+			if(HouseInfo[i][hID] == PlayerInfo[playerid][pHomeID]){
+				format(HouseInfo[i][hOwner], 50, "%s", playerName);
+				SaveHouse(i);
+				break;
+			}
+		}
+	}
+	if(PlayerInfo[playerid][pKvartID] != -1){
+		foreach(new i : Allkvart){
+			if(KvartInfo[i][kvart_id] == PlayerInfo[playerid][pKvartID]){
+				format(KvartInfo[i][kvart_Owner], 50, "%s", playerName);
+				SaveKvart(i);
+				break;
+			}
+		}
+	}
 
  	stringer[0] = EOS;
 	new year, month, day, strstre[30];
@@ -57,6 +107,14 @@ stock ChangeName(playerid)
  	format(strstre,sizeof(strstre),"%d/%d/%d",day,month,year);
 	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
 	mysql_tquery(connects, stringer);
+
+	format(stringer,100, "Игрок %s сменил имя на %s",PlayerInfo[playerid][pName],playerName);
+	SCMA(orange, stringer);
+	SetPVarInt(playerid,"changename_fix",true);
+	SetPlayerName(playerid, playerName);
+	strmid(PlayerInfo[playerid][pName], playerName, 0, strlen(playerName), 31);
+
+ 	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Пропишите новый ник в окне CR-MP");
 
 	DeletePVar(playerid,"WantNickChange");
 	return 1;

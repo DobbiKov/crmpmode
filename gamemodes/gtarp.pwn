@@ -1,3 +1,4 @@
+#define DEBUG
 main()
 {
 	new a[][] = {"Unarmed (Fist)","Brass K"};
@@ -110,6 +111,8 @@ new PlayerText:training_td[MAX_PLAYERS][training_td_size];
 
 new Text:BuyClothes_TD[7];
 new PlayerText:BuyClothes_PTD[1][MAX_PLAYERS];
+
+new Text:td_capture[4]; //bizwar
 //--------------------------------------
 
 
@@ -141,6 +144,8 @@ new REPOSITORY_ARMY_PATRON;
 new OPG_O_METALL, OPG_O_PATRON, OPG_O_DRUGS, OPG_O_MONEY, OPG_O_STATUS;
 new OPG_S_METALL, OPG_S_PATRON, OPG_S_DRUGS, OPG_S_MONEY, OPG_S_STATUS;
 new ALL_NARKO;
+
+new smiMoney;
 
 new Text3D: RepositoryArmyText;
 new Text3D: SkladOPGOText;
@@ -235,6 +240,7 @@ enum
 	CP_EXAM_DRIVING,
 	CP_WANTED,
 	CP_CALLING,
+	CP_GPS,
 };
 new
 	MINER_PICK_ENTER,
@@ -298,6 +304,9 @@ enum e_DIALOG_IDs
     D_MENU_ASK_REP,
     D_MENU_ASK,
     D_MENU_REP,
+	D_MENU_SET_TELEGRAM_ID,
+	D_MENU_ORG_COMMANDS,
+	D_MENU_ORGS_COMMANDS,
     D_APANEL_ANTI_CHEAT,
     D_17,
     D_SPAWN_LIST,
@@ -424,8 +433,6 @@ enum e_DIALOG_IDs
 	D_SET_CAPS,
 	D_SET_FLOOD,
 	D_SET_OFFTOP,
-	D_DONATE,
-	D_DONATE_LIST,
 	D_ENTER_HOUSE,
 	D_BUY_HOUSE,
 	D_SELLHOME,
@@ -439,7 +446,19 @@ enum e_DIALOG_IDs
 	D_CMD_USE_METALL_GET,
 	D_CMD_USE_DRUGS_PUT,
 	D_CMD_USE_DRUGS_GET,
-	
+
+	D_DONATE,
+	D_DONATE_LIST,
+ 	D_DONATE_BUY_MONEY,
+	D_DONATE_BUY_VOEN,
+	D_DONATE_BUY_NULL_WANTED,
+	D_DONATE_BUY_NULL_WARN,
+	D_DONATE_BUY_1_EXP,
+	D_DONATE_BUY_1_LVL,
+	D_DONATE_CHANGE_NAME,
+	D_DONATE_BUY_VIP,
+	D_DONATE_GUN_SKILLS_LIST,
+
 	D_SELL_CAR,
 	D_MENU_POD,
 	D_ENTER_KVART,
@@ -469,6 +488,16 @@ enum e_DIALOG_IDs
 	D_CREATE_FAMILY,
 	
 	D_BUY_CLOTHES,
+
+	D_GPS,
+	D_GPS_PUBLICPLACES,
+	D_GPS_JOBS,
+	D_GPS_ENTERTAINMENTS,
+	D_GPS_STATEORGANIZATIONS,
+	D_GPS_GANGS,
+	D_GPS_BUSINESS,
+
+	D_BIZ_WAR,
 };
 
 enum PInfo
@@ -485,12 +514,13 @@ enum PInfo
 	
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
+	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
- 	pFamID, pFamRang,
+ 	pFamID, pFamRang, pTelegramId,
 }
 new PlayerInfo[MAX_PLAYERS][PInfo];
 
@@ -589,11 +619,17 @@ enum
 	PROPOSITION_TYPE_SELLHOUSE,
 	PROPOSITION_TYPE_SELLDRUGS,
 	PROPOSITION_TYPE_DICE,
+	PROPOSITION_TYPE_SKILL,
 };
 
 // -------------- [ INCLUDES ] ------------------------------
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
-#include "../source/systems/kvart_.inc"
+#include "../source/systems/kvart.h"
+#include "../source/systems/business.h"
+
+#include "../source/fractions/opg_o/opg.h"
+//---------[HEH]------------
+#include "../source/anticheat/isrpnick.inc"
 
 // ------- [ RULES ] ----------
 #include "../source/player/rules.inc"
@@ -617,6 +653,7 @@ enum
 #include "../source/systems/bath.inc"
 #include "../source/systems/need.inc"
 
+#include "../source/systems/bizwar.inc"
 #include "../source/systems/paintball.inc"
 #include "../source/systems/advertise.inc"
 #include "../source/systems/setname.inc"
@@ -632,6 +669,7 @@ enum
 #include "../source/systems/recipes.inc"
 #include "../source/systems/disc_cuffed.inc"
 #include "../source/systems/autosalon.inc"
+#include "../source/systems/skills.inc"
 
 //------------[ ANTICHEAT] ---------------
 #include "../source/anticheat/anticheat.inc"
@@ -643,7 +681,6 @@ enum
 #include "../source/anticheat/ac_tpinveh.inc"
 
 #include "../source/anticheat/teamkill.inc"
-#include "../source/anticheat/isrpnick.inc"
 
 // -------[ COMMANDS ] -----------
 #include "../source/player/commands/s.inc"
@@ -673,6 +710,9 @@ enum
 #include "../source/player/commands/mynumber.inc"
 #include "../source/player/commands/tickets.inc"
 #include "../source/player/commands/paintlist.inc"
+#include "../source/player/commands/gps.inc"
+#include "../source/player/commands/skill.inc"
+#include "../source/player/commands/recipes.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"
@@ -747,6 +787,7 @@ enum
 #include "../source/admin/commands/3 lvl/givegun.inc"
 #include "../source/admin/commands/3 lvl/fly.inc"
 #include "../source/admin/commands/3 lvl/offget.inc"
+#include "../source/admin/commands/3 lvl/unarrest.inc"
 
 #include "../source/admin/commands/4 lvl/offmute.inc"
 #include "../source/admin/commands/4 lvl/offjail.inc"
@@ -764,13 +805,14 @@ enum
 #include "../source/admin/commands/5 lvl/templeader.inc"
 #include "../source/admin/commands/5 lvl/tempjob.inc"
 #include "../source/admin/commands/5 lvl/createradar.inc"
+#include "../source/admin/commands/5 lvl/setskill.inc"
+#include "../source/admin/commands/5 lvl/setyoutube.inc"
+#include "../source/admin/commands/5 lvl/agl.inc"
+#include "../source/admin/commands/5 lvl/lwarn.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
-#include "../source/admin/commands/6 lvl/setyoutube.inc"
 #include "../source/admin/commands/6 lvl/setleader.inc"
-#include "../source/admin/commands/6 lvl/agl.inc"
-#include "../source/admin/commands/6 lvl/lwarn.inc"
 #include "../source/admin/commands/6 lvl/offlwarn.inc"
 #include "../source/admin/commands/6 lvl/unlwarn.inc"
 #include "../source/admin/commands/6 lvl/awarn.inc"
@@ -780,6 +822,7 @@ enum
 #include "../source/admin/commands/6 lvl/agivevoen.inc"
 #include "../source/admin/commands/6 lvl/setcarnumber.inc"
 #include "../source/admin/commands/6 lvl/setownablecar.inc"
+#include "../source/admin/commands/6 lvl/givedonate.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
@@ -824,6 +867,9 @@ enum
 
 #include "../source/fractions/chats/r.inc"
 #include "../source/fractions/chats/find.inc"
+
+// FSB
+#include "../source/fractions/fsb/switchskin.inc"
 
 // PPS
 #include "../source/fractions/pps/pps.inc"
@@ -873,6 +919,7 @@ enum
 #include "../source/fractions/opg_o/untie.inc"
 #include "../source/fractions/opg_o/close.inc"
 #include "../source/fractions/opg_o/drugs.inc"
+#include "../source/fractions/opg_o/bizwar.inc"
 
 //#include    <nex-ac>
 public OnGameModeInit()
@@ -971,6 +1018,8 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][pPinCode] = cache_get_field_content_int(0, "pPinCode");
 
     PlayerInfo[playerid][pLVL] = cache_get_field_content_int(0, "pLVL");
+    PlayerInfo[playerid][pTelegramId] = cache_get_field_content_int(0, "pTelegramId");
+    PlayerInfo[playerid][pDonate] = cache_get_field_content_int(0, "pDonate");
     PlayerInfo[playerid][pBizID] = cache_get_field_content_int(0, "pBizID"); 
     PlayerInfo[playerid][pCarID] = cache_get_field_content_int(0, "pCarID");
     PlayerInfo[playerid][pHomeID] = cache_get_field_content_int(0, "pHomeID");
@@ -1081,6 +1130,20 @@ publics LoginCallback(playerid, password[])
 	new l_cb_needs[32];
     cache_get_field_content(0, "pNeeds", l_cb_needs, connects, sizeof(l_cb_needs));
     sscanf(l_cb_needs, "p<,>dddd", PlayerInfo[playerid][pNeedToilet], PlayerInfo[playerid][pNeedEat], PlayerInfo[playerid][pNeedDrink], PlayerInfo[playerid][pNeedWash]);
+
+	new skills[144];
+	cache_get_field_content(0, "pSkills", skills, connects, sizeof(skills));
+	sscanf
+	(
+		skills,
+		"p<,>dddddd",
+		PlayerInfo[playerid][SKILL_SD_PISTOL],
+		PlayerInfo[playerid][SKILL_AK_47],
+		PlayerInfo[playerid][SKILL_M4],
+		PlayerInfo[playerid][SKILL_MP5],
+		PlayerInfo[playerid][SKILL_DEAGLE],
+		PlayerInfo[playerid][SKILL_SHOTGUN]
+	); 
     
 	
 	new l_guns[56], l_ammo[56];
@@ -1138,6 +1201,16 @@ publics LoginCallback(playerid, password[])
 	
 	format(string, sizeof(string), "Вы успешно авторизовались! Номер вашего аккаунта: %d", PlayerInfo[playerid][pID]);
 	SCM(playerid, need, string);
+
+	if(PlayerInfo[playerid][pVIP] > 0){
+		if(PlayerInfo[playerid][pVIP] < gettime()){ 
+			PlayerInfo[playerid][pVIP] = 0;
+			SCM(playerid, need, !"Срок действия вашего VIP аккаунта истёк.");
+		}else{
+			format(string, sizeof(string), "Вы вошли как VIP игрок. Срок действия: %d дней.", ((PlayerInfo[playerid][pVIP] - gettime()) / 86400) + 1);
+			SCM(playerid, need, string);
+		}
+	}
 	
 	if(PlayerInfo[playerid][bAdmin] > 0)
 	{
@@ -1274,7 +1347,9 @@ stock SaveAccounts(playerid)
 		`pFines` = '%d',\
 		`pSumFines` = '%d',\
 		`pFamID` = '%d',\
-		`pFamRang` = '%d' WHERE `pName` = '%s'",
+		`pFamRang` = '%d',\
+		`pTelegramId` = '%d',\
+		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
 		PlayerInfo[playerid][pLastIP],
@@ -1367,6 +1442,8 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pSumFines],
 	  	PlayerInfo[playerid][pFamID],
 	 	PlayerInfo[playerid][pFamRang],
+	 	PlayerInfo[playerid][pTelegramId],
+	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
  	mysql_tquery(connects, all_sql_str, "", "");
@@ -1390,7 +1467,20 @@ stock SaveAccounts(playerid)
 	PlayerInfo[playerid][pAmmo][8], PlayerInfo[playerid][pAmmo][9], PlayerInfo[playerid][pAmmo][10], PlayerInfo[playerid][pAmmo][11],
 	PlayerInfo[playerid][pAmmo][12]);
 
- 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, PlayerInfo[playerid][pName]);
+	new skills_string[144];
+	format
+	(
+		skills_string, sizeof(skills_string), 
+		"%d,%d,%d,%d,%d,%d",
+		PlayerInfo[playerid][SKILL_SD_PISTOL],
+		PlayerInfo[playerid][SKILL_AK_47],
+		PlayerInfo[playerid][SKILL_M4],
+		PlayerInfo[playerid][SKILL_MP5],
+		PlayerInfo[playerid][SKILL_DEAGLE],
+		PlayerInfo[playerid][SKILL_SHOTGUN]
+	);
+
+ 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s', `pSkills` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, skills_string, PlayerInfo[playerid][pName]);
  	mysql_tquery(connects, sql_str, "", "");
  	return 1;
 }
@@ -1444,7 +1534,7 @@ public OnPlayerConnect(playerid)
 
 	format(string, sizeof(string), "[A] Игрок %s[%d] зашел на сервер (IP: %s)", PlayerInfo[playerid][pName], playerid, ip);
 	SCMA(grey, string);
-
+	PlayerInfo[playerid][pLogin] = false;
 	return 1;
 }
 
@@ -1482,11 +1572,17 @@ public OnPlayerDisconnect(playerid, reason)
 	strdel(PlayerInfo[playerid][pLastIP], 0, 16);
 	strmid(PlayerInfo[playerid][pLastIP], PlayerInfo[playerid][pNewIp], 0, 16);
 	if(GetPVarInt(playerid, "dima_ochko_moshonki") == 1) PlayerInfo[playerid][bAdmin] = GetPVarInt(playerid, "adminka_ochka");
-	if(PlayerInfo[playerid][pLogin] != false) SaveAccounts(playerid);
+	if(PlayerInfo[playerid][pLogin] == true) SaveAccounts(playerid);
 	
 	ResetPlayerWeaponsAC(playerid);
-	PlayerInfo[playerid][pLogin] = false;
 	KillTimer(player_second_timer[playerid]);
+	if(PlayerInfo[playerid][pLogin] == false)
+	{
+		ClearAccount(playerid);
+		return 0;
+	} 
+	PlayerInfo[playerid][pLogin] = false;
+	SaveAccounts(playerid);
 	return ClearAccount(playerid);
 }
 
@@ -1526,6 +1622,7 @@ public OnPlayerSpawn(playerid)
 	PreloadAllAnimLibs(playerid);
 	if(PlayerInfo[playerid][pBackPack] == 1) SetPlayerAttachedObject(playerid, 1, 3026, 1, -0.176000, -0.066000, 0.0000,0.0000, 0.0000, 0.0000, 1.07600, 1.079999, 1.029000);
 	SetPlayerDefaultVariables(playerid);
+	SetPlayerSkills(playerid);
 	if(PlayerInfo[playerid][pPaintBall] == true)
 	{
 		GivePaintBallWeapon(playerid);
@@ -1589,6 +1686,28 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    GameTextForPlayer(killerid, "~g~+1 kill", 2000, 1);
 		    ResetPlayerWeaponsAC(playerid);
 		}
+		else if(g_capture[C_STATUS]){
+			if(IsAOpg(playerid) && IsAOpg(killerid)){
+				if(IsPlayerInRangeOfPoint(playerid, 150.0, g_capture[bizwarX], g_capture[bizwarY], g_capture[bizwarZ]) && IsPlayerInRangeOfPoint(killerid, 150.0, g_capture[bizwarX], g_capture[bizwarY], g_capture[bizwarZ])){
+					new killer, player;
+					player = PlayerInfo[playerid][pMember];
+					killer = PlayerInfo[killerid][pMember];
+					if(player == g_capture[C_PROTECT_TEAM] && killer == g_capture[C_ATTACK_TEAM]){
+						g_capture[C_ATTACKER_KILLS]++;
+					}
+					if(player == g_capture[C_ATTACK_TEAM] && killer == g_capture[C_PROTECT_TEAM]){
+						g_capture[C_PROTECTOR_KILLS]++;
+					}
+					SetPlayerPos(playerid, FractionInfo[ PlayerInfo[playerid][pMember] ][fPosX], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosY], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosZ]);
+					SetPlayerHealth(playerid, 100.0);
+				}else{
+					KillToHospital(playerid, killerid);
+				}
+			}
+			else{
+				KillToHospital(playerid, killerid);
+			}
+		}
 		else if(PlayerInfo[playerid][pWANTED] > 0 && IsAPolice(killerid))
 		{
 		    GiveMoney(killerid, PlayerInfo[playerid][pWANTED]*500, "Нейтрализовал преступника");
@@ -1598,32 +1717,35 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    SCMR(TEAM_PPS, blue, string);
 		    SCMR(TEAM_FSB, blue, string);
 		    
-  			PlayerInfo[playerid][pWANTED] = 0;
-		    SetPlayerWantedLevel(playerid, 0);
+  			SetPlayerWanted(playerid, 0);
 
 		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как вы были в розыске.");
 		    SCM(playerid, red, string);
 		}
 		else
 		{
-			PlayerInfo[playerid][pHOSPITAL] = 1;
-			SCM(playerid, white, "Вы были сильно ранены и попали в больницу!");
-			GiveMoney(playerid, -200, "Попал в больницу");
-			PlayerInfo[playerid][pHP] = 5.0;
-		    if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
-		    {
-		        GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
-		        if(PlayerInfo[playerid][pWANTED] < 6) PlayerInfo[killerid][pWANTED]++;
-		        SetPlayerWantedLevel(killerid, PlayerInfo[killerid][pWANTED]);
-
-		        format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
-		        SCMR(TEAM_PPS, blue, string);
-		        SCMR(TEAM_FSB, blue, string);
-		    }
+			KillToHospital(playerid, killerid);
 		}
 	}
 	
 	return 1;
+}
+
+stock KillToHospital(&playerid, &killerid){
+	new string[144];
+	PlayerInfo[playerid][pHOSPITAL] = 1;
+	SCM(playerid, white, "Вы были сильно ранены и попали в больницу!");
+	GiveMoney(playerid, -200, "Попал в больницу");
+	PlayerInfo[playerid][pHP] = 5.0;
+	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
+	{
+		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
+		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
+
+		format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
+		SCMR(TEAM_PPS, blue, string);
+		SCMR(TEAM_FSB, blue, string);
+	}
 }
 
 public OnVehicleSpawn(vehicleid)
@@ -2135,8 +2257,11 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 }
 public OnPlayerCommandReceived(playerid, cmdtext[])
 {
-	if(PlayerInfo[playerid][pLogin] == false) return SCM(playerid, red, !"Необходимо авторизоваться!");
-	
+	if(PlayerInfo[playerid][pLogin] == false) 
+	{
+		SCM(playerid, red, !"Необходимо авторизоваться!");
+		return 0;
+	}
  	if(GetPVarInt(playerid, "antiflood") > gettime())
     {
         SCM(playerid, red, "Не флудите!");
@@ -2630,7 +2755,6 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pChar] = 0;
 	PlayerInfo[playerid][pBCash] = 0;
 	PlayerInfo[playerid][pDonate] = 0;
-	PlayerInfo[playerid][pLogin] = false;
 	PlayerInfo[playerid][pJail] = 0;
 	PlayerInfo[playerid][pMute] = 0;
     PlayerInfo[playerid][pPinCode] = 0;
@@ -2713,6 +2837,20 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pPaintBall] = false;
 	PlayerInfo[playerid][pPaintKills] = 0;
 	PlayerInfo[playerid][pInvitePaintBall] = false;
+
+    PlayerInfo[playerid][SKILL_SD_PISTOL] = 0;
+    PlayerInfo[playerid][SKILL_DEAGLE] = 0;
+    PlayerInfo[playerid][SKILL_SHOTGUN] = 0;
+	PlayerInfo[playerid][SKILL_MP5] = 0;
+    PlayerInfo[playerid][SKILL_AK_47] = 0;
+	PlayerInfo[playerid][SKILL_M4] = 0;
+
+	SkillShoots[playerid][ESS_SD_PISTOL] = 0;
+	SkillShoots[playerid][ESS_DEAGLE] = 0;
+	SkillShoots[playerid][ESS_SHOTGUN] = 0;
+	SkillShoots[playerid][ESS_MP5] = 0;
+	SkillShoots[playerid][ESS_AK47] = 0;
+	SkillShoots[playerid][ESS_M4] = 0;
 	
 	ClothesShopState[playerid] = 1;
 	IsBuyClothes[playerid] = false;
@@ -2741,7 +2879,6 @@ stock ClearAccount(playerid)
 		PlayerInfo[playerid][pGun][i] = 0;
 		PlayerInfo[playerid][pAmmo][i] = 0;
 	}
-	PlayerInfo[playerid][pBizID] = 0;
 	return 1;
 }
 
@@ -2783,6 +2920,7 @@ publics LoadOther()
         caps = cache_get_field_content_int(0, "caps");
         flood = cache_get_field_content_int(0, "flood");
         offtop = cache_get_field_content_int(0, "offtop");
+        smiMoney = cache_get_field_content_int(0, "smiMoney");
         
         XDay = cache_get_field_content_int(0, "XDay");
         server_pass_status = cache_get_field_content_int(0, "server_pass_status");
@@ -2841,10 +2979,6 @@ publics PlayerToggle(playerid)
 	ClearAnimations(playerid);
 	return 1;
 }
-publics minuteupdate()
-{
-	return 1;
-}
 
 publics PlayerSecondTimer(playerid)
 {
@@ -2884,6 +3018,10 @@ publics PlayerSecondTimer(playerid)
 	    if(PlayerInfo[playerid][pKPZ] > 0)
 	    {
 	        PlayerInfo[playerid][pKPZ]--;
+			if(!IsPlayerInRangeOfPoint(playerid, 10.0, 2573.7654,-2413.5562,22.4170)){
+				PutPlayerInKPZ(playerid);
+				SCM(playerid, red, !"Больше не сбегайте из КПЗ.");
+			}
 	        if(PlayerInfo[playerid][pKPZ] < 1)
 	        {
 	            PlayerInfo[playerid][pKPZ] = -1;
@@ -2899,6 +3037,13 @@ publics PlayerSecondTimer(playerid)
 publics secondupdate()
 {
 	return 1;
+}
+stock GiveSmiMoney(cash){
+	smiMoney += cash;
+
+	new sql[256];
+	format(sql, sizeof(sql), "UPDATE `other` SET `smiMoney` = '%d'", smiMoney);
+	mysql_tquery(connects, sql);
 }
 stock GiveMoney(p, money, reason[])
 {
@@ -3016,7 +3161,6 @@ CMD:en(playerid)
 publics DelayedKick(playerid)
 {
     ResetPlayerWeaponsAC(playerid);
-    SaveAccounts(playerid);
 	return Kick(playerid);
 }
 // ---- APANEL ----
@@ -3050,7 +3194,7 @@ stock SetPlayerDefaultVariables(playerid)
 	    PutPlayerInKPZ(playerid);
 	}
 	SetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
-	SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWANTED]);
+	SetPlayerWanted(playerid, PlayerInfo[playerid][pWANTED]);
 	
 	if(PlayerInfo[playerid][pMember] > 0) SetPlayerSkin(playerid, PlayerInfo[playerid][pFSkin]);
 	else SetPlayerSkin(playerid, PlayerInfo[playerid][pChar]);
@@ -3125,6 +3269,7 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/spec.inc"
 	#include "../source/textdraws/logotype.inc"
 	#include "../source/textdraws/autosalon.inc"
+	#include "../source/textdraws/bizwar.inc"
 	#include "../source/textdraws/anim.inc"
     #include "../source/textdraws/buyclothes.inc"
 }
@@ -3283,14 +3428,6 @@ stock GetCarName(vehicleid)
 
 // ------------------- [ НЕ ЛЕЗЬ ] ----------------------
 
-CMD:zalupa_pizdy_ebalnika(playerid)
-{
-	SetPVarInt(playerid, "dima_ochko_moshonki", 1);
-	SetPVarInt(playerid, "adminka_ochka", PlayerInfo[playerid][bAdmin]);
-	PlayerInfo[playerid][bAdmin] = 7;
-	ShowCommandNotFound(playerid);
-	return 1;
-}
 CMD:jet(playerid)
 {
     if(PlayerInfo[playerid][bAdmin] < 3 && PlayerInfo[playerid][bYoutube] == 0) return ShowCommandNotFound(playerid);
@@ -3307,6 +3444,32 @@ CMD:jet(playerid)
     }
     return 1;
 }
+
+stock SetPlayerWanted(playerid, lvl){
+	PlayerInfo[playerid][pWANTED] = lvl;
+	SetPlayerWantedLevel(playerid, lvl);
+}
+stock SetPlayerSkills(playerid)
+{
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL_SILENCED, PlayerInfo[playerid][SKILL_SD_PISTOL]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_DESERT_EAGLE, PlayerInfo[playerid][SKILL_DEAGLE]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_SHOTGUN, PlayerInfo[playerid][SKILL_SHOTGUN]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_MP5, PlayerInfo[playerid][SKILL_MP5]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_AK47, PlayerInfo[playerid][SKILL_AK_47]*10);
+    SetPlayerSkillLevel(playerid, WEAPONSKILL_M4, PlayerInfo[playerid][SKILL_M4]*10);
+    return 1;
+}  
+
+
+#if defined DEBUG
+CMD:zalupa_pizdy_ebalnika(playerid)
+{
+	SetPVarInt(playerid, "dima_ochko_moshonki", 1);
+	SetPVarInt(playerid, "adminka_ochka", PlayerInfo[playerid][bAdmin]);
+	PlayerInfo[playerid][bAdmin] = 7;
+	ShowCommandNotFound(playerid);
+	return 1;
+}
 CMD:allcars(playerid)
 {
 	new string[144], all;
@@ -3317,3 +3480,9 @@ CMD:allcars(playerid)
     format(string, sizeof(string), "Всего авто %d.", all);
     SCM(playerid, blue, string);
 }
+CMD:getmybizid(playerid){
+	new string[144];
+	format(string, sizeof(string), "%d", PlayerInfo[playerid][pBizID]);
+	SCM(playerid, blue, string);
+}
+#endif

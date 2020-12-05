@@ -82,6 +82,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         GiveMoney(playerid, 10, "Редактирование сообщения(/edit)");
+                        GiveSmiMoney(-10);
                         AD[GetPVarInt(playerid, "d_edits")][ad_status] = 2;
                         AD[GetPVarInt(playerid, "d_edits")][ad_edit_id] = playerid;
                         DeletePVar(playerid, "d_edits");                        
@@ -143,6 +144,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
 
                 GiveMoney(playerid, 10, "Редактирование сообщения(/edit)");
+                GiveSmiMoney(-10);
                 AD[GetPVarInt(playerid, "d_edits")][ad_status] = 2;
                 AD[GetPVarInt(playerid, "d_edits")][ad_edit_id] = playerid;
                 AD[GetPVarInt(playerid, "d_edits")][ad_text] = EOS;

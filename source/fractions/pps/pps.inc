@@ -45,7 +45,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        GivePlayerWeaponAC(playerid, 29, 120);
+                        GivePlayerWeaponAC(playerid, 30, 120);
                     }
                     case 2:
                     {
@@ -53,10 +53,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 3:
                     {
-                        SCM(playerid, blue, "Вы взяли жезл. Использовать: /stopcar");
+                        SCM(playerid, blue, !"Вы взяли жезл. Использовать: /stopcar");
                         SetPVarInt(playerid, "zhezl", 1);
                         SetPlayerAttachedObject(playerid, 1, 1214, 6, -0.040454, 0.028840, -0.012862, 2.521301, 76.277267, 70.163467, 0.300000, 0.300000, 0.500000);
                     }
+					case 4:{
+						SCM(playerid, blue, !"Вы взяли бронежилет.");
+						SetPlayerArmour(playerid, 100.0);
+					}
                 }
             }
         }
@@ -88,7 +92,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{"cblue"}1. {FFFFFF}USP-S\n\
 			{"cblue"}2. {FFFFFF}MP-5\n\
 			{"cblue"}3. {FFFFFF}Дубинка\n\
-			{"cblue"}4. {FFFFFF}Жезл", "Далее", "Закрыть");
+			{"cblue"}4. {FFFFFF}Жезл\n\
+			{"cblue"}5. {FFFFFF}Бронежилет", "Далее", "Закрыть");
         }
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, 2759.7024, -1385.3208, 24.1169))
 		{

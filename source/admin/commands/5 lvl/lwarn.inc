@@ -1,6 +1,6 @@
 CMD:lwarn(playerid, params[])
 {
-    if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
+    if(PlayerInfo[playerid][bAdmin] < 5) return ShowCommandNotFound(playerid);
 
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /lwarn [ID игрока] [причина]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);

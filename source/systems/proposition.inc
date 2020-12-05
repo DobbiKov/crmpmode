@@ -36,15 +36,25 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 	if(incoming_proposition[to_player] != -1) return SCM(playerid, red, "” игрока есть активные предложени€.");
 	if(send_proposition[playerid] != -1) return SCM(playerid, -1, "»спользуйте {FF9900}/cancel {FFFFFF}чтобы отозвать предыдущее предложение");
 	
-	send_proposition[playerid] = to_player;
-	incoming_proposition[to_player] = playerid;
-	incoming_proposition_type[to_player] = type;
+	send_proposition[playerid] = to_player; //кому € предложил
+	incoming_proposition[to_player] = playerid; //кто предложил тому, кому € предолжил (тоесть €)
+	incoming_proposition_type[to_player] = type; //тип вход€щего предложени€
 	incoming_proposition_value[to_player][0] = value_1;
     incoming_proposition_value[to_player][1] = value_2;
 
 	new fmt_msg[144];
 	switch(type)
 	{
+		case PROPOSITION_TYPE_SKILL:
+		{
+			format(fmt_msg, sizeof fmt_msg, "%s предлагает вам просмотреть его навыки владени€ оружием.", PlayerInfo[incoming_proposition[to_player]][pName]);
+			SCM(to_player, 0x3399FFFF, fmt_msg);
+
+			SCM(to_player, -1, "Ќажмите {00CC00}Y {FFFFFF}чтобы согласитьс€ или {FF6600}N {FFFFFF}дл€ отказа");
+
+			format(fmt_msg, sizeof fmt_msg, "¬ы предложили %s просмотреть ваши навыки владени€ оружием.", PlayerInfo[to_player][pName]);
+			SCM(playerid, 0x3399FFFF, fmt_msg);
+		}
 		case PROPOSITION_TYPE_REPAIR_CAR:
 		{
 			format(fmt_msg, sizeof fmt_msg, "%s предлагает починить ¬аш транспорт за %d руб", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
@@ -52,7 +62,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 
 			SCM(to_player, -1, "Ќажмите {00CC00}Y {FFFFFF}чтобы согласитьс€ или {FF6600}N {FFFFFF}дл€ отказа");
 
-			format(fmt_msg, sizeof fmt_msg, "¬ы предложили %s сделать ремонт транспорта за %d руб", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
+			format(fmt_msg, sizeof fmt_msg, "¬ы предложили %s сделать ремонт транспорта за %d руб", PlayerInfo[to_player][pName], value_1);
 			SCM(playerid, 0x3399FFFF, fmt_msg);
 		}
 		case PROPOSITION_TYPE_INVITE:
@@ -229,6 +239,41 @@ CMD:yes(playerid)
 
 		switch(type)
 		{
+			case PROPOSITION_TYPE_SKILL:
+			{
+				new fmt_msg[65];
+				format(fmt_msg, sizeof fmt_msg, "%s просмотрел ваши навыки владени€ оружием.", PlayerInfo[proposition][pName]);
+				SCM(playerid, 0x66CC00FF, fmt_msg);
+
+				format(fmt_msg, sizeof fmt_msg, "¬ы показали %s свои навыки владени€ оружием.", PlayerInfo[playerid][pName], value_1);
+				SCM(proposition, 0x66CC00FF, fmt_msg);
+
+				new fmt_dialog[526];
+				format
+				(
+					fmt_dialog, sizeof fmt_dialog,
+					"{ffffff}SDPistol:\t%d / 100%%\n\
+					Deagle:\t%d / 100%%\n\
+					ShotGun:\t%d / 100%%\n\
+					MP5:\t\t%d / 100%%\n\
+					AK-47:\t\t%d / 100%%\n\
+					M4A1:\t\t%d / 100%",
+					PlayerInfo[proposition][SKILL_SD_PISTOL],
+					PlayerInfo[proposition][SKILL_DEAGLE],
+					PlayerInfo[proposition][SKILL_SHOTGUN],
+					PlayerInfo[proposition][SKILL_MP5],
+					PlayerInfo[proposition][SKILL_AK_47],
+					PlayerInfo[proposition][SKILL_M4]
+				);
+				ShowPlayerDialog
+				(
+					playerid, D_NULL, DIALOG_STYLE_MSGBOX,
+					!"{"cblue"}Ќавыки владени€ оружием",
+					fmt_dialog,
+					!"«акрыть", !""
+				);
+			}
+
 			case PROPOSITION_TYPE_REPAIR_CAR:
 			{
 				new vehicleid = GetPlayerVehicleID(playerid);
@@ -483,6 +528,7 @@ CMD:yes(playerid)
 				SaveAccounts(proposition);
 				UpdateBusiness(i);
 				DeletePVar(playerid, "my_biz_id");
+				DeletePVar(proposition, "my_biz_id");
 			}
 
 			case PROPOSITION_TYPE_SELLCAR:

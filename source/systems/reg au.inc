@@ -243,6 +243,18 @@ stock RegStock(playerid)
 	mysql_format(connects, string, sizeof(string), "INSERT INTO `accounts`(`pName`, `pLVL`, `pKey`, `pChar`, `pSex`, `pCash`, `pDateReg`, `pRegIP`, `pEmail`, `pMute`, `pJail`) VALUES ('%s','%d',MD5('%s'),'%d','%d','%d','%s','%s','%s', '%d', '%d')", PlayerInfo[playerid][pName], PlayerInfo[playerid][pLVL], PlayerInfo[playerid][pKey], PlayerInfo[playerid][pChar],
 	PlayerInfo[playerid][pSex], PlayerInfo[playerid][pCash], data, ip, PlayerInfo[playerid][pEmail], PlayerInfo[playerid][pMute], PlayerInfo[playerid][pJail]);
 	mysql_tquery(connects, string, "", "");
+
+	format(string, sizeof(string), "SELECT `pID` FROM `accounts` WHERE `pName` = '%s'", PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, string, "GetPlayerId_Register", "i", playerid);
+	return 1;
+}
+
+publics GetPlayerId_Register(playerid){
+	new rows[2];
+	cache_get_data(rows[0], rows[1]);
+	if(rows[0])
+		PlayerInfo[playerid][pID] = cache_get_field_content_int(0, "pID");
+	
 	return 1;
 }
 stock RegStok(playerid)

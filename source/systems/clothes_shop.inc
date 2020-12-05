@@ -4,18 +4,40 @@ enum ClothesParametersEnum{
     clothesSkinId,
     clothesPrice
 }
-const MaxClothesShopSkins = 10;
+const MaxClothesShopSkins = 32;
 new ClothesParameters[MaxClothesShopSkins][ClothesParametersEnum] = {
     {0, 1, 1000},
-    {1, 14, 1000},
-    {2, 15, 2000},
-    {3, 16, 2000},
-    {4, 17, 2000},
-    {5, 18, 2000},
-    {6, 19, 2000},
-    {7, 20, 2000},
-    {8, 21, 2000},
-    {9, 22, 2000}
+    {1, 102, 500},
+    {2, 103, 500},
+    {3, 104, 500},
+    {4, 135, 500},
+    {5, 14, 2000},
+    {6, 20, 2000},
+    {7, 21, 2000},
+    {8, 22, 2000},
+    {9, 24, 2000},
+    {10, 25, 2000},
+    {11, 155, 2500},
+    {12, 177, 5000},
+    {13, 181, 5000},
+    {14, 101, 5000},
+    {15, 289, 7500},
+    {16, 290, 7500},
+    {17, 291, 7500},
+    {18, 249, 10000},
+    {19, 258, 10000},
+    {20, 259, 10000},
+    {21, 100, 10000},
+    {22, 247, 10000},
+    {23, 254, 10000},
+    {24, 15, 20000},
+    {25, 170, 20000},
+    {26, 59, 25000},
+    {27, 185, 25000},
+    {28, 223, 30000},
+    {29, 240, 60000},
+    {30, 46, 100000},
+    {31, 186, 100000}
 };
 
 new bool: IsBuyClothes[MAX_PLAYERS];
@@ -121,7 +143,8 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
         new string[144];
         format(string, sizeof(string), "Вы успешно приобрели скин за %d рублей.", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
         SCM(playerid, blue, string);
-        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет франкциооный скин.");
+        GiveMoney(playerid, -ClothesParameters[ClothesShopState[playerid]][clothesPrice], !"Покупка скина");
+        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет фракционый скин.");
         ExitBuyClothes(playerid);
         SaveAccounts(playerid);
     }
@@ -149,7 +172,7 @@ stock SetBuyClothes(playerid){
     SetPlayerPos(playerid, 560.5141, 2136.6279, 1551.4860);
     SetPlayerFacingAngle(playerid, 268.1223);
     SetPlayerVirtualWorld(playerid, playerid+20);
-    SetPlayerCameraPos(playerid, 562.5885, 2136.6760, 1551.4860);
+    SetPlayerCameraPos(playerid, 562.5885, 2136.6760, 1552.0860);
     SetPlayerCameraLookAt(playerid, 560.5141,2136.6279,1551.4860);
     SetPlayerSkin(playerid, ClothesParameters[ClothesShopState[playerid]][clothesSkinId]);
 
@@ -162,7 +185,7 @@ stock SetBuyClothes(playerid){
     format(string, sizeof(string), "%d rub", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
     PlayerTextDrawSetString(playerid, BuyClothes_PTD[0][playerid], string);
     SelectTextDraw(playerid, white);
-
+    TogglePlayerControllable(playerid, false);
     SCM(playerid, blue, "Что б отменить покупку - нажмите клавишу \"ESC\"");
 }
 
@@ -179,4 +202,5 @@ stock ExitBuyClothes(playerid){
     SetPlayerSkin(playerid, PlayerInfo[playerid][pMember] > 0 ? PlayerInfo[playerid][pFSkin] : PlayerInfo[playerid][pChar]);
     IsBuyClothes[playerid] = false;
     CancelSelectTextDraw(playerid);
+    FreezePlayer(playerid, 2000);
 }

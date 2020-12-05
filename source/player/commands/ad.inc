@@ -60,6 +60,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 strcat(AD[i][ad_text], text);
 
                 PlayerInfo[playerid][pPhoneCash] -= GetPVarInt(playerid, "ad_price");
+                GiveSmiMoney(GetPVarInt(playerid, "ad_price"));
 
                 new string[144];
                 format(string, sizeof(string), "Вы отправили объявление! Номер вашего объявления: %d", i);
