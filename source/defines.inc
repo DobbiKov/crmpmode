@@ -1,8 +1,8 @@
 //************* | MYSQL | *************//
-#define 	sqlhost     "151.80.47.109"
-#define 	sqluser     "gs47333"
-#define 	sqlpass     "8m36QM0o1d"
-#define 	sqldb       "gs47333"
+#define 	sqlhost     "79.137.101.30"
+#define 	sqluser     "gs70371"
+#define 	sqlpass     "nlt9JzaKrQTt"
+#define 	sqldb       "gs70371"
 
 //host
 // #define 	sqlhost     "151.80.47.109"
@@ -11,7 +11,7 @@
 // #define 	sqldb       "gs47333"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.5"
+#define 	gamemode    "UNIGVA - Beta 0.6"
 #define     hostname    "[ Unigva RolePlay | ÎÁÒ óæå 20.09 ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "dobbikov.gq"
