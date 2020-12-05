@@ -3,7 +3,8 @@
 Developer: [Roman Zapotockiy](https://vk.com/dobbi_crmp) (dobbikov)
 
 ## Stack
-Pawn
+- Pawn
+- MySQL
 
 ## Setup
 1. Set your's hosting's IP Adress to bind in `server.cfg`
