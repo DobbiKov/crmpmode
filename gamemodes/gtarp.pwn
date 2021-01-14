@@ -1196,7 +1196,7 @@ publics LoginCallback(playerid, password[])
 	
 	
  	new querybans[256];
-    format(querybans, sizeof(querybans), "SELECT * FROM `Bans` WHERE `Nick` = '%s'", PlayerInfo[playerid][pName]);
+    format(querybans, sizeof(querybans), "SELECT * FROM `bans` WHERE `Nick` = '%s'", PlayerInfo[playerid][pName]);
 	mysql_function_query(connects, querybans, true, "CheckBan", "d", playerid);
 	
 	format(string, sizeof(string), "Вы успешно авторизовались! Номер вашего аккаунта: %d", PlayerInfo[playerid][pID]);

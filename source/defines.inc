@@ -1,8 +1,8 @@
 //************* | MYSQL | *************//
-#define 	sqlhost     "79.137.101.30"
-#define 	sqluser     "gs70371"
-#define 	sqlpass     "nlt9JzaKrQTt"
-#define 	sqldb       "gs70371"
+#define 	sqlhost     "localhost"
+#define 	sqluser     "root"
+#define 	sqlpass     "Hello123456"
+#define 	sqldb       "unigvacrmp"
 
 //host
 // #define 	sqlhost     "151.80.47.109"

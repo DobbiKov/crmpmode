@@ -12,7 +12,7 @@ publics CheckBan(playerid)
 
         if(gettime() >= unbandate)
         {
-            format(string, sizeof(string), "DELETE FROM `Bans` WHERE `Nick` = '%s' LIMIT 1", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "DELETE FROM `bans` WHERE `Nick` = '%s' LIMIT 1", PlayerInfo[playerid][pName]);
             mysql_tquery(connects, string, "","");
 
        	    SpawnList(playerid);
@@ -84,7 +84,7 @@ publics on_player_unban(playerid, to_player[])
 	    getdate(year, month, day);
 	    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
-        format(string, sizeof(string), "DELETE FROM `Bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
+        format(string, sizeof(string), "DELETE FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
         mysql_tquery(connects, string, "","");
 
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unban', 'unban')", PlayerInfo[playerid][pName], to_player, data);
@@ -112,7 +112,7 @@ publics on_player_offban(playerid, to_player[], time, reason[])
 		admin = cache_get_field_content_int(0, "bAdmin");
 		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Вы пытаетесь забанить администратора.");
 
-		format(string, sizeof(string), "SELECT * FROM `Bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
+		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
 		mysql_tquery(connects, string, "on_player_offbans","isis", playerid, to_player, time, reason);
 	}
 	else
@@ -138,7 +138,7 @@ publics on_player_offbans(playerid, to_player[], time, reason[])
 	    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
 	    unbandate = gettime() + time*86400;
-	    format(string, sizeof(string), "INSERT INTO `Bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'offBan', '%s')", to_player, unbandate, PlayerInfo[playerid][pName], data, reason); // Форматируем запрос в бд
+	    format(string, sizeof(string), "INSERT INTO `bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'offBan', '%s')", to_player, unbandate, PlayerInfo[playerid][pName], data, reason); // Форматируем запрос в бд
 	    mysql_tquery(connects, string, "","");
 
 	    format(string, sizeof(string), "Администратор %s забанил игрока %s на %d дней в Offline. Причина: %s", PlayerInfo[playerid][pName], to_player, time, reason);
@@ -185,7 +185,7 @@ CMD:ban(playerid, params[])
  		    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
  		    unbandate = gettime() + time*86400; // Бан на дни. Записываем нынешнюю дату + число умноженное на 86400 = дни бана.
-		    format(string, sizeof(string), "INSERT INTO `Bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'Ban', '%s')", PlayerInfo[i][pName], unbandate, PlayerInfo[playerid][pName], data, reason); // Форматируем запрос в бд
+		    format(string, sizeof(string), "INSERT INTO `bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'Ban', '%s')", PlayerInfo[i][pName], unbandate, PlayerInfo[playerid][pName], data, reason); // Форматируем запрос в бд
 		    mysql_tquery(connects, string, "","");
 
 		    format(string, sizeof(string), "Администратор %s забанил игрока %s на %d дней. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], time, reason);
@@ -229,7 +229,7 @@ CMD:unban(playerid, params[])
 	extract params -> new string: to_player[24]; else return SCM(playerid, blue, "• [Подсказка]: {FFFFFF}Используйте /unabn [NickName игрока]");
 
 	new query[256];
-	format(query, sizeof(query), "SELECT * FROM `Bans` WHERE `Nick` = '%s'", to_player);
+	format(query, sizeof(query), "SELECT * FROM `bans` WHERE `Nick` = '%s'", to_player);
 	mysql_tquery(connects, query, "on_player_unban", "is", playerid, to_player);
 	return 1;
 }

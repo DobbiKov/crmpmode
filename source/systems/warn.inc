@@ -53,7 +53,7 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 		admin = cache_get_field_content_int(0, "bAdmin");
 		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Вы пытаетесь заварнить администратора.");
 
-		format(string, sizeof(string), "SELECT * FROM `Bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
+		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
 		mysql_tquery(connects, string, "on_player_offwarn_bans","iss", playerid, to_player, reason);
 	}
 	else
@@ -95,7 +95,7 @@ publics on_player_offwarn_bans(playerid, to_player[], reason[])
 		    new unbandate;
 
  		    unbandate = gettime() + 10*86400; // Бан на дни. Записываем нынешнюю дату + число умноженное на 86400 = дни бана.
-		    format(string, sizeof(string), "INSERT INTO `Bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'offBan', '3 Предупреждения')", to_player, unbandate, PlayerInfo[playerid][pName], data); // Форматируем запрос в бд
+		    format(string, sizeof(string), "INSERT INTO `bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'offBan', '3 Предупреждения')", to_player, unbandate, PlayerInfo[playerid][pName], data); // Форматируем запрос в бд
 		    mysql_tquery(connects, string, "","");
 
 		    format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s'", to_player);
@@ -209,7 +209,7 @@ CMD:warn(playerid, params[])
 			    new unbandate;
 
 	 		    unbandate = gettime() + 10*86400; // Бан на дни. Записываем нынешнюю дату + число умноженное на 86400 = дни бана.
-			    format(string, sizeof(string), "INSERT INTO `Bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'Ban', '3 Предупреждения')", PlayerInfo[i][pName], unbandate, PlayerInfo[playerid][pName], data); // Форматируем запрос в бд
+			    format(string, sizeof(string), "INSERT INTO `bans` (`Nick`, `UnbanDate`, `AdminNick`, `BanDate`, `Type`, `Reason`) VALUES ('%s', '%d', '%s', '%s', 'Ban', '3 Предупреждения')", PlayerInfo[i][pName], unbandate, PlayerInfo[playerid][pName], data); // Форматируем запрос в бд
 			    mysql_tquery(connects, string, "","");
 
 			    format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s'", PlayerInfo[i][pName]);

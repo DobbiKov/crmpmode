@@ -435,7 +435,7 @@ stock DonateChangeName(playerid, playerName[])
 	format(stringer, 512, "UPDATE `bussines` SET `bOwner` = '%s' WHERE `bOwner` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
 	
-	format(stringer, 512, "UPDATE `Bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	format(stringer, 512, "UPDATE `bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
 
 	if(PlayerInfo[playerid][pBizID] != -1){
