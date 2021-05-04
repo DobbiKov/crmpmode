@@ -823,6 +823,7 @@ enum
 #include "../source/admin/commands/6 lvl/setcarnumber.inc"
 #include "../source/admin/commands/6 lvl/setownablecar.inc"
 #include "../source/admin/commands/6 lvl/givedonate.inc"
+#include "../source/admin/commands/6 lvl/setmoney.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
