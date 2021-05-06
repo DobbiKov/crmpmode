@@ -207,7 +207,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                             new vehicleid = GetPlayerVehicleID(playerid);
                             SetVehicleVirtualWorld ( vehicleid, BusinessInfo[i][bID]);
                             SetPlayerVirtualWorld(playerid, BusinessInfo[i][bID]);
-                            SetVehiclePos(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ]);
+                            SetVehiclePos(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ] + 0.5);
                             SetVehicleZAngle(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_angle ]);
                             PutPlayerInVehicle(playerid, vehicleid, 0);
                             return player_in_business[playerid] = i;
@@ -338,7 +338,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1: 
                     {
                         cmd::sellbusiness(playerid); 
-                        DeletePVar(playerid, "my_biz_id");
                     }
                     case 2:
                     {
@@ -968,7 +967,7 @@ publics ShowBusinessProfit(playerid)
     static rows, fields;
     cache_get_data(rows, fields);
     
-    new string[600];
+    new string[10000];
     
     if(rows)
     {

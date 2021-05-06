@@ -498,6 +498,10 @@ enum e_DIALOG_IDs
 	D_GPS_BUSINESS,
 
 	D_BIZ_WAR,
+	
+	D_CMD_ABIZ,
+	D_CMD_ASELLBIZ,
+	D_CMD_ASELLHOME,
 };
 
 enum PInfo
@@ -763,12 +767,11 @@ enum
 #include "../source/admin/commands/2 lvl/nonrp.inc"
 #include "../source/admin/commands/2 lvl/epp.inc"
 #include "../source/admin/commands/2 lvl/drive.inc"
-
 #include "../source/admin/commands/2 lvl/caps.inc"
 #include "../source/admin/commands/2 lvl/flood.inc"
 #include "../source/admin/commands/2 lvl/offtop.inc"
-
 #include "../source/admin/commands/2 lvl/resetgun.inc"
+#include "../source/admin/commands/2 lvl/getbizid.inc"
 
 #include "../source/admin/commands/3 lvl/setvw.inc"
 #include "../source/admin/commands/3 lvl/setint.inc"
@@ -788,6 +791,8 @@ enum
 #include "../source/admin/commands/3 lvl/fly.inc"
 #include "../source/admin/commands/3 lvl/offget.inc"
 #include "../source/admin/commands/3 lvl/unarrest.inc"
+#include "../source/admin/commands/3 lvl/abiz.inc"
+#include "../source/admin/commands/3 lvl/ahome.inc"
 
 #include "../source/admin/commands/4 lvl/offmute.inc"
 #include "../source/admin/commands/4 lvl/offjail.inc"
@@ -824,6 +829,8 @@ enum
 #include "../source/admin/commands/6 lvl/setownablecar.inc"
 #include "../source/admin/commands/6 lvl/givedonate.inc"
 #include "../source/admin/commands/6 lvl/setmoney.inc"
+#include "../source/admin/commands/6 lvl/asellbiz.inc"
+#include "../source/admin/commands/6 lvl/asellhome.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
@@ -3019,7 +3026,7 @@ publics PlayerSecondTimer(playerid)
 	    if(PlayerInfo[playerid][pKPZ] > 0)
 	    {
 	        PlayerInfo[playerid][pKPZ]--;
-			if(!IsPlayerInRangeOfPoint(playerid, 10.0, 2573.7654,-2413.5562,22.4170)){
+			if(!IsPlayerInRangeOfPoint(playerid, 10.0, 2573.7654,-2413.5562,22.4170) && !IsPlayerInRangeOfPoint(playerid, 10.0, 2574.4177,-2411.0747,22.4170)){
 				PutPlayerInKPZ(playerid);
 				SCM(playerid, red, !"Больше не сбегайте из КПЗ.");
 			}
