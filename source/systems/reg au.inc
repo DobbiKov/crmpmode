@@ -168,8 +168,6 @@ publics OnPlayerRegCheck(playerid)
 {
 	new rows[2];
 	cache_get_data(rows[0], rows[1]);
-	SetPlayerCameraPos(playerid, 1920.9984,2096.5823,40.5753);
-	SetPlayerCameraLookAt(playerid, 1819.1917,2095.7693,21.2062);
 	SCM(playerid, blue, "Добро пожаловать на "name_serv"");
 	SetPlayerVirtualWorld(playerid, playerid);
 	if(rows[0]) // Авторизации

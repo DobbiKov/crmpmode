@@ -762,12 +762,17 @@ publics SletBiz(i)
 
 stock GiveBusinessMoney(id, money, playerid = -1)
 {
-    new m = (money / 10) * 3;
+    new m = (money / 10) * 3; // деньги, которые пойдут ОПГ
+    new nalog = (money / 10) * 2;
     if(BusinessInfo[id][bControl] == TEAM_OREX) OPG_O_MONEY += m;
     else if(BusinessInfo[id][bControl] == TEAM_SUN) OPG_S_MONEY += m;
 
-    BusinessInfo[id][bCash] += money - m;
-    BusinessInfo[id][bProfit] += money - m;
+    new profit = money;
+    profit -= m;
+    profit -= nalog;
+
+    BusinessInfo[id][bCash] += profit;
+    BusinessInfo[id][bProfit] += profit;
     UpdateBusiness(id);
     SetPVarInt(playerid, "playerid", playerid);
     return 1;
