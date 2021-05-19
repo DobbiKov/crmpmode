@@ -12,7 +12,7 @@ CMD:givegun(playerid, params[])
 
 	if(PlayerInfo[playerid][bAdmin] < 6)
 	{
-	    format(string, sizeof(string), "{"cgrey"}[A]: {"cwhite"}%s[%d] выдал оружие %s[%d] игроку %s[%d]", PlayerInfo[playerid][pName], playerid, gun_name[weaponid], weaponid, PlayerInfo[to_player][pName], to_player);
+	    format(string, sizeof(string), "{"cgrey"}[A] %s[%d] выдал оружие %s[%d] игроку %s[%d]", PlayerInfo[playerid][pName], playerid, gun_name[weaponid], weaponid, PlayerInfo[to_player][pName], to_player);
 	    SCMA(grey, string);
 	}
 	format(string, sizeof(string), "Вы выдали оружие %s[%d] игроку %s[%d]", gun_name[weaponid], weaponid, PlayerInfo[to_player][pName], to_player);
