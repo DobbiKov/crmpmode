@@ -542,7 +542,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(PlayerInfo[playerid][pHeal] >= 2) return SCM(playerid, red, "Вы не можете унести столько аптечек");
-                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно дене!");
+                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно денег!");
 
                         PlayerInfo[playerid][pHeal]++;
                         GiveMoney(playerid, -1000, "Покупка аптечки в аптеке");
@@ -553,7 +553,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         if(PlayerInfo[playerid][pMask] >= 1) return SCM(playerid, red, "Вы не можете унести столько масок");
-                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас не достаточно дене!");
+                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас не достаточно денег!");
 
                         PlayerInfo[playerid][pMask]++;
                         GiveMoney(playerid, -500, "Покупка маски в аптеке");
