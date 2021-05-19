@@ -5,7 +5,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(GetPVarInt(playerid, "vdv_tonn_load") > 0)
         {
             SCM(playerid, red, "Вы уронили ящик!");
-            DeletePVar(playerid, "vdv_too_load");
+            DeletePVar(playerid, "vdv_tonn_load");
             ClearAnimations(playerid);
 
             if(IsPlayerAttachedObjectSlotUsed(playerid, 1))

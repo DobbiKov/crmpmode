@@ -207,7 +207,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                             new vehicleid = GetPlayerVehicleID(playerid);
                             SetVehicleVirtualWorld ( vehicleid, BusinessInfo[i][bID]);
                             SetPlayerVirtualWorld(playerid, BusinessInfo[i][bID]);
-                            SetVehiclePos(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ]);
+                            SetVehiclePos(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ] + 0.5);
                             SetVehicleZAngle(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_angle ]);
                             PutPlayerInVehicle(playerid, vehicleid, 0);
                             return player_in_business[playerid] = i;
@@ -338,7 +338,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1: 
                     {
                         cmd::sellbusiness(playerid); 
-                        DeletePVar(playerid, "my_biz_id");
                     }
                     case 2:
                     {
@@ -543,7 +542,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(PlayerInfo[playerid][pHeal] >= 2) return SCM(playerid, red, "Вы не можете унести столько аптечек");
-                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно дене!");
+                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно денег!");
 
                         PlayerInfo[playerid][pHeal]++;
                         GiveMoney(playerid, -1000, "Покупка аптечки в аптеке");
@@ -554,7 +553,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         if(PlayerInfo[playerid][pMask] >= 1) return SCM(playerid, red, "Вы не можете унести столько масок");
-                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас не достаточно дене!");
+                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас не достаточно денег!");
 
                         PlayerInfo[playerid][pMask]++;
                         GiveMoney(playerid, -500, "Покупка маски в аптеке");
@@ -763,12 +762,17 @@ publics SletBiz(i)
 
 stock GiveBusinessMoney(id, money, playerid = -1)
 {
-    new m = (money / 10) * 3;
+    new m = (money / 10) * 3; // деньги, которые пойдут ОПГ
+    new nalog = (money / 10) * 2;
     if(BusinessInfo[id][bControl] == TEAM_OREX) OPG_O_MONEY += m;
     else if(BusinessInfo[id][bControl] == TEAM_SUN) OPG_S_MONEY += m;
 
-    BusinessInfo[id][bCash] += money - m;
-    BusinessInfo[id][bProfit] += money - m;
+    new profit = money;
+    profit -= m;
+    profit -= nalog;
+
+    BusinessInfo[id][bCash] += profit;
+    BusinessInfo[id][bProfit] += profit;
     UpdateBusiness(id);
     SetPVarInt(playerid, "playerid", playerid);
     return 1;
@@ -968,7 +972,7 @@ publics ShowBusinessProfit(playerid)
     static rows, fields;
     cache_get_data(rows, fields);
     
-    new string[600];
+    new string[10000];
     
     if(rows)
     {

@@ -1,3 +1,4 @@
+/*
 static Float:ac_hp__health[MAX_PLAYERS];
 static ac_hp__ignore_tick[MAX_PLAYERS];
 
@@ -84,3 +85,4 @@ stock ac_hp__GetPlayerHealth(playerid, &Float:health)
 	#define	_ALS_GetPlayerHealth
 #endif
 #define GetPlayerHealth ac_hp__GetPlayerHealth
+*/

@@ -16,7 +16,7 @@ new Command1LVL[14][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[26][] = 
+new Command2LVL[27][] = 
 {
     {"{"cblue"}/tp {ffffff}- Телепорт\n"},
     {"{"cblue"}/goto {ffffff}- Телепорт к игроку\n"},
@@ -33,6 +33,7 @@ new Command2LVL[26][] =
     {"{"cblue"}/arm {ffffff}- Установить себе броню к количестве 100 единиц\n"},
     {"{"cblue"}/getskin {ffffff}- Взять себе временный скин\n"},
     {"{"cblue"}/resetgun {ffffff}- Забрать оружие у игрока\n"},
+    {"{"cblue"}/getbizid {ffffff}- Узнать ID бизнесса\n"},
     {"\n"},
     {"{"cblue"}Быстрые наказания:\n"},
     {"{"cblue"}/mg {ffffff}- Выдать мут за MG\n"},
@@ -46,7 +47,7 @@ new Command2LVL[26][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[32][] = 
+new Command3LVL[34][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
@@ -68,6 +69,8 @@ new Command3LVL[32][] =
     {"{"cblue"}/ban {ffffff}- Заблокировать аккаунт игроку (онлайн/оффлайн)\n"},
     {"{"cblue"}/warn {ffffff}- выдать предупреждение на аккаунт игрока(онлайн/оффлайн)\n"},
     {"{"cblue"}/unarrest {ffffff}- Выпустить игрока из КПЗ досрочно\n"},
+    {"{"cblue"}/abiz {ffffff}- Посмотреть информацию о бизнессе\n"},
+    {"{"cblue"}/ahome {ffffff}- Посмотреть информацию о доме\n"},
     {"\n"},
     {"{"cblue"}Команды мероприятий:\n"},
     {"{"cblue"}/mpstart {ffffff}- Создать мероприятие\n"},
@@ -108,7 +111,7 @@ new Command5LVL[9][] =
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
-new Command6LVL[13][] = 
+new Command6LVL[16][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
     {"{"cblue"}/givemoney {ffffff}- Выдать игроку денег\n"},
@@ -122,7 +125,10 @@ new Command6LVL[13][] =
     {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/setcarnumber {ffffff}- Установить номера на автомобиль игрока\n"},
     {"{"cblue"}/setownablecar {ffffff}- Установить игроку личное авто\n"},
-    {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"}
+    {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"},
+    {"{"cblue"}/setmoney {ffffff}- Установить определенное количество денег игроку\n"},
+    {"{"cblue"}/asellbiz {ffffff}- Продать бизнесс другого игрока.\n"},
+    {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
 new Command7LVL[15][] = 

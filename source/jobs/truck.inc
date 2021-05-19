@@ -38,9 +38,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(arend_truck == 1) return SCM(playerid, red, "Парковка занята! Подождите немного пожалуйста.");
 
 			SPD(playerid, D_AREND_TRUCK, DIALOG_STYLE_LIST, "{"cblue"}Аренда фуры", "\
-			{"cblue"}1. {FFFFFF}ЗИЛ\t\t{"cblue"}(0 уровень и 800 рублей)\n\
-			{"cblue"}2. {FFFFFF}КАМАЗ\t{"cblue"}(5 уровень и 2000 рублей)\n\
-			{"cblue"}3. {FFFFFF}КАЗ\t\t{"cblue"}(10 уровень и 4500 рублей)", "Арендовать", "Закрыть");
+			{"cblue"}1. {FFFFFF}Фургон\t\t{"cblue"}(0 уровень и 800 рублей)\n\
+			{"cblue"}1. {FFFFFF}ЗИЛ\t\t{"cblue"}(5 уровень и 2000 рублей)\n\
+			{"cblue"}2. {FFFFFF}КАМАЗ\t{"cblue"}(10 уровень и 4500 рублей)", "Арендовать", "Закрыть");
         }
     }
 	if(newkeys == 2)
@@ -99,17 +99,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				        if(PlayerInfo[playerid][pTruckLVL] < 0) return SCM(playerid, red, "Ваш навык дальнобойщика мал!");
 				        if(PlayerInfo[playerid][pCash] < 800) return SCM(playerid, red, "У вас не достаточно денег!");
 				        
-						SCM(playerid, green, "Вы успешно арендовали фуру!");
+						SCM(playerid, green, "Вы успешно арендовали фургон!");
 						SCM(playerid, green, "У вас есть 45 секунд, что б сесть в транспорт!");
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
 						TruckTimer[playerid] = 45;
 						
-						player_job_vehicle_created[playerid] = CreateVehicle(403,1782.5551,2298.8601,16.4054,90.0887,7,0, -1);
-						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
+						player_job_vehicle_created[playerid] = CreateVehicle(609,1782.5551,2298.8601,16.4054,90.0887,7,0, -1);
+						player_job_vehicle_created_2[playerid] = -1;
 						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
-						GiveMoney(playerid, -800, "Аренда фуры");
+						GiveMoney(playerid, -800, "Аренда фургона");
 						SetTimer("Arend_Truck", 45000, false);
 				    }
 				    case 1:
@@ -123,7 +123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						TruckTimer[playerid] = 45;
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
-						player_job_vehicle_created[playerid] = CreateVehicle(514,1782.5551,2298.8601,16.4054,90.0887,79,0, -1);
+						player_job_vehicle_created[playerid] = CreateVehicle(403,1782.5551,2298.8601,16.4054,90.0887,79,0, -1);
 						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
 						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
@@ -141,7 +141,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						TruckTimer[playerid] = 45;
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
-						player_job_vehicle_created[playerid] = CreateVehicle(515,1782.5551,2298.8601,16.4054,90.0887,1,0, -1);
+						player_job_vehicle_created[playerid] = CreateVehicle(514,1782.5551,2298.8601,16.4054,90.0887,1,0, -1);
 						player_job_vehicle_created_2[playerid] = CreateVehicle(450,1793.3622,2298.8503,16.3607,89.6443,1,1, -1);
 						vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 						arend_truck = 1;
@@ -196,13 +196,19 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 		}
 		case CP_TRUCK_GET_GRUZ:
 		{
-		    if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+			if(player_job_vehicle_created_2[playerid] != -1)
+			{
+		    	if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+			}
 		    DisablePlayerRaceCheckpoint(playerid);
 		    TruckGetGruzTimer[playerid] = 10;
 		}
 		case CP_TRUCK_PUT_GRUZ:
 		{
-		    if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+			if(player_job_vehicle_created_2[playerid] != -1)
+			{
+		    	if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+			}
 		    DisablePlayerRaceCheckpoint(playerid);
 		    TruckPutGruzTimer[playerid] = 100;
 		}	
@@ -242,7 +248,14 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		    if(pCheckpoint[playerid] == CP_SIT_IN_TRUCK)
 		    {
 			    TruckTimer[playerid] = 0;
-			    SCM(playerid, green, "Вы сели в фуру, берите прицеп и отправляйтесь на загрузку!");
+				if(player_job_vehicle_created_2[playerid] != -1)
+				{
+			    	SCM(playerid, green, "Вы сели в фуру, берите прицеп и отправляйтесь на загрузку!");
+				}
+				else
+				{
+					SCM(playerid, green, "Вы сели в фуру, отправляйтесь на загрузку!");
+				}
 			    SetPlayerRaceCheckpoint(playerid, 0, 2738.9680,-2271.9436,17.9269, 2738.9680,-2271.9436,17.9269, 5.0);
 			    pCheckpoint[playerid] = CP_TRUCK_GET_GRUZ;
 		    }
@@ -299,7 +312,10 @@ publics PlayerSecondTimer(playerid)
 	}
 	if(TruckGetGruzTimer[playerid] >= 10 && TruckGetGruzTimer[playerid] < 100)
 	{
-		if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+		if(player_job_vehicle_created_2[playerid] != -1)
+		{
+			if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+		}
 		if(!IsPlayerInRangeOfPoint(playerid, 20.0, 2738.9680,-2271.9436,17.9269)) return 1;
 		TruckGetGruzTimer[playerid] += 10;
 		
@@ -316,7 +332,10 @@ publics PlayerSecondTimer(playerid)
 	}
 	if(TruckPutGruzTimer[playerid] > 0)
 	{
-		if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+		if(player_job_vehicle_created_2[playerid] != -1)
+		{
+			if(!IsTrailerAttachedToVehicle(player_job_vehicle_created[playerid])) return GoToPricep(playerid);
+		}
 		if(!IsPlayerInRangeOfPoint(playerid, 15.0, 2973.5332,2214.6572,6.8247)) return 1;
 		TruckPutGruzTimer[playerid] -= 10;
 
@@ -379,7 +398,7 @@ publics EndJobTrucker(playerid)
 }
 publics GoToPricep(playerid)
 {
-	SCM(playerid, red, "Вы приехали без прицепа, поетому отправляйтесь за ним обратно!");
+	SCM(playerid, red, "Вы приехали без прицепа, отправляйтесь за ним обратно!");
 	new Float:x, Float:y, Float:z;
 	GetVehiclePos(player_job_vehicle_created_2[playerid], x, y, z);
 	SetPlayerRaceCheckpoint(playerid, 0, x, y, z, x, y, z, 5.0);

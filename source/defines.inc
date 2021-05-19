@@ -5,10 +5,10 @@
 #define 	sqldb       "unigvacrmp"
 
 //host
-// #define 	sqlhost     "151.80.47.109"
-// #define 	sqluser     "gs47333"
-// #define 	sqlpass     "8m36QM0o1d"
-// #define 	sqldb       "gs47333"
+// #define 	sqlhost     "185.206.212.246"
+// #define 	sqluser     "root"
+// #define 	sqlpass     "Hello123456"
+// #define 	sqldb       "unigva"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
 #define 	gamemode    "UNIGVA - Beta 0.6"
