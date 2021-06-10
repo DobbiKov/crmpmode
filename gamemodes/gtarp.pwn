@@ -221,6 +221,11 @@ new player_job_vehicle_arend[MAX_PLAYERS] = {-1, ...}; // рабочий транспорт арен
 new player_job_vehicle_created[MAX_PLAYERS] = {-1, ...}; // рабочий транспорт созданный
 new player_job_vehicle_created_2[MAX_PLAYERS] = {-1, ...};
 
+new mech_repair_price[MAX_PLAYERS] = -1;
+new mech_fuel_price[MAX_PLAYERS] = -1;
+new mech_fuel_bizid[MAX_PLAYERS] = -1;
+new mech_fuel[MAX_PLAYERS] = 0;
+
 new player_end_job_timer[MAX_PLAYERS];
 
 new pCheckpoint[MAX_PLAYERS];
@@ -614,6 +619,7 @@ enum
 {
 	PROPOSITION_TYPE_NONE,
 	PROPOSITION_TYPE_REPAIR_CAR,
+	PROPOSITION_TYPE_REFILL_CAR,
 	PROPOSITION_TYPE_INVITE,
 	PROPOSITION_TYPE_FINVITE,
 	PROPOSITION_TYPE_FREE,
