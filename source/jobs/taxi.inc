@@ -57,6 +57,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new string[128];
 				format(string, sizeof(string), "Вы будете получать {"cyellow"}%d рублей{"cblue"} за 1 км проезда пассажира!", taxi_price[playerid]);
 				SCM(playerid, blue, string);
+				SendClientMessage(playerid, white, "{"cblue"}/calling {FFFFFF}- принимать вызовы.");
 
 				SetPVarInt(playerid, "taxi_job", 1);
 				player_job_vehicle_arend[playerid] = GetPlayerVehicleID(playerid);
