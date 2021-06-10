@@ -1,5 +1,6 @@
 new mech_repair_price[MAX_PLAYERS] = -1;
 new mech_fuel_price[MAX_PLAYERS] = -1;
+new mech_fuel_bizid[MAX_PLAYERS] = -1;
 new mech_fuel[MAX_PLAYERS] = 0;
 
 
@@ -67,6 +68,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				vehicle[player_job_vehicle_arend[playerid]][veh_label] = CreateDynamic3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, 1.5, 20.0, _, player_job_vehicle_arend[playerid]);
 				vehicle[player_job_vehicle_arend[playerid]][veh_arend] = 1;
 
+			}
+		}
+		case D_JOIN_MECH:
+		{
+			if(!response)
+			{
+				return DeletePVar(playerid, refill_biz_id)
+			}
+			else
+			{
+				new b = GetPVarInt(playerid, "refill_biz_id");
+
+				mech_fuel_price[playerid] = BusinessInfo[b][bPrice]*2;
+				mech_fuel_bizid[playerid] = b;
+
+				SendClientMessage(playerid, blue, "Вы заключили контракт с АЗС!");
+				SendClientMessage(playerid, white, "{"cblue"}/refill {FFFFFF}- заправить игрока.")
 			}
 		}
     }
@@ -214,4 +232,33 @@ CMD:repair(playerid, params[])
 	if(to_player == playerid) return SCM(playerid, red, "Вы не можете отремонтировать себя!");
 	
 	return SendProposition(playerid, to_player, PROPOSITION_TYPE_REPAIR_CAR, mech_repair_price[playerid]);
+}
+
+CMD:join(playerid, params[])
+{
+	if(PlayerInfo[playerid][pJob] != Job_Car) return SCM(playerid, red, "Вы не автомеханик!");
+
+	if(player_job_vehicle_arend[playerid] == -1) return SCM(playerid, red, "Вы не начали рабочий день!");
+	if(GetPlayerVehicleID(playerid) != player_job_vehicle_arend[playerid]) return SCM(playerid, red, "Вы не в своём рабочем транспорте!");
+
+	new b;
+	foreach(new i : Allbusiness) 
+	{
+		if(BusinessInfo[i][bType] == b_type_FILL && IsPlayerInRangeOfPoint(playerid, 3.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ])
+		{
+			b = i;
+			SetPVarInt(playerid, "refill_biz_id", b);
+
+			new fmt_dialog[512];
+			format(fmt_dialog, sizeof(fmt_dialog), "\
+			Название бизнеса:\t%s(# %d)\n\
+			Цена за 1 литр:\t\t%d\n\n\
+			При починке/заправке Вам будет приходить\n\
+			70 процентов от всей суммы сделки\n\n\
+			Вы уверенны, что хотите заключить контракт?", business_params[BusinessInfo[b][bType]][bname], BusinessInfo[b][bFillPrice]);
+
+			return SPD(playerid, D_JOIN_MECH, DIALOG_STYLE_INPUT, "{"cblue"}Контракт", fmt_dialog, "Да", "Нет");
+		}
+	}
+	return 1;
 }

@@ -2863,6 +2863,9 @@ stock ClearAccount(playerid)
 	ClothesShopState[playerid] = 1;
 	IsBuyClothes[playerid] = false;
 	
+	mech_fuel_price[playerid] = -1;
+	mech_fuel_bizid[playerid] = -1;
+	
 
 
 
