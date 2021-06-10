@@ -257,7 +257,7 @@ CMD:yes(playerid)
 					ShotGun:\t%d / 100%%\n\
 					MP5:\t\t%d / 100%%\n\
 					AK-47:\t\t%d / 100%%\n\
-					M4A1:\t\t%d / 100%",
+					M4A1:\t\t%d / 100%%",
 					PlayerInfo[proposition][SKILL_SD_PISTOL],
 					PlayerInfo[proposition][SKILL_DEAGLE],
 					PlayerInfo[proposition][SKILL_SHOTGUN],
