@@ -719,6 +719,7 @@ enum
 #include "../source/player/commands/gps.inc"
 #include "../source/player/commands/skill.inc"
 #include "../source/player/commands/recipes.inc"
+#include "../source/player/commands/myskill.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"
