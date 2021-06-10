@@ -502,6 +502,8 @@ enum e_DIALOG_IDs
 	D_CMD_ABIZ,
 	D_CMD_ASELLBIZ,
 	D_CMD_ASELLHOME,
+	
+	D_JOIN_MECH,
 };
 
 enum PInfo
