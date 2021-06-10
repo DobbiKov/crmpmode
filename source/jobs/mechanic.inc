@@ -1,9 +1,3 @@
-new mech_repair_price[MAX_PLAYERS] = -1;
-new mech_fuel_price[MAX_PLAYERS] = -1;
-new mech_fuel_bizid[MAX_PLAYERS] = -1;
-new mech_fuel[MAX_PLAYERS] = 0;
-
-
 public OnPlayerDisconnect(playerid, reason)
 {
     if(PlayerInfo[playerid][pJob] == Job_Car && player_job_vehicle_arend[playerid] > 0) EndJobMechanic(playerid);
@@ -242,6 +236,35 @@ CMD:repair(playerid, params[])
 	if(to_player == playerid) return SCM(playerid, red, "Вы не можете отремонтировать себя!");
 	
 	return SendProposition(playerid, to_player, PROPOSITION_TYPE_REPAIR_CAR, mech_repair_price[playerid]);
+}
+
+
+CMD:refill(playerid, params[])
+{
+	if(PlayerInfo[playerid][pJob] != Job_Car) return SCM(playerid, red, "Вы не автомеханик!");
+	if(mech_fuel_price[playerid] == -1 || mech_fuel_bizid[playerid] == -1) return SCM(playerid, red, "Вы не заключили контракт с АЗС!");
+	
+	extract params -> new to_player, litrs; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /refill [ID игрока] [кол-во литров]");
+	
+	if(!IsPlayerConnected(to_player)) return SCM(playerid, 0xCECECEFF, "Такого игрока нет");
+	if(!IsPlayerInAnyVehicle(playerid) || !IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "Вы, или игрок не сидите в авто!");
+	if(player_job_vehicle_arend[playerid] == -1) return SCM(playerid, red, "Вы не начали рабочий день!");
+	if(GetPVarInt(playerid, "mechanic_job") != 1) return SCM(playerid, red, "Вы не начали рабочий день!");
+	if(GetPlayerVehicleID(playerid) != player_job_vehicle_arend[playerid]) return SCM(playerid, red, "Вы не в своём рабочем транспорте!");
+	if(!IsPlayerInRangeOfPlayer(playerid, to_player, 15.0)) return SCM(playerid, red, "Игрок находится слишком далеко");
+	if(GetPlayerState(to_player) != PLAYER_STATE_DRIVER) return SCM(playerid, red, "Клиент должен находится за рулем");
+
+	new toPlayerVehId = GetPlayerVehicleID(to_player);
+	if(vehicle[toPlayerVehId][veh_fuel] + litrs > 100.0)
+	{
+		new string[144];
+		format(string, sizeof(string), "В бензобак клиента не поместиться столько бензина. Вы можете заправить его на %d л.", 100 - vehicle[toPlayerVehId][veh_fuel]);
+		return SCM(playerid, white, string);
+	} 
+	if(PlayerInfo[to_player][pCash] < litrs * mech_fuel_price[playerid]) return SCM(playerid, red, "У игрока нет столько денег!");
+	if(to_player == playerid) return SCM(playerid, red, "Вы не можете заправить себя!");
+	
+	return SendProposition(playerid, to_player, PROPOSITION_TYPE_REFILL_CAR, litrs);
 }
 
 CMD:join(playerid, params[])
