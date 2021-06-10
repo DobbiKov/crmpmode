@@ -65,6 +65,16 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 			format(fmt_msg, sizeof fmt_msg, "Вы предложили %s сделать ремонт транспорта за %d руб", PlayerInfo[to_player][pName], value_1);
 			SCM(playerid, 0x3399FFFF, fmt_msg);
 		}
+		case PROPOSITION_TYPE_REFILL_CAR:
+		{
+			format(fmt_msg, sizeof fmt_msg, "%s предлагает вам заправить Ваш транспорт на %d л. за %d руб", PlayerInfo[ incoming_proposition[to_player] ][pName], value_1, value_1 * mech_fuel_price[playerid]);
+			SCM(to_player, 0x3399FFFF, fmt_msg);
+
+			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы согласиться или {FF6600}N {FFFFFF}для отказа");
+
+			format(fmt_msg, sizeof fmt_msg, "Вы предложили %s заправить его транспорт на %d л. за %d руб", PlayerInfo[to_player][pName], value_1, value_1 * mech_fuel_price[playerid]);
+			SCM(playerid, 0x3399FFFF, fmt_msg);
+		}
 		case PROPOSITION_TYPE_INVITE:
 		{
 			format(fmt_msg, sizeof fmt_msg, "%s %s предлагает Вам вступить в \"%s\"", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], GetMember[ PlayerInfo[playerid][pMember] ]);
@@ -278,7 +288,7 @@ CMD:yes(playerid)
 			{
 				new vehicleid = GetPlayerVehicleID(playerid);
 
-				if(!vehicleid || GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SCM(playerid, 0xCECECEFF, "Вы должны находится в транспорте за рулем");
+				if(!vehicleid || GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SCM(playerid, 0xCECECEFF, "Вы должны находится за рулем транспортного средства!");
 
 				if(PlayerInfo[proposition][pJob] != Job_Car || player_job_vehicle_arend[proposition] == -1) return SCM(playerid, 0xCECECEFF, "Авмеханик не в рабочем транспорте");
 				
@@ -299,6 +309,35 @@ CMD:yes(playerid)
 				SCM(playerid, 0x66CC00FF, fmt_msg);
 
 				format(fmt_msg, sizeof fmt_msg, "Вы починили транспорт %s за %d рублей", PlayerInfo[playerid][pName], value_1);
+				SCM(proposition, 0x66CC00FF, fmt_msg);
+			}
+
+			case PROPOSITION_TYPE_REFILL_CAR:
+			{
+				new vehicleid = GetPlayerVehicleID(playerid);
+
+				if(!vehicleid || GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SCM(playerid, 0xCECECEFF, "Вы должны находится за рулем транспортного средства!");
+
+				if(PlayerInfo[proposition][pJob] != Job_Car || player_job_vehicle_arend[proposition] == -1) return SCM(playerid, 0xCECECEFF, "Авмеханик не в рабочем транспорте");
+				
+				new fillPrice = value_1 * mech_fuel_price[playerid];
+
+				if(PlayerInfo[playerid][pCash] < fillPrice)
+					return SCM(playerid, red, "У Вас недостаточно денег");
+				if(!IsPlayerInAnyVehicle(proposition)) return SCM(playerid, red, "Игрок не в транспорте!");
+				if(GetPlayerVehicleID(proposition) != player_job_vehicle_arend[proposition]) return SCM(playerid, red, "Игрок не в транспорте!");
+
+				GiveMoney(playerid, -fillPrice, "Заправка транспорта");
+				GiveMoney(proposition, fillPrice, "Заправка транспорта");
+
+				vehicle[vehicleid][veh_fuel] += value_1;
+				SetPlayerChatBubble(playerid, "Refill", 0x3399FFFF, 10.0, 2000);
+
+				new fmt_msg[65];
+				format(fmt_msg, sizeof fmt_msg, "Автомеханик %s заправил Ваш транспорт на %d л. за %d рублей", PlayerInfo[proposition][pName], value_1, fillPrice);
+				SCM(playerid, 0x66CC00FF, fmt_msg);
+
+				format(fmt_msg, sizeof fmt_msg, "Вы заправили транспорт %s на %d л. за %d рублей", PlayerInfo[playerid][pName], value_1, fillPrice);
 				SCM(proposition, 0x66CC00FF, fmt_msg);
 			}
 			case PROPOSITION_TYPE_INVITE:

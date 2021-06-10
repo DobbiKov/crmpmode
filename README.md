@@ -1,5 +1,11 @@
 # CRMP gamemode Unigva RolePlay
 
+![Issues](https://img.shields.io/github/issues/UNIGVA/crmpmode)
+![Forks](https://img.shields.io/github/forks/UNIGVA/crmpmode)
+![Stars](https://img.shields.io/github/stars/UNIGVA/crmpmode)
+![License](https://img.shields.io/github/license/UNIGVA/crmpmode)
+[![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FUNIGVA%2Fcrmpmode)](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FUNIGVA%2Fcrmpmode)
+
 Developer: [Roman Zapotockiy](https://vk.com/dobbi_crmp) (dobbikov)
 
 ## Stack
