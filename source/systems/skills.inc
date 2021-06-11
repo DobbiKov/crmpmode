@@ -55,7 +55,7 @@ stock OnPlayerAmmoChanged(&playerid, newammo, oldammo){
             case 24: {
                 SkillShoots[playerid][ESS_DEAGLE]++;
                 if(SkillShoots[playerid][ESS_DEAGLE] >= Ammo_DEAGLE){
-                    if(PlayerInfo[playerid][SKILL_DEAGLE])
+                    if(PlayerInfo[playerid][SKILL_DEAGLE] < 100)
                         PlayerInfo[playerid][SKILL_DEAGLE]++;
                     SkillShoots[playerid][ESS_DEAGLE] = 0;
                 }
@@ -63,7 +63,7 @@ stock OnPlayerAmmoChanged(&playerid, newammo, oldammo){
             case 25: {
                 SkillShoots[playerid][ESS_SHOTGUN]++;
                 if(SkillShoots[playerid][ESS_SHOTGUN] >= Ammo_SHOTGUN){
-                    if(PlayerInfo[playerid][SKILL_SHOTGUN])
+                    if(PlayerInfo[playerid][SKILL_SHOTGUN] < 100)
                         PlayerInfo[playerid][SKILL_SHOTGUN]++;
                     SkillShoots[playerid][ESS_SHOTGUN] = 0;
                 }
@@ -71,7 +71,7 @@ stock OnPlayerAmmoChanged(&playerid, newammo, oldammo){
             case 29: {
                 SkillShoots[playerid][ESS_MP5]++;
                 if(SkillShoots[playerid][ESS_MP5] >= Ammo_MP5){
-                    if(PlayerInfo[playerid][SKILL_MP5])
+                    if(PlayerInfo[playerid][SKILL_MP5] < 100)
                         PlayerInfo[playerid][SKILL_MP5]++;
                     SkillShoots[playerid][ESS_MP5] = 0;
                 }
@@ -79,7 +79,7 @@ stock OnPlayerAmmoChanged(&playerid, newammo, oldammo){
             case 30: {
                 SkillShoots[playerid][ESS_AK47]++;
                 if(SkillShoots[playerid][ESS_AK47] >= Ammo_AK47){
-                    if(PlayerInfo[playerid][SKILL_AK_47])
+                    if(PlayerInfo[playerid][SKILL_AK_47] < 100)
                         PlayerInfo[playerid][SKILL_AK_47]++;
                     SkillShoots[playerid][ESS_AK47] = 0;
                 }
@@ -87,7 +87,7 @@ stock OnPlayerAmmoChanged(&playerid, newammo, oldammo){
             case 31: {
                 SkillShoots[playerid][ESS_M4]++;
                 if(SkillShoots[playerid][ESS_M4] >= Ammo_M4A1){
-                    if(PlayerInfo[playerid][SKILL_M4])
+                    if(PlayerInfo[playerid][SKILL_M4] < 100)
                         PlayerInfo[playerid][SKILL_M4]++;
                     SkillShoots[playerid][ESS_M4] = 0;
                 }
