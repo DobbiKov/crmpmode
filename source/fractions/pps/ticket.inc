@@ -48,6 +48,8 @@ CMD:ticket(playerid, params[])
         format(string, sizeof(string), "выписал(-а) штраф %s", PlayerInfo[to_player][pName]);
         cmd::me(playerid, string);
 
+        PlayerInfo[playerid][pFines]++;
+
         static const fmt_msg[] = "Количество штрафов: %d/30 до изьятия водительских прав";
         format(string, sizeof(string), fmt_msg, PlayerInfo[playerid][pFines]);
         SCM(to_player, blue, string);
