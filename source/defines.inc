@@ -12,7 +12,7 @@
 
 //*********** |  | ***********//
 #define 	gamemode    "UNIGVA - Beta 0.6"
-#define     hostname    "[ Unigva RolePlay | ОБТ уже 20.09 ]"
+#define     hostname    "[ Unigva RolePlay | Сервер для Олдов ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "dobbikov.gq"
 #define     name_serv   "Unigva RolePlay"
