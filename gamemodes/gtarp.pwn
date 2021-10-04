@@ -509,6 +509,8 @@ enum e_DIALOG_IDs
 	D_CMD_ASELLHOME,
 	
 	D_JOIN_MECH,
+	
+	D_ADMIN_PANEL,
 };
 
 enum PInfo
@@ -527,7 +529,7 @@ enum PInfo
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
-	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube,
+	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
@@ -740,6 +742,7 @@ enum
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
+#include "../source/admin/commands/1 lvl/apanel.inc"
 #include "../source/admin/commands/1 lvl/weap.inc"
 #include "../source/admin/commands/1 lvl/stat.inc"
 #include "../source/admin/commands/1 lvl/freeze.inc"
@@ -1109,6 +1112,7 @@ publics LoginCallback(playerid, password[])
 	// Административные и Саппортские права
 	PlayerInfo[playerid][pWarnA] = cache_get_field_content_int(0, "pWarnA");
 	PlayerInfo[playerid][bAdmin] = cache_get_field_content_int(0, "bAdmin");
+	PlayerInfo[playerid][bDeveloper] = cache_get_field_content_int(0, "bDeveloper");
 	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube");
  	PlayerInfo[playerid][bJail] = cache_get_field_content_int(0, "bJail");
     PlayerInfo[playerid][bMute] = cache_get_field_content_int(0, "bMute");
@@ -1286,6 +1290,7 @@ stock SaveAccounts(playerid)
 	 	`pWarnF` = '%d',\
 		`pWarnA` = '%d',\
 		`bAdmin` = '%d',\
+		`bDeveloper` = '%d',\
 		`pJob` = '%d',\
 		`pVIP` = '%d',\
 		`pExp` = '%d',\
@@ -1387,6 +1392,7 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pWarnF],
 		PlayerInfo[playerid][pWarnA],
 		PlayerInfo[playerid][bAdmin],
+		PlayerInfo[playerid][bDeveloper],
 		PlayerInfo[playerid][pJob],
 		PlayerInfo[playerid][pVIP],
 		PlayerInfo[playerid][pExp],

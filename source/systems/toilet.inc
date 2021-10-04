@@ -65,6 +65,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             {
                 if(IsPlayerInRangeOfPoint(playerid, 1.0, ToiletInfo[i][tEnterX], ToiletInfo[i][tEnterY], ToiletInfo[i][tEnterZ]))
                 {
+                    if(PlayerInfo[playerid][bDeveloper] == 1)
+                    {
+                        new string[124] = "";
+                        format(string, sizeof(string), "[Developer Mode]: ID туалета - %d", AtmInfo[i][atmID]);
+                        SCM(playerid, green, string);
+                    }
+
                     SetPlayerVirtualWorld(playerid, i);
                     SetPlayerPos(playerid, toilet_params[0][exit_x], toilet_params[0][exit_y], toilet_params[0][exit_z]);
                     FreezePlayer(playerid, 2000);
