@@ -511,6 +511,7 @@ enum e_DIALOG_IDs
 	D_JOIN_MECH,
 	
 	D_ADMIN_PANEL,
+	D_ASK_ADMIN_CHANGE_PASSWORD,
 };
 
 enum PInfo
@@ -851,6 +852,7 @@ enum
 #include "../source/admin/commands/7 lvl/unloadfs.inc"
 #include "../source/admin/commands/7 lvl/cmd.inc"
 #include "../source/admin/commands/7 lvl/resetmoney.inc"
+#include "../source/admin/commands/7 lvl/changepassword.inc"
 #include "../source/admin/commands/7 lvl/setadmin.inc"
 #include "../source/admin/commands/7 lvl/aup.inc"
 #include "../source/admin/commands/7 lvl/adown.inc"

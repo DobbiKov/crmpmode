@@ -238,7 +238,8 @@ stock RegStock(playerid)
 	PlayerInfo[playerid][pNeedWash] = 100;
 	SpID[playerid] = -1;
 
-	mysql_format(connects, string, sizeof(string), "INSERT INTO `accounts`(`pName`, `pLVL`, `pKey`, `pChar`, `pSex`, `pCash`, `pDateReg`, `pRegIP`, `pEmail`, `pMute`, `pJail`) VALUES ('%s','%d',MD5('%s'),'%d','%d','%d','%s','%s','%s', '%d', '%d')", PlayerInfo[playerid][pName], PlayerInfo[playerid][pLVL], PlayerInfo[playerid][pKey], PlayerInfo[playerid][pChar],
+	mysql_format(connects, string, sizeof(string), "INSERT INTO `accounts`(`pName`, `pLVL`, `pKey`, `pChar`, `pSex`, `pCash`, `pDateReg`, `pRegIP`, `pEmail`, `pMute`, `pJail`) VALUES ('%s','%d',MD5('%s'),'%d','%d','%d','%s','%s','%s', '%d', '%d')", 
+	PlayerInfo[playerid][pName], PlayerInfo[playerid][pLVL], PlayerInfo[playerid][pKey], PlayerInfo[playerid][pChar],
 	PlayerInfo[playerid][pSex], PlayerInfo[playerid][pCash], data, ip, PlayerInfo[playerid][pEmail], PlayerInfo[playerid][pMute], PlayerInfo[playerid][pJail]);
 	mysql_tquery(connects, string, "", "");
 
