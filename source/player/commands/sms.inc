@@ -21,6 +21,15 @@ CMD:sms(playerid, params[])
 
                 format(string, sizeof(string), "SMS: %s | Получатель: %s[т. %d]", text, PlayerInfo[i][pName], PlayerInfo[i][pPhoneNumber]);
                 SCM(playerid, yellow, string);
+
+                format(string, sizeof(string), "[SMS]: %s | От %s[%d] для %s[%d]", text, PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
+                foreach(new j : Player)
+                {
+                    if(PlayerInfo[j][pReadsms] == 1)
+                    {
+                        SCM(j, green, string);
+                    }
+                }
                 return 1;
             }
         }

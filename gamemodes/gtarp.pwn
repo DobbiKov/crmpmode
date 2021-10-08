@@ -512,6 +512,10 @@ enum e_DIALOG_IDs
 	
 	D_ADMIN_PANEL,
 	D_ASK_ADMIN_CHANGE_PASSWORD,
+	
+	D_CHOOSE_TIPSTER_TYPE,
+	D_CHOOSE_TIPSTER_FRACTION,
+	D_CHOOSE_TIPSTER_JOB,
 };
 
 enum PInfo
@@ -530,6 +534,7 @@ enum PInfo
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
+	pReadsms, pReadR,
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
@@ -891,7 +896,9 @@ enum
 #include "../source/fractions/chats/find.inc"
 
 // FSB
+#include "../source/fractions/fsb/readsms.inc"
 #include "../source/fractions/fsb/switchskin.inc"
+#include "../source/fractions/fsb/tipster.inc"
 
 // PPS
 #include "../source/fractions/pps/pps.inc"
@@ -2810,6 +2817,11 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pBeer] = 0;
  	PlayerInfo[playerid][pLighter] = 0;
  	PlayerInfo[playerid][pChips] = 0;
+ 	
+ 	PlayerInfo[playerid][pReadsms] = 0;
+    PlayerInfo[playerid][pReadR] = 0;
+ 	
+ 	
  	
   	PlayerInfo[playerid][pFamID] = -1;
  	PlayerInfo[playerid][pFamRang] = 0;
