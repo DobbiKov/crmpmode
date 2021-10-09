@@ -535,7 +535,7 @@ enum PInfo
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
 	pReadsms, pReadR,
-	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper,
+	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
@@ -2543,7 +2543,7 @@ stock SCMA(color, text[])
 {
 	foreach(new i:Player)
 	{
-	    if(PlayerInfo[i][bAdmin] > 0) SCM(i, color, text);
+	    if(PlayerInfo[i][bAdmin] > 0 && PlayerInfo[i][bStreamerMode] != 1) SCM(i, color, text);
 	}
 	return 1;
 }
@@ -2824,6 +2824,7 @@ stock ClearAccount(playerid)
     PlayerInfo[playerid][pJobTipster] = 0;
     PlayerInfo[playerid][pTipster] = 0;
  	
+ 	PlayerInfo[playerid][bStreamerMode] = 0;
  	
  	
   	PlayerInfo[playerid][pFamID] = -1;

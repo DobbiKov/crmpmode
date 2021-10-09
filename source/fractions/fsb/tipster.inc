@@ -90,7 +90,7 @@ stock ShowTipsterDialog(playerid)
             tempString, 
             sizeof(tempString), 
             "{"cblue"}4. {ffffff}Прослушка всех раций {ffffff}[%s{ffffff}]\n", 
-            (PlayerInfo[playerid][pTipster] == -1 ? "{"cgreen"}включен" : "{"cred"}Выключен")
+            (PlayerInfo[playerid][pTipster] == -1 ? "{"cgreen"}включен" : "{"cred"}выключен")
             );
 
         strcat(string, tempString);
@@ -133,3 +133,4 @@ stock ShowTipsterJobsDialog(playerid)
     }
     return ShowPlayerDialog(playerid, D_CHOOSE_TIPSTER_JOB, DIALOG_STYLE_LIST, !"Выбор работы для прослушки", string, !"Далее", !"Отмена");
 }
+

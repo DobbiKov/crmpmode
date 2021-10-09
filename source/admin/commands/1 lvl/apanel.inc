@@ -17,9 +17,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
-                        cmd::tipster(playerid, "");
+                        ChangeStreamerMode(playerid);
                     }
                     case 1:
+                    {
+                        cmd::tipster(playerid, "");
+                    }
+                    case 2:
                     {
                         if(PlayerInfo[playerid][bAdmin] < 7)
                         {
@@ -53,10 +57,14 @@ stock ShowAdminPanel(playerid)
 {
     new string[256] = "";
     new developerMode[24] = "";
+    new streamerMode[24] = "";
     developerMode = (PlayerInfo[playerid][bDeveloper] == 1 ? "{"cgreen"}включен" : "{"cred"}выключен");
+    streamerMode = (PlayerInfo[playerid][bStreamerMode] == 1 ? "{"cgreen"}включен" : "{"cred"}выключен");
     format(string, sizeof(string), 
-        "{"cblue"}1. {FFFFFF}Прослушка\n\
-        {"cblue"}2. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
+        "{"cblue"}1. {FFFFFF}Режим контент-мэйкера {ffffff}[%s{ffffff}]\n\
+        {"cblue"}2. {FFFFFF}Прослушка\n\
+        {"cblue"}3. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
+        streamerMode,
         developerMode);
     return ShowPlayerDialog(playerid, D_ADMIN_PANEL, DIALOG_STYLE_LIST, !"{"cblue"}Админ Панель", string, !"Далее", !"Отмена");
 }
@@ -69,4 +77,19 @@ stock ChangeDeveloperMode(playerid)
     }
     PlayerInfo[playerid][bDeveloper] = PlayerInfo[playerid][bDeveloper] == 1 ? 0 : 1;
     return SaveAccounts(playerid);
+}
+
+stock ChangeStreamerMode(playerid)
+{
+    if(PlayerInfo[playerid][bStreamerMode] == 1)
+    {
+        SCM(playerid, blue, !"Вы отключили режим контент-мэйкера.");
+        PlayerInfo[playerid][bStreamerMode] = 0;
+    }
+    else
+    {
+        SCM(playerid, blue, !"Вы включили режим контент-мэйкера.");
+        PlayerInfo[playerid][bStreamerMode] = 1;
+    }
+    return 1;
 }
