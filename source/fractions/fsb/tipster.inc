@@ -1,5 +1,5 @@
 CMD:tipster(playerid, params[]){
-    if(PlayerInfo[playerid][pMember] != TEAM_FSB && PlayerInfo[playerid][bAdmin] < 2) return YouCannotUseThisFunc(playerid);
+    if(!IsAFSB(playerid) && PlayerInfo[playerid][bAdmin] < 2) return YouCannotUseThisFunc(playerid);
 
     ShowTipsterDialog(playerid);
     return 1;

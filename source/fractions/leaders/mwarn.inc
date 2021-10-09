@@ -1,7 +1,7 @@
 CMD:mwarn(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] == TEAM_NONE) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
+    if(IsAFSB(playerid) && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
     else if(PlayerInfo[playerid][pRang] < 9) return YouCannotUseThisFunc(playerid);
 
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /mwarn [ID игрока] [причина]");

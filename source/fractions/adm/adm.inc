@@ -40,7 +40,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	{
         if(job_car[TEAM_ADM_CAR][0] <= vehicleid <= job_car[TEAM_ADM_CAR][1])
         {
-            if(PlayerInfo[playerid][pMember] != TEAM_ADM && PlayerInfo[playerid][pMember] != TEAM_FSB)
+            if(PlayerInfo[playerid][pMember] != TEAM_ADM && !IsAFSB(playerid))
             {
                 SCM(playerid, red, "У вас нет ключей от этого транспорта!");
                 return ClearAnimations(playerid, true);

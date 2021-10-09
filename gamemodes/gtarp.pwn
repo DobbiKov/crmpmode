@@ -3317,6 +3317,11 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/anim.inc"
     #include "../source/textdraws/buyclothes.inc"
 }
+stock IsAFSB(playerid)
+{
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB) return 1;
+	else return 0;
+}
 stock IsAPolice(playerid)
 {
 	if(PlayerInfo[playerid][pMember] == TEAM_PPS || PlayerInfo[playerid][pMember] == TEAM_FSB) return 1;

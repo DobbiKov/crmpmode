@@ -1,5 +1,5 @@
 CMD:readsms(playerid, params[]){
-    if(PlayerInfo[playerid][pMember] != TEAM_FSB && PlayerInfo[playerid][bAdmin] < 2) return YouCannotUseThisFunc(playerid);
+    if(!IsAFSB(playerid) && PlayerInfo[playerid][bAdmin] < 2) return YouCannotUseThisFunc(playerid);
 
     if(PlayerInfo[playerid][pReadsms] == 0)
     {
