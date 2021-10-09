@@ -1846,7 +1846,9 @@ public OnPlayerText(playerid, text[])
 	else
 	{
 		stringer[0] = EOS;
-		format(stringer, 160, "- %s (%s)", text, PlayerInfo[playerid][pName]);
+		new playerName[MAX_PLAYER_NAME] = "";
+		GetPlayerName(playerid, playerName, MAX_PLAYER_NAME);
+		format(stringer, 160, "- %s (%s)", text, playerName);
 		ProxDetector(30.0, playerid, stringer, 0xFFFFFFFF, 0xFFFFFFFF, 0xF5F5F5FF, 0xE6E6E6FF,0xB8B8B8FF);
 		ApplyAnimation(playerid, "PED", "IDLE_chat", 4.1, 0, 1, 1, 1, 1);
 		SetPlayerChatBubble(playerid, text, white, 30.0, 5000);
