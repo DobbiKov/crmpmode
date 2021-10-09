@@ -15,7 +15,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 switch(listitem)
                 {
-                    case 0:{
+                    case 0:
+                    {
+                        cmd::tipster(playerid, "");
+                    }
+                    case 1:
+                    {
                         if(PlayerInfo[playerid][bAdmin] < 7)
                         {
                             return SCM(playerid, red, !"Вам не доступна данная функция!");
@@ -50,7 +55,8 @@ stock ShowAdminPanel(playerid)
     new developerMode[24] = "";
     developerMode = (PlayerInfo[playerid][bDeveloper] == 1 ? "{"cgreen"}включен" : "{"cred"}выключен");
     format(string, sizeof(string), 
-        "{"cblue"}1. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
+        "{"cblue"}1. {FFFFFF}Прослушка\n\
+        {"cblue"}2. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
         developerMode);
     return ShowPlayerDialog(playerid, D_ADMIN_PANEL, DIALOG_STYLE_LIST, !"{"cblue"}Админ Панель", string, !"Далее", !"Отмена");
 }

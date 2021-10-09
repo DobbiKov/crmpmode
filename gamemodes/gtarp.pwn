@@ -849,6 +849,7 @@ enum
 #include "../source/admin/commands/6 lvl/setmoney.inc"
 #include "../source/admin/commands/6 lvl/asellbiz.inc"
 #include "../source/admin/commands/6 lvl/asellhome.inc"
+#include "../source/admin/commands/6 lvl/settempnick.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
@@ -1687,6 +1688,12 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SCMA(grey, string);
 	}
 	
+	if(PlayerInfo[playerid][pHOSPITAL] == 1)
+    {
+        PlayerInfo[playerid][pHOSPITAL] = 0;
+        KillTimer(hospital_timer[playerid]);
+    }
+	
     if(killerid == INVALID_PLAYER_ID)
     {
 		SCM(playerid, red, "Вы совершили самоубийство! Зачем?");
@@ -1697,11 +1704,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 		
 		format(string, sizeof(string), "[K] игрок %s[%d] совершил самоубийство", PlayerInfo[playerid][pName], playerid);
 		SCMA(grey, string);
-    }
-    if(PlayerInfo[playerid][pHOSPITAL] == 1)
-    {
-        PlayerInfo[playerid][pHOSPITAL] = 0;
-        KillTimer(hospital_timer[playerid]);
     }
     if(killerid != INVALID_PLAYER_ID)
     {
@@ -2819,7 +2821,8 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pChips] = 0;
  	
  	PlayerInfo[playerid][pReadsms] = 0;
-    PlayerInfo[playerid][pReadR] = 0;
+    PlayerInfo[playerid][pJobTipster] = 0;
+    PlayerInfo[playerid][pTipster] = 0;
  	
  	
  	

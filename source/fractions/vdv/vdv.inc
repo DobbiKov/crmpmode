@@ -106,13 +106,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 {
                     case false:
                     {
-                        SCM(playerid, green, "Вы открыли шлакбаум!");
+                        SCM(playerid, green, "Вы открыли шлагбаум!");
                         MoveObject(shlak_vdv, 1653.388427, 1686.505615, 15.026650, 30.0, 0.000000, 0.000000, 90.000000); //Открытый шлагбаум
                         shlak_vdv_status = true;
                     }
                     case true:
                     {
-                        SCM(playerid, red, "Вы закрыли шлакбаум!");
+                        SCM(playerid, red, "Вы закрыли шлагбаум!");
                         MoveObject(shlak_vdv, 1653.39, 1686.51, 15.03, 30.0, 0.00, -90.00, 90.00); //Открытый шлагбаум
                         shlak_vdv_status = false;
                     }

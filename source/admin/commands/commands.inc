@@ -16,7 +16,7 @@ new Command1LVL[14][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[27][] = 
+new Command2LVL[28][] = 
 {
     {"{"cblue"}/tp {ffffff}- Телепорт\n"},
     {"{"cblue"}/goto {ffffff}- Телепорт к игроку\n"},
@@ -34,6 +34,7 @@ new Command2LVL[27][] =
     {"{"cblue"}/getskin {ffffff}- Взять себе временный скин\n"},
     {"{"cblue"}/resetgun {ffffff}- Забрать оружие у игрока\n"},
     {"{"cblue"}/getbizid {ffffff}- Узнать ID бизнесса\n"},
+    {"{"cblue"}/tipster {ffffff}- Прослушка раций\n"},
     {"\n"},
     {"{"cblue"}Быстрые наказания:\n"},
     {"{"cblue"}/mg {ffffff}- Выдать мут за MG\n"},

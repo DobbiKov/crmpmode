@@ -26,6 +26,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         PlayerInfo[playerid][pTipster] = 0;
                         PlayerInfo[playerid][pJobTipster] = 0;
                     }
+                    case 3:{
+                        if(PlayerInfo[playerid][pTipster] == -1)
+                        {
+                            PlayerInfo[playerid][pTipster] = 0;
+                        }
+                        else
+                        {
+                            PlayerInfo[playerid][pTipster] = -1;
+                        }
+                    }
                 }
             }
         }
@@ -69,15 +79,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 stock ShowTipsterDialog(playerid)
 {
+    new string[512] = 
+        !"{"cblue"}1. {ffffff}Прослушка организаций\n\
+        {"cblue"}2. {ffffff}Прослушка рабочих\n\
+        {"cblue"}3. {ffffff}Прекратить прослушку\n";
+    if(PlayerInfo[playerid][bAdmin] > 2)
+    {
+        new tempString[128] = "";
+        format(
+            tempString, 
+            sizeof(tempString), 
+            "{"cblue"}4. {ffffff}Прослушка всех раций {ffffff}[%s{ffffff}]\n", 
+            (PlayerInfo[playerid][pTipster] == -1 ? "{"cgreen"}включен" : "{"cred"}Выключен")
+            );
+
+        strcat(string, tempString);
+    }
+
     ShowPlayerDialog
     (
         playerid, 
         D_CHOOSE_TIPSTER_TYPE, 
         DIALOG_STYLE_LIST, 
         !"Выбор типа прослушки", 
-        !"{"cblue"}1{ffffff}. Прослушка организаций\n\
-        {"cblue"}2{ffffff}. Прослушка рабочих\n\
-        {"cblue"}3{ffffff}. Прекратить прослушку", 
+        string, 
         !"Далее",
         !"Отмена"
     );
@@ -87,10 +112,11 @@ stock ShowTipsterDialog(playerid)
 stock ShowTipsterFractionsDialog(playerid)
 {
     new string[512] = "";
+    
     for(new i = 1; i < sizeof(GetMember); i++)
     {
         new tempString[128] = "";
-        format(tempString, sizeof(tempString), "{"cblue"}%d{ffffff}. %s\n", i, GetMember[i]);
+        format(tempString, sizeof(tempString), "{"cblue"}%d. {ffffff}%s\n", i, GetMember[i]);
         strcat(string, tempString);
     }
     return ShowPlayerDialog(playerid, D_CHOOSE_TIPSTER_FRACTION, DIALOG_STYLE_LIST, !"Выбор организации для прослушки", string, !"Далее", !"Отмена");
@@ -102,7 +128,7 @@ stock ShowTipsterJobsDialog(playerid)
     for(new i = 1; i < sizeof(jobs_name); i++)
     {
         new tempString[128] = "";
-        format(tempString, sizeof(tempString), "{"cblue"}%d{ffffff}. %s\n", i, jobs_name[i]);
+        format(tempString, sizeof(tempString), "{"cblue"}%d. {ffffff}%s\n", i, jobs_name[i]);
         strcat(string, tempString);
     }
     return ShowPlayerDialog(playerid, D_CHOOSE_TIPSTER_JOB, DIALOG_STYLE_LIST, !"Выбор работы для прослушки", string, !"Далее", !"Отмена");

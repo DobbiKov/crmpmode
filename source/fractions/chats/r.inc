@@ -68,18 +68,44 @@ stock SCMR(fraction, color, text[])
     {
         if(PlayerInfo[i][pMember] > 0) 
         {
-            if(PlayerInfo[i][pMember] == fraction || PlayerInfo[i][pTipster] == fraction)
+            if(PlayerInfo[i][pMember] == fraction)
             {
                 SCM(i, color, text);
             }
         }
         else if(PlayerInfo[i][pJob] > 0)
         {
-            if(PlayerInfo[i][pJob] == fraction || PlayerInfo[i][pJobTipster] == fraction)
+            if(PlayerInfo[i][pJob] == fraction)
             {
                 SCM(i, color, text);
-            }   
+            } 
         }
+
+        if(PlayerInfo[i][pMember] == TEAM_FSB || PlayerInfo[i][bAdmin] >= 2)
+        {
+            if(PlayerInfo[i][pTipster] == -1)
+            {
+                new string[256];
+                format(string, sizeof(string), "[%s]: %s", GetMember[fraction], text);
+                return SCM(i, color, string);
+            }
+            
+            if(PlayerInfo[i][pJobTipster] == fraction)  
+            {
+                new string[256];
+                format(string, sizeof(string), "[%s]: %s", jobs_name[fraction], text);
+                SCM(i, color, string);
+            }
+
+            if(PlayerInfo[i][pTipster] == fraction)
+            {
+                new string[256];
+                format(string, sizeof(string), "[%s]: %s", GetMember[fraction], text);
+                SCM(i, color, string);
+            } 
+        }
+
+        
     }
     return 1;
 }
