@@ -15,6 +15,6 @@ CMD:unmwarn(playerid, params[])
     SCM(playerid, blue, string);
 
     format(string, sizeof(string), "%s %s снял у вас 1 выговор [%d|3].", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF]);
-    SCM(playerid, blue, string);
+    SCM(to_player, blue, string);
     return 1;
 }

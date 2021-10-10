@@ -31,6 +31,37 @@ CMD:rb(playerid, params[])
     return 1;
 }
 
+CMD:rfsb(playerid, params[])
+{
+    if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+
+    extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rfsb [Текст]");
+
+    new string[144];
+    format(string, sizeof(string), "[R] Внедр. сотрудник %s[%d]: %s", PlayerInfo[playerid][pName], playerid, text);
+    SCMR(TEAM_FSB, green, string);
+
+    format(string, sizeof(string), "передал в рацию: \"%s\"", text);
+    cmd::me(playerid, string);
+    return 1;
+}
+
+CMD:rbfsb(playerid, params[])
+{
+    if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+
+    extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rbfsb [Текст]");
+
+    new string[144];
+    format(string, sizeof(string), "(( OOC: [R] Внедр. сотрудник %s[%d]: %s ))", PlayerInfo[playerid][pName], playerid, text);
+
+    SCMR(TEAM_FSB, green, string);
+    
+    return 1;
+}
+
 CMD:d(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] < 1 || PlayerInfo[playerid][pRang] < 2) return YouCannotUseThisFunc(playerid);
@@ -80,8 +111,11 @@ stock SCMR(fraction, color, text[])
                 SCM(i, color, text);
             } 
         }
-
-        if(PlayerInfo[i][pMember] == TEAM_FSB || PlayerInfo[i][bAdmin] >= 2)
+        if(IsAFSB(i) && fraction == TEAM_FSB)
+        {
+            SCM(i, color, text);
+        }
+        else if(IsAFSB(i) || PlayerInfo[i][bAdmin] >= 2)
         {
             if(PlayerInfo[i][pTipster] == -1)
             {
