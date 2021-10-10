@@ -3,7 +3,7 @@ enum E_CMDS_ORG_STRUCT
 	ORG_INFO[1048]
 };
 
-new help_cmds_org_list[8][E_CMDS_ORG_STRUCT] =
+new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 {
 	{
 		"{ffffff}Команды организации: {ffcc00}Администрация области{ffffff}\n\n"\
@@ -25,6 +25,27 @@ new help_cmds_org_list[8][E_CMDS_ORG_STRUCT] =
 		"/m [текст] - сказать в мегафон\n"\
 		"/ticket [id игрока] [штраф] [причина] - выписать штраф игроку\n"\
 		"/calling - список входящих вызовов"
+	},
+	{
+		"\n{ffffff}Команды организации: {ffcc00}Федеральная Служба Безопасности (ФСБ){ffffff}\n\n"\
+		"/open - открыть ворота\n"\
+		"/tazer [id игрока] - ударить игрока электрошокером\n"\
+		"/su [id игрока] [причина] - объявить игрока в розыск\n"\
+		"/clear [id игрока] - снять с игрока розыск\n"\
+		"/arrest [id игрока] - посадить игрока в КПЗ\n"\
+		"/incar [id игрока] - затащить игрока в машину\n"\
+		"/cuff [id игрока] - надеть наручники на игрока\n"\
+		"/uncuff [id игрока] - снять наручники с игрока\n"\
+		"/stopcar - поднять/опустить жезл\n"\
+		"/deject [id игрока] - насильно вытащить игрока из авто\n"\
+		"/m [текст] - сказать в мегафон\n"\
+		"/ticket [id игрока] [штраф] [причина] - выписать штраф игроку\n"\
+		"/calling - список входящих вызовов\n"\
+		"\n"\
+		"/infiltrate [ранг] - Внедриться в организацию\n"\
+		"/readsms - Прослушка сообщений\n"\
+		"/switchskin [ID скина] - Сменить одежду\n"\
+		"/tipster - Прослушка организаций\n"
 	},
 	{
 		"\n{ffffff}Команды организации: {ffcc00}Скорая Медицинская Помощь (СМП){ffffff}\n\n"\
@@ -115,7 +136,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				switch(listitem)
 				{
 					case 0: stats_player(playerid, playerid);
-					case 1: SPD(playerid, 11, DIALOG_STYLE_LIST, "{"cblue"}Команды сервер", "{"cblue"}1. {FFFFFF}Команды организаций\n{"cblue"}2. {FFFFFF}Команды работ\n{"cblue"}3. {FFFFFF}Команды недвижимости\n{"cblue"}4. {FFFFFF}Команды общения\n{"cblue"}5. {FFFFFF}Команды остальные", "Далее", "Отмена");
+					case 1: SPD(playerid, 11, DIALOG_STYLE_LIST, "{"cblue"}Команды сервера", "{"cblue"}1. {FFFFFF}Команды организаций\n{"cblue"}2. {FFFFFF}Команды работ\n{"cblue"}3. {FFFFFF}Команды недвижимости\n{"cblue"}4. {FFFFFF}Команды общения\n{"cblue"}5. {FFFFFF}Команды остальные", "Далее", "Отмена");
 					case 2: SPD(playerid, 13, DIALOG_STYLE_LIST, "{"cblue"}Безопасность аккаунта", "{"cblue"}1. {FFFFFF}Смена пароля", "Далее", "Назад");
 					case 3: SPD(playerid, D_MENU_ASK_REP, DIALOG_STYLE_LIST, !"{"cblue"}Вопросы / жалобы на игроков", !"{"cblue"}1. {FFFFFF}Задать вопрос\n{"cblue"}2. {FFFFFF}Жалоба на игрока", !"Далее", !"Назад");
 					case 4: SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
@@ -232,12 +253,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							!"\
 							{"cblue"}1. {ffffff}Администрация посёлка\n\
 							{"cblue"}2. {ffffff}Патрульно-постовая служба (ППС)\n\
-							{"cblue"}3. {ffffff}Скорая медицинская помощь (СМП)\n\
-							{"cblue"}4. {ffffff}Воздушно-десантные войска (ВДВ)\n\
-							{"cblue"}5. {ffffff}Средства массовой информации (СМИ)\n\
-							{"cblue"}6. {ffffff}Организованные преступные группировки (ОПГ)\n\
-							{"cblue"}7. {ffffff}Общие команды организаций\n\
-							{"cblue"}8. {ffffff}Команды лидеров/заместителей организаций\
+							{"cblue"}3. {ffffff}Федеральная служба безопасности (ФСБ)\n\
+							{"cblue"}4. {ffffff}Скорая медицинская помощь (СМП)\n\
+							{"cblue"}5. {ffffff}Воздушно-десантные войска (ВДВ)\n\
+							{"cblue"}6. {ffffff}Средства массовой информации (СМИ)\n\
+							{"cblue"}7. {ffffff}Организованные преступные группировки (ОПГ)\n\
+							{"cblue"}8. {ffffff}Общие команды организаций\n\
+							{"cblue"}9. {ffffff}Команды лидеров/заместителей организаций\
 							",
 							!"Далее", !"Отмена"
 						);
@@ -352,12 +374,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					!"\
 					{"cblue"}1. {ffffff}Администрация посёлка\n\
 					{"cblue"}2. {ffffff}Патрульно-постовая служба (ППС)\n\
-					{"cblue"}3. {ffffff}Скорая медицинская помощь (СМП)\n\
-					{"cblue"}4. {ffffff}Воздушно-десантные войска (ВДВ)\n\
-					{"cblue"}5. {ffffff}Средства массовой информации (СМИ)\n\
-					{"cblue"}6. {ffffff}Организованные преступные группировки (ОПГ)\n\
-					{"cblue"}7. {ffffff}Общие команды организаций\n\
-					{"cblue"}8. {ffffff}Команды лидеров/заместителей организаций\
+					{"cblue"}3. {ffffff}Федеральная служба безопасности (ФСБ)\n\
+					{"cblue"}4. {ffffff}Скорая медицинская помощь (СМП)\n\
+					{"cblue"}5. {ffffff}Воздушно-десантные войска (ВДВ)\n\
+					{"cblue"}6. {ffffff}Средства массовой информации (СМИ)\n\
+					{"cblue"}7. {ffffff}Организованные преступные группировки (ОПГ)\n\
+					{"cblue"}8. {ffffff}Общие команды организаций\n\
+					{"cblue"}9. {ffffff}Команды лидеров/заместителей организаций\
 					",
 					!"Далее", !"Отмена"
 				);				
