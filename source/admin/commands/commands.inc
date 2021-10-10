@@ -16,7 +16,7 @@ new Command1LVL[14][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[27][] = 
+new Command2LVL[28][] = 
 {
     {"{"cblue"}/tp {ffffff}- Телепорт\n"},
     {"{"cblue"}/goto {ffffff}- Телепорт к игроку\n"},
@@ -34,6 +34,7 @@ new Command2LVL[27][] =
     {"{"cblue"}/getskin {ffffff}- Взять себе временный скин\n"},
     {"{"cblue"}/resetgun {ffffff}- Забрать оружие у игрока\n"},
     {"{"cblue"}/getbizid {ffffff}- Узнать ID бизнесса\n"},
+    {"{"cblue"}/tipster {ffffff}- Прослушка раций\n"},
     {"\n"},
     {"{"cblue"}Быстрые наказания:\n"},
     {"{"cblue"}/mg {ffffff}- Выдать мут за MG\n"},
@@ -111,7 +112,7 @@ new Command5LVL[9][] =
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
-new Command6LVL[16][] = 
+new Command6LVL[17][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
     {"{"cblue"}/givemoney {ffffff}- Выдать игроку денег\n"},
@@ -125,13 +126,14 @@ new Command6LVL[16][] =
     {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/setcarnumber {ffffff}- Установить номера на автомобиль игрока\n"},
     {"{"cblue"}/setownablecar {ffffff}- Установить игроку личное авто\n"},
+    {"{"cblue"}/settempnick {ffffff}- Установить игроку временный ник\n"},
     {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"},
     {"{"cblue"}/setmoney {ffffff}- Установить определенное количество денег игроку\n"},
     {"{"cblue"}/asellbiz {ffffff}- Продать бизнесс другого игрока.\n"},
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
-new Command7LVL[15][] = 
+new Command7LVL[16][] = 
 {
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
@@ -147,5 +149,6 @@ new Command7LVL[15][] =
     {"{"cblue"}/sethousecarpos {ffffff}- Установить дому место спавна авто\n"},
     {"{"cblue"}/addpod {ffffff}- Создать подъезд\n"},
     {"{"cblue"}/setpodcarpos {ffffff}- Установить подъезду место спавна авто\n"},
-    {"{"cblue"}/addtoilet {ffffff}- Создать туалет\n"}
+    {"{"cblue"}/addtoilet {ffffff}- Создать туалет\n"},
+    {"{"cblue"}/changepassword {ffffff}- Сменить пароль игроку\n"}
 };

@@ -592,7 +592,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
                         PlayerInfo[playerid][pNeedEat] += 10;
                         PlayerInfo[playerid][pNeedDrink] -= 2;
-                        GiveMoney(playerid, -100, "Покупка макарон с катлетами в столовой");
+                        GiveMoney(playerid, -100, "Покупка макарон с котлетами в столовой");
                         GiveBusinessMoney(b, 100, playerid);
                         SCM(playerid, green, "Вы съели макароны с катлетой, тем самым уталили голод.");
                         ClearAnimations(playerid);
@@ -958,7 +958,7 @@ stock ShowPlayerBusinessMenu(playerid, i)
 				"{"cblue"}Столовая",
 				"\
                 {"cblue"}1. {ffffff}Куриный суп\t\t\t{"cblue"}200 рублей\n\
-				{"cblue"}2. {ffffff}Макароны с катлетами\t{"cblue"}100 рублей\n\
+				{"cblue"}2. {ffffff}Макароны с котлетами\t{"cblue"}100 рублей\n\
 				{"cblue"}3. {ffffff}Стакан компота\t\t{"cblue"}50 рублей",
 				"Выбрать", "Отмена"
 			);

@@ -129,11 +129,17 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     {
         if(job_car[TAXI_CAR][0] <= vehicleid <= job_car[TAXI_CAR][1])
         {
-            if(PlayerInfo[playerid][pJob] != Job_Taxi)
-            {
-                RemovePlayerFromVehicle(playerid);
-                return SCM(playerid, red, "Вы не таксист!");
-            }
+			
+            
+			if(PlayerInfo[playerid][pJob] != Job_Car)
+			{
+				new Float:x, Float:y, Float:z;
+				GetPlayerPos(playerid, x, y, z);
+				SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+				RemovePlayerFromVehicle(playerid);
+				if(AntiCheatInfo[TP_in_VEH_AC][acStatus] == 0) return ResultMessageCheat(playerid, 9);
+				else return ResultCheat(playerid, 9);
+			}
 
             if(vehicle[vehicleid][veh_arend] != 0 && vehicleid != player_job_vehicle_arend[playerid])
             {
