@@ -155,6 +155,18 @@ new Text3D: PortNarkoText;
 new stock lic_names[4][] = {"", "Бизнесс", "Полёты", "Оружие"};
 new stock lic_price[4] = {0, 100000, 80000, 50000};
 
+
+new fsb_door;
+new bool: fsb_door_status = false;
+
+new fsb_vorota_1;
+new bool: fsb_vorota_1_status = false;
+
+new fsb_vorota_2;
+new bool: fsb_vorota_2_status = false;
+
+
+
 new post_dps_1;
 new bool: post_dps_1_status = false;
 
@@ -516,6 +528,9 @@ enum e_DIALOG_IDs
 	D_CHOOSE_TIPSTER_TYPE,
 	D_CHOOSE_TIPSTER_FRACTION,
 	D_CHOOSE_TIPSTER_JOB,
+	D_FSB_INFILTRATE,
+	D_SET_FSB_NUMBERS,
+	D_GUN_FSB,
 };
 
 enum PInfo
@@ -533,7 +548,7 @@ enum PInfo
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
-	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
+	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, // Система фракций
 	pReadsms, pReadR,
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
@@ -576,7 +591,7 @@ new stock FractionInfo[9][fInfo] =
 	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
-	{"ФСБ",  								0x00000000,	0.0,0.0,0.0,0.0,			0,	0}
+	{"ФСБ",  								0x00000000,	2408.6252,-1802.5015,32.5537,	213.1126,			0,	0}
 };
 
 
@@ -643,6 +658,8 @@ enum
 };
 
 // -------------- [ INCLUDES ] ------------------------------
+//---------- [ FUNCS ] -------------------
+#include "../source/server/funcs.inc"
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
@@ -897,9 +914,7 @@ enum
 #include "../source/fractions/chats/find.inc"
 
 // FSB
-#include "../source/fractions/fsb/readsms.inc"
-#include "../source/fractions/fsb/switchskin.inc"
-#include "../source/fractions/fsb/tipster.inc"
+#include "../source/fractions/fsb/fsb.inc"
 
 // PPS
 #include "../source/fractions/pps/pps.inc"
@@ -1077,6 +1092,7 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][pWANTED] = cache_get_field_content_int(0, "pWANTED");
     PlayerInfo[playerid][pJP] = cache_get_field_content_int(0, "pJP");
     PlayerInfo[playerid][pHOSPITAL] = cache_get_field_content_int(0, "pHOSPITAL");
+    PlayerInfo[playerid][pIsFSB] = cache_get_field_content_int(0, "pIsFSB");
     
     PlayerInfo[playerid][pFamID] = cache_get_field_content_int(0, "pFamID");
     PlayerInfo[playerid][pFamRang] = cache_get_field_content_int(0, "pFamRang");
@@ -1381,6 +1397,7 @@ stock SaveAccounts(playerid)
 		`pFamID` = '%d',\
 		`pFamRang` = '%d',\
 		`pTelegramId` = '%d',\
+		`pIsFSB` = '%d',\
 		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
@@ -1476,6 +1493,7 @@ stock SaveAccounts(playerid)
 	  	PlayerInfo[playerid][pFamID],
 	 	PlayerInfo[playerid][pFamRang],
 	 	PlayerInfo[playerid][pTelegramId],
+	 	PlayerInfo[playerid][pIsFSB],
 	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
@@ -2260,6 +2278,14 @@ public OnPlayerUpdate(playerid)
 	    ResetPlayerMoney(playerid);
 	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
 	}
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB)
+	{
+        PlayerInfo[playerid][pIsFSB] = 1;
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+	}
 	return 1;
 }
 
@@ -2824,6 +2850,7 @@ stock ClearAccount(playerid)
  	
  	PlayerInfo[playerid][pReadsms] = 0;
     PlayerInfo[playerid][pJobTipster] = 0;
+	PlayerInfo[playerid][pIsFSB] = 0;
     PlayerInfo[playerid][pTipster] = 0;
  	
  	PlayerInfo[playerid][bStreamerMode] = 0;
@@ -3321,12 +3348,12 @@ stock LoadPlayerTextDraws(playerid)
 }
 stock IsAFSB(playerid)
 {
-	if(PlayerInfo[playerid][pMember] == TEAM_FSB) return 1;
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB || PlayerInfo[playerid][pIsFSB] == 1) return 1;
 	else return 0;
 }
 stock IsAPolice(playerid)
 {
-	if(PlayerInfo[playerid][pMember] == TEAM_PPS || PlayerInfo[playerid][pMember] == TEAM_FSB) return 1;
+	if(PlayerInfo[playerid][pMember] == TEAM_PPS || IsAFSB(playerid)) return 1;
 	else return 0;
 }
 stock IsAOpg(playerid)

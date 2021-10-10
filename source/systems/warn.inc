@@ -177,7 +177,7 @@ CMD:warn(playerid, params[])
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))
  		{
- 		    if(PlayerInfo[i][bAdmin] > PlayerInfo[playerid][bAdmin])
+ 		    if(PlayerInfo[i][bAdmin] >= PlayerInfo[playerid][bAdmin])
  		    {
  		        format(string, sizeof(string), "[A]: %s[%d] попытался заварнить %s[%d].");
  		        SCMA(red, string);
@@ -198,14 +198,10 @@ CMD:warn(playerid, params[])
 
 		    format(string, sizeof(string), "Администратор %s выдал предупреждение игроку %s [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], PlayerInfo[i][pWarn], reason);
 		    SCMTA(red, string);
+			UnInvite(i);
 
 			if(PlayerInfo[i][pWarn] == 3)
 			{
-				PlayerInfo[i][pFSkin] = -1;
-				PlayerInfo[i][pMember] = 0;
-				PlayerInfo[i][pRang] = 0;
-				PlayerInfo[i][pWarnF] = 0;
-
 			    new unbandate;
 
 	 		    unbandate = gettime() + 10*86400; // Бан на дни. Записываем нынешнюю дату + число умноженное на 86400 = дни бана.

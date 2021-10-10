@@ -1,0 +1,1 @@
+#include "../source/server/funcs/uninvite.inc"
