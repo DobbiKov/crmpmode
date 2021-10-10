@@ -4,5 +4,7 @@ CMD:switchskin(playerid, params[]){
     if(skin_id < 1 || skin_id > 299) return SCM(playerid, red, "Используйте число от 0 до 299.");
     cmd::me(playerid, "переоделся");
     SCM(playerid, blue, "Вы переоделись. Не забудьте потом переодется обратно в форму.");
+    PlayerInfo[playerid][pFSkin] = skin_id;
+    SaveAccounts(playerid);
     return SetPlayerSkin(playerid, skin_id);
 }
