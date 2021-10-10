@@ -36,6 +36,18 @@
 
 	RemoveBuildingForPlayer(playerid, 1937, 2397.6599, -1836.6200, 22.9900, 0.25);
 
+	RemoveBuildingForPlayer(playerid, 1302, 2389.0100, -1839.2800, 20.8500, 0.25);
+	RemoveBuildingForPlayer(playerid, 1209, 2388.8601, -1836.5000, 20.8500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10009, 2388.8701, -1833.7100, 20.8500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10010, 2388.7000, -1830.9399, 21.9500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10011, 2388.7200, -1828.1400, 21.9500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10012, 2388.9600, -1826.0699, 21.2500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10013, 2388.9299, -1823.3300, 21.2500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10016, 2388.0100, -1842.9000, 20.8400, 0.25);
+	RemoveBuildingForPlayer(playerid, 10017, 2387.6299, -1821.1100, 20.8500, 0.25);
+	RemoveBuildingForPlayer(playerid, 10018, 2388.0901, -1848.5900, 20.8000, 0.25);
+	RemoveBuildingForPlayer(playerid, 10019, 2388.7600, -1854.5900, 20.8700, 0.25);
+
 
 	// ------ [ ¡”Õ ≈– ] -----
 	RemoveBuildingForPlayer(playerid, 3258, -2739.3701, 1958.1300, 24.7445, 0.25);
