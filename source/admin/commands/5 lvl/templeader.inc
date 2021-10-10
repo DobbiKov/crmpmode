@@ -26,12 +26,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     format(string, sizeof(string), "[A] %s[%d] снял с себя временную лидерку %s", PlayerInfo[playerid][pName], playerid, GetMember[ PlayerInfo[playerid][pMember] ]);
                     SCMA(grey, string);
-                    PlayerInfo[playerid][pMember] = 0;
-                    PlayerInfo[playerid][pWarnF] = 0;
-                    PlayerInfo[playerid][pRang] = 0;
-                    PlayerInfo[playerid][pFSkin] = -1;
-                    SetPlayerSkin(playerid, PlayerInfo[playerid][pChar]);
-                    return SaveAccounts(playerid);                    
+                    return UnInvite(playerid);                   
                 }
 
                 PlayerInfo[playerid][pMember] = listitem;
