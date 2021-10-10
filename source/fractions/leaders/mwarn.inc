@@ -1,7 +1,7 @@
 CMD:mwarn(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] == TEAM_NONE) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
+    if(IsAFSB(playerid) && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
     else if(PlayerInfo[playerid][pRang] < 9) return YouCannotUseThisFunc(playerid);
 
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /mwarn [ID игрока] [причина]");
@@ -16,7 +16,7 @@ CMD:mwarn(playerid, params[])
     SCM(playerid, blue, string);
 
     format(string, sizeof(string), "%s %s сделал вам выговор [%d|3]. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF], reason);
-    SCM(playerid, blue, string);
+    SCM(to_player, blue, string);
 
     format(string, sizeof(string), "%d", to_player);
 
@@ -26,13 +26,9 @@ CMD:mwarn(playerid, params[])
         SCM(playerid, blue, string);
 
         format(string, sizeof(string), "Вы были уволены из организации \"%s\". Причина: 3 выговора", GetMember[ PlayerInfo[to_player][pMember] ]);
-        SCM(playerid, blue, string);
+        SCM(to_player, blue, string);
 
-        PlayerInfo[to_player][pMember] = 0;
-        PlayerInfo[to_player][pWarnF] = 0;
-        PlayerInfo[to_player][pRang] = 0;
-        PlayerInfo[to_player][pFSkin] = -1;
-        SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
+        UnInvite(to_player);
     }
     SaveAccounts(to_player);
     return 1;

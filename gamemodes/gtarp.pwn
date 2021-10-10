@@ -155,6 +155,18 @@ new Text3D: PortNarkoText;
 new stock lic_names[4][] = {"", "Бизнесс", "Полёты", "Оружие"};
 new stock lic_price[4] = {0, 100000, 80000, 50000};
 
+
+new fsb_door;
+new bool: fsb_door_status = false;
+
+new fsb_vorota_1;
+new bool: fsb_vorota_1_status = false;
+
+new fsb_vorota_2;
+new bool: fsb_vorota_2_status = false;
+
+
+
 new post_dps_1;
 new bool: post_dps_1_status = false;
 
@@ -509,6 +521,16 @@ enum e_DIALOG_IDs
 	D_CMD_ASELLHOME,
 	
 	D_JOIN_MECH,
+	
+	D_ADMIN_PANEL,
+	D_ASK_ADMIN_CHANGE_PASSWORD,
+	
+	D_CHOOSE_TIPSTER_TYPE,
+	D_CHOOSE_TIPSTER_FRACTION,
+	D_CHOOSE_TIPSTER_JOB,
+	D_FSB_INFILTRATE,
+	D_SET_FSB_NUMBERS,
+	D_GUN_FSB,
 };
 
 enum PInfo
@@ -526,8 +548,9 @@ enum PInfo
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
-	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, // Система фракций
-	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube,
+	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, // Система фракций
+	pReadsms, pReadR,
+	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
@@ -568,7 +591,7 @@ new stock FractionInfo[9][fInfo] =
 	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
-	{"ФСБ",  								0x00000000,	0.0,0.0,0.0,0.0,			0,	0}
+	{"ФСБ",  								0x00000000,	2408.6252,-1802.5015,32.5537,	213.1126,			0,	0}
 };
 
 
@@ -635,6 +658,8 @@ enum
 };
 
 // -------------- [ INCLUDES ] ------------------------------
+//---------- [ FUNCS ] -------------------
+#include "../source/server/funcs.inc"
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
@@ -740,6 +765,7 @@ enum
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
+#include "../source/admin/commands/1 lvl/apanel.inc"
 #include "../source/admin/commands/1 lvl/weap.inc"
 #include "../source/admin/commands/1 lvl/stat.inc"
 #include "../source/admin/commands/1 lvl/freeze.inc"
@@ -840,6 +866,7 @@ enum
 #include "../source/admin/commands/6 lvl/setmoney.inc"
 #include "../source/admin/commands/6 lvl/asellbiz.inc"
 #include "../source/admin/commands/6 lvl/asellhome.inc"
+#include "../source/admin/commands/6 lvl/settempnick.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
 #include "../source/admin/commands/7 lvl/x2day.inc"
@@ -848,6 +875,7 @@ enum
 #include "../source/admin/commands/7 lvl/unloadfs.inc"
 #include "../source/admin/commands/7 lvl/cmd.inc"
 #include "../source/admin/commands/7 lvl/resetmoney.inc"
+#include "../source/admin/commands/7 lvl/changepassword.inc"
 #include "../source/admin/commands/7 lvl/setadmin.inc"
 #include "../source/admin/commands/7 lvl/aup.inc"
 #include "../source/admin/commands/7 lvl/adown.inc"
@@ -886,7 +914,7 @@ enum
 #include "../source/fractions/chats/find.inc"
 
 // FSB
-#include "../source/fractions/fsb/switchskin.inc"
+#include "../source/fractions/fsb/fsb.inc"
 
 // PPS
 #include "../source/fractions/pps/pps.inc"
@@ -1064,6 +1092,7 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][pWANTED] = cache_get_field_content_int(0, "pWANTED");
     PlayerInfo[playerid][pJP] = cache_get_field_content_int(0, "pJP");
     PlayerInfo[playerid][pHOSPITAL] = cache_get_field_content_int(0, "pHOSPITAL");
+    PlayerInfo[playerid][pIsFSB] = cache_get_field_content_int(0, "pIsFSB");
     
     PlayerInfo[playerid][pFamID] = cache_get_field_content_int(0, "pFamID");
     PlayerInfo[playerid][pFamRang] = cache_get_field_content_int(0, "pFamRang");
@@ -1109,6 +1138,7 @@ publics LoginCallback(playerid, password[])
 	// Административные и Саппортские права
 	PlayerInfo[playerid][pWarnA] = cache_get_field_content_int(0, "pWarnA");
 	PlayerInfo[playerid][bAdmin] = cache_get_field_content_int(0, "bAdmin");
+	PlayerInfo[playerid][bDeveloper] = cache_get_field_content_int(0, "bDeveloper");
 	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube");
  	PlayerInfo[playerid][bJail] = cache_get_field_content_int(0, "bJail");
     PlayerInfo[playerid][bMute] = cache_get_field_content_int(0, "bMute");
@@ -1286,6 +1316,7 @@ stock SaveAccounts(playerid)
 	 	`pWarnF` = '%d',\
 		`pWarnA` = '%d',\
 		`bAdmin` = '%d',\
+		`bDeveloper` = '%d',\
 		`pJob` = '%d',\
 		`pVIP` = '%d',\
 		`pExp` = '%d',\
@@ -1366,6 +1397,7 @@ stock SaveAccounts(playerid)
 		`pFamID` = '%d',\
 		`pFamRang` = '%d',\
 		`pTelegramId` = '%d',\
+		`pIsFSB` = '%d',\
 		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
@@ -1387,6 +1419,7 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pWarnF],
 		PlayerInfo[playerid][pWarnA],
 		PlayerInfo[playerid][bAdmin],
+		PlayerInfo[playerid][bDeveloper],
 		PlayerInfo[playerid][pJob],
 		PlayerInfo[playerid][pVIP],
 		PlayerInfo[playerid][pExp],
@@ -1460,6 +1493,7 @@ stock SaveAccounts(playerid)
 	  	PlayerInfo[playerid][pFamID],
 	 	PlayerInfo[playerid][pFamRang],
 	 	PlayerInfo[playerid][pTelegramId],
+	 	PlayerInfo[playerid][pIsFSB],
 	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
@@ -1672,6 +1706,12 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SCMA(grey, string);
 	}
 	
+	if(PlayerInfo[playerid][pHOSPITAL] == 1)
+    {
+        PlayerInfo[playerid][pHOSPITAL] = 0;
+        KillTimer(hospital_timer[playerid]);
+    }
+	
     if(killerid == INVALID_PLAYER_ID)
     {
 		SCM(playerid, red, "Вы совершили самоубийство! Зачем?");
@@ -1685,11 +1725,6 @@ public OnPlayerDeath(playerid, killerid, reason)
     }
     if(killerid != INVALID_PLAYER_ID)
     {
-	    if(PlayerInfo[playerid][pHOSPITAL] == 1)
-	    {
-	        PlayerInfo[playerid][pHOSPITAL] = 0;
-	        KillTimer(hospital_timer[playerid]);
-	    }
 
 		if(GO_TO_MP[playerid] > 0)
 		{
@@ -1829,7 +1864,9 @@ public OnPlayerText(playerid, text[])
 	else
 	{
 		stringer[0] = EOS;
-		format(stringer, 160, "- %s (%s)", text, PlayerInfo[playerid][pName]);
+		new playerName[MAX_PLAYER_NAME] = "";
+		GetPlayerName(playerid, playerName, MAX_PLAYER_NAME);
+		format(stringer, 160, "- %s (%s)", text, playerName);
 		ProxDetector(30.0, playerid, stringer, 0xFFFFFFFF, 0xFFFFFFFF, 0xF5F5F5FF, 0xE6E6E6FF,0xB8B8B8FF);
 		ApplyAnimation(playerid, "PED", "IDLE_chat", 4.1, 0, 1, 1, 1, 1);
 		SetPlayerChatBubble(playerid, text, white, 30.0, 5000);
@@ -2241,6 +2278,14 @@ public OnPlayerUpdate(playerid)
 	    ResetPlayerMoney(playerid);
 	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
 	}
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB)
+	{
+        PlayerInfo[playerid][pIsFSB] = 1;
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+	}
 	return 1;
 }
 
@@ -2526,7 +2571,7 @@ stock SCMA(color, text[])
 {
 	foreach(new i:Player)
 	{
-	    if(PlayerInfo[i][bAdmin] > 0) SCM(i, color, text);
+	    if(PlayerInfo[i][bAdmin] > 0 && PlayerInfo[i][bStreamerMode] != 1) SCM(i, color, text);
 	}
 	return 1;
 }
@@ -2802,6 +2847,14 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pBeer] = 0;
  	PlayerInfo[playerid][pLighter] = 0;
  	PlayerInfo[playerid][pChips] = 0;
+ 	
+ 	PlayerInfo[playerid][pReadsms] = 0;
+    PlayerInfo[playerid][pJobTipster] = 0;
+	PlayerInfo[playerid][pIsFSB] = 0;
+    PlayerInfo[playerid][pTipster] = 0;
+ 	
+ 	PlayerInfo[playerid][bStreamerMode] = 0;
+ 	
  	
   	PlayerInfo[playerid][pFamID] = -1;
  	PlayerInfo[playerid][pFamRang] = 0;
@@ -3293,9 +3346,14 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/anim.inc"
     #include "../source/textdraws/buyclothes.inc"
 }
+stock IsAFSB(playerid)
+{
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB || PlayerInfo[playerid][pIsFSB] == 1) return 1;
+	else return 0;
+}
 stock IsAPolice(playerid)
 {
-	if(PlayerInfo[playerid][pMember] == TEAM_PPS || PlayerInfo[playerid][pMember] == TEAM_FSB) return 1;
+	if(PlayerInfo[playerid][pMember] == TEAM_PPS || IsAFSB(playerid)) return 1;
 	else return 0;
 }
 stock IsAOpg(playerid)

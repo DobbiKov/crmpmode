@@ -15,11 +15,5 @@ CMD:uninvite(playerid, params[])
     format(string, sizeof(string), "%s уволил вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
     SCM(to_player, blue, string);
 
-    PlayerInfo[to_player][pMember] = 0;
-    PlayerInfo[to_player][pWarnF] = 0;
-    PlayerInfo[to_player][pRang] = 0;
-    PlayerInfo[to_player][pFSkin] = -1;
-    ResetPlayerWeaponsAC(to_player);
-    SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
-    return SaveAccounts(to_player);
+    return UnInvite(to_player);
 }

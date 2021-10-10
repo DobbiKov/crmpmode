@@ -1,8 +1,8 @@
 CMD:guninvite(playerid, params[])
 {
-    if(PlayerInfo[playerid][pMember] != TEAM_ADM && PlayerInfo[playerid][pMember] != TEAM_FSB) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMember] != TEAM_ADM && !IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
     if(PlayerInfo[playerid][pMember] == TEAM_ADM && PlayerInfo[playerid][pRang] < 8) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
+    if(IsAFSB(playerid) && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
 
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /guninvite [ID игрока] [причина]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);

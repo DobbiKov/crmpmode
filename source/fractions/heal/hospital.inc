@@ -12,14 +12,7 @@ public OnPlayerSpawn(playerid)
 {
     if(PlayerInfo[playerid][pHOSPITAL] == 1)
     {
-        new rand = random(3);
-        FreezePlayer(playerid, 2000);
-        SetPlayerPos(playerid, hospital_coord[rand][0], hospital_coord[rand][1], hospital_coord[rand][2]);
-
-        hospital_timer[playerid] = SetTimerEx("HospitalTimer", 1000, 1, "d", playerid);
-
-        PlayerInfo[playerid][pHP] = 5.0;
-        SetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
+        SetPlayerToHospital(playerid);
     }
     #if defined heal__OnPlayerSpawn
         return heal__OnPlayerSpawn(playerid);
@@ -67,7 +60,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	{
         if(job_car[TEAM_HEAL_CAR][0] <= vehicleid <= job_car[TEAM_HEAL_CAR][1])
         {
-            if(PlayerInfo[playerid][pMember] != TEAM_FSB && PlayerInfo[playerid][pMember] != TEAM_HEAL)
+            if(!IsAFSB(playerid) && PlayerInfo[playerid][pMember] != TEAM_HEAL)
             {
                 ClearAnimations(playerid, true);
                 return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
@@ -90,3 +83,15 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 #if	defined	hospital__OnPlayerEnterVehicle
 	forward hospital__OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
 #endif
+
+stock SetPlayerToHospital(playerid)
+{
+    new rand = random(3);
+    FreezePlayer(playerid, 2000);
+    SetPlayerPos(playerid, hospital_coord[rand][0], hospital_coord[rand][1], hospital_coord[rand][2]);
+
+    hospital_timer[playerid] = SetTimerEx("HospitalTimer", 1000, 1, "d", playerid);
+
+    PlayerInfo[playerid][pHP] = 5.0;
+    SetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
+}

@@ -5,7 +5,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	{
         if(job_car[TEAM_OREX_CAR][0] <= vehicleid <= job_car[TEAM_OREX_CAR][1])
         {
-            if(PlayerInfo[playerid][pMember] != TEAM_OREX && PlayerInfo[playerid][pMember] != TEAM_FSB)
+            if(PlayerInfo[playerid][pMember] != TEAM_OREX && !IsAFSB(playerid))
             {
                 ClearAnimations(playerid, true);
                 return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
@@ -13,7 +13,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         }
         if(job_car[TEAM_SUN_CAR][0] <= vehicleid <= job_car[TEAM_SUN_CAR][1])
         {
-            if(PlayerInfo[playerid][pMember] != TEAM_SUN && PlayerInfo[playerid][pMember] != TEAM_FSB)
+            if(PlayerInfo[playerid][pMember] != TEAM_SUN && !IsAFSB(playerid))
             {
                 ClearAnimations(playerid, true);
                 return SCM(playerid, red, "У вас нет ключей от этого транспорта!");

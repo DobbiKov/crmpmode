@@ -1,6 +1,6 @@
 CMD:openvdv(playerid)
 {
-	if(PlayerInfo[playerid][pMember] != TEAM_VDV && PlayerInfo[playerid][pMember] != TEAM_FSB)
+	if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
 		return SCM(playerid, red, "Вам недоступна данная возможность");
 	
 	if(PlayerInfo[playerid][pMember] == TEAM_VDV && PlayerInfo[playerid][pRang] < 3)

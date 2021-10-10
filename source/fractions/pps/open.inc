@@ -7,13 +7,13 @@ CMD:open(playerid)
     {
         case false:
         {
-            SCM(playerid, red, "Вы открыли шлакбаум");
+            SCM(playerid, red, "Вы открыли шлагбаум");
             MoveObject(open_pps, 1900.59, 2157.94, 15.56, 0.2,  0.00, 0.00, 90.00);
             open_pps_status = true;
         }
         case true:
         {
-            SCM(playerid, red, "Вы закрыли шлакбаум");
+            SCM(playerid, red, "Вы закрыли шлагбаум");
             MoveObject(open_pps, 1900.59, 2157.94, 15.56, 0.2,  0.00, -90.00, 90.00);
             open_pps_status = false;          
         }

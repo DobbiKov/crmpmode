@@ -45,6 +45,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         {
             if(IsPlayerInRangeOfPoint(playerid, 1.0, AtmInfo[i][atmX], AtmInfo[i][atmY], AtmInfo[i][atmZ]))
             {
+                if(PlayerInfo[playerid][bDeveloper] == 1)
+                {
+                    new string[124] = "";
+                    format(string, sizeof(string), "[Developer Mode]: ID банкомата - %d", AtmInfo[i][atmID]);
+                    SCM(playerid, green, string);
+                }
                 ShowAtmDialog(playerid);
             }
         }
