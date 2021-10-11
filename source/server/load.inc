@@ -255,10 +255,10 @@
 	AddStaticVehicleEx(551,1789.4148,2083.5420,15.2799,2.5445,1,1,600); // ?????? ??
 	job_car[TEAM_ADM_CAR][1] = AddStaticVehicleEx(551,1785.6165,2083.4573,15.2804,1.4502,1,1,600); // ?????? ??
 
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 10000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 1000000.0);
 
 	job_car[TEAM_SMI_CAR][0] = 	AddStaticVehicleEx(582,1812.6904,2027.2992,15.6623,0.0892,1,7, 600); // ?????? ???
 	AddStaticVehicleEx(582,1809.2700,2027.3883,15.6670,0.4690,1,7, 600); // ?????? ???
@@ -315,6 +315,9 @@
 	AddStaticVehicleEx(579, 2403.6257,-1816.1276,19.2118,181.2769,0,0, 600);//gelik
 	AddStaticVehicleEx(579, 2399.6091,-1816.1813,19.2055,179.7655,0,0, 600);//gelik
 	job_car[TEAM_FSB_CAR][1] = AddStaticVehicleEx(433,2420.7625,-1796.6593,18.6905,179.8344,16,16, 600); // машина fsb
+
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][1], 1000000.0);
 
 	job_car[VELO][0] = AddStaticVehicleEx(509,1818.2428,2513.2729,15.3373,83.9994,0,0, 600); // велосипед
 	AddStaticVehicleEx(509,1818.2673,2515.2239,15.2991,78.9251,0,0, 600); // велосипед

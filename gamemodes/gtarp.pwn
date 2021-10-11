@@ -1802,10 +1802,12 @@ stock KillToHospital(&playerid, &killerid){
 
 public OnVehicleSpawn(vehicleid)
 {
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 10000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][1], 1000000.0);
 	
 	static engine, lights, alarm, doors, bonnet, boot, objective;
 	GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
