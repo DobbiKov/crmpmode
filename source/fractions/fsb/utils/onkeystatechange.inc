@@ -32,6 +32,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 
 		}
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44)) //ворота внутри двора ФСБ
+		{
+			CloseOpenIndoorVorota(playerid);
+		}
+
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42)) //ворота снаружи двора ФСБ
+		{
+			CloseOpenOutdoorVorota(playerid);
+		}
         
     }
     if(newkeys == KEY_CROUCH)
@@ -49,42 +58,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             }
         }
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44)) //ворота внутри двора ФСБ
 		{
-			if(!IsAFSB(playerid)) return 1;
-
-			if(fsb_vorota_1_status == false)
-			{
-				SCM(playerid, blue, "Вы открыли ворота");
-				MoveObject(fsb_vorota_1, 2395.02, -1792.44, 25.70, 4.0,  0.00, 0.00, 0.00);
-				fsb_vorota_1_status = true;
-			}
-			else if(fsb_vorota_1_status == true)
-			{
-				SCM(playerid, red, "Вы закрыли ворота");
-				MoveObject(fsb_vorota_1, 2395.02, -1792.44, 22.44, 4.0,  0.00, 0.00, 0.00);
-				fsb_vorota_1_status = false;
-			}
-
+			CloseOpenIndoorVorota(playerid);
 		}
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42)) //ворота снаружи двора ФСБ
 		{
-			if(!IsAFSB(playerid)) return 1;
-
-			if(fsb_vorota_2_status == false)
-			{
-				SCM(playerid, blue, "Вы открыли ворота");
-				MoveObject(fsb_vorota_2, 2445.66, -1795.02, 25.68, 4.0,  0.00, 0.00, 90.00);
-				fsb_vorota_2_status = true;
-			}
-			else if(fsb_vorota_2_status == true)
-			{
-				SCM(playerid, red, "Вы закрыли ворота");
-				MoveObject(fsb_vorota_2, 2445.66, -1795.02, 22.42, 4.0,  0.00, 0.00, 90.00);
-				fsb_vorota_2_status = false;
-			}
-
+			CloseOpenOutdoorVorota(playerid);
 		}
     }
 	#if	defined	fsb__OnPlayerKeyStateChange
@@ -103,3 +84,40 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 #if	defined	fsb__OnPlayerKeyStateChange
 	forward fsb__OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
 #endif
+
+stock CloseOpenIndoorVorota(playerid)
+{
+    if(!IsAFSB(playerid)) return 1;
+
+    if(fsb_vorota_1_status == false)
+    {
+        SCM(playerid, blue, "Вы открыли ворота");
+        MoveObject(fsb_vorota_1, 2395.02, -1792.44, 25.70, 4.0,  0.00, 0.00, 0.00);
+        fsb_vorota_1_status = true;
+    }
+    else if(fsb_vorota_1_status == true)
+    {
+        SCM(playerid, red, "Вы закрыли ворота");
+        MoveObject(fsb_vorota_1, 2395.02, -1792.44, 22.44, 4.0,  0.00, 0.00, 0.00);
+        fsb_vorota_1_status = false;
+    }   
+    return 1; //I wrote this return, to disable "warning" from PAWN.
+}
+stock CloseOpenOutdoorVorota(playerid)
+{
+    if(!IsAFSB(playerid)) return 1;
+
+    if(fsb_vorota_2_status == false)
+    {
+        SCM(playerid, blue, "Вы открыли ворота");
+        MoveObject(fsb_vorota_2, 2445.66, -1795.02, 25.68, 4.0,  0.00, 0.00, 90.00);
+        fsb_vorota_2_status = true;
+    }
+    else if(fsb_vorota_2_status == true)
+    {
+        SCM(playerid, red, "Вы закрыли ворота");
+        MoveObject(fsb_vorota_2, 2445.66, -1795.02, 22.42, 4.0,  0.00, 0.00, 90.00);
+        fsb_vorota_2_status = false;
+    }
+    return 1; //I wrote this return, to disable "warning" from PAWN.
+}
