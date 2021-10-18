@@ -183,6 +183,8 @@ new shlak_vdv;
 new bool: shlak_vdv_status = false;
 
 new player_second_timer[MAX_PLAYERS];
+
+new _restart_timer;
 //************ | Ã¿——»¬€ | ************//
 
 new pPressed[MAX_PLAYERS];
@@ -3426,6 +3428,7 @@ stock KillTimers(playerid)
     KillTimer(STimer[playerid]);
     KillTimer(TMask[playerid]);
     KillTimer(hospital_timer[playerid]);
+    KillTimer(_restart_timer);
 	return 1;
 }
 

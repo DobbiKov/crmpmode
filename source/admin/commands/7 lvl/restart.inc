@@ -1,5 +1,3 @@
-new _restart_timer = -1;
-
 publics Restart(playerid)
 {
 	new string[128];
@@ -8,10 +6,7 @@ publics Restart(playerid)
 	restart_time--;
 	if(restart_time == 0)
 	{
-	    foreach(new i : Player)
-	    {
-	        SaveAccounts(i);
-	    }
+		KillTimer(_restart_timer);
 	    SCMTA(red, "Внимание! Происходит перезагрузка сервера!");
 		SetTimer("Restart_", 5000, false);
 	}
@@ -23,10 +18,11 @@ publics Restart_()
 	{
 	    if(PlayerInfo[i][pLogin] != false)
 			SaveAccounts(i);
-		Kick(i);
 	}
+	kick_all_players();
 	KillTimer(_restart_timer);
-	return SendRconCommand("gmx");
+	SendRconCommand("gmx");
+	return GameModeExit();
 }
 stock Restart_Server(playerid)
 {
@@ -76,9 +72,9 @@ publics minuteupdate()
 	    {
 			if(PlayerInfo[i][pLogin] != false)
 	        	SaveAccounts(i);
-	        GameTextForAll("~r~SERVER IS RESTARTING", 9000, 5);
-	        Kick(i);
 	    }
+		GameTextForAll("~r~SERVER IS RESTARTING", 9000, 5);
+		kick_all_players();
 	    SetTimer("TehRestart", 5000, false);
 	}
     #if defined gmx__minuteupdate
