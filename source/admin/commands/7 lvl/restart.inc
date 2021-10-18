@@ -1,3 +1,5 @@
+new _restart_timer = -1;
+
 publics Restart(playerid)
 {
 	new string[128];
@@ -19,9 +21,11 @@ publics Restart_()
 {
 	foreach(new i: Player)
 	{
-	    SaveAccounts(i);
+	    if(PlayerInfo[i][pLogin] != false)
+			SaveAccounts(i);
 		Kick(i);
 	}
+	KillTimer(_restart_timer);
 	return SendRconCommand("gmx");
 }
 stock Restart_Server(playerid)
@@ -33,7 +37,7 @@ stock Restart_Server(playerid)
 
 	SCMTA(red, "Внимание! Через 5 минут произойдет перезагрузка сервера!");
 
-	SetTimer("Restart", 60000, true);
+	_restart_timer = SetTimer("Restart", 60000, true);
 
 	SetPVarInt(playerid, "restart", 1);
 
@@ -70,7 +74,8 @@ publics minuteupdate()
 	    SCMTA(red, "Внимание! Происходит техническая перезагрузка сервера!");
 	    foreach(new i : Player)
 	    {
-	        SaveAccounts(i);
+			if(PlayerInfo[i][pLogin] != false)
+	        	SaveAccounts(i);
 	        GameTextForAll("~r~SERVER IS RESTARTING", 9000, 5);
 	        Kick(i);
 	    }
