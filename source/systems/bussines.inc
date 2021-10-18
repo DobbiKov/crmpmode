@@ -752,10 +752,11 @@ publics SletBiz(i)
 
         new sql[144];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pBizID` = '-1', `pBizOffMess` = '%s', `pBCash` = '%d' WHERE `pID` = '%d'", bizoffmess, bmoney, player_id);
+        mysql_tquery(connects, sql, "", "");
     }
     else
     {
-        printf("Залупа (дома)");
+        printf("Залупа (бизы)");
     }
     return 1;
 }
