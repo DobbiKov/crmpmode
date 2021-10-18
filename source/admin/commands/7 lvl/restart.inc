@@ -20,10 +20,7 @@ publics Restart_()
 	foreach(new i: Player)
 	{
 	    SaveAccounts(i);
-		if(GetPVarInt(i, "restart") != 1)
-		{
-	    	Kick(i);
-		}
+		Kick(i);
 	}
 	return SendRconCommand("gmx");
 }
