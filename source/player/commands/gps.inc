@@ -158,6 +158,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                 }
             }
         }
+        case D_TP_GPS:
+        {
+            if(!response)
+            {
+                DeletePVar(playerid, "GPS_TP_X");
+                DeletePVar(playerid, "GPS_TP_Y");
+                DeletePVar(playerid, "GPS_TP_Z");
+            }
+            else
+            {
+                new Float:x, Float:y, Float:z;
+                x = GetPVarFloat(playerid, "GPS_TP_X");
+                y = GetPVarFloat(playerid, "GPS_TP_Y");
+                z = GetPVarFloat(playerid, "GPS_TP_Z");
+
+                SCM(playerid, blue, !"Вы телепортировались в выбранную локацию!");
+                SetPlayerPos(playerid, x, y, z);
+
+                DeletePVar(playerid, "GPS_TP_X");
+                DeletePVar(playerid, "GPS_TP_Y");
+                DeletePVar(playerid, "GPS_TP_Z");
+            }
+        }
     }
     #if    defined    gps__OnDialogResponse
         return gps__OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
@@ -181,6 +204,15 @@ stock SetGpsCheckpoint(playerid, Float:x, Float:y, Float:z)
     SetPlayerCheckpoint(playerid, x, y, z, 3.0);//функция которая ставит метку в определенном месте определенного размера
     SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
     pCheckpoint[playerid] = CP_GPS;
+
+    if(PlayerInfo[playerid][bAdmin] >= 2)
+    {
+        SetPVarFloat(playerid, "GPS_TP_X", x);
+        SetPVarFloat(playerid, "GPS_TP_Y", y);
+        SetPVarFloat(playerid, "GPS_TP_Z", z);
+
+        ShowPlayerDialog(playerid, D_TP_GPS, DIALOG_STYLE_MSGBOX, !"{"cblue"}Телепорт", !"{ffffff}Желаете телепортироваться на выбранную локацию?", !"Да", !"Нет");
+    }
 }
 
 public OnPlayerEnterCheckpoint(playerid) //функция которая автоматически вызывается, когда игрок становится на checkpoint

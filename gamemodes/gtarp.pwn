@@ -533,6 +533,8 @@ enum e_DIALOG_IDs
 	D_FSB_INFILTRATE,
 	D_SET_FSB_NUMBERS,
 	D_GUN_FSB,
+	
+	D_TP_GPS,
 };
 
 enum PInfo
