@@ -5,6 +5,7 @@ CMD:sethp(playerid, params[])
 	extract params -> new to_player, health; else return SCM(playerid, blue, "Х[ѕодсказка] {ffffff}¬ведите: /sethp [id игрока] [health]");
 
 	if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+	if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
 
 	new string[120+MAX_PLAYER_NAME*2];
 

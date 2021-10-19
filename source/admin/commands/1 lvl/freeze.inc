@@ -5,6 +5,8 @@ CMD:freeze(playerid, params[])
 	extract params -> new to_player; else return SCM(playerid, yellow, !"[Подсказка]: {FFFFFF}Используйте /freeze [ID игрока]");
 
 	if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+	if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
+
 	new string[256];
 	format(string, sizeof(string), "[A] %s[%d] замороил игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
 	SCMA(grey, string);
