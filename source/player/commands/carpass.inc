@@ -18,6 +18,17 @@ CMD:carpass(playerid, params[])
 	if(owner_id == -1)
 		return SCM(playerid, red, !"Этот транспорт никому не принадлежит!");
 
+	new car_numbers[50];
+
+	if(!strcmp(ownable_car[vehicleid][oc_number], "None"))
+	{
+		format(car_numbers, sizeof(car_numbers), "нет номеров");
+	}
+	else
+	{
+		format(car_numbers, sizeof(car_numbers), "%s", ownable_car[vehicleid][oc_number]);
+	}
+
 	new fmt_msg[128];
 
 	format(fmt_msg, sizeof fmt_msg, "Вы показали птс %s [%d]", PlayerInfo[to_player][pName], to_player);
@@ -30,7 +41,7 @@ CMD:carpass(playerid, params[])
 	format(fmt_msg, sizeof fmt_msg, "Владелец: %s", PlayerInfo[owner_id][pName]);
 	SCM(to_player, -1, fmt_msg);
 	
-	format(fmt_msg, sizeof fmt_msg, "Номерной знак: %s", ownable_car[vehicleid][oc_number]);
+	format(fmt_msg, sizeof fmt_msg, "Номерной знак: %s", car_numbers);
 	SCM(to_player, -1, fmt_msg);
 	
 	format(fmt_msg, sizeof fmt_msg, "Модель авто: %s", GetCarName(GetVehicleModel(vehicleid)));
