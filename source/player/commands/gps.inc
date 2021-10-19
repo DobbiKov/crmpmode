@@ -64,49 +64,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
         case D_GPS_PUBLICPLACES: { //по идентификатору
             if (!response) ShowGpsDialog(playerid); //если игрок нажал вторую кнопку if(!response) - то выводим старый диалог
             else { //если первую, то ставим метку
-                SetPlayerCheckpoint(playerid, gps_publicplaces[listitem][gps_x], gps_publicplaces[listitem][gps_y], gps_publicplaces[listitem][gps_z], 3.0); //функция которая ставит метку в определенном месте определенного размера
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте"); //функция которая выводит сообщение в чат
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, gps_publicplaces[listitem][gps_x], gps_publicplaces[listitem][gps_y], gps_publicplaces[listitem][gps_z]);
             }
         }
         case D_GPS_JOBS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, gps_jobs[listitem][gps_x], gps_jobs[listitem][gps_y], gps_jobs[listitem][gps_z], 3.0);
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, gps_jobs[listitem][gps_x], gps_jobs[listitem][gps_y], gps_jobs[listitem][gps_z]);
             }
         }
         case D_GPS_ENTERTAINMENTS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, gps_entertainment[listitem][gps_x], gps_entertainment[listitem][gps_y], gps_entertainment[listitem][gps_z], 3.0);
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, gps_entertainment[listitem][gps_x], gps_entertainment[listitem][gps_y], gps_entertainment[listitem][gps_z]);
             }
         }
         case D_GPS_STATEORGANIZATIONS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, gps_stateorganizations[listitem][gps_x], gps_stateorganizations[listitem][gps_y], gps_stateorganizations[listitem][gps_z], 3.0);
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, gps_stateorganizations[listitem][gps_x], gps_stateorganizations[listitem][gps_y], gps_stateorganizations[listitem][gps_z]);
             }
         }
         case D_GPS_GANGS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, gps_gangs[listitem][gps_x], gps_gangs[listitem][gps_y], gps_gangs[listitem][gps_z], 3.0);
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, gps_gangs[listitem][gps_x], gps_gangs[listitem][gps_y], gps_gangs[listitem][gps_z]);
             }
         }
         case D_GPS_BUSINESS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetPlayerCheckpoint(playerid, BusinessInfo[listitem][bExitX], BusinessInfo[listitem][bExitY], BusinessInfo[listitem][bExitZ], 3.0);
-                SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
-                pCheckpoint[playerid] = CP_GPS;
+                SetGpsCheckpoint(playerid, BusinessInfo[listitem][bExitX], BusinessInfo[listitem][bExitY], BusinessInfo[listitem][bExitZ]);
             }
         }
         case D_GPS: {
@@ -188,7 +176,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
     forward gps__OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 #endif
 
-
+stock SetGpsCheckpoint(playerid, Float:x, Float:y, Float:z)
+{
+    SetPlayerCheckpoint(playerid, x, y, z, 3.0);//функция которая ставит метку в определенном месте определенного размера
+    SCM(playerid, blue, "Место отмечено красным маркером у Вас на миникарте");
+    pCheckpoint[playerid] = CP_GPS;
+}
 
 public OnPlayerEnterCheckpoint(playerid) //функция которая автоматически вызывается, когда игрок становится на checkpoint
 {
