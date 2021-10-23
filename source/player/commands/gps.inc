@@ -174,7 +174,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                 z = GetPVarFloat(playerid, "GPS_TP_Z");
 
                 SCM(playerid, blue, !"¬ы телепортировались в выбранную локацию!");
-                SetPlayerPos(playerid, x, y, z);
+
+				if(IsPlayerInAnyVehicle(playerid))
+				{
+				    new vehid = GetPlayerVehicleID(playerid);
+					new player_state = GetPlayerVehicleSeat(playerid);
+				    SetVehiclePos(vehid, x, y, z);
+				    PutPlayerInVehicle(playerid, vehid, player_state);
+				}
+				else
+				{
+				    SetPlayerPos(playerid, x, y, z);
+				}
 
                 DeletePVar(playerid, "GPS_TP_X");
                 DeletePVar(playerid, "GPS_TP_Y");
