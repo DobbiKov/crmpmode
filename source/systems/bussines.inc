@@ -750,7 +750,7 @@ publics SletBiz(i)
 
         new bizoffmess[144] = "Ваш бизнес был продан государству, за неуплату. Вы получили 80 процентов от госс. стоимости дома.";
 
-        new sql[144];
+        new sql[1024];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pBizID` = '-1', `pBizOffMess` = '%s', `pBCash` = '%d' WHERE `pID` = '%d'", bizoffmess, bmoney, player_id);
         mysql_tquery(connects, sql, "", "");
     }

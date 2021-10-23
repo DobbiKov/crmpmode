@@ -704,42 +704,7 @@ publics minuteupdate()
     gettime(hour, minute, second);
     if(hour == 00 && minute == 20)
     {
-        foreach(new i : Allhouses) if(HouseInfo[i][hOwned] == 1)
-        {
-            HouseInfo[i][hDays]--;
-            SaveHouse(i);
-            if(HouseInfo[i][hDays] <= 0)
-            {
-                foreach(new j : Player)
-                {
-                    if(PlayerInfo[j][pHomeID] == HouseInfo[i][hID])
-                    {
-                        SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
-
-                        GiveBankMoney(j, (HouseInfo[i][hPrice] / 10) * 8, "Неуплата дома и в госс.");
-                        PlayerInfo[j][pHomeID] = -1;
-
-                        HouseInfo[i][hOwned] = 0;
-                        HouseInfo[i][hDays] = 3;
-                        HouseInfo[i][hOwner] = EOS;
-                        format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
-                        SaveAccounts(j);
-                        SaveHouse(i);
-                        return BuyHouse(i);
-                    }
-                }
-                HouseInfo[i][hDays] = 3;
-                HouseInfo[i][hOwned] = 0;
-                HouseInfo[i][hOwner] = EOS;
-                format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
-                SaveHouse(i);
-                BuyHouse(i);
-
-                new sql[144];
-                format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pHomeID` = '%d'", HouseInfo[i][hID]);
-                return mysql_tquery(connects, sql, "SletHouse", "i", i);
-            }
-        }
+        TimeSletHouse();
     }
 	#if	defined	house__minuteupdate
 		return house__minuteupdate();
@@ -758,6 +723,47 @@ publics minuteupdate()
 	forward house__minuteupdate();
 #endif
 
+stock TimeSletHouse()
+{
+    foreach(new i : Allhouses) if(HouseInfo[i][hOwned] == 1)
+    {
+        HouseInfo[i][hDays]--;
+        SaveHouse(i);
+        if(HouseInfo[i][hDays] <= 0)
+        {
+            foreach(new j : Player)
+            {
+                if(PlayerInfo[j][pHomeID] == HouseInfo[i][hID])
+                {
+                    SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
+
+                    GiveBankMoney(j, (HouseInfo[i][hPrice] / 10) * 8, "Неуплата дома и в госс.");
+                    PlayerInfo[j][pHomeID] = -1;
+
+                    HouseInfo[i][hOwned] = 0;
+                    HouseInfo[i][hDays] = 3;
+                    HouseInfo[i][hOwner] = EOS;
+                    format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
+                    SaveAccounts(j);
+                    SaveHouse(i);
+                    return BuyHouse(i);
+                }
+            }
+            HouseInfo[i][hDays] = 3;
+            HouseInfo[i][hOwned] = 0;
+            HouseInfo[i][hOwner] = EOS;
+            format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
+            SaveHouse(i);
+            BuyHouse(i);
+
+            new sql[144];
+            format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pHomeID` = '%d'", HouseInfo[i][hID]);
+            return mysql_tquery(connects, sql, "SletHouse", "i", i);
+        }
+    }
+    return 0;
+}
+
 publics SletHouse(i)
 {
     static rows[2];
@@ -771,7 +777,7 @@ publics SletHouse(i)
 
         new houseoffmess[144] = "Ваш дом был продан государству, за неуплату. Вы получили 80 процентов от госс. стоимости дома.";
 
-        new sql[144];
+        new sql[1024];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pHomeID` = '-1', `pHouseOffMess` = '%s', `pBCash` = '%d' WHERE `pID` = '%d'", houseoffmess, bmoney, player_id);
         mysql_tquery(connects, sql, "", "");
     }

@@ -209,7 +209,7 @@ publics minuteupdate()
 
                     new offkvartmess[144] = "Ваша квартира была передана государству, за неуплату.";
 
-                    new sql[144];
+                    new sql[1024];
                     format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
                     return mysql_tquery(connects, sql, "", "");
                 }
