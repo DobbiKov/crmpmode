@@ -2746,7 +2746,30 @@ stock stats_player(playerid, targetid)
     strcat(stringer,string_last);
     format(string_last, sizeof(string_last), "Пол: \t\t\t\t%s\n", (PlayerInfo[targetid][pSex] == 1) ? ("Мужской") : ("Женский"));
     strcat(stringer,string_last);
-    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", "Дома");
+	new live_in[144] = "";
+	if(PlayerInfo[playerid][pHomeID] > 0)
+	{
+		format(live_in, sizeof(live_in), "В доме №%d", PlayerInfo[playerid][pHomeID]);
+	}
+	else if(PlayerInfo[playerid][pKvartID] > 0)
+	{
+		new _pod_id, _kvart_id;
+		foreach(new i : Allkvart)
+		{
+			if(KvartInfo[i][kvart_id] == PlayerInfo[playerid][pKvartID])
+			{
+				_pod_id = KvartInfo[i][kvart_pod_id];
+				_kvart_id = KvartInfo[i][kvart_id];
+				break;
+			}
+		}
+		format(live_in, sizeof(live_in), "В подъезде №%d, в квартире №%d", _pod_id, _kvart_id);
+	}
+	else
+	{
+		format(live_in, sizeof(live_in), "Бездомный");
+	}
+    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", live_in);
     strcat(stringer,string_last);
     
     format(string_last, sizeof(string_last), "Организация: \t\t\t%s\n", GetMember[PlayerInfo[targetid][pMember]]);
