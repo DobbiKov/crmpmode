@@ -608,6 +608,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            {
 		                SPD(playerid, D_SET_SERVER_NAME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Название сервера", "{FFFFFF}Здесь вы можете установить название сервера.", "Далее", "Назад");
 		            }
+		            case 5:
+		            {
+		                SPD(playerid, D_SET_CONTRABAND_TIME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Время контрабанды", "{FFFFFF}Укажите, через сколько дней, ОПГ смогут заказать нотрабанду\nВведите 0, что б сбросить это время.", "Далее", "Назад");
+		            }
 		        }
 		    }
 		}
@@ -661,6 +665,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				mysql_tquery(connects, string, "", "");
 
 				format(string, sizeof(string), "[A]: %s[%d] установил X%d Day", PlayerInfo[playerid][pName], playerid, XDay);
+				SCMA(grey, string);
+				ShowServerSettings(playerid);
+		    }
+		}
+
+		case D_SET_CONTRABAND_TIME:
+		{
+		    if(!response) return ShowServerSettings(playerid);
+		    else
+		    {
+				if(!strlen(inputtext) || !IsNumeric(inputtext) || strval(inputtext) < 0)
+				{
+					SPD(playerid, D_SET_CONTRABAND_TIME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Время контрабанды", "{FFFFFF}Укажите, через сколько дней, ОПГ смогут заказать нотрабанду\nВведите 0, что б сбросить это время.", "Далее", "Назад");
+				}
+				new day = strval(inputtext);
+
+				new string[128];
+				format(string, sizeof(string), "UPDATE `other` SET `next_contraband_time` = '%d'", gettime() + (86400 * day));
+				mysql_tquery(connects, string, "", "");
+				next_contraband_time = gettime() + (86400 * day);
+
+				format(string, sizeof(string), "[A]: %s[%d] изменил время заказа контрабанды на %d", PlayerInfo[playerid][pName], playerid, day);
 				SCMA(grey, string);
 				ShowServerSettings(playerid);
 		    }
@@ -782,7 +808,8 @@ stock ShowServerSettings(playerid)
 	{"cblue"}2. {FFFFFF}Кикнуть всех игроков(кроме админов)\n\
 	{"cblue"}3. {FFFFFF}Установить XDay\n\
 	{"cblue"}4. {FFFFFF}Сделать рестарт сервера\n\
-	{"cblue"}5. {FFFFFF}Установить название сервера", "Далее", "Назад");
+	{"cblue"}5. {FFFFFF}Установить название сервера\n\
+	{"cblue"}6. {FFFFFF}Установить время для заказа контрабанды ОПГ", "Далее", "Назад");
 	return 1;
 }
 stock ShowApanel(playerid)

@@ -85,6 +85,11 @@ CMD:call(playerid, params[])
         if(PlayerInfo[playerid][pPhoneStatus] == 1) return SCM(playerid, red, "Ваш телефон выключен.");
         if(number == PlayerInfo[playerid][pPhoneNumber]) return SCM(playerid, red, "Вы ввели свой номер телефона.");
 
+        if(number == 777 && IsAOpg(playerid) && PlayerInfo[playerid][pRang] == 10)
+        {
+            return CallContrabanda(playerid);
+        }
+
         foreach(new i : Player)
         {
             if(IsPlayerConnected(i) && PlayerInfo[i][pLogin] != false)
@@ -513,4 +518,32 @@ stock CheckCall(index, playerid)
         break;
     }
     return false;
+}
+
+stock CallContrabanda(playerid)
+{
+    if(gettime() < next_contraband_time)
+    {
+        new string[144];
+        format(string, sizeof(string), "Следующий заказ контрабанды возможен %s!", date("%dd.%mm.%yyyy, %hh:%ii:%ss",next_contraband_time));
+        return SCM(playerid, red, string);
+    }
+    SCM(playerid, blue, "Вы успешно заказали контрабанду, ее местоположение отмечено на карте. Вы можете ее забрать только в течении 10 минут!");
+    next_contraband_time = gettime() + 86400 * 3;
+
+    new string[128];
+    format(string, sizeof(string), "UPDATE `other` SET `next_contraband_time` = '%d' LIMIT 1", next_contraband_time);
+    mysql_tquery(connects, string, "", "");
+
+    contraband_pos_id = random(sizeof(contraband_pos));
+    contraband_fraction = PlayerInfo[playerid][pMember];
+
+    SetPlayerCheckpoint(
+        playerid, 
+        contraband_pos[contraband_pos_id][contraband_route_x],
+        contraband_pos[contraband_pos_id][contraband_route_y],
+        contraband_pos[contraband_pos_id][contraband_route_z],
+        3.0
+        );
+    return 0;
 }
