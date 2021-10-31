@@ -204,6 +204,10 @@ enum
 	TEAM_HEAL_CAR,
 	TEAM_OREX_CAR,
 	TEAM_SUN_CAR,
+	
+	TEAM_OREX_FURGON_CAR,
+	TEAM_SUN_FURGON_CAR,
+
 	TEAM_FSB_CAR,
 	
 	TEAM_VDV_CAR,
@@ -213,7 +217,7 @@ enum
 	
 	VELO,
 };
-new job_car[20][2];
+new job_car[22][2];
 
 enum
 	E_VEHICLE
@@ -260,6 +264,7 @@ enum
 	CP_WANTED,
 	CP_CALLING,
 	CP_GPS,
+	CP_CONTRABANDA,
 };
 new
 	MINER_PICK_ENTER,
@@ -536,6 +541,8 @@ enum e_DIALOG_IDs
 	D_GUN_FSB,
 	
 	D_TP_GPS,
+	
+	D_CALL_CONTRABANDA,
 };
 
 enum PInfo
@@ -928,14 +935,7 @@ enum
 
 //OPG
 #include "../source/fractions/opg_o/opg.inc"
-#include "../source/fractions/opg_o/makegun.inc"
-#include "../source/fractions/opg_o/sellgun.inc"
-#include "../source/fractions/opg_o/selldrugs.inc"
-#include "../source/fractions/opg_o/tie.inc"
-#include "../source/fractions/opg_o/untie.inc"
-#include "../source/fractions/opg_o/close.inc"
-#include "../source/fractions/opg_o/drugs.inc"
-#include "../source/fractions/opg_o/bizwar.inc"
+
 
 //#include    <nex-ac>
 public OnGameModeInit()
