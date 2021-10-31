@@ -529,7 +529,7 @@ stock CallContrabanda(playerid)
         return SCM(playerid, red, string);
     }
     new string[256] = "";
-    format(string, sizeof(string), "{ffffff}Вы желаете заказать {"cblue"}%d кг. {ffffff}контрабанды за {"cblue"}%d тысяч {ffffff}рублей?", CONTRABANDA_VALUE, CONTRABANDA_VALUE * 1000 * CONTRABANDA_PRICE);
+    format(string, sizeof(string), "{ffffff}Вы желаете заказать {"cblue"}%d кг. {ffffff}контрабанды за {"cblue"}%d тысяч {ffffff}рублей?", CONTRABANDA_VALUE, CONTRABANDA_VALUE * CONTRABANDA_PRICE);
     ShowPlayerDialog(playerid, D_CALL_CONTRABANDA, DIALOG_STYLE_MSGBOX, !"Заказ контрабанды", string, !"Заказать", !"Отказаться");
     return 0;
 }

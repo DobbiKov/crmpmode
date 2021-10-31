@@ -110,13 +110,13 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
         return 1;
     #endif
 }
-#if defined _ALS_OnPlayerPickUpPickup
-    #undef OnPlayerPickUpPickup
+#if defined _ALS_OnPlayerPickUpDynPickup
+    #undef OnPlayerPickUpDynamicPickup
 #else 
-    #define _ALS_OnPlayerPickUpPickup
+    #define _ALS_OnPlayerPickUpDynPickup
 #endif
 
-#define OnPlayerPickUpPickup ctrbnd__OnPlayerPickUpDynPickup
+#define OnPlayerPickUpDynamicPickup ctrbnd__OnPlayerPickUpDynPickup
 #if defined ctrbnd__OnPlayerPickUpDynPickup
     forward ctrbnd__OnPlayerPickUpDynPickup(playerid, pickupid);
 #endif
