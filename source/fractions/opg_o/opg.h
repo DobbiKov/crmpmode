@@ -22,10 +22,17 @@ new
 
 new next_contraband_time = 0;
 
+#define CONTRABANDA_VALUE 5
+#define CONTRABANDA_PRICE 100
+
 new contraband_pos_id = -1;
 new contraband_fraction = -1;
 new contraband_timer = -1;
 new contraband_pickup = -1;
+new contraband_bags = CONTRABANDA_VALUE;
+
+
+
 
 // new string[128];
 // format(string, sizeof(string), "UPDATE `other` SET `next_contraband_time` = '%d' LIMIT 1", next_contraband_time);
