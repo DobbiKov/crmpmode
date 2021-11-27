@@ -173,6 +173,13 @@ new bool: post_dps_1_status = false;
 new post_dps_2;
 new bool: post_dps_2_status = false;
 
+
+new post_batyrevo_arzamas_1;
+new bool: post_batyrevo_arzamas_1_status = true;
+
+new post_batyrevo_arzamas_2;
+new bool: post_batyrevo_arzamas_2_status = true;
+
 new open_pps;
 new open_pps_status = false;
 
