@@ -185,6 +185,8 @@ new bool: shlak_vdv_status = false;
 new player_second_timer[MAX_PLAYERS];
 
 new _restart_timer;
+
+
 //************ | Ã¿——»¬€ | ************//
 
 new pPressed[MAX_PLAYERS];
@@ -218,6 +220,14 @@ enum
 	VELO,
 };
 new job_car[22][2];
+
+enum 
+	E_TRUNK
+{
+	trunk_drugs_bags = 0,
+};
+
+new vehicle_trunk[MAX_VEHICLES][E_TRUNK];
 
 enum
 	E_VEHICLE
@@ -759,6 +769,7 @@ enum
 #include "../source/admin/commands/1 lvl/info.inc"
 
 #include "../source/admin/commands/2 lvl/tp.inc"
+#include "../source/admin/commands/2 lvl/gm.inc"
 #include "../source/admin/commands/2 lvl/g.inc"
 #include "../source/admin/commands/2 lvl/gethere.inc"
 #include "../source/admin/commands/2 lvl/nick.inc"

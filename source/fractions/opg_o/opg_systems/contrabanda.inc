@@ -123,6 +123,14 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
+    if((newkeys & KEY_JUMP) && !(oldkeys & KEY_JUMP) || (newkeys & KEY_FIRE))
+    {
+        if(GetPVarInt(playerid, "contraband_meshok_load") > 0)
+        {
+            SCM(playerid, red, !"Вы уронили ящик с контрабандой!");
+            DropContrabandaBag(playerid);
+        }
+    }
     if(newkeys == 1024 && GetPVarInt(playerid, "contraband_meshok_load") == 1)
     {
         if(IsPlayerInRangeOfPoint(playerid, 2.0, 2610.9668,1767.7485,10.2175) && PlayerInfo[playerid][pMember] == TEAM_OREX) //orexi
@@ -179,6 +187,35 @@ stock DropContrabandaBag(playerid)
         RemovePlayerAttachedObject(playerid, 1);
 }
 
+
+
+public OnPlayerStateChange(playerid, newstate, oldstate)
+{
+    if(newstate == PLAYER_STATE_PASSENGER || newstate == PLAYER_STATE_DRIVER)
+    {
+        if(GetPVarInt(playerid, "contraband_meshok_load") > 0)
+        {
+            SCM(playerid, red, !"Вы уронили ящик с контрабандой!");
+            DropContrabandaBag(playerid);
+        }       
+    }
+    #if defined ctrbnd__OnPlayerStateChange
+        return ctrbnd__OnPlayerStateChange(playerid, newstate, oldstate);
+    #else
+        return 1;
+    #endif
+}
+#if	defined	_ALS_OnPlayerStateChange
+	#undef	OnPlayerStateChange
+#else
+	#define	_ALS_OnPlayerStateChange
+#endif
+
+#define	OnPlayerStateChange ctrbnd__OnPlayerStateChange
+#if	defined	ctrbnd__OnPlayerStateChange
+	forward ctrbnd__OnPlayerStateChange(playerid, newstate, oldstate); 
+#endif
+
 CMD:loaddrugs(playerid)
 {
     if(!IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
@@ -192,7 +229,16 @@ CMD:loaddrugs(playerid)
 
         if(IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z) && PlayerInfo[playerid][pMember] == TEAM_OREX)
         {
-            return SCM(playerid, blue, !"YEAH!");
+            vehicle_trunk[i][trunk_drugs_bags] += 1;
+            DeletePVar(playerid, "contraband_meshok_load");
+            DropContrabandaBag(playerid);
+
+            DestroyDynamic3DTextLabel(vehicle[i][veh_label]);
+            new string[144]= "";
+            format(string, sizeof(string), "Контрабанда:\n%d мешков", vehicle_trunk[i][trunk_drugs_bags]);
+            vehicle[i][veh_label] = CreateDynamic3DTextLabel(string, white, 0.0, 0.0, 1.5, 20.0, _, i);
+
+            return SCM(playerid, blue, !"Вы положили мешок с контрабандой в фургон.");
         }
     }
 
@@ -202,9 +248,83 @@ CMD:loaddrugs(playerid)
 
         if(IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z) && PlayerInfo[playerid][pMember] == TEAM_SUN)
         {
-            return SCM(playerid, blue, !"YEAH!");
+            vehicle_trunk[i][trunk_drugs_bags] += 1;
+            DeletePVar(playerid, "contraband_meshok_load");
+
+            DestroyDynamic3DTextLabel(vehicle[i][veh_label]);
+            DropContrabandaBag(playerid);
+            new string[144]= "";
+            format(string, sizeof(string), "Контрабанда:\n%d мешков", vehicle_trunk[i][trunk_drugs_bags]);
+            vehicle[i][veh_label] = CreateDynamic3DTextLabel(string, white, 0.0, 0.0, 1.5, 20.0, _, i);
+
+            return SCM(playerid, blue, !"Вы положили мешок с контрабандой в фургон.");
         }
     }
 
-    return SCM(playerid, red, !"Вы должны находить у багажника фургона!");
+    return SCM(playerid, red, !"Вы должны находиться у багажника фургона!");
+}
+
+CMD:unloaddrugs(playerid)
+{
+    if(!IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
+    if(GetPVarInt(playerid, "contraband_meshok_load") > 0) return SCM(playerid, red, !"У вас уже есть мешок с контрабандой!");
+    if(IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, !"Вы должны быть вне транспорта!");
+    new Float:x, Float: y, Float: z;
+    GetPlayerPos(playerid, x, y, z);
+    for(new i = job_car[TEAM_OREX_FURGON_CAR][0]; i <= job_car[TEAM_OREX_FURGON_CAR][1]; i++)
+    {
+        GetCoordBootVehicle(i, x, y, z);
+
+        if(IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z) && PlayerInfo[playerid][pMember] == TEAM_OREX)
+        {
+            if(vehicle_trunk[i][trunk_drugs_bags] < 1) 
+            {
+                return SCM(playerid, red, !"В фургоне нет мешков с контрабандой!");
+            }
+            vehicle_trunk[i][trunk_drugs_bags] -= 1;
+            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+            SetPlayerAttachedObject(playerid, 1 ,1279, 1,0.11,0.36,0.0,0.0,90.0);
+            SetPVarInt(playerid, "contraband_meshok_load", 1);
+            SCM(playerid, blue, "Вы взяли мешок с контрабандой, отнесите его на склад!");
+
+            DestroyDynamic3DTextLabel(vehicle[i][veh_label]);
+            if(vehicle_trunk[i][trunk_drugs_bags] > 0)
+            {
+                new string[144]= "";
+                format(string, sizeof(string), "Контрабанда:\n%d мешков", vehicle_trunk[i][trunk_drugs_bags]);
+                vehicle[i][veh_label] = CreateDynamic3DTextLabel(string, white, 0.0, 0.0, 1.5, 20.0, _, i);
+            }
+            return 1;
+        }
+    }
+
+    for(new i = job_car[TEAM_SUN_FURGON_CAR][0]; i <= job_car[TEAM_SUN_FURGON_CAR][1]; i++)
+    {
+        GetCoordBootVehicle(i, x, y, z);
+
+        if(IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z) && PlayerInfo[playerid][pMember] == TEAM_SUN)
+        {
+            if(vehicle_trunk[i][trunk_drugs_bags] < 1) 
+            {
+                return SCM(playerid, red, !"В фургоне нет мешков с контрабандой!");
+            }
+
+            vehicle_trunk[i][trunk_drugs_bags] -= 1;
+            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+            SetPlayerAttachedObject(playerid, 1 ,1279, 1,0.11,0.36,0.0,0.0,90.0);
+            SetPVarInt(playerid, "contraband_meshok_load", 1);
+            SCM(playerid, blue, "Вы взяли мешок с контрабандой, отнесите его на склад!");
+
+            DestroyDynamic3DTextLabel(vehicle[i][veh_label]);
+            if(vehicle_trunk[i][trunk_drugs_bags] > 0)
+            {
+                new string[144]= "";
+                format(string, sizeof(string), "Контрабанда:\n%d мешков", vehicle_trunk[i][trunk_drugs_bags]);
+                vehicle[i][veh_label] = CreateDynamic3DTextLabel(string, white, 0.0, 0.0, 1.5, 20.0, _, i);
+            }
+            return 1;
+        }
+    }
+
+    return SCM(playerid, red, !"Вы должны находиться у багажника фургона!");
 }
