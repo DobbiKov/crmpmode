@@ -34,6 +34,7 @@ CMD:rb(playerid, params[])
 CMD:rfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /r");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rfsb [Текст]");
@@ -50,6 +51,7 @@ CMD:rfsb(playerid, params[])
 CMD:rbfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /rb");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rbfsb [Текст]");
