@@ -294,10 +294,11 @@
 	job_car[TEAM_SUN_CAR][1] = AddStaticVehicleEx(421,1716.7197,1334.6970,12.7316,180.0148,0,0,3600); // машина ОПГ-С
 
 	job_car[TEAM_FSB_CAR][0] = AddStaticVehicleEx(433,2425.5081,-1796.7102,18.6892,180.6524,16,16,3600); // машина fsb
-	AddStaticVehicleEx(459,2416.5432,-1795.7845,18.8367,177.5269,0,0,3600);//vito
+	
+	job_car[TEAM_FSB_FURGON_CAR][0] = AddStaticVehicleEx(459,2416.5432,-1795.7845,18.8367,177.5269,0,0,3600);//vito
 	AddStaticVehicleEx(459,2412.1343,-1795.8007,18.8423,178.7196,0,0,3600);//vito
 	AddStaticVehicleEx(459,2407.8337,-1795.8203,18.8394,179.2205,0,0,3600);//vito
-	AddStaticVehicleEx(459,2403.8130,-1795.7736,18.8422,178.7282,0,0,3600);//vito
+	job_car[TEAM_FSB_FURGON_CAR][1] = AddStaticVehicleEx(459,2403.8130,-1795.7736,18.8422,178.7282,0,0,3600);//vito 
 
 	AddStaticVehicleEx(490,2399.4114,-1796.5762,19.0360,178.9212,0,0,3600);//suburban
 	AddStaticVehicleEx(490,2399.5334,-1809.4105,19.0376,358.9885,0,0,3600);//suburban

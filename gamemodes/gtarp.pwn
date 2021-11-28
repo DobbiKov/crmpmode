@@ -218,6 +218,7 @@ enum
 	TEAM_SUN_FURGON_CAR,
 
 	TEAM_FSB_CAR,
+	TEAM_FSB_FURGON_CAR,
 	
 	TEAM_VDV_CAR,
 	TEAM_VDV_BTR_CAR,
@@ -226,7 +227,7 @@ enum
 	
 	VELO,
 };
-new job_car[22][2];
+new job_car[23][2];
 
 enum 
 	E_TRUNK
