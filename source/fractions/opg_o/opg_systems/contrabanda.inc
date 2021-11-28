@@ -367,7 +367,7 @@ stock IsPlayerNearContrabandaCar(playerid)
 
 CMD:unloaddrugs(playerid)
 {
-    if(!IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
+    if(!IsAOpg(playerid) && !IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
     if(GetPVarInt(playerid, "contraband_meshok_load") > 0) return SCM(playerid, red, !"У вас уже есть мешок с контрабандой!");
     if(IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, !"Вы должны быть вне транспорта!");
     
