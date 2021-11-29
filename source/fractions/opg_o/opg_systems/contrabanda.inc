@@ -6,7 +6,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if(!response) return SCM(playerid, blue, !"Вы отказались от заказа контрабанды!");
             if(!IsAOpg(playerid) || PlayerInfo[playerid][pRang] < 10) return SCM(playerid, red, !"Вам недоступна данная функция!");
-            new _contraband_price = CONTRABANDA_VALUE * 1000 * CONTRABANDA_PRICE;
+            new _contraband_price = CONTRABANDA_VALUE * CONTRABANDA_GRAM_IN_BAG * CONTRABANDA_PRICE;
             if(PlayerInfo[playerid][pBCash] < _contraband_price) return SCM(playerid, red, !"У вас недостаточно денег на банковском счету!");
 
 
@@ -139,7 +139,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             format(string, sizeof(string), "[R] %s %s[%d] доставил на склад организации мешок с 1 кг. наркотиков", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid);
             SCMR(PlayerInfo[playerid][pMember], green, string);
 
-            OPG_O_DRUGS += 1000; 
+            OPG_O_DRUGS += CONTRABANDA_GRAM_IN_BAG; 
 
             SaveAccounts(playerid);
             SaveRepository();
@@ -152,7 +152,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             format(string, sizeof(string), "[R] %s %s[%d] доставил на склад организации мешок с 1 кг. наркотиков", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid);
             SCMR(PlayerInfo[playerid][pMember], green, string);
 
-            OPG_S_DRUGS += 1000;
+            OPG_S_DRUGS += CONTRABANDA_GRAM_IN_BAG;
 
             SaveAccounts(playerid);
             SaveRepository();
@@ -162,8 +162,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1967.2764, -1944.4343, 25.1482))
         {
-            SCM(playerid, blue, !"Вы уничтожили 1 мешок с контрабандой!");
+            // SCM(playerid, blue, !"Вы уничтожили 1 мешок с контрабандой!");
             DropContrabandaBag(playerid);
+            new _money = (CONTRABANDA_GRAM_IN_BAG * CONTRABANDA_PRICE) / 2;
+            GiveMoney(playerid, _money, "Уничтожение контрабанды на Юж.Химе.");
+
+            new string[144] = "";
+            format(string, sizeof(string), "Вам была выплачена премия в размере %d руб., за уничтожение запрещенных веществ!", _money);
+            SCM(playerid, green, string);
         }
 
     }

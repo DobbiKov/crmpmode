@@ -22,8 +22,9 @@ new
 
 new next_contraband_time = 0;
 
-#define CONTRABANDA_VALUE 5
+#define CONTRABANDA_VALUE 15
 #define CONTRABANDA_PRICE 100
+#define CONTRABANDA_GRAM_IN_BAG 500
 
 new contraband_pos_id = -1;
 new contraband_fraction = -1;
