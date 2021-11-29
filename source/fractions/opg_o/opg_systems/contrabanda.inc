@@ -125,7 +125,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if((newkeys & KEY_JUMP) && !(oldkeys & KEY_JUMP) || (newkeys & KEY_FIRE))
     {
-        if(GetPVarInt(playerid, "contraband_meshok_load") > 0)
+        if(GetPVarInt(playerid, "contraband_meshok_load") > 0  && IsAOpg(playerid))
         {
             SCM(playerid, red, !"Вы уронили ящик с контрабандой!");
             DropContrabandaBag(playerid);
@@ -199,7 +199,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if(newstate == PLAYER_STATE_PASSENGER || newstate == PLAYER_STATE_DRIVER)
     {
-        if(GetPVarInt(playerid, "contraband_meshok_load") > 0)
+        if(GetPVarInt(playerid, "contraband_meshok_load") > 0 && IsAOpg(playerid))
         {
             SCM(playerid, red, !"Вы уронили ящик с контрабандой!");
             DropContrabandaBag(playerid);
