@@ -160,7 +160,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             DropContrabandaBag(playerid);
         }
 
-        if(IsPlayerInRangeOfPoint(playerid, 1967.2764, -1944.4343, 25.1482))
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, 1967.2764, -1944.4343, 25.1482))
         {
             SCM(playerid, blue, !"Вы уничтожили 1 мешок с контрабандой!");
             DropContrabandaBag(playerid);
