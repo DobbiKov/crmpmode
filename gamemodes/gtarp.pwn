@@ -1633,6 +1633,7 @@ public OnPlayerSpawn(playerid)
 	if(!IsPlayerConnected(playerid)) return 1;
     DeletePVar(playerid,"K_Times");
     KillTimer(STimer[playerid]);
+    DropContrabandaBag(playerid);
     
     
 	SetPlayerScore(playerid, PlayerInfo[playerid][pLVL]);
@@ -1682,6 +1683,7 @@ public OnPlayerDeath(playerid, killerid, reason)
     SetPVarInt(playerid,"K_Times",GetPVarInt(playerid,"K_Times") + 1);
     if(GetPVarInt(playerid,"K_Times") > 1) return NewKick(playerid);
     if(killerid == playerid) return ResultCheat(playerid, 7);
+    DropContrabandaBag(playerid);
     
 	for(new i = 0; i < 13; i++)
 	{
