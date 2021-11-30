@@ -16,7 +16,7 @@ CMD:openvdv(playerid)
 			
 			open_vdv_status = 1;
 			
-			SCM(playerid, blue, "Вы открыли ворота");
+			SCM(playerid, green, !"Вы открыли ворота");
 			
 			SetPlayerChatBubble(playerid,"Открывает ворота",blue,30.0,10000);
 		}
@@ -26,7 +26,7 @@ CMD:openvdv(playerid)
 			
 			open_vdv_status = 0;
 			
-			SCM(playerid, red, "Вы закрыли ворота");
+			SCM(playerid, red, !"Вы закрыли ворота");
 			
 			SetPlayerChatBubble(playerid,"Закрывает ворота",red,30.0,10000);
 		}

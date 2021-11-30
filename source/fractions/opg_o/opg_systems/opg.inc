@@ -65,12 +65,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             if(PlayerInfo[playerid][pMember] == TEAM_SUN){
                 switch(OpgDoorsStatus[OPG_S_DOOR]){
                     case false: {//закрыта
-                        SCM(playerid, blue, !"Вы открыли дверь.");
+                        SCM(playerid, green, !"Вы открыли дверь.");
                         MoveObject(OpgDoors[OPG_S_DOOR], 1706.90, 1330.35, 12.72, 5.0, 0.00, 0.00, 290.59);
                         OpgDoorsStatus[OPG_S_DOOR] = true;
                     }
                     case true:{
-                        SCM(playerid, blue, !"Вы закрыли дверь.");
+                        SCM(playerid, red, !"Вы закрыли дверь.");
                         MoveObject(OpgDoors[OPG_S_DOOR], 1706.93, 1330.34, 12.76, 5.0, 0.00, 0.00, 0.00);
                         OpgDoorsStatus[OPG_S_DOOR] = false;                       
                     }
@@ -81,12 +81,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             if(PlayerInfo[playerid][pMember] == TEAM_OREX){
                 switch(OpgDoorsStatus[OPG_O_DOOR]){
                     case false: {//закрыта
-                        SCM(playerid, blue, !"Вы открыли дверь.");
+                        SCM(playerid, green, !"Вы открыли дверь.");
                         MoveObject(OpgDoors[OPG_O_DOOR], 2601.98, 1769.14, 2.51, 5.0, 0.00, 0.00, 88.75);
                         OpgDoorsStatus[OPG_O_DOOR] = true;
                     }
                     case true:{
-                        SCM(playerid, blue, !"Вы закрыли дверь.");
+                        SCM(playerid, red, !"Вы закрыли дверь.");
                         MoveObject(OpgDoors[OPG_O_DOOR], 2601.98, 1769.14, 2.51, 5.0, 0.00, 0.00, 0.00);
                         OpgDoorsStatus[OPG_O_DOOR] = false;                       
                     }

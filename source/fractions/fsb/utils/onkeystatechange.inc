@@ -20,7 +20,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(fsb_door_status == false)
 			{
-				SCM(playerid, blue, "Вы открыли дверь");
+				SCM(playerid, green, !"Вы открыли дверь");
 				MoveObject(fsb_door, 2397.47, -1836.63, 21.57, 4.0,  0.00, 0.00, -60.00);
 				fsb_door_status = true;
 			}
@@ -91,7 +91,7 @@ stock CloseOpenIndoorVorota(playerid)
 
     if(fsb_vorota_1_status == false)
     {
-        SCM(playerid, blue, "Вы открыли ворота");
+        SCM(playerid, green, !"Вы открыли ворота");
         MoveObject(fsb_vorota_1, 2395.02, -1792.44, 25.70, 4.0,  0.00, 0.00, 0.00);
         fsb_vorota_1_status = true;
     }
@@ -109,13 +109,13 @@ stock CloseOpenOutdoorVorota(playerid)
 
     if(fsb_vorota_2_status == false)
     {
-        SCM(playerid, blue, "Вы открыли ворота");
+        SCM(playerid, green, !"Вы открыли ворота");
         MoveObject(fsb_vorota_2, 2445.66, -1795.02, 25.68, 4.0,  0.00, 0.00, 90.00);
         fsb_vorota_2_status = true;
     }
     else if(fsb_vorota_2_status == true)
     {
-        SCM(playerid, red, "Вы закрыли ворота");
+        SCM(playerid, red, !"Вы закрыли ворота");
         MoveObject(fsb_vorota_2, 2445.66, -1795.02, 22.42, 4.0,  0.00, 0.00, 90.00);
         fsb_vorota_2_status = false;
     }

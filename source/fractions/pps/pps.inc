@@ -101,13 +101,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(post_dps_1_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_dps_1, 2747.48, -1382.81, 23.44, 4.0,  0.00, 90.00, 0.00);
 				post_dps_1_status = true;
 			}
 			else if(post_dps_1_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_dps_1, 2747.48, -1382.81, 23.44, 4.0, 0.00, 0.00, 0.00);
 				post_dps_1_status = false;
 			}
@@ -119,13 +119,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(post_dps_2_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_dps_2, 2746.83, -1382.82, 23.37, 4.0, 0.00, -90.00, 0.00);
 				post_dps_2_status = true;
 			}
 			else if(post_dps_2_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_dps_2, 2746.83, -1382.82, 23.37, 4.0, 0.00, 0.00, 0.00);//2
 				post_dps_2_status = false;
 			}
@@ -138,13 +138,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(post_batyrevo_arzamas_1_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_batyrevo_arzamas_1, 1553.36, 2967.01, 11.69, 4.00, 0.00, -90.00, 90.00);
 				post_batyrevo_arzamas_1_status = true;
 			}
 			else if(post_batyrevo_arzamas_1_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_batyrevo_arzamas_1,  1553.36, 2967.01, 11.69, 4.00, 0.00, 0.00, 90.00);//2
 				post_batyrevo_arzamas_1_status = false;
 			}
@@ -157,13 +157,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(post_batyrevo_arzamas_2_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_batyrevo_arzamas_2,   1524.45, 2952.78, 11.69, 4.00, 0.00, 90.00, 90.00);
 				post_batyrevo_arzamas_2_status = true;
 			}
 			else if(post_batyrevo_arzamas_2_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_batyrevo_arzamas_2,  1524.45, 2952.78, 11.69, 4.00, 0.00, 0.00, 90.00);//2
 				post_batyrevo_arzamas_2_status = false;
 			}
