@@ -90,7 +90,7 @@ publics on_player_unban(playerid, to_player[])
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unban', 'unban')", PlayerInfo[playerid][pName], to_player, data);
 		mysql_tquery(connects, string, "", "");
 
-		format(string, sizeof(string), "[A]: %s[%d] разбанил игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
+		format(string, sizeof(string), "[A] %s[%d] разбанил игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
 		SCMA(red, string);
 
 		PlayerInfo[playerid][bUnBan]++;
@@ -174,7 +174,7 @@ CMD:ban(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] > PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A]: %s[%d] попытался забанить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попытался забанить %s[%d].");
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);

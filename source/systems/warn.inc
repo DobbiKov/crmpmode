@@ -150,7 +150,7 @@ publics on_player_unwarn(playerid, to_player[])
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'offunwarn', 'offunwarn')", PlayerInfo[playerid][pName], to_player, data);
 		mysql_tquery(connects, string, "", "");
 
-		format(string, sizeof(string), "[A]: %s[%d] снял 1 предупреждение у игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
+		format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
 		SCMA(red, string);
 
 		format(string, sizeof(string), "UPDATE `accounts` SET `pWarns` = '%d' WHERE `pName` = '%s' LIMIT 1", warns, to_player);
@@ -179,7 +179,7 @@ CMD:warn(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] >= PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A]: %s[%d] попытался заварнить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попытался заварнить %s[%d].");
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);
@@ -279,7 +279,7 @@ CMD:unwarn(playerid, params[])
 				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unwarn', 'unwarn')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data);
 				mysql_tquery(connects, string, "", "");
 
-		        format(string, sizeof(string), "[A]: %s[%d] снял 1 предупреждение у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
+		        format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
 		        return SCMA(red, string);
 		    }
 		}

@@ -17,7 +17,7 @@ CMD:aup(playerid, params[])
 	 		PlayerInfo[i][bAdmin]++;
 
 			new string[256];
-			format(string, sizeof(string), "[A]: %s[%d] повысил уровень администратора игрока %s[%d] до %d", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i, PlayerInfo[i][bAdmin]);
+			format(string, sizeof(string), "[A] %s[%d] повысил уровень администратора игрока %s[%d] до %d", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i, PlayerInfo[i][bAdmin]);
 			SCMA(grey, string);
 			SaveAccounts(playerid);
 			return SaveAccounts(i);
@@ -44,7 +44,7 @@ publics off_aup(playerid, to_player[])
 	    admin++;
 
 	    new string[256], sql_str[128];
-	    format(string, sizeof(string), "[A]: %s[%d] повысил игроку %s уровень администратора до %d", PlayerInfo[playerid][pName], playerid, to_player, admin);
+	    format(string, sizeof(string), "[A] %s[%d] повысил игроку %s уровень администратора до %d", PlayerInfo[playerid][pName], playerid, to_player, admin);
 	    SCMA(grey, string);
 
 	    format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `bAdmin` = '%d' WHERE `pName` = '%s' LIMIT 1", admin, to_player);

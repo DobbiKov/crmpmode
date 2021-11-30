@@ -105,7 +105,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				mysql_tquery(connects, sql, "", "");
 
 				new string[128];
-				format(string, sizeof(string), "{"cgrey"}[A]: %s[%d] установил зарплату шахтёрам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
+				format(string, sizeof(string), "{"cgrey"}[A] %s[%d] установил зарплату шахтёрам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
 				SCMA(grey, string);
 		    }
 		}
@@ -125,7 +125,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				mysql_tquery(connects, sql, "", "");
 
 				new string[128];
-				format(string, sizeof(string), "{"cgrey"}[A]: %s[%d] установил зарплату грузчикам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
+				format(string, sizeof(string), "{"cgrey"}[A] %s[%d] установил зарплату грузчикам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
 				SCMA(grey, string);
 		    }
 		}
@@ -145,7 +145,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				mysql_tquery(connects, sql, "", "");
 
 				new string[128];
-				format(string, sizeof(string), "{"cgrey"}[A]: %s[%d] установил зарплату водолазам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
+				format(string, sizeof(string), "{"cgrey"}[A] %s[%d] установил зарплату водолазам: %s!", PlayerInfo[playerid][pName], playerid, inputtext);
 				SCMA(grey, string);
 		    }
 		}
@@ -631,7 +631,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            SendRconCommand("hostname "hostname"");
 		            ShowServerSettings(playerid);
 
-		            format(string, sizeof(string), "[A]: %s[%d] установил название сервера: %s", PlayerInfo[playerid][pName], playerid, hostname);
+		            format(string, sizeof(string), "[A] %s[%d] установил название сервера: %s", PlayerInfo[playerid][pName], playerid, hostname);
 		            SCMA(grey, string);
 		        }
 		        else
@@ -642,7 +642,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, sizeof(string), "hostname %s", serv_name);
 					SendRconCommand(string);
 
-		            format(string, sizeof(string), "[A]: %s[%d] установил название сервера на: %s", PlayerInfo[playerid][pName], playerid, serv_name);
+		            format(string, sizeof(string), "[A] %s[%d] установил название сервера на: %s", PlayerInfo[playerid][pName], playerid, serv_name);
 		            SCMA(grey, string);
 		        }
 		    }
@@ -664,7 +664,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(string, sizeof(string), "UPDATE `other` SET `XDay` = '%d' LIMIT 1", XDay);
 				mysql_tquery(connects, string, "", "");
 
-				format(string, sizeof(string), "[A]: %s[%d] установил X%d Day", PlayerInfo[playerid][pName], playerid, XDay);
+				format(string, sizeof(string), "[A] %s[%d] установил X%d Day", PlayerInfo[playerid][pName], playerid, XDay);
 				SCMA(grey, string);
 				ShowServerSettings(playerid);
 		    }
@@ -686,7 +686,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				mysql_tquery(connects, string, "", "");
 				next_contraband_time = gettime() + (86400 * day);
 
-				format(string, sizeof(string), "[A]: %s[%d] изменил время заказа контрабанды на %d", PlayerInfo[playerid][pName], playerid, day);
+				format(string, sizeof(string), "[A] %s[%d] изменил время заказа контрабанды на %d", PlayerInfo[playerid][pName], playerid, day);
 				SCMA(grey, string);
 				ShowServerSettings(playerid);
 		    }
@@ -700,7 +700,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        {
 		            server_pass_status = 0;
 		            new string[128];
-		            format(string, sizeof(string), "[A]: %s[%d] убрал пароль сервера", PlayerInfo[playerid][pName], playerid);
+		            format(string, sizeof(string), "[A] %s[%d] убрал пароль сервера", PlayerInfo[playerid][pName], playerid);
 		            SCMA(grey, string);
 
 		            format(string, sizeof(string), "UPDATE `other` SET `server_pass_status` = '%d' LIMIT 1", server_pass_status);
@@ -720,7 +720,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            server_pass_status = 1;
 		            strcat(server_pass, inputtext, 24);
 		            new string[128];
-		            format(string, sizeof(string), "[A]: %s[%d] установил новый пароль сервера: %s", PlayerInfo[playerid][pName], playerid, server_pass);
+		            format(string, sizeof(string), "[A] %s[%d] установил новый пароль сервера: %s", PlayerInfo[playerid][pName], playerid, server_pass);
 		            SCMA(grey, string);
 
 		            format(string, sizeof(string), "UPDATE `other` SET `server_pass_status` = '%d' LIMIT 1", server_pass_status);

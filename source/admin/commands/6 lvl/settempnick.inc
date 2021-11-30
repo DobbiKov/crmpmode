@@ -8,7 +8,7 @@ CMD:settempnick(playerid, params[])
 
     SetPlayerName(to_player, name);
     new string[256] = "";
-    format(string, sizeof(string), "[A]: %s[%d] установил %s[%d] временный никнейм: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, name);
+    format(string, sizeof(string), "[A] %s[%d] установил %s[%d] временный никнейм: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, name);
     SCMA(grey, string);
 
     format(string, sizeof(string), "Администратор %s установил вам временный никнейм: %s", PlayerInfo[playerid][pName], name);
