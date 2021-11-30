@@ -173,6 +173,9 @@ new bool: post_dps_1_status = false;
 new post_dps_2;
 new bool: post_dps_2_status = false;
 
+new dps_door;
+new bool: dps_door_status = false;
+
 
 new post_batyrevo_arzamas_1;
 new bool: post_batyrevo_arzamas_1_status = true;
@@ -311,6 +314,8 @@ new
 	VOENKOM_PICK_EXIT,
 	SMI_PICK_ENTER,
 	SMI_PICK_EXIT,
+	DPS_PICK_ENTER,
+	DPS_PICK_EXIT,
 	
 	PRIBATH_PICK_ENTER,
 	PRIBATH_PICK_EXIT,
@@ -912,6 +917,9 @@ enum
 
 // FSB
 #include "../source/fractions/fsb/fsb.inc"
+
+// DPS
+#include "../source/fractions/dps/dps.inc"
 
 // PPS
 #include "../source/fractions/pps/pps.inc"
@@ -2200,6 +2208,22 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	    
 		SCM(playerid, blue, "Вы успешно зарегестрировались. Ожидайте начала пентбола.");
 		PlayerInfo[playerid][pInvitePaintBall] = true;
+	}
+	
+	
+	if(pickupid == DPS_PICK_ENTER)
+	{
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2583.0352, -2424.7869, 900.2700);
+	    SetPlayerFacingAngle(playerid, 357.1234);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == DPS_PICK_EXIT)
+	{
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2579.2434, -2415.9292, 21.9888);
+	    SetPlayerFacingAngle(playerid, 270.6595);
+	    SetPlayerVirtualWorld(playerid, 0);
 	}
 	return 1;
 }

@@ -5806,4 +5806,4 @@
 	SetDynamicObjectMaterial(dps, 0, 10056, "genintclothessport", "mp_diner_wood", 0x00000000);
 	dps = CreateDynamicObject(19071, 2583.58, -2338.75, 898.27, 180.00, 0.00, 0.00);
 	SetDynamicObjectMaterial(dps, 0, 10056, "genintclothessport", "mp_diner_wood", 0x00000000);
-	CreateObject(19303, 2583.39, -2417.25, 900.48, 0.00, 0.00, 180.00);
+	
