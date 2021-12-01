@@ -186,7 +186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1 || PlayerInfo[playerid][pPodID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
                         foreach(new i : Allkvart)
                         {
                             if(KvartInfo[i][kvart_pod_id] == player_in_podezd[playerid])

@@ -97,7 +97,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	if(playertextid == PlayerText:auto_salon_td[playerid][26]) // купить*/
 	{
 
-		if(PlayerInfo[playerid][pHomeID] == -1) if(PlayerInfo[playerid][pPodID] == -1) return SCM(playerid, red, "Для того чтобы купить транспорт необходимо иметь жильё. (дом, квартира)");
+		if(PlayerInfo[playerid][pHomeID] == -1) if(PlayerInfo[playerid][pKvartID] == -1) return SCM(playerid, red, "Для того чтобы купить транспорт необходимо иметь жильё. (дом, квартира)");
 
 		if(PlayerInfo[playerid][pCarID] != -1) return SCM(playerid, red, "У Вас уже есть личный транспорт");
 

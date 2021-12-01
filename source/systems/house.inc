@@ -261,7 +261,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 new h = GetPVarInt(playerid, "house_id");
-                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1 || PlayerInfo[playerid][pPodID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
                 if(HouseInfo[h][hOwned] == 1) return SCM(playerid, red, "Данным домом уже кто-то владеет.");
                 if(PlayerInfo[playerid][pCash] < HouseInfo[h][hPrice]) return SCM(playerid, red, "У вас недостаточно денег.");
 

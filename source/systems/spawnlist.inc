@@ -41,7 +41,7 @@ stock SetSpawnAtHome(playerid)
 }
 stock SetSpawnAtKvartira(playerid)
 {
-	if(PlayerInfo[playerid][pKvartID] == -1 || PlayerInfo[playerid][pPodID] == -1)
+	if(PlayerInfo[playerid][pKvartID] == -1)
 	{
 		SCM(playerid, red, "У вас нет квартиры.");
 		return SpawnList(playerid);
