@@ -2980,6 +2980,7 @@
 	CreateDynamicObject(10247, -789.91, 1871.65, 706.87,   0.00, 0.00, 0.00);
 	CreateDynamicObject(10247, -789.91, 1870.42, 705.88,   0.00, 0.00, 0.00);
 	CreateDynamicObject(10247, -789.91, 1870.42, 706.67,   0.00, 0.00, 0.00);
+	CreateDynamicObject(19363, -821.18, 1883.71, 706.24,   0.00, 0.00, 90.00);
 	SetDynamicObjectMaterial(CreateDynamicObject(19071, -782.39, 1914.13, 705.45, 0.00, 0.00, 0.00), 0, 10055, "scummy", "ceiling_256", 0); 
 	SetDynamicObjectMaterial(CreateDynamicObject(19071, -814.06, 1900.48, 700.02, 180.00, 0.00, 0.00), 0, 10055, "scummy", "ws_stationfloor", 0); 
 	CreateObject(19071, -810.66, 1846.13, 703.68, 180.00, 0.00, 0.00);
