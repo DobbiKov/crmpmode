@@ -190,6 +190,7 @@ publics minuteupdate()
                             SCM(j, green, "Ваша квартира была продана государству за неуплату.");
 
                             PlayerInfo[j][pKvartID] = -1;
+                            PlayerInfo[j][pPodID] = -1;
 
                             KvartInfo[i][kvart_Owned] = 0;
                             KvartInfo[i][kvart_days] = 3;
@@ -210,7 +211,7 @@ publics minuteupdate()
                     new offkvartmess[144] = "Ваша квартира была передана государству, за неуплату.";
 
                     new sql[1024];
-                    format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
+                    format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1', `pPodID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
                     return mysql_tquery(connects, sql, "", "");
                 }
             }
