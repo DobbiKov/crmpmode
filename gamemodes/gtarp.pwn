@@ -970,6 +970,7 @@ public OnGameModeInit()
 	SetGameModeText(""gamemode"");
 	SendRconCommand("hostname "hostname"");
 	SendRconCommand("mapname "mapname"");
+	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
 
@@ -1091,6 +1092,8 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][pJP] = cache_get_field_content_int(0, "pJP");
     PlayerInfo[playerid][pHOSPITAL] = cache_get_field_content_int(0, "pHOSPITAL");
     PlayerInfo[playerid][pIsFSB] = cache_get_field_content_int(0, "pIsFSB");
+    PlayerInfo[playerid][pFines] = cache_get_field_content_int(0, "pFines");
+    PlayerInfo[playerid][pSumFines] = cache_get_field_content_int(0, "pSumFines");
     
     PlayerInfo[playerid][pFamID] = cache_get_field_content_int(0, "pFamID");
     PlayerInfo[playerid][pFamRang] = cache_get_field_content_int(0, "pFamRang");
@@ -2865,6 +2868,8 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pBeer] = 0;
  	PlayerInfo[playerid][pLighter] = 0;
  	PlayerInfo[playerid][pChips] = 0;
+ 	PlayerInfo[playerid][pFines] = 0;
+ 	PlayerInfo[playerid][pSumFines] = 0;
  	
  	PlayerInfo[playerid][pReadsms] = 0;
     PlayerInfo[playerid][pJobTipster] = 0;
