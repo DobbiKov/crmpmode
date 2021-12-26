@@ -14,9 +14,9 @@
 #define 	gamemode    "UNIGVA - Beta 0.6.4"
 #define     hostname    "[ Unigva RolePlay | Сервер для Олдов ]"
 #define     mapname     "Criminal Russia"
-#define     site_url    "dobbikov.gq"
+#define     site_url    "unigva-rp.ru"
 #define     name_serv   "Unigva RolePlay"
-#define     forum_url   "dobbikov.gq"
+#define     forum_url   "forum.unigva-rp.ru"
 
 //************* |  | *************//
 #define     red        	0xFF0000AA
