@@ -1,9 +1,5 @@
 CMD:infiltrate(playerid, params[]){
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
-    extract params -> new rank; else return SCM(playerid, blue, "[Ïîäñêàçêà]: {FFFFFF}Èñïîëüçóéòå /infiltrate [ğàíã(1-7)]");
-    if(rank > 7 || rank < 1)
-        return SCM(playerid, blue, "[Ïîäñêàçêà]: {FFFFFF}Èñïîëüçóéòå /infiltrate [ğàíã(1-7)]");
-    SetPVarInt(playerid, "INFILTRATE_RANK", rank);
     return ShowInfiltrateDialog(playerid);
 }
 
@@ -29,22 +25,49 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(listitem == 0)
                 {
+                    PlayerInfo[playerid][pRang] = PlayerInfo[playerid][pFSBRank];
                     PlayerInfo[playerid][pMember] = TEAM_FSB;
-                    SCM(playerid, blue, !"Âû óñïåøíî âåğíóëèñü â ÔÑÁ!");
+                    return SCM(playerid, blue, !"Âû óñïåøíî âåğíóëèñü â ÔÑÁ!");
+
+                    
+                }
+                else if(listitem == TEAM_FSB)
+                {
+                    SCM(playerid, red, !"Âû íå ìîæåòå âíåäğèòüñÿ â ÔÑÁ!");
+                    return ShowInfiltrateDialog(playerid);
                 }
                 else{
                     PlayerInfo[playerid][pMember] = listitem;
-                    PlayerInfo[playerid][pRang] = GetPVarInt(playerid, "INFILTRATE_RANK");
-                    new string[144] = "";
-                    format(string, sizeof(string), "Âû óñïåøíî âíåäğèëèñü â %s.", GetMember[listitem]);
-                    SCM(playerid, blue, string);
+                    PlayerInfo[playerid][pRang] = 1;
 
-                    SCMMoreInfiltrateCommands(playerid);
-                    DeletePVar(playerid, "INFILTRATE_RANK");
+                    new string[1024] = "";
+                    for(new i = 1; i < 8; i++)
+                    {
+                        new temp_str[144] = "";
+                        format(temp_str, sizeof(temp_str), "{"cblue"}%d. {ffffff}%s\n", i, PlayerRank[listitem][i]);
+                        strcat(string, temp_str);
+                    }
+                    return SPD(playerid, D_FSB_INFILTRATE_RANK, DIALOG_STYLE_LIST, !"{"cblue"}Âûáîğ ğàíãà", string, "Âûáğàòü", "");
                 }
             }
+        }
+		case D_FSB_INFILTRATE_RANK:{
+            if(response)
+            {
+                PlayerInfo[playerid][pRang] = listitem + 1;
+
+                new string[144] = "";
+                format(string, sizeof(string), "Âû óñïåøíî âíåäğèëèñü â %s íà äîëæíîñòü %s.", GetMember[ PlayerInfo[playerid][pMember] ], PlayerRank[ PlayerInfo[playerid][pMember] ][listitem + 1]);
+                SCM(playerid, blue, string);
+
+                return SCMMoreInfiltrateCommands(playerid);
+            }
             else{
-                DeletePVar(playerid, "INFILTRATE_RANK");
+                new string[144] = "";
+                format(string, sizeof(string), "Âû óñïåøíî âíåäğèëèñü â %s íà äîëæíîñòü %s.", GetMember[ PlayerInfo[playerid][pMember] ], PlayerRank[ PlayerInfo[playerid][pMember] ][1]);
+                SCM(playerid, blue, string);
+
+                return SCMMoreInfiltrateCommands(playerid);
             }
         }
 	}

@@ -350,6 +350,7 @@ CMD:yes(playerid)
 				SCM(playerid, green, string);
 				SCM(playerid, 0x3399FFFF, "Используйте {FFCC00}/menu > Команды сервера{3399FF}, чтобы узнать о новых возможностях");	
 				
+				PlayerInfo[playerid][pRang] = 1;
 				PlayerInfo[playerid][pMember] = PlayerInfo[proposition][pMember];
 				PlayerInfo[playerid][pRang] = 1;
 				PlayerInfo[playerid][pFSkin] = 1;

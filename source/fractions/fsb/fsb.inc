@@ -5,6 +5,7 @@
 
 #include "../source/fractions/fsb/readsms.inc"
 #include "../source/fractions/fsb/switchskin.inc"
+#include "../source/fractions/fsb/switchfskin.inc"
 #include "../source/fractions/fsb/tipster.inc"
 #include "../source/fractions/fsb/infiltrate.inc"
 

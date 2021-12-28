@@ -560,6 +560,8 @@ enum e_DIALOG_IDs
 	D_CHOOSE_TIPSTER_FRACTION,
 	D_CHOOSE_TIPSTER_JOB,
 	D_FSB_INFILTRATE,
+	D_FSB_INFILTRATE_RANK,
+	D_SWITCH_FSKIN,
 	D_SET_FSB_NUMBERS,
 	D_GUN_FSB,
 	
@@ -593,7 +595,7 @@ enum PInfo
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
-	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, // Система фракций
+	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, pFSBRank, // Система фракций
 	pReadsms, pReadR,
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
@@ -654,7 +656,7 @@ new stock ChangeSkin[9][10] =
 	{287, 255, 179, 61, 191, 206, EOS, EOS, EOS, EOS},
 	{126, 121, 127, 123, 223, 272, 40, EOS, EOS, EOS},
 	{125, 111, 124, 299, 112, 272, 93, EOS, EOS, EOS},
-	{265,285,286,163,165,166,EOS,EOS,EOS,EOS}
+	{265,285,286,163,165,166,277,278,EOS,EOS}
 };
 
 new stock PlayerRank[9][11][46] =
@@ -662,8 +664,8 @@ new stock PlayerRank[9][11][46] =
 	{"Гражданский", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
 	{"", "Секретарь","Гл.Секретарь","Охранник","Гл.Охраны","Адвокат","Гл.Адвокат","Депутат","Министр","Зам.Мэра","Мэр"},
 	{"", "Помощник редакции","Верстальщик новостей","Радиотехник","Журналист","Ст. журналист","Корректор","Помощник редактора","Редактор","Заместитель Директора","Директор"},
-	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Прапорщик", "Лейтенант","Майор","Подполковник","Полковник","Генерал"},
-	{"", "Интерн","Младший Мед.Работник","Старший Мед.Работник","Врач-Участковый","Старший Врач-Участковый","Хирург","Младший Специалист","Старший Специалист","Заведущий","Глав.Врач"},
+	{"", "Рядовой","Сержант","Ст.Сержант","Прапорщик","Лейтенант", "Капитан","Майор","Подполковник","Полковник","Генерал"},
+	{"", "Интерн","Мед.Работник","Врач-Участковый","Врач-Терапевт","Стоматолог","Хирург","Младший Специалист","Старший Специалист","Заведующий","Глав.Врач"},
 	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Лейтенант","Капитан","Майор","Подполковник","Полковник","Генерал"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
@@ -1105,6 +1107,7 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][pJP] = cache_get_field_content_int(0, "pJP");
     PlayerInfo[playerid][pHOSPITAL] = cache_get_field_content_int(0, "pHOSPITAL");
     PlayerInfo[playerid][pIsFSB] = cache_get_field_content_int(0, "pIsFSB");
+    PlayerInfo[playerid][pFSBRank] = cache_get_field_content_int(0, "pFSBRank");
     PlayerInfo[playerid][pFines] = cache_get_field_content_int(0, "pFines");
     PlayerInfo[playerid][pSumFines] = cache_get_field_content_int(0, "pSumFines");
     
@@ -1412,6 +1415,7 @@ stock SaveAccounts(playerid)
 		`pFamRang` = '%d',\
 		`pTelegramId` = '%d',\
 		`pIsFSB` = '%d',\
+		`pFSBRank` = '%d',\
 		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
@@ -1508,6 +1512,7 @@ stock SaveAccounts(playerid)
 	 	PlayerInfo[playerid][pFamRang],
 	 	PlayerInfo[playerid][pTelegramId],
 	 	PlayerInfo[playerid][pIsFSB],
+	 	PlayerInfo[playerid][pFSBRank],
 	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
@@ -2318,13 +2323,24 @@ public OnPlayerUpdate(playerid)
 	    ResetPlayerMoney(playerid);
 	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
 	}
-	if(PlayerInfo[playerid][pMember] == TEAM_FSB)
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pFSBRank] != PlayerInfo[playerid][pRang])
+	{
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
+	}
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pIsFSB] != 1)
 	{
         PlayerInfo[playerid][pIsFSB] = 1;
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
 	}
 	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
 	{
 		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pFSBRank] > 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
 	}
 	return 1;
 }
@@ -2904,6 +2920,7 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pReadsms] = 0;
     PlayerInfo[playerid][pJobTipster] = 0;
 	PlayerInfo[playerid][pIsFSB] = 0;
+	PlayerInfo[playerid][pFSBRank] = 0;
     PlayerInfo[playerid][pTipster] = 0;
  	
  	PlayerInfo[playerid][bStreamerMode] = 0;

@@ -49,6 +49,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/infiltrate [ранг] - Внедриться в организацию\n"\
 		"/readsms - Прослушка сообщений\n"\
 		"/switchskin [ID скина] - Сменить одежду\n"\
+		"/switchfskin - Сменить фракционную одежду\n"\
 		"/tipster - Прослушка организаций\n"
 	},
 	{
