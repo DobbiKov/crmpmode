@@ -568,6 +568,16 @@ enum e_DIALOG_IDs
 	D_CALL_CONTRABANDA,
 };
 
+/* CHEAT */
+
+new time_podoz,time_zcar;
+
+new time_vcar,time_lspawn,time_pick;
+
+new addchet[MAX_PLAYERS];
+
+/* CHEAT */
+
 enum PInfo
 {
 	pID, pName[MAX_PLAYER_NAME],
@@ -602,7 +612,7 @@ new stock gun_name[56][] = {"Кулак", "Кастет", "Клюжка для гольфа", "Полицейская
 							"Балончик", "Огнетушитель", "Фото Камера", "Очки ночного зрения", "Вторые очки ночного зрения", "Парашут", "Телефон", "ДжетПак", "СкейтБорд", "Автомобиль(ДБ)", "Лопасти вертолета", "Взрыв", "", "Утопленник", "Падение с высоты"};
 
 new stock AdminPays[9] = {0, 800, 1600, 2000, 2500, 3000, 4000, 5000, 5000};
-new stock GetRangAdmin[10][30] = {"", "Стажер","Младший Администратор","Администратор","Старший Администратор","Зам. ГА","Главный Администратор","Спец. Администратор","Руководитель",""};
+new stock GetRangAdmin[10][30] = {"", "Агент поддержки","Младший Администратор","Администратор","Старший Администратор","Зам. ГА","Главный Администратор","Спец. Администратор","Руководитель",""};
 
 enum fInfo
 {
@@ -781,7 +791,9 @@ enum
 #include "../source/admin/commands/1 lvl/spawnplayer.inc"
 #include "../source/admin/commands/1 lvl/info.inc"
 
+#include "../source/admin/commands/2 lvl/get_player_by_mysql.inc"
 #include "../source/admin/commands/2 lvl/tp.inc"
+#include "../source/admin/commands/2 lvl/check_cheat.inc"
 #include "../source/admin/commands/2 lvl/gm.inc"
 #include "../source/admin/commands/2 lvl/g.inc"
 #include "../source/admin/commands/2 lvl/gethere.inc"
@@ -931,6 +943,7 @@ enum
 #include "../source/fractions/pps/clear.inc"
 #include "../source/fractions/pps/cuff.inc"
 #include "../source/fractions/pps/uncuff.inc"
+#include "../source/fractions/pps/unmask.inc"
 #include "../source/fractions/pps/ticket.inc"
 #include "../source/fractions/pps/search.inc"
 #include "../source/fractions/pps/take.inc"
@@ -1646,6 +1659,8 @@ public OnPlayerSpawn(playerid)
     DeletePVar(playerid,"K_Times");
     KillTimer(STimer[playerid]);
     DropContrabandaBag(playerid);
+    time_lspawn = gettime();
+    addchet[playerid]=0;
     
     
 	SetPlayerScore(playerid, PlayerInfo[playerid][pLVL]);
@@ -1889,6 +1904,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
+    time_zcar = gettime();
 	if( GetPVarInt(playerid, "key_anti_flood") > gettime())
 	{
  		return SCM(playerid, red, "Не флудите. Иначе вы будете кикнуты.");
@@ -1900,6 +1916,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
+    time_vcar = gettime();
 	return 1;
 }
 public OnPlayerStateChange(playerid, newstate, oldstate)
@@ -2371,6 +2388,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 }
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
+    time_pick = gettime();
 	return 1;
 }
 public OnPlayerLeaveDynamicArea(playerid, areaid)
