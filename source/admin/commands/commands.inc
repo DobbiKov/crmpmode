@@ -16,8 +16,9 @@ new Command1LVL[14][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[28][] = 
+new Command2LVL[29][] = 
 {
+    {"{"cblue"}/get_player_by_mysql {ffffff}- узнать никнейм игрока по ID аккунта\n"},
     {"{"cblue"}/tp {ffffff}- Телепорт\n"},
     {"{"cblue"}/goto {ffffff}- Телепорт к игроку\n"},
     {"{"cblue"}/gethere {ffffff}- Телепортировать игрока к себе\n"},
