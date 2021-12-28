@@ -652,12 +652,12 @@ new stock PlayerRank[9][11][46] =
 	{"Гражданский", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
 	{"", "Секретарь","Гл.Секретарь","Охранник","Гл.Охраны","Адвокат","Гл.Адвокат","Депутат","Министр","Зам.Мэра","Мэр"},
 	{"", "Помощник редакции","Верстальщик новостей","Радиотехник","Журналист","Ст. журналист","Корректор","Помощник редактора","Редактор","Заместитель Директора","Директор"},
-	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Лейтенант","Ст. Лейтенант","Майор","Подполковник","Полковник","Генерал"},
+	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Прапорщик", "Лейтенант","Майор","Подполковник","Полковник","Генерал"},
 	{"", "Интерн","Младший Мед.Работник","Старший Мед.Работник","Врач-Участковый","Старший Врач-Участковый","Хирург","Младший Специалист","Старший Специалист","Заведущий","Глав.Врач"},
 	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Лейтенант","Капитан","Майор","Подполковник","Полковник","Генерал"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
-	{"","","","","","","","","","", ""}
+	{"","Внештатный сотрудник","Младший оперативник","Следователь-специалист","Старший оперативник","Инспектор безопасности","Офицер внутренней разведки","Начальник безопасности","Начальник разведки","Заместитель начальника ФСБ", "Начальник ФСБ"}
 };
 new
 	pay_orgs[9][11]=
@@ -1593,6 +1593,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+    TakeOffMask(playerid);
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
 	GetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
@@ -1691,6 +1692,7 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
+    TakeOffMask(playerid);
     SetPVarInt(playerid,"K_Times",GetPVarInt(playerid,"K_Times") + 1);
     if(GetPVarInt(playerid,"K_Times") > 1) return NewKick(playerid);
     if(killerid == playerid) return ResultCheat(playerid, 7);
@@ -2794,8 +2796,18 @@ stock stats_player(playerid, targetid)
     format(string_last, sizeof(string_last), "Наркозависимость: \t\t%d\n", PlayerInfo[targetid][pLomka]);
     strcat(stringer,string_last);
     format(string_last, sizeof(string_last), "Пол: \t\t\t\t%s\n", (PlayerInfo[targetid][pSex] == 1) ? ("Мужской") : ("Женский"));
-    strcat(stringer,string_last);
-    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", "Дома");
+	strcat(stringer,string_last);
+    
+	new live[144] = "";
+	if(PlayerInfo[targetid][pHomeID] > -1)
+	    format(live, sizeof(live), "Дом №%d", PlayerInfo[targetid][pHomeID]);
+	else if(PlayerInfo[targetid][pKvartID] > -1)
+	    format(live, sizeof(live), "Подъезд №%d, квартира №%d", PlayerInfo[targetid][pPodID], PlayerInfo[targetid][pKvartID]);
+	else
+	    format(live, sizeof(live), "%s", "Бездомный");
+
+    
+    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", live);
     strcat(stringer,string_last);
     
     format(string_last, sizeof(string_last), "Организация: \t\t\t%s\n", GetMember[PlayerInfo[targetid][pMember]]);
