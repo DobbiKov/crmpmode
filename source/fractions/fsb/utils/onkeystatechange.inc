@@ -11,7 +11,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{"cblue"}3. {FFFFFF}Desert Eagle\n\
 			{"cblue"}4. {FFFFFF}М4-А1\n\
 			{"cblue"}5. {FFFFFF}Снайперская Винтовка\n\
-			{"cblue"}6. {FFFFFF}Бронежилет", "Далее", "Закрыть");
+			{"cblue"}6. {FFFFFF}Бронежилет\n\
+			{"cblue"}7. {FFFFFF}Маска", "Далее", "Закрыть");
         }
 
         if(IsPlayerInRangeOfPoint(playerid, 5.0, 2397.47, -1836.63, 21.57))

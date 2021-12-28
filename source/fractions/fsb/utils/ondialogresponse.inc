@@ -49,6 +49,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SCM(playerid, blue, !"Вы взяли бронежилет.");
 						SetPlayerArmour(playerid, 100.0);
 					}
+					case 6:{
+                        if(PlayerInfo[playerid][pMask] >= 2) return SCM(playerid, red, "Вы не можете унести столько масок");
+						SCM(playerid, blue, !"Вы взяли маску.");
+                        PlayerInfo[playerid][pMask]++;
+					}
                 }
             }
         }
