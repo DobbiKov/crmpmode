@@ -16,15 +16,15 @@ CMD:mask(playerid)
     SetPlayerName(playerid, name);
 
     SCM(playerid, blue, "Вы надели маску! Ваше местоположение скрыто на 10 минут.");
-    TMask[playerid] = SetTimerEx("PlayerMask", 1000*60*10, false, "i", playerid);
+    // TMask[playerid] = SetTimerEx("PlayerMask", 1000*60*10, false, "i", playerid);
     return 1;
 }
 
-publics PlayerMask(playerid)
-{
-    SCM(playerid, blue, "10 минут прошло, с вас была снята маска.");
-    return TakeOffMask(playerid);
-}
+// publics PlayerMask(playerid)
+// {
+//     SCM(playerid, blue, "10 минут прошло, с вас была снята маска.");
+//     return TakeOffMask(playerid);
+// }
 
 stock TakeOffMask(playerid)
 {
