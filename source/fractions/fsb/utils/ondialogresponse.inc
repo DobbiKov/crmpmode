@@ -32,7 +32,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        GivePlayerWeaponAC(playerid, 23, 120);
+                        GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 2:
                     {

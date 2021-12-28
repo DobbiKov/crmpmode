@@ -1,3 +1,45 @@
+public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
+{
+	if(IsAPolice(playerid))
+	{
+		if(weaponid == 3)
+		{
+			new string[128];
+			format(string, sizeof(string), "Вы оглушили %s на 5 секунд", PlayerInfo[damagedid][pName]);
+			SCM(playerid, blue, string);
+
+			format(string, sizeof(string), "%s оглушил вас на 5 секунд", PlayerInfo[playerid][pName]);
+			SCM(damagedid, blue, string);
+			return FreezePlayer(damagedid, 5000);
+		}
+		if(weaponid == 23)
+		{
+			new string[128];
+			format(string, sizeof(string), "Вы оглушили %s электрошокером", PlayerInfo[damagedid][pName]);
+			SCM(playerid, blue, string);
+
+			format(string, sizeof(string), "%s оглушил вас электрошокером", PlayerInfo[playerid][pName]);
+			SCM(damagedid, blue, string);
+			return FreezePlayer(damagedid, 10000);
+		}
+	}
+	#if	defined	pps__OnPlayerGiveDamage
+		return pps__OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+	#else
+		return 1;
+	#endif
+}
+#if	defined	_ALS_OnPlayerGiveDamage
+	#undef	OnPlayerGiveDamage
+#else
+	#define	_ALS_OnPlayerGiveDamage
+#endif
+
+#define	OnPlayerGiveDamage pps__OnPlayerGiveDamage
+#if	defined	pps__OnPlayerGiveDamage
+	forward pps__OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+#endif
+
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(!ispassenger)
@@ -41,7 +83,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
-                        GivePlayerWeaponAC(playerid, 23, 60);
+                        GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 1:
                     {

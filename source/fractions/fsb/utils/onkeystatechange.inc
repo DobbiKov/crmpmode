@@ -7,7 +7,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         {
 			SPD(playerid, D_GUN_FSB, DIALOG_STYLE_LIST, "{"cblue"}ФСБ | Оружие", "\
 			{"cblue"}1. {FFFFFF}Дубинка\n\
-			{"cblue"}2. {FFFFFF}USP-S\n\
+			{"cblue"}2. {FFFFFF}Электрошокер\n\
 			{"cblue"}3. {FFFFFF}Desert Eagle\n\
 			{"cblue"}4. {FFFFFF}М4-А1\n\
 			{"cblue"}5. {FFFFFF}Снайперская Винтовка\n\
