@@ -25,6 +25,7 @@
 #include "../source/player/commands/mynumber.inc"
 #include "../source/player/commands/tickets.inc"
 #include "../source/player/commands/paintlist.inc"
+#include "../source/player/commands/backpack.inc"
 #include "../source/player/commands/gps.inc"
 #include "../source/player/commands/skill.inc"
 #include "../source/player/commands/recipes.inc"
