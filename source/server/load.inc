@@ -101,6 +101,10 @@
     Create3DTextLabel("Нажмите: {"cblue"}L.ALT", white, 2051.3542,1903.5139,-77.2241, 50.0, 0, 0);
     Create3DTextLabel("Нажмите: {"cblue"}L.ALT", white, 821.9419,804.5621,-72.9925, 10.0, 0, 0);
 
+
+    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б войти", white, 1945.6965, 2069.1343, 16.1989, 10.0, 0, 0);
+    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б выйти", white, 576.9778, 2121.6274, 1551.4600, 10.0, 0, 0);
+
     CreateDynamic3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б справить нужду", 0xFFFFFFFF, toilet_params[0][menu_x], toilet_params[0][menu_y], toilet_params[0][menu_z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 
 	for(new i = 0; i < sizeof(DiceInfo); i++) CreateDynamic3DTextLabel("{ffffff}Используйте: {"cblue"}/dice", 0xFFFFFFFF, DiceInfo[i][diceX], DiceInfo[i][diceY], DiceInfo[i][diceZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
@@ -313,10 +317,10 @@
 	AddStaticVehicleEx(490,2403.7070,-1809.4764,19.0380,359.9570,0,0,3600);//suburban
 	AddStaticVehicleEx(490,2407.8933,-1809.5325,19.0367,359.1015,0,0,3600);//suburban
 
-	AddStaticVehicleEx(402, 2412.1982,-1810.0485,18.6512,358.2335,0,0,3600);//audi1
-	AddStaticVehicleEx(402, 2416.4451,-1810.1492,18.6550,359.1962,0,0,3600);//audi1
-	AddStaticVehicleEx(402, 2420.7737,-1810.0956,18.6615,358.2147,0,0,3600);//audi1
-	AddStaticVehicleEx(402, 2424.8616,-1810.0613,18.6510,359.3500,0,0,3600);//audi1
+	AddStaticVehicleEx(558, 2412.1982,-1810.0485,18.6512,358.2335,0,0,3600);//audi1
+	AddStaticVehicleEx(558, 2416.4451,-1810.1492,18.6550,359.1962,0,0,3600);//audi1
+	AddStaticVehicleEx(558, 2420.7737,-1810.0956,18.6615,358.2147,0,0,3600);//audi1
+	AddStaticVehicleEx(558, 2424.8616,-1810.0613,18.6510,359.3500,0,0,3600);//audi1
 
 	AddStaticVehicleEx(516, 2425.0764,-1816.5448,18.8286,179.0849,0,0,3600);//vaz 21099
 	AddStaticVehicleEx(516, 2420.7285,-1816.4054,18.8307,179.0035,0,0,3600);//vaz 21099
