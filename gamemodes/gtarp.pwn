@@ -600,7 +600,7 @@ enum PInfo
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, pFSBRank, // Система фракций
 	pReadsms, pReadR,
-	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
+	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bAns, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
@@ -613,7 +613,7 @@ new stock Player_Skin_Female[] = { 12, 13 };
 
 new stock gun_name[56][] = {"Кулак", "Кастет", "Клюжка для гольфа", "Полицейская дубинка", "Нож", "Бита", "Лопата", "Кий", "Катана", "Бензопила", "Фаллоэмитатор", "Фаллоэмитатор", "Фаллоэмитатор", "Фаллоэмитатор",
 							"Цветы", "Крюк(не ебу что это)", "Осколочная граната", "Дымовая граната", "Коктейль молотова", "", "", "", "9-ММ", "USP-S", "Desert Eagle", "Дробовик", "Sawed-OFF", "Shot-Gun", "Micro-USI", "MP5",
-							"Автомат Калашникова", "M4", "Tec-9", "Сельский Дробовик", "Снайперская винтовка", "Гранатомёт", "Ракетная установка", "Огнемет", "Mini-Gun", "Взрывчатка", "Пульт от взрывчатки",
+							"Автомат Калашникова", "M4", "Tec-9", "Сельский Дробовик", "Снайперская винтовка", "Гранатомёт", "Ракетная установка", "Огнемет", "Mini-Gun", "Взрывчатка", "Пуль от взрывчатки",
 							"Балончик", "Огнетушитель", "Фото Камера", "Очки ночного зрения", "Вторые очки ночного зрения", "Парашут", "Телефон", "ДжетПак", "СкейтБорд", "Автомобиль(ДБ)", "Лопасти вертолета", "Взрыв", "", "Утопленник", "Падение с высоты"};
 
 new stock AdminPays[9] = {0, 800, 1600, 2000, 2500, 3000, 4000, 5000, 5000};
@@ -661,7 +661,7 @@ new stock ChangeSkin[9][10] =
 	{276, 275, 274, 70, 148, EOS, EOS, EOS, EOS, EOS},
 	{287, 255, 179, 61, 191, 206, EOS, EOS, EOS, EOS},
 	{126, 121, 127, 123, 223, 272, 40, EOS, EOS, EOS},
-	{125, 111, 124, 112, 272, 93, EOS, EOS, EOS},
+	{125, 111, 124, 112, 171, 93, EOS, EOS, EOS},
 	{277,278,279,286,163,165,166,56,EOS,EOS}
 };
 
@@ -866,6 +866,7 @@ enum
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
 #include "../source/admin/commands/5 lvl/templeader.inc"
+#include "../source/admin/commands/5 lvl/adminstats.inc"
 #include "../source/admin/commands/5 lvl/tempjob.inc"
 #include "../source/admin/commands/5 lvl/createradar.inc"
 #include "../source/admin/commands/5 lvl/setskill.inc"
@@ -1165,6 +1166,7 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][bDeveloper] = cache_get_field_content_int(0, "bDeveloper");
 	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube");
  	PlayerInfo[playerid][bJail] = cache_get_field_content_int(0, "bJail");
+ 	PlayerInfo[playerid][bAns] = cache_get_field_content_int(0, "bAns");
     PlayerInfo[playerid][bMute] = cache_get_field_content_int(0, "bMute");
  	PlayerInfo[playerid][bOffJail] = cache_get_field_content_int(0, "bOffJail");
     PlayerInfo[playerid][bOffMute] = cache_get_field_content_int(0, "bOffMute");
@@ -1349,6 +1351,7 @@ stock SaveAccounts(playerid)
 		`pARM` = '%f',\
 		`pJail` = '%d',\
 		`bJail` = '%d',\
+		`bAns` = '%d',\
 		`bBan` = '%d',\
 		`bWarn` = '%d',\
 		`bYoutube` = '%d',\
@@ -1453,6 +1456,7 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pARM],
 		PlayerInfo[playerid][pJail],
 		PlayerInfo[playerid][bJail],
+		PlayerInfo[playerid][bAns],
 		PlayerInfo[playerid][bBan],
 		PlayerInfo[playerid][bWarn],
 		PlayerInfo[playerid][bYoutube],
@@ -2929,7 +2933,9 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pHOSPITAL] = 0;
  	PlayerInfo[playerid][pWarn] = 0;
  	PlayerInfo[playerid][pSupport] = 0;
+ 	PlayerInfo[playerid][bAns] = 0;
  	PlayerInfo[playerid][bJail] = 0;
+ 	PlayerInfo[playerid][bAns] = 0;
  	PlayerInfo[playerid][bMute] = 0;
 	PlayerInfo[playerid][bBan] = 0;
 	PlayerInfo[playerid][bWarn] = 0;
