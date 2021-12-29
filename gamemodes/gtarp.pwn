@@ -227,6 +227,7 @@ enum
 	TEAM_VDV_BTR_CAR,
 	TEAM_VDV_TANK_CAR,
 	TEAM_VDV_METALL_CAR,
+	TEAM_VDV_HYDRA_CAR,
 	
 	VELO,
 };
@@ -540,6 +541,7 @@ enum e_DIALOG_IDs
 	D_GPS,
 	D_GPS_PUBLICPLACES,
 	D_GPS_JOBS,
+	D_GPS_WORKS,
 	D_GPS_ENTERTAINMENTS,
 	D_GPS_STATEORGANIZATIONS,
 	D_GPS_GANGS,
@@ -555,6 +557,7 @@ enum e_DIALOG_IDs
 	
 	D_ADMIN_PANEL,
 	D_ASK_ADMIN_CHANGE_PASSWORD,
+	D_ADMIN_TP_MAP,
 	
 	D_CHOOSE_TIPSTER_TYPE,
 	D_CHOOSE_TIPSTER_FRACTION,
@@ -654,7 +657,7 @@ new stock ChangeSkin[9][10] =
     {0,0,0,0,0,0,0,0,0,0},
 	{182, 164, 228, 187, 227, 295, 147, 234, 229, 141},
 	{188, 261, 217, 211, EOS, EOS, EOS, EOS, EOS, EOS},
-	{266, 280, 281, 282, 283, 288, 284, 285, 265},
+	{266, 280, 281, 282, 288, 284, 285, 265, 76},
 	{276, 275, 274, 70, 148, EOS, EOS, EOS, EOS, EOS},
 	{287, 255, 179, 61, 191, 206, EOS, EOS, EOS, EOS},
 	{126, 121, 127, 123, 223, 272, 40, EOS, EOS, EOS},
@@ -665,7 +668,7 @@ new stock ChangeSkin[9][10] =
 new stock PlayerRank[9][11][46] =
 {
 	{"Гражданский", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-	{"", "Секретарь","Гл.Секретарь","Охранник","Гл.Охраны","Адвокат","Депутат","Прокурор","Министр","Зам.Мэра","Мэр"},
+	{"", "Секретарь","Гл.Секретарь","Охранник","Гл.Охраны","Адвокат","Депутат","Прокурор","Министр","Вице-губернатор","Губернатор"},
 	{"", "Помощник редакции","Верстальщик новостей","Радиотехник","Журналист","Ст. журналист","Корректор","Помощник редактора","Редактор","Заместитель Директора","Директор"},
 	{"", "Рядовой","Сержант","Ст.Сержант","Прапорщик","Лейтенант", "Капитан","Майор","Подполковник","Полковник","Генерал"},
 	{"", "Интерн","Мед.Работник","Врач-Участковый","Врач-Терапевт","Стоматолог","Хирург","Младший Специалист","Старший Специалист","Заведующий","Глав.Врач"},
@@ -778,6 +781,7 @@ enum
 // ------- [ ADMINS ] ------------
 #include "../source/admin/commands/commands.inc"
 #include "../source/admin/commands/fulldostup.inc"
+#include "../source/admin/systems/tp_map.inc"
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
@@ -2320,31 +2324,6 @@ public OnPlayerUpdate(playerid)
 {
     PlayerInfo[playerid][pAFK] = 0;
     player_afk_time[playerid] = 0;
-
-	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
-	{
-	    ResetPlayerMoney(playerid);
-	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
-	}
-	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pFSBRank] != PlayerInfo[playerid][pRang])
-	{
-        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
-	}
-	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pIsFSB] != 1)
-	{
-        PlayerInfo[playerid][pIsFSB] = 1;
-        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
-	}
-	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
-	{
-		PlayerInfo[playerid][pIsFSB] = 0;
-		PlayerInfo[playerid][pFSBRank] = 0;
-	}
-	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pFSBRank] > 0)
-	{
-		PlayerInfo[playerid][pIsFSB] = 0;
-		PlayerInfo[playerid][pFSBRank] = 0;
-	}
 	return 1;
 }
 
@@ -3131,11 +3110,37 @@ publics PlayerSecondTimer(playerid)
 {
 	
 	new string[144];
+	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
+	{
+	    ResetPlayerMoney(playerid);
+	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+	}
+	/* FSB */
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pFSBRank] != PlayerInfo[playerid][pRang])
+	{
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
+	}
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pIsFSB] != 1)
+	{
+        PlayerInfo[playerid][pIsFSB] = 1;
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pFSBRank] > 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
+	}
 	if(PlayerInfo[playerid][pAFK] >= 3)
 	{
 		format(string,sizeof(string),"AFK: %s",Converts(PlayerInfo[playerid][pAFK]));
 		SetPlayerChatBubble(playerid, string, red, 10.0, 980);
 	}
+	/* FSB */
 
 	PlayerInfo[playerid][pAFK] ++;
 	
