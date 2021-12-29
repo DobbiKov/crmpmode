@@ -15,6 +15,7 @@ CMD:auninvite(playerid, params[])
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "[A] %s[%d] уволил игрока %s[%d] из организации \"%s\". ѕричина: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[ PlayerInfo[to_player][pMember] ], reason);
+    SCMA(grey, string);
 
     PlayerInfo[to_player][pMember] = 0;
     PlayerInfo[to_player][pWarnF] = 0;
