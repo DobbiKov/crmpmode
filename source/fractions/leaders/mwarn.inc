@@ -2,11 +2,13 @@ CMD:mwarn(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] == TEAM_NONE) return YouCannotUseThisFunc(playerid);
     if(IsAFSB(playerid) && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
+    else if(PlayerInfo[playerid][pMember] == TEAM_ADM && PlayerInfo[playerid][pRang] < 8) return YouCannotUseThisFunc(playerid);
     else if(PlayerInfo[playerid][pRang] < 9) return YouCannotUseThisFunc(playerid);
 
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /mwarn [ID игрока] [причина]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
-    if(PlayerInfo[to_player][pMember] != PlayerInfo[playerid][pMember]) return SCM(playerid, red, "Игрок не состоит в вашей организации!");
+    if(!IsAFSB(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM && PlayerInfo[to_player][pMember] != PlayerInfo[playerid][pMember]) 
+        return SCM(playerid, red, "Игрок не состоит в вашей организации!");
     if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!");
 
     PlayerInfo[to_player][pWarnF]++;
