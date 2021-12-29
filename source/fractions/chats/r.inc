@@ -101,7 +101,7 @@ stock SCMR(fraction, color, text[])
     {
         if(PlayerInfo[i][pMember] > 0) 
         {
-            if(PlayerInfo[i][pMember] == fraction)
+            if(PlayerInfo[i][pMember] == fraction && fraction != TEAM_FSB)
             {
                 SCM(i, color, text);
             }
