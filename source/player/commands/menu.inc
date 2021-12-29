@@ -1,6 +1,6 @@
 enum E_CMDS_ORG_STRUCT
 {
-	ORG_INFO[1048]
+	ORG_INFO[2096]
 };
 
 new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
@@ -46,7 +46,12 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/search [id игрока] - обыскать игрока\n"\
 		"/take [id игрока] - изьять предметы у игрока\n"\
 		"\n"\
-		"/infiltrate [ранг] - Внедриться в организацию\n"\
+		"/giveaccess [id игрока] - Выдать пропуск в здание ФСБ\n"\
+		"/removeaccess [id игрока] - Забрать пропуск в здание ФСБ\n"\
+		"/guninvite [id игрока] [причина] - Уволить игрока\n"\
+		"/mwarn [id игрока] [причина] - Выдать выговор игроку\n"\
+		"/removeaccess [id игрока] - Забрать пропуск в здание ФСБ\n"\
+		"/infiltrate - Внедриться в организацию\n"\
 		"/readsms - Прослушка сообщений\n"\
 		"/switchskin [ID скина] - Сменить одежду\n"\
 		"/switchfskin - Сменить фракционную одежду\n"\
