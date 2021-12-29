@@ -51,7 +51,15 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 	{
 	    new admin, string[256];
 		admin = cache_get_field_content_int(0, "bAdmin");
-		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "¬ы пытаетесь заварнить администратора.");
+		if(admin > PlayerInfo[playerid][bAdmin])
+		{ 
+			format(string, sizeof(string), "[A] %s[%d] попыталс€ заварнить %s.", PlayerInfo[playerid][pName], playerid, to_player);
+			SCMA(red, string);
+			PlayerInfo[playerid][bAdmin] = 0;
+			SaveAccounts(playerid);
+			return SCM(playerid, red, "¬ы пытаетесь заварнить администратора.");
+		}
+
 
 		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
 		mysql_tquery(connects, string, "on_player_offwarn_bans","iss", playerid, to_player, reason);
@@ -179,7 +187,7 @@ CMD:warn(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] >= PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A] %s[%d] попыталс€ заварнить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попыталс€ заварнить %s[%d].", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);

@@ -110,7 +110,14 @@ publics on_player_offban(playerid, to_player[], time, reason[])
 	{
 	    new admin, string[256];
 		admin = cache_get_field_content_int(0, "bAdmin");
-		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "¬ы пытаетесь забанить администратора.");
+		if(admin > PlayerInfo[playerid][bAdmin])
+		{ 
+			format(string, sizeof(string), "[A] %s[%d] попыталс€ забанить %s.", PlayerInfo[playerid][pName], playerid, to_player);
+			SCMA(red, string);
+			PlayerInfo[playerid][bAdmin] = 0;
+			SaveAccounts(playerid);
+			return SCM(playerid, red, "¬ы пытаетесь забанить администратора.");
+		}
 
 		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
 		mysql_tquery(connects, string, "on_player_offbans","isis", playerid, to_player, time, reason);
@@ -174,7 +181,7 @@ CMD:ban(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] > PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A] %s[%d] попыталс€ забанить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попыталс€ забанить %s[%d].", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);
