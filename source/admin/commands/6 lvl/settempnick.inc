@@ -4,7 +4,7 @@ CMD:settempnick(playerid, params[])
 
 	extract params -> new to_player, string:name[40]; else return SCM(playerid, blue, "[Подсказка] {FFFFFF}/settempnick [ID игрока] [NickName]");
 
-    if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+    if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
 
     SetPlayerName(to_player, name);
     new string[256] = "";

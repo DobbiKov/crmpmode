@@ -4,7 +4,7 @@ CMD:setmoney(playerid, params[])
 
 	extract params -> new to_player, count; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /setmoney [ID игрока] [количество]");
 
-	if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+	if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
 	if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
 
     GiveMoney(to_player, -PlayerInfo[to_player][pCash], "/setmoney");

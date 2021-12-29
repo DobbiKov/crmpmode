@@ -15,6 +15,7 @@ CMD:setadmin(playerid, params[])
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))
  		{
+			if(!IsPlayerConnected(i) || PlayerInfo[i][pLogin] != true) return PlayerOffLine(playerid);
 	 		PlayerInfo[i][bAdmin] = level;
 
 			new string[256];
