@@ -345,3 +345,29 @@ publics Spec_Menu_TD(playerid, specid)
 
 	return 1;
 }
+
+
+public OnPlayerClickPlayer(playerid, clickedplayerid, source)
+{
+	if(PlayerInfo[playerid][bAdmin] > 0)
+	{
+		new string[4] = "";
+		valstr(string, clickedplayerid);
+		return cmd::sp(playerid, string);
+	}
+	#if defined spec__OnPlayerClickPlayer
+        return spec__OnPlayerClickPlayer(playerid, clickedplayerid, source);
+    #else
+        return 1;
+    #endif
+}
+#if defined _ALS_OnPlayerClickPlayer
+    #undef OnPlayerClickPlayer
+#else
+    #define _ALS_OnPlayerClickPlayer
+#endif
+
+#define OnPlayerClickPlayer spec__OnPlayerClickPlayer
+#if defined spec__OnPlayerClickPlayer
+    forward spec__OnPlayerClickPlayer(playerid, clickedplayerid, source);
+#endif
