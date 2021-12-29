@@ -36,7 +36,7 @@ stock SetSpawnAtHome(playerid)
     SetPlayerInterior(playerid, 0);
 	player_in_house[playerid] = h;
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtKvartira(playerid)
@@ -53,7 +53,7 @@ stock SetSpawnAtKvartira(playerid)
     SetPlayerInterior(playerid, 0);
 	player_in_kvart[playerid] = PlayerInfo[playerid][pKvartID];
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtOrganithation(playerid)
@@ -73,7 +73,7 @@ stock SetSpawnAtOrganithation(playerid)
 	SetCameraBehindPlayer(playerid);
 
     SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtLastPlace(playerid)
@@ -92,7 +92,9 @@ stock SetSpawnAtLastPlace(playerid)
     SpawnPlayer(playerid);
 	SetPlayerPos(playerid, x, y, z);
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
+	SetPlayerInterior(playerid, 0);
+	SetPlayerVirtualWorld(playerid, 0);
 	return 1;
 }
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
