@@ -177,6 +177,16 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
                 return ClearAnimations(playerid, true);
             }
         }
+        if(job_car[TEAM_VDV_HYDRA_CAR][0] <= vehicleid <= job_car[TEAM_VDV_HYDRA_CAR][1])
+        {
+            if( (PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid)) 
+            || (PlayerInfo[playerid][pMember] == TEAM_VDV && PlayerInfo[playerid][pRang] < 8) )
+            {
+                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                RemovePlayerFromVehicle(playerid);   
+                return ClearAnimations(playerid, true);
+            }
+        }
 	}
 	#if	defined	vdv__OnPlayerEnterVehicle
 		return vdv__OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
