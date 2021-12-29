@@ -588,7 +588,7 @@ enum PInfo
 	pID, pName[MAX_PLAYER_NAME],
 	pEmail[42], pKey[64], // Регистрационные данные
 	pLVL, pExp, pSex, pChar, pCash, pBCash, pDonate, bool:pLogin, pJail, pMute, pJailOffMess[256], pMuteOffMess[256], Float:pLastX, Float:pLastY, Float:pLastZ, pPinCode, pRegIP[16], pLastIP[16], pNewIp[16], pTruckLVL, pTruckEXP, // Система персонажа
-	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall,
+	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall, pFSBaccess,
 	pPatr, pDrugs, pLomka,// система персонажа
 	
 	pLicBiz, pLicGun, pLicFly, pVoen, pVoenEXP, pBizID, pCarID, pHomeID, pPodID, pKvartID,
@@ -2904,6 +2904,7 @@ stock ClearAccount(playerid)
 	PlayerInfo[playerid][pIsFSB] = 0;
 	PlayerInfo[playerid][pFSBRank] = 0;
     PlayerInfo[playerid][pTipster] = 0;
+ 	PlayerInfo[playerid][pFSBaccess] = 0;
  	
  	PlayerInfo[playerid][bStreamerMode] = 0;
  	

@@ -8,6 +8,8 @@
 #include "../source/fractions/fsb/switchfskin.inc"
 #include "../source/fractions/fsb/tipster.inc"
 #include "../source/fractions/fsb/infiltrate.inc"
+#include "../source/fractions/fsb/giveaccess.inc"
+#include "../source/fractions/fsb/removeaccess.inc"
 
 #include "../source/fractions/fsb/utils/onkeystatechange.inc"
 #include "../source/fractions/fsb/utils/ondialogresponse.inc"

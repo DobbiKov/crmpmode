@@ -17,7 +17,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
         if(IsPlayerInRangeOfPoint(playerid, 5.0, 2397.47, -1836.63, 21.57))
 		{
-			if(!IsAFSB(playerid)) return 1;
+			if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0) 
+                return SCM(playerid, red, !"У вас нет пропуска!");
 
 			if(fsb_door_status == false)
 			{
