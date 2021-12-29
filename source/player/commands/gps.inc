@@ -117,7 +117,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                     case 0: {
                         new str[1024] = ""; //объявляем переменную
                         new string[128]; //объявляем переменную
-                        for (new i = 0; i < 6; i++) { //перебираем, по размерности массива
+                        for (new i = 0; i < 7; i++) { //перебираем, по размерности массива
                             format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, gps_publicplaces[i][gps_name]); //устонваливаем значение переменной string
                             strcat(str, string); //ставим в конец cтроки переменной str строку переменной string
                         }
