@@ -1164,7 +1164,7 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][pWarnA] = cache_get_field_content_int(0, "pWarnA");
 	PlayerInfo[playerid][bAdmin] = cache_get_field_content_int(0, "bAdmin");
 	PlayerInfo[playerid][bDeveloper] = cache_get_field_content_int(0, "bDeveloper");
-	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube");
+	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube"); 
  	PlayerInfo[playerid][bJail] = cache_get_field_content_int(0, "bJail");
  	PlayerInfo[playerid][bAns] = cache_get_field_content_int(0, "bAns");
     PlayerInfo[playerid][bMute] = cache_get_field_content_int(0, "bMute");
@@ -1172,6 +1172,12 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][bOffMute] = cache_get_field_content_int(0, "bOffMute");
     PlayerInfo[playerid][bOffWarn] = cache_get_field_content_int(0, "bOffWarn");
     PlayerInfo[playerid][bOffBan] = cache_get_field_content_int(0, "bOffBan");
+    PlayerInfo[playerid][bBan] = cache_get_field_content_int(0, "bBan");
+    PlayerInfo[playerid][bWarn] = cache_get_field_content_int(0, "bWarn");
+    PlayerInfo[playerid][bUnBan] = cache_get_field_content_int(0, "bUnBan");
+    PlayerInfo[playerid][bUnWarn] = cache_get_field_content_int(0, "bUnWarn");
+    
+    
    	SpID[playerid] = -1;
 	SpType[playerid] = SP_TYPE_NONE;
 	
