@@ -868,6 +868,7 @@ enum
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
 #include "../source/admin/commands/5 lvl/templeader.inc"
+#include "../source/admin/commands/5 lvl/commandlogs.inc"
 #include "../source/admin/commands/5 lvl/adminstats.inc"
 #include "../source/admin/commands/5 lvl/tempjob.inc"
 #include "../source/admin/commands/5 lvl/createradar.inc"

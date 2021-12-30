@@ -100,8 +100,9 @@ new Command4LVL[9][] =
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
-new Command5LVL[10][] = 
+new Command5LVL[11][] = 
 {
+    {"{"cblue"}/commandlogs {ffffff}- Посмотреть логи команд игрока\n"},
     {"{"cblue"}/adminstats {ffffff}- Посмотреть статистику администратора\n"},
     {"{"cblue"}/settime {ffffff}- Установить время на сервере\n"},
     {"{"cblue"}/setweather {ffffff}- Установить погоду на сервере\n"},
