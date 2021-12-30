@@ -51,7 +51,6 @@ L1:
 #include 	<crp>
 #include    <md5>
 #include    <fly>
-#include 	<tdw_string>
 
 //#define FILTERSCRIPT
 //#include <IsPlayerNear>
@@ -90,7 +89,7 @@ new dialog_listitem_values[MAX_PLAYERS][24];
 
 
 new
-	connects, stringer[2500],
+	connects, logs_connects, stringer[2500],
 	Text:logotype_td[4],
 	STimer[MAX_PLAYERS]
 ;
@@ -999,6 +998,7 @@ public OnGameModeInit()
 	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
+    CreateLogsMySQLConnection(sqlhost, sqluser, "unigvacrmplogs", sqlpass);
 
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
@@ -1726,6 +1726,11 @@ public OnPlayerSpawn(playerid)
         SetCameraBehindPlayer(playerid);
         SetPlayerHealth(playerid, 100.0);
         PlayerInfo[playerid][pHP] = 100.0;
+	}
+	if(g_capture[C_STATUS] == true)
+	{
+		SetPlayerPos(playerid, FractionInfo[ PlayerInfo[playerid][pMember] ][fPosX], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosY], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosZ]);
+		SetPlayerHealth(playerid, 100.0);
 	}
 	return 1;
 }
@@ -2522,6 +2527,20 @@ stock Converts(number)
 stock CreateMySQLConnection(host[], user[], database[], pass[])
 {
 	connects = mysql_connect(host, user, database, pass);
+	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
+	else return printf("[MYSQL]: Подключиться к базе не удалось");
+	mysql_tquery(connects, "SET CHARACTER SET 'utf8'", "", "");
+	mysql_tquery(connects, "SET NAMES 'utf8'", "", "");
+	mysql_tquery(connects, "SET character_set_client = 'cp1251'", "", "");
+	mysql_tquery(connects, "SET character_set_connection = 'cp1251'", "", "");
+	mysql_tquery(connects, "SET character_set_results = 'cp1251'", "", "");
+	mysql_tquery(connects, "SET SESSION collation_connection = 'utf8_general_ci'", "", "");
+	return 1;
+}
+
+stock CreateLogsMySQLConnection(host[], user[], database[], pass[])
+{
+	logs_connects = mysql_connect(host, user, database, pass);
 	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
 	else return printf("[MYSQL]: Подключиться к базе не удалось");
 	mysql_tquery(connects, "SET CHARACTER SET 'utf8'", "", "");
@@ -3608,13 +3627,13 @@ publics split(const strsrc[], strdest[][], delimiter)
         while(i <= strlen(strsrc))
         {
             if(strsrc[i]==delimiter || i==strlen(strsrc))
-                {
+            {
                 len = strmid(strdest[aNum], strsrc, li, i, 128);
                 strdest[aNum][len] = 0;
                 li = i+1;
                 aNum++;
-                }
-                i++;
+            }
+            i++;
         }
         return 1;
 }

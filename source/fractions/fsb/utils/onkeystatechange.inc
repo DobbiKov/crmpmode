@@ -15,7 +15,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{"cblue"}7. {FFFFFF}Маска", "Далее", "Закрыть");
         }
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2397.47, -1836.63, 21.57))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2413.72, -1841.33, 21.79))
 		{
 			if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0) 
                 return SCM(playerid, red, !"У вас нет пропуска!");
@@ -23,13 +23,13 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if(fsb_door_status == false)
 			{
 				SCM(playerid, green, !"Вы открыли дверь");
-				MoveObject(fsb_door, 2397.47, -1836.63, 21.57, 4.0,  0.00, 0.00, -60.00);
+				MoveObject(fsb_door, 2413.72, -1841.33, 21.79, 4.00,  0.00, 0.00, 90.00);
 				fsb_door_status = true;
 			}
 			else if(fsb_door_status == true)
 			{
 				SCM(playerid, red, "Вы закрыли дверь");
-				MoveObject(fsb_door, 2397.47, -1836.63, 21.57, 4.0,  0.00, 0.00, 0.00);
+				MoveObject(fsb_door, 2413.96, -1841.27, 21.79, 4.0,  0.00, 0.00, 180.00);
 				fsb_door_status = false;
 			}
 

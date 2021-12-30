@@ -164,7 +164,7 @@
 
 	fsb_vorota_1 = CreateObject(2957, 2395.02, -1792.44, 22.44,   0.00, 0.00, 0.00);
 	fsb_vorota_2 = CreateObject(2957, 2445.66, -1795.02, 22.42,   0.00, 0.00, 90.00);
-	fsb_door = CreateObject(1569, 2397.47, -1836.63, 21.57,   0.00, 0.00, 0.00);
+	fsb_door = CreateObject(1569, 2413.96, -1841.27, 21.79,   0.00, 0.00, 180.00);
 
 
  	Streamer_SetVisibleItems(STREAMER_TYPE_OBJECT, 1000, -1);

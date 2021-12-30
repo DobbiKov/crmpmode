@@ -31,6 +31,11 @@
 	RemoveBuildingForPlayer(playerid, 1225, 1730.4700, 2249.0200, 15.2600, 0.25);
 	RemoveBuildingForPlayer(playerid, 1225, 1730.1500, 2250.1101, 15.2600, 0.25);
 
+	RemoveBuildingForPlayer(playerid, 1934, 2438.5500, -1820.4500, -6.0400, 0.25);
+	RemoveBuildingForPlayer(playerid, 1935, 2409.8101, -1841.2400, 23.0000, 0.25);
+	RemoveBuildingForPlayer(playerid, 1935, 2413.4800, -1841.2400, 23.0000, 0.25);
+	RemoveBuildingForPlayer(playerid, 1935, 2417.1499, -1841.2400, 23.0000, 0.25);
+
 	RemoveBuildingForPlayer(playerid, 1939, 2395.8999, -1830.2300, 32.6500, 0.25);
 	RemoveBuildingForPlayer(playerid, 1939, 2395.8999, -1830.2300, 32.6500, 0.25);
 
