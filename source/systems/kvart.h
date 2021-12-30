@@ -1,4 +1,4 @@
-#define MAX_KVARTS 100
+#define MAX_KVARTS 5000
 new TotalFreeKvart;
 new player_in_kvart[MAX_PLAYERS] = -1;
 new totalkvart;

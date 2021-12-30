@@ -1,4 +1,4 @@
-#define MAX_PODEZDS 100
+#define MAX_PODEZDS 500
 
 new player_in_podezd[MAX_PLAYERS] = -1;
 

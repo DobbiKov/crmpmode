@@ -87,7 +87,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     foreach(new j : Allkvart) if(KvartInfo[j][kvart_pod_id] == player_in_podezd[playerid] && KvartInfo[j][kvart_type] == i)
                     {
                         new owner[MAX_PLAYER_NAME] = "Государство";
-                        if(KvartInfo[i][kvart_Owned] == 1) format(owner, sizeof(owner), "%s", KvartInfo[i][kvart_Owner]);
+                        if(KvartInfo[j][kvart_Owned] == 1) format(owner, sizeof(owner), "%s", KvartInfo[j][kvart_Owner]);
                         new fmt_dialog[256];
                         format
                         (
@@ -98,7 +98,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                             Стоимость: \t\t{"cblue"}%d рублей{FFFFFF}\n\
                             Арендная плата: \t{"cblue"}%d рублей{FFFFFF}\n\n\
                             Вы уверенны, что хотите войти в квартиру?",
-                            KvartInfo[i][kvart_type]+1,
+                            KvartInfo[j][kvart_type]+1,
                             owner,
                             2000,
                             2000
