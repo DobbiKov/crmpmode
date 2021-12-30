@@ -159,6 +159,9 @@ new stock lic_price[4] = {0, 100000, 80000, 50000};
 new fsb_door;
 new bool: fsb_door_status = false;
 
+new fsb_lift;
+new bool: fsb_lift_status = false;
+
 new fsb_vorota_1;
 new bool: fsb_vorota_1_status = false;
 
@@ -1031,6 +1034,8 @@ public OnGameModeInit()
 	#include <../include/map/interiors.inc>
 	#include <../include/map/map.inc>
     #include <../include/map/createobject.inc>
+    
+    SetTimer("MoveFSBLiftTo3flat", 1000 * 10, false);
 
 	return 1;
 }

@@ -14,7 +14,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{"cblue"}6. {FFFFFF}Бронежилет\n\
 			{"cblue"}7. {FFFFFF}Маска", "Далее", "Закрыть");
         }
-
         if(IsPlayerInRangeOfPoint(playerid, 5.0, 2413.72, -1841.33, 21.79))
 		{
 			if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0) 
