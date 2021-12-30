@@ -344,6 +344,7 @@ stock DestroyOwnableCar(playerid)
        SaveOwnableCar(playerid);
        DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
        DestroyVehicle(player_ownable_car[playerid]);
+       player_ownable_car[playerid] = -1;
     }
     return 1;
 }
