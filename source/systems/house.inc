@@ -1,4 +1,4 @@
-#define MAX_HOUSES 100
+#define MAX_HOUSES 1000
 
 #define h_type_bad      1
 #define h_type_norm     2
