@@ -51,6 +51,7 @@ L1:
 #include 	<crp>
 #include    <md5>
 #include    <fly>
+#include 	<tdw_string>
 
 //#define FILTERSCRIPT
 //#include <IsPlayerNear>
@@ -728,6 +729,8 @@ enum
 #include "../source/player/rules.inc"
 
 // ------ [ SYSTEMS ] ------------
+#include "../source/server/logs_system.inc"
+
 #include "../source/systems/foreach_veh.inc"
 
 #include "../source/systems/bussines.inc"
@@ -2797,7 +2800,7 @@ stock stats_player(playerid, targetid)
 {
     stringer[0] = EOS;
     new string_last[256];
-    format(string_last, sizeof(string_last), "{FFFFFF}Èìÿ: \t\t\t\t{"cblue"}%s{FFFFFF}\n", PlayerInfo[targetid][pName]);
+    format(string_last, sizeof(string_last), "{FFFFFF}Èìÿ: \t\t\t\t{"cblue"}%s (%d){FFFFFF}\n", PlayerInfo[targetid][pName], PlayerInfo[targetid][pID]);
     strcat(stringer,string_last);
     format(string_last, sizeof(string_last), "Óðîâåíü: \t\t\t%d\n", PlayerInfo[targetid][pLVL]);
     strcat(stringer,string_last);
@@ -3595,6 +3598,25 @@ stock GetCarName(vehicleid)
 		case 589: name = "Golf";
 	}
 	return name;
+}
+
+publics split(const strsrc[], strdest[][], delimiter)
+{
+        new i, li;
+        new aNum;
+        new len;
+        while(i <= strlen(strsrc))
+        {
+            if(strsrc[i]==delimiter || i==strlen(strsrc))
+                {
+                len = strmid(strdest[aNum], strsrc, li, i, 128);
+                strdest[aNum][len] = 0;
+                li = i+1;
+                aNum++;
+                }
+                i++;
+        }
+        return 1;
 }
 
 // ------------------- [ ÍÅ ËÅÇÜ ] ----------------------

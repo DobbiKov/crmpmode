@@ -29,6 +29,7 @@ publics OffGet(playerid, to_player[])
         new ip[16], regip[16];
 
         
+        new id = cache_get_field_content_int(0, "pID");
         new lvl = cache_get_field_content_int(0, "pLVL");
         new exp = cache_get_field_content_int(0, "pExp");
         new cash = cache_get_field_content_int(0, "pCash");
@@ -57,7 +58,7 @@ publics OffGet(playerid, to_player[])
         /**/
         stringer[0] = EOS;
         new string_last[256];
-        format(string_last, sizeof(string_last), "{FFFFFF}Имя: \t\t\t\t{"cblue"}%s{FFFFFF}\n", to_player);
+        format(string_last, sizeof(string_last), "{FFFFFF}Имя: \t\t\t\t{"cblue"}%s (%d){FFFFFF}\n", to_player, id);
         strcat(stringer,string_last);
         format(string_last, sizeof(string_last), "Уровень: \t\t\t%d\n", lvl);
         strcat(stringer,string_last);
