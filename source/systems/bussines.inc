@@ -342,7 +342,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 2:
                     {
                         new query[256];
-                        format(query, sizeof(query), "SELECT * FROM `business_profit` WHERE `bid` = '%d' ORDER BY date DESC LIMIT 30", BusinessInfo[b][bID]);
+                        format(query, sizeof(query), "SELECT * FROM `business_profit` WHERE `bid` = '%d' ORDER BY id DESC LIMIT 30", BusinessInfo[b][bID]);
 						mysql_tquery(connects, query, "ShowBusinessProfit", "i", playerid);
                     }
                     case 3:

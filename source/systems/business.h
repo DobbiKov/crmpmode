@@ -1,4 +1,4 @@
-#define MAX_BUSINESS 100
+#define MAX_BUSINESS 300
 
 #define b_type_24_7     1
 #define b_type_APTEKA   2
