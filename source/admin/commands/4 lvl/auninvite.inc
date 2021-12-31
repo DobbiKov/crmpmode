@@ -5,7 +5,7 @@ CMD:auninvite(playerid, params[])
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /auninvite [ID игрока] [причина]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
     if(PlayerInfo[playerid][bAdmin] < 6) if(PlayerInfo[to_player][pRang] >= 10) return SCM(playerid, red, "Игрок являеться лидером организации."); 
-    if(PlayerInfo[playerid][pMember] < 1) return SCM(playerid, red, !"Игрок не состоит в организации!");
+    if(PlayerInfo[to_player][pMember] < 1) return SCM(playerid, red, !"Игрок не состоит в организации!");
 
     new string[128];
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
