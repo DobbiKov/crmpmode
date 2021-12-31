@@ -22,6 +22,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(string, sizeof(string), "[A] %s %s[%d](%s) заказали контрабанду", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid, GetMember[PlayerInfo[playerid][pMember]]);
             SCMA(grey, string);
 
+            format(string, sizeof(string), "[R] %s %s[%d] заказал партию контрабанды", GetPlayerRank(playerid), PlayerInfo[playerid][pName], playerid);
+            SCMR(PlayerInfo[playerid][pMember], green, string);           
+
             contraband_pos_id = random(sizeof(contraband_pos));
             contraband_fraction = PlayerInfo[playerid][pMember];
             new Float: x, Float:y, Float:z;
