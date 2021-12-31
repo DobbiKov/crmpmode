@@ -22,5 +22,6 @@ CMD:deject(playerid, params[])
 
     format(string, sizeof(string), "выломал дверь автомобиля");
     cmd::me(playerid, string);
+    UnFreezePlayer(to_player);
     return RemovePlayerFromVehicle(to_player);
 }

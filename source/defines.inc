@@ -57,6 +57,7 @@
 
 #define     publics%0(%1)			    forward%0(%1); public%0(%1)
 #define 	FreezePlayer(%0,%1)    	    TogglePlayerControllable(%0, false), SetTimerEx("PlayerToggle", %1, false, "d", %0)
+#define 	UnFreezePlayer(%0)    	    TogglePlayerControllable(%0, true)
 #define     ShowCommandNotFound(%0)     SCM(%0, white, !"{"cwhite"}Команда не найдена. Используйте {"cblue"}/menu {"cwhite"}для поиска команд.")
 #define     YouCannotUseThisFunc(%0)    SCM(%0, red, !"Вы не можете использовать данную функцию.")
 #define     PlayerOffLine(%0)           SCM(%0, red, !"Игрок оффлайн.")

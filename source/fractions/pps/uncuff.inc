@@ -25,5 +25,5 @@ CMD:uncuff(playerid, params[])
     
     format(string, sizeof(string), "снимает наручники с %s", PlayerInfo[to_player][pName]);
     cmd::me(playerid, string);
-    return 1;
+    return UnFreezePlayer(to_player);
 }
