@@ -271,6 +271,15 @@ new mech_fuel[MAX_PLAYERS] = 0;
 
 new player_end_job_timer[MAX_PLAYERS];
 
+enum
+{
+    need_drink,
+    need_eat,
+    need_toilet,
+    need_wash
+};
+
+
 new pCheckpoint[MAX_PLAYERS];
 enum
 {

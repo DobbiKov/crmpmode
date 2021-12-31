@@ -19,6 +19,10 @@ CMD:drugs(playerid, params[])
             SetTimerEx("EffectGone",60000,0,"i",playerid);
             SetPVarInt(playerid, "use_drugs", 1);
             SetPlayerHealth(playerid, Health+30.0);
+            setNeeds(playerid, need_drink, getNeeds(playerid, need_drink) + 30);
+            setNeeds(playerid, need_eat, getNeeds(playerid, need_eat) + 30);
+            setNeeds(playerid, need_toilet, getNeeds(playerid, need_toilet) + 30);
+            setNeeds(playerid, need_wash, getNeeds(playerid, need_wash) + 30);
         }
         case 2:
         {
@@ -33,6 +37,10 @@ CMD:drugs(playerid, params[])
             SetTimerEx("EffectGone",60000,0,"i",playerid);
             SetPVarInt(playerid, "use_drugs", 1);
             SetPlayerHealth(playerid, Health+60.0);
+            setNeeds(playerid, need_drink, getNeeds(playerid, need_drink) + 40);
+            setNeeds(playerid, need_eat, getNeeds(playerid, need_eat) + 40);
+            setNeeds(playerid, need_toilet, getNeeds(playerid, need_toilet) + 40);
+            setNeeds(playerid, need_wash, getNeeds(playerid, need_wash) + 40);
         }
         default: return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /drugs (1-2)");
     }
