@@ -128,10 +128,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2567.2139,-2416.3386,22.3545))
+        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2567.2139,-2416.3386,22.3545) && IsAPolice(playerid))
         {
 			SPD(playerid, D_GUN_PPS, DIALOG_STYLE_LIST, "{"cblue"}ППС | Оружие", "\
-			{"cblue"}1. {FFFFFF}USP-S\n\
+			{"cblue"}1. {FFFFFF}Электрошокер\n\
 			{"cblue"}2. {FFFFFF}MP-5\n\
 			{"cblue"}3. {FFFFFF}Дубинка\n\
 			{"cblue"}4. {FFFFFF}Жезл\n\

@@ -3,7 +3,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	
     if(newkeys == 1024)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2400.3328,-1825.6747,32.5537))
+        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2400.3328,-1825.6747,32.5537) && IsAFSB(playerid))
         {
 			SPD(playerid, D_GUN_FSB, DIALOG_STYLE_LIST, "{"cblue"}ФСБ | Оружие", "\
 			{"cblue"}1. {FFFFFF}Дубинка\n\
