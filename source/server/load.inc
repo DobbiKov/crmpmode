@@ -253,8 +253,8 @@
 	job_car[TEAM_VDV_HYDRA_CAR][1] = AddStaticVehicleEx(520,1953.0867,1560.2249,15.8126,90.2583,0,0, 3600); // hydra2
 	job_car[TEAM_VDV_CAR][1] =  AddStaticVehicleEx(470,1443.0614,1709.7073,15.0208,181.6893,16,0,3600); // машина армии
 
-	job_car[TEAM_VDV_BTR_CAR][0] = AddStaticVehicleEx(433,1552.3802,1816.2875,14.9289,179.0188,16,16,3600); // бтр армии
-	job_car[TEAM_VDV_BTR_CAR][1] = AddStaticVehicleEx(433,1546.6411,1816.2793,14.9299,180.3373,16,16,3600); // бтр армии
+	job_car[TEAM_VDV_BTR_CAR][0] = AddStaticVehicleEx(601,1552.3802,1816.2875,14.9289,179.0188,16,16,3600); // бтр армии
+	job_car[TEAM_VDV_BTR_CAR][1] = AddStaticVehicleEx(601,1546.6411,1816.2793,14.9299,180.3373,16,16,3600); // бтр армии
 
 
 	job_car[TEAM_VDV_TANK_CAR][0] = AddStaticVehicleEx(432,1564.4659,1815.9969,15.4698,178.7035,16,16,3600); // танк армии
@@ -306,7 +306,7 @@
 	AddStaticVehicleEx(421,1721.1545,1334.8625,12.7327,181.6565,0,0,3600); // машина ОПГ-С
 	job_car[TEAM_SUN_CAR][1] = AddStaticVehicleEx(421,1716.7197,1334.6970,12.7316,180.0148,0,0,3600); // машина ОПГ-С
 
-	job_car[TEAM_FSB_CAR][0] = AddStaticVehicleEx(433,2425.5081,-1796.7102,18.6892,180.6524,16,16,3600); // машина fsb
+	job_car[TEAM_FSB_CAR][0] = AddStaticVehicleEx(601,2425.5081,-1796.7102,18.6892,180.6524,16,16,3600); // машина fsb
 	
 	job_car[TEAM_FSB_FURGON_CAR][0] = AddStaticVehicleEx(459,2416.5432,-1795.7845,18.8367,177.5269,0,0,3600);//vito
 	AddStaticVehicleEx(459,2412.1343,-1795.8007,18.8423,178.7196,0,0,3600);//vito
@@ -331,7 +331,7 @@
 	AddStaticVehicleEx(579, 2407.8250,-1816.1100,19.2039,178.0999,0,0,3600);//gelik
 	AddStaticVehicleEx(579, 2403.6257,-1816.1276,19.2118,181.2769,0,0,3600);//gelik
 	AddStaticVehicleEx(579, 2399.6091,-1816.1813,19.2055,179.7655,0,0,3600);//gelik
-	job_car[TEAM_FSB_CAR][1] = AddStaticVehicleEx(433,2420.7625,-1796.6593,18.6905,179.8344,16,16,3600); // машина fsb
+	job_car[TEAM_FSB_CAR][1] = AddStaticVehicleEx(601,2420.7625,-1796.6593,18.6905,179.8344,16,16,3600); // машина fsb
 
 	SetVehicleHealth(job_car[TEAM_FSB_CAR][0], 1000000.0);
 	SetVehicleHealth(job_car[TEAM_FSB_CAR][1], 1000000.0);
