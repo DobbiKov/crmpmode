@@ -150,6 +150,9 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		player_buy_car[playerid] = -1;
 
 		CancelSelectTextDraw(playerid);
+
+		if(PlayerInfo[playerid][pHomeID] != -1)
+			LoadMyCarFunc(playerid);
 	}    
     if(playertextid == PlayerText:auto_salon_td[playerid][28] || playertextid == PlayerText:INVALID_TEXT_DRAW) // отмена
     {
