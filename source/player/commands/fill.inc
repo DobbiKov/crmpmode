@@ -30,6 +30,8 @@ CMD:buyk(playerid)
         SetPVarInt(playerid, "fill_biz_id", b);
 
         if(PlayerInfo[playerid][pCash] < BusinessInfo[b][bFillPrice]*20) return SCM(playerid, red, "У вас не достаточно денег!");
+        if(GetPVarInt(playerid, "have_jerrican") > 0)
+            return SCM(playerid, red, !"У вас уже есть канистра!");
 
         GiveMoney(playerid, -BusinessInfo[b][bFillPrice]*20, "Покупка канисты");
 
