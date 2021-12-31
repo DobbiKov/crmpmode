@@ -2545,12 +2545,12 @@ stock CreateMySQLConnection(host[], user[], database[], pass[])
 	connects = mysql_connect(host, user, database, pass);
 	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
 	else return printf("[MYSQL]: Подключиться к базе не удалось");
-	mysql_tquery(connects, "SET CHARACTER SET 'utf8'", "", "");
-	mysql_tquery(connects, "SET NAMES 'utf8'", "", "");
+	mysql_tquery(connects, "SET CHARACTER SET 'cp1251'", "", "");
+	mysql_tquery(connects, "SET NAMES 'cp1251'", "", "");
 	mysql_tquery(connects, "SET character_set_client = 'cp1251'", "", "");
 	mysql_tquery(connects, "SET character_set_connection = 'cp1251'", "", "");
 	mysql_tquery(connects, "SET character_set_results = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET SESSION collation_connection = 'utf8_general_ci'", "", "");
+	mysql_tquery(connects, "SET SESSION collation_connection = 'cp1251_general_cs'", "", "");
 	return 1;
 }
 
@@ -2559,12 +2559,12 @@ stock CreateLogsMySQLConnection(host[], user[], database[], pass[])
 	logs_connects = mysql_connect(host, user, database, pass);
 	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
 	else return printf("[MYSQL]: Подключиться к базе не удалось");
-	mysql_tquery(connects, "SET CHARACTER SET 'utf8'", "", "");
-	mysql_tquery(connects, "SET NAMES 'utf8'", "", "");
-	mysql_tquery(connects, "SET character_set_client = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET character_set_connection = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET character_set_results = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET SESSION collation_connection = 'utf8_general_ci'", "", "");
+	mysql_tquery(logs_connects, "SET CHARACTER SET 'cp1251'", "", "");
+	mysql_tquery(logs_connects, "SET NAMES 'cp1251'", "", "");
+	mysql_tquery(logs_connects, "SET character_set_client = 'cp1251'", "", "");
+	mysql_tquery(logs_connects, "SET character_set_connection = 'cp1251'", "", "");
+	mysql_tquery(logs_connects, "SET character_set_results = 'cp1251'", "", "");
+	mysql_tquery(logs_connects, "SET SESSION collation_connection = 'cp1251_general_cs'", "", "");
 	return 1;
 }
 
