@@ -46,7 +46,11 @@ new teleport_list[][E_TELEPORT_STRUCT] =
 	{"Автосалон", 		2016.1731,1889.0742,15.6600, 0.0},
 	{"Южхим", 			1912.3955,-1915.2959,56.5126, 0.0},
 	{"Пляж", 			2675.1560,2049.5361,7.0135, 0.0},
-	{"АЗС(Батырево)", 	1900.4652,1722.9036,15.9379, 0.0}
+	{"АЗС(Батырево)", 	1900.4652,1722.9036,15.9379, 0.0},
+
+	{"НЛО", 			1801.7988,2096.9988,191.8281, 0.0},
+	{"МП Команда на команду", 	5500.2280,-2553.4182,12.2379, 0.0},
+	{"Город в море", 	3497.9509,2041.7993,17.2144, 0.0}
 };
 
 
@@ -75,10 +79,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new player_state = GetPlayerVehicleSeat(playerid);
 				    SetVehiclePos(vehid, teleport_list[listitem][t_pos_x], teleport_list[listitem][t_pos_y], teleport_list[listitem][t_pos_z]);
 				    PutPlayerInVehicle(playerid, vehid, player_state);
+					FreezePlayer(playerid, 3000);
 				}
 				else
 				{
 				    SetPlayerPos(playerid, teleport_list[listitem][t_pos_x], teleport_list[listitem][t_pos_y], teleport_list[listitem][t_pos_z]);
+					FreezePlayer(playerid, 3000);
 				}
 
 			}
