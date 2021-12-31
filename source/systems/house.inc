@@ -202,7 +202,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                         {ffffff}Владелец:\t\t{"cblue"}государство\n\
                         {ffffff}Класс:\t\t\t{"cblue"}%s\n\
                         {ffffff}Стоимость: \t\t{"cblue"}%d рублей\n\
-                        {ffffff}Оплата в день:\t{"cblue"}%d рублей\n\n\
+                        {ffffff}Оплата в день:\t\t{"cblue"}%d рублей\n\n\
                         {ffffff}Вы уверены, что хотите купить дом?",
                         HouseInfo[i][hID], class, HouseInfo[i][hPrice], house_params[ HouseInfo[i][hType] ][hrent]                
                     );
@@ -560,7 +560,7 @@ CMD:home(playerid)
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплачено:\t\t{"cblue"}%d/30\n", HouseInfo[h][hDays]);
 	strcat(text, fmt_str);
 	
-	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
+	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
 	strcat(text, fmt_str);
 	
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Патроны:\t\t{"cblue"}%d\n", HouseInfo[h][hPatron]);
