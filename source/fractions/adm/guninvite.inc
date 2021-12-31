@@ -11,6 +11,8 @@ CMD:guninvite(playerid, params[])
     if(PlayerInfo[playerid][pMember] == PlayerInfo[to_player][pMember]) return SCM(playerid, red, "Игрок состоит в вашей организаации!");
     if(IsAOpg(to_player))
         return SCM(playerid, red, !"Игрок состоит в криминальной организации!");
+    if(IsAFSB(to_player))
+        return SCM(playerid, red, "Игрок выше вас по рангу!");
 
     new string[128];
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
