@@ -17,8 +17,8 @@ CMD:givegun(playerid, params[])
 	}
 	format(string, sizeof(string), "Вы выдали оружие %s[%d] игроку %s[%d]", gun_name[weaponid], weaponid, PlayerInfo[to_player][pName], to_player);
 	SCM(playerid, white, string);
-    format(string, sizeof(string), "{"cwhite"}Администратор %s выдал вам оружие %s", PlayerInfo[playerid][pName], gun_name[weaponid]);
-    SCM(to_player, grey, string);
+    format(string, sizeof(string), "Администратор %s выдал вам оружие %s", PlayerInfo[playerid][pName], gun_name[weaponid]);
+    SCM(to_player, white, string);
 
 	GivePlayerWeaponAC(to_player, weaponid, ammunition);
 
