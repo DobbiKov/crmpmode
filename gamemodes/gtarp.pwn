@@ -1879,6 +1879,16 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
     if(!PlayerInfo[playerid][pLogin]) return 0;
+    
+    if(text[0] == '.')
+	{
+		text[0] = '/';
+		FixCommand(text);
+		CallLocalFunction("OnPlayerCommandText", "is", playerid, text);
+		return 0;
+	}
+
+
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
 	    SCM(playerid, green, !"В данный момент у вас имеется блокировка чата. Время до сняти: /time");
@@ -3642,6 +3652,52 @@ publics split(const strsrc[], strdest[][], delimiter)
             i++;
         }
         return 1;
+}
+
+stock FixCommand(input[])
+{
+	
+	for(new i = 0; i < strlen(input); i++)
+	{
+		switch(input[i])
+		{
+			case EOS: break;
+			case 'А', 'а': input[i] = 'f';
+			case 'Б', 'б': input[i] = ',';
+			case 'В', 'в': input[i] = 'd';
+			case 'Г', 'г': input[i] = 'u';
+			case 'Д', 'д': input[i] = 'l';
+			case 'Е', 'е': input[i] = 't';
+			case 'Ё', 'ё': input[i] = '`';
+			case 'Ж', 'ж': input[i] = ';';
+			case 'З', 'з': input[i] = 'p';
+			case 'И', 'и': input[i] = 'b';
+			case 'Й', 'й': input[i] = 'q';
+			case 'К', 'к': input[i] = 'r';
+			case 'Л', 'л': input[i] = 'k';
+			case 'М', 'м': input[i] = 'v';
+			case 'Н', 'н': input[i] = 'y';
+			case 'О', 'о': input[i] = 'j';
+			case 'П', 'п': input[i] = 'g';
+			case 'Р', 'р': input[i] = 'h';
+			case 'С', 'с': input[i] = 'c';
+			case 'Т', 'т': input[i] = 'n';
+			case 'У', 'у': input[i] = 'e';
+			case 'Ф', 'ф': input[i] = 'a';
+			case 'Х', 'х': input[i] = '[';
+			case 'Ц', 'ц': input[i] = 'w';
+			case 'Ч', 'ч': input[i] = 'x';
+			case 'Ш', 'ш': input[i] = 'i';
+			case 'Щ', 'щ': input[i] = 'o';
+			case 'Ъ', 'ъ': input[i] = ']';
+			case 'Ы', 'ы': input[i] = 's';
+			case 'Ь', 'ь': input[i] = 'm';
+			case 'Э', 'э': input[i] = '\'';
+			case 'Ю', 'ю': input[i] = '.';
+			case 'Я', 'я': input[i] = 'z';
+		}
+	}
+	return 1;
 }
 
 // ------------------- [ НЕ ЛЕЗЬ ] ----------------------
