@@ -42,8 +42,9 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
     cache_get_data(rows[0], rows[1]);
     if(rows[0])
     {
-        static owner_id;
+        static owner_id, adminlvl;
         owner_id = cache_get_field_content_int(0, "pID");
+        adminlvl = cache_get_field_content_int(0, "bAdmin");
 
         new query[256];
         format
@@ -52,7 +53,7 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
             "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
             PlayerInfo[playerid][pID]
         );
-        mysql_tquery(connects, query, "setowncar_check_own_cars", "dsddd", playerid, to_player, model_id, cost_oc_car, owner_id);
+        mysql_tquery(connects, query, "setowncar_check_own_cars", "dsdddd", playerid, to_player, model_id, cost_oc_car, owner_id, adminlvl);
     }
     else
     {
@@ -61,7 +62,7 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
     return 1;
 }
 
-publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, owner_id)
+publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, owner_id, adminlvl)
 {
     static rows[2];
     cache_get_data(rows[0], rows[1]);
@@ -72,8 +73,10 @@ publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, o
         {
             _amount++;
         }
-        if(_amount >= 2 && !CheckNickFD(to_player))
+        if(_amount >= 2 && adminlvl < 7)
             return SCM(playerid, red, !"У игрока уже имеется два или более транспортных средств.");
+        if(_amount >= 3 && adminlvl < 8 && !CheckNickFD(to_player))
+            return SCM(playerid, red, !"У игрока уже имеется три или более транспортных средств.");
     }
     new query[120];
     format
