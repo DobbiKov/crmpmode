@@ -15,7 +15,7 @@ CMD:mask(playerid)
     format(name, sizeof(name), "UNKNOWN[%d]", PlayerInfo[playerid][pID]);
     SetPlayerName(playerid, name);
 
-    SCM(playerid, blue, "Вы надели маску! Ваше местоположение скрыто на 10 минут.");
+    SCM(playerid, blue, "Вы надели маску! Ваше местоположение скрыто.");
     // TMask[playerid] = SetTimerEx("PlayerMask", 1000*60*10, false, "i", playerid);
     return 1;
 }
