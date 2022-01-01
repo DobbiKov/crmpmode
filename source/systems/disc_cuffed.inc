@@ -1,6 +1,6 @@
 public OnPlayerDisconnect(playerid, reason)
 {
-    if(GetPVarInt(playerid, "cuffed") > 0)
+    if(GetPVarInt(playerid, "cuffed") > 0 && PlayerInfo[playerid][pWANTED] > 0)
     {
         PlayerInfo[playerid][pJail] = (PlayerInfo[playerid][pWANTED]*10*60)+(30*60);
         PlayerInfo[playerid][pWANTED] = 0;
