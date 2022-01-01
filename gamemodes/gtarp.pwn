@@ -614,6 +614,7 @@ enum e_DIALOG_IDs
 	D_TP_GPS,
 	
 	D_CALL_CONTRABANDA,
+	D_CLEAR_SU,
 };
 
 /* CHEAT */
@@ -791,6 +792,7 @@ enum
 #include "../source/systems/bath.inc"
 #include "../source/systems/need.inc"
 
+#include "../source/systems/unsu.inc"
 #include "../source/systems/bizwar.inc"
 #include "../source/systems/paintball.inc"
 #include "../source/systems/advertise.inc"
