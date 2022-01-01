@@ -14,7 +14,7 @@ publics ShowCarListMySQL(playerid)
     cache_get_data(rows, fields);
     if(rows)
     {
-        new string[512] = "";
+        new string[2056] = "";
         for(new i = 0; i < rows; i++)
         {
             static id, model_id, number[32];
