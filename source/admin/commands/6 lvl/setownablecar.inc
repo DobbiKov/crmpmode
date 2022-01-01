@@ -73,9 +73,9 @@ publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, o
         {
             _amount++;
         }
-        if(_amount >= 2 && adminlvl < 7)
+        if(_amount >= 2 && adminlvl < 7 && !CheckFD(playerid))
             return SCM(playerid, red, !"У игрока уже имеется два или более транспортных средств.");
-        if(_amount >= 3 && adminlvl < 8 && !CheckNickFD(to_player))
+        if(_amount >= 3 && adminlvl < 8 && !CheckNickFD(to_player) && !CheckFD(playerid))
             return SCM(playerid, red, !"У игрока уже имеется три или более транспортных средств.");
     }
     new query[120];
