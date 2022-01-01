@@ -1,6 +1,6 @@
 CMD:uncuff(playerid, params[])
 {
-    if(!IsAPolice(playerid)) return YouCannotUseThisFunc(playerid);
+    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) return YouCannotUseThisFunc(playerid);
     
     extract params -> new to_player; else return SCM(playerid, yellow, "[Оповещение]: {FFFFFF}Используйте /uncuff [ID игрока]");
     
