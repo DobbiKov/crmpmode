@@ -42,7 +42,7 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
     cache_get_data(rows[0], rows[1]);
     if(rows[0])
     {
-        static carid, owner_id;
+        static owner_id;
         owner_id = cache_get_field_content_int(0, "pID");
 
         new query[256];

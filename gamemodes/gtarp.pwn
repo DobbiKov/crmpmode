@@ -160,7 +160,6 @@ new fsb_door;
 new bool: fsb_door_status = false;
 
 new fsb_lift;
-new bool: fsb_lift_status = false;
 
 new fsb_vorota_1;
 new bool: fsb_vorota_1_status = false;
@@ -1366,7 +1365,9 @@ publics LoginCallback(playerid, password[])
 	
 	if(PlayerInfo[playerid][pHomeID] != -1)
 	{
-		LoadMyCarFunc(playerid);
+		new query[60];
+		format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
+		mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
 	}
     return 1;
 }

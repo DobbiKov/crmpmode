@@ -109,7 +109,7 @@ publics SletHouseASellHouse(i, playerid)
     cache_get_data(rows[0], rows[1]);
     if(rows[0])
     {
-        new bmoney, player_id;
+        new player_id;
         player_id = cache_get_field_content_int(0, "pID");
 
         new houseoffmess[144];
