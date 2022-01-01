@@ -967,6 +967,7 @@ enum
 #include "../source/fractions/pps/su.inc"
 #include "../source/fractions/pps/clear.inc"
 #include "../source/fractions/pps/cuff.inc"
+#include "../source/fractions/pps/gotome.inc"
 #include "../source/fractions/pps/uncuff.inc"
 #include "../source/fractions/pps/unmask.inc"
 #include "../source/fractions/pps/ticket.inc"

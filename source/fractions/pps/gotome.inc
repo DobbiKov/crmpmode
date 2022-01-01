@@ -107,6 +107,8 @@ CMD:gotome(playerid, params[])
     if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) 
         return YouCannotUseThisFunc(playerid);//Проверка на фракцию
     extract params -> new to_player; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /gotome [ID игрока]");
+    if(to_player == playerid)
+        return SCM(playerid, red, !"Вы указали свой ID!");
     if(!IsPlayerConnected(to_player)) 
         return PlayerOffLine(playerid);//Коннект ли игрок
     if(GetPVarInt(to_player, "cuffed") != 1) 
@@ -127,6 +129,8 @@ CMD:gotome(playerid, params[])
     new suspectid = to_player;
 
 	gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_FOLLOWING;
+	gc_cufferid[suspectid] = playerid;
+	gc_cuffed_playerid[playerid] = suspectid;
 	gc_UpdateSuspect(suspectid);
     return 1;
 }
@@ -136,6 +140,8 @@ CMD:ungotome(playerid, params[])
     if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) 
         return YouCannotUseThisFunc(playerid);//Проверка на фракцию
     extract params -> new to_player; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /ungotome [ID игрока]");
+    if(to_player == playerid)
+        return SCM(playerid, red, !"Вы указали свой ID!");
     if(!IsPlayerConnected(to_player)) 
         return PlayerOffLine(playerid);//Коннект ли игрок
     if(!IsPlayerInRangeOfPlayer(playerid, to_player, 7.0))
@@ -159,6 +165,8 @@ CMD:ungotome(playerid, params[])
 		gc_suspect_status{suspectid} == gc_SUSPECT_STATUS_WAITING)
 	{
 		gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_CUFFED;
+        gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_UNCUFFED;
+        gc_cufferid[suspectid] = gc_cuffed_playerid[playerid] = INVALID_PLAYER_ID;
 
 		ClearAnimations(suspectid, 1);
 		TogglePlayerControllable(suspectid, 0);
