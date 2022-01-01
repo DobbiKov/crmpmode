@@ -1794,6 +1794,7 @@ public OnPlayerDeath(playerid, killerid, reason)
     if(GetPVarInt(playerid,"K_Times") > 1) return NewKick(playerid);
     if(killerid == playerid) return ResultCheat(playerid, 7);
     DropContrabandaBag(playerid);
+    SetPlayerHealth(playerid, 1.0);
     
 	for(new i = 0; i < 13; i++)
 	{
