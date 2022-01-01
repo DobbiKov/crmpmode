@@ -132,7 +132,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         {
 			SPD(playerid, D_GUN_PPS, DIALOG_STYLE_LIST, "{"cblue"}ППС | Оружие", "\
 			{"cblue"}1. {FFFFFF}Электрошокер\n\
-			{"cblue"}2. {FFFFFF}MP-5\n\
+			{"cblue"}2. {FFFFFF}АК-74У\n\
 			{"cblue"}3. {FFFFFF}Дубинка\n\
 			{"cblue"}4. {FFFFFF}Жезл\n\
 			{"cblue"}5. {FFFFFF}Бронежилет", "Далее", "Закрыть");

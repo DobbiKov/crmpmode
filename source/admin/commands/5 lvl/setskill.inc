@@ -58,13 +58,13 @@ CMD:setskill(playerid, params[]){
             SetPlayerSkills(playerid);
             SaveAccounts(playerid);
             new string[144];
-            format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием MP-5.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
+            format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием АК-74У.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием MP-5.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием АК-74У.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
-            format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием MP-5", PlayerInfo[to_player][pName]);
+            format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием АК-74У", PlayerInfo[to_player][pName]);
             SCM(playerid, white, string);
         }
         case 5:{
