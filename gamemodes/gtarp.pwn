@@ -95,6 +95,7 @@ new
 ;
 
 // ------ [ TEXTDRAWS ] ---------------
+new tmpobjid;
 
 const speedometer_td_size = 15;
 new PlayerText:speed_td[MAX_PLAYERS][speedometer_td_size];

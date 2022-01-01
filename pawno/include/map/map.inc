@@ -5871,7 +5871,6 @@
 	CreateDynamicObject(3015, 1368.74, 1756.39, 2.70,   0.00, 0.00, -47.70);
 	//ArmiaByVlad
 	//Objects////////////////////////////////////////////////////////////////////////////////////////////////////////
-	new tmpobjid;
 	tmpobjid = CreateDynamicObject(19313, 1885.236572, 1717.260375, 14.586380, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00);
 	SetDynamicObjectMaterial(tmpobjid, 0, 2157, "rail_pack1", "Fence2", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 2157, "rail_pack1", "Fence2", 0x00000000);
