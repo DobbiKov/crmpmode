@@ -223,6 +223,39 @@ public OnPlayerDisconnect(playerid, reason)
 	forward gc_OnPlayerDisconnect(playerid, reason);
 #endif
 
+public OnPlayerSpawn(playerid)
+{
+	if(gc_cuffed_playerid[playerid] != INVALID_PLAYER_ID)
+	{
+		gc_suspect_status{gc_cuffed_playerid[playerid]} =
+			gc_SUSPECT_STATUS_UNCUFFED;
+		gc_cufferid[gc_cuffed_playerid[playerid]] =
+			gc_cuffed_playerid[playerid] = INVALID_PLAYER_ID;
+	}
+	else if(gc_cufferid[playerid] != INVALID_PLAYER_ID)
+	{
+		gc_suspect_status{playerid} = gc_SUSPECT_STATUS_UNCUFFED;
+		gc_cuffed_playerid[gc_cufferid[playerid]] = gc_cufferid[playerid] =
+			INVALID_PLAYER_ID;
+	}
+    #if defined gc__OnPlayerSpawn
+        return gc__OnPlayerSpawn(playerid);
+    #else
+        return 1;
+    #endif
+}
+#if defined _ALS_OnPlayerSpawn
+    #undef OnPlayerSpawn
+#else 
+    #define _ALS_OnPlayerSpawn
+#endif
+
+
+#define OnPlayerSpawn gc__OnPlayerSpawn
+#if defined gc__OnPlayerSpawn
+    forward gc__OnPlayerSpawn(playerid);
+#endif
+
 public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 {
 	if(gc_cuffed_playerid[playerid] != INVALID_PLAYER_ID)
