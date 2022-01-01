@@ -1365,9 +1365,7 @@ publics LoginCallback(playerid, password[])
 	
 	if(PlayerInfo[playerid][pHomeID] != -1)
 	{
-		new query[60];
-		format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
-		mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+		LoadMyCarFunc(playerid);
 	}
     return 1;
 }
@@ -1764,6 +1762,7 @@ public OnPlayerSpawn(playerid)
 			PlayerInfo[playerid][pAmmo][i] = 0;
 			SaveAccounts(playerid);
 		}
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	PreloadAllAnimLibs(playerid);
 	if(PlayerInfo[playerid][pBackPack] == 1) SetPlayerAttachedObject(playerid, 1, 3026, 1, -0.176000, -0.066000, 0.0000,0.0000, 0.0000, 0.0000, 1.07600, 1.079999, 1.029000);

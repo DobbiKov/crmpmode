@@ -243,7 +243,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
 			}
 		}
-		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid])
+		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid] && PlayerInfo[playerid][pJob] == Job_Truck)
 		{
 		    if(pCheckpoint[playerid] == CP_SIT_IN_TRUCK)
 		    {

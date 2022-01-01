@@ -102,6 +102,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
         if(IsPlayerInRangeOfPoint(playerid, 2.0, 1809.6216,2253.1555,15.2729))
         {
+			if(player_job_vehicle_created[playerid] != -1)
+				return SCM(playerid, red, !"Вы уже арендуете уборочную машину!");
 			SPD(playerid, D_AREND_CLEAN, DIALOG_STYLE_MSGBOX, "{"cblue"}Аренда уборочной машины", "{FFFFFF}Стоимость аренды уборочной машины - {"cblue"}200 рублей{FFFFFF}.\nВы уверенны, что хотите арендовать уборочную машину?", "Арендовать", "Закрыть");
         }
     }
@@ -133,6 +135,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 			    if(PlayerInfo[playerid][pCash] < 200) return SCM(playerid, red, "У вас не достаточно денег!");
 			    
+				PlayerInfo[playerid][pJob] = Job_None;
 			    GiveMoney(playerid, -200, "Аренда уборочной машины!");
 				SCM(playerid, blue, "Вы успешно арендовали уборочную машину!");
 				SCM(playerid, blue, "У вас есть {"cyellow"}45 секунд{"cblue"}, что б сесть в транспорт!");
@@ -226,11 +229,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 {
     if(newstate == PLAYER_STATE_DRIVER)
     {
-		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid])
+		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid] && GetPVarInt(playerid, "cleaner_job") == 1)
 		{
 			if(pCheckpoint[playerid] == CP_CLEANER_AREND)
 			{
-			    CleanTimer[playerid] = 0;
+			    CleanTimer[playerid] = -1;
 				pPressed[playerid] = 0;
 				new i = pPressed[playerid];
 			    SCM(playerid, green, "Вы сели в уборочную машину, отправляйтесь на маршрут!");
@@ -333,7 +336,7 @@ public OnPlayerEnterCheckpoint(playerid)
 
 publics EndJobCleaner(playerid)
 {
-	if(GetPVarInt(playerid, "EndJobCleaner") == 1) SCM(playerid, red, "К сожалению, вы не успели сесть в грузовикк!");
+	if(GetPVarInt(playerid, "EndJobCleaner") == 1) SCM(playerid, red, "К сожалению, вы не успели сесть в уборочную машину!");
 	new string[128];
 	
 	SCM(playerid, blue, "Вы успешно завершили рабочий день!");
