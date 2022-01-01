@@ -615,6 +615,9 @@ enum e_DIALOG_IDs
 	
 	D_CALL_CONTRABANDA,
 	D_CLEAR_SU,
+	
+	D_CAR_COMMAND,
+	D_CAR_COMMAND_CHOOSE_CAR,
 };
 
 /* CHEAT */
@@ -1363,9 +1366,7 @@ publics LoginCallback(playerid, password[])
 	
 	if(PlayerInfo[playerid][pHomeID] != -1)
 	{
-		new query[60];
-		format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
-		mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+		LoadMyCarFunc(playerid);
 	}
     return 1;
 }
@@ -3802,5 +3803,11 @@ CMD:getmybizid(playerid){
 	new string[144];
 	format(string, sizeof(string), "%d", PlayerInfo[playerid][pBizID]);
 	SCM(playerid, blue, string);
+}
+CMD:getpcarid(playerid)
+{
+	new string[144];
+	format(string, sizeof(string), "%d", PlayerInfo[playerid][pCarID]);
+	return SCM(playerid, white, string);
 }
 #endif

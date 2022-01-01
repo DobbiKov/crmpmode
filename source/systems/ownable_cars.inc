@@ -36,8 +36,8 @@ stock SaveOwnableCar(playerid)
 } 
 publics LoadMyCarFunc(playerid)
 {
-    new query[60];
-    format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
+    new query[256];
+    format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' AND `id` = '%d'", PlayerInfo[playerid][pID], PlayerInfo[playerid][pCarID]);
     mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
 }
 publics LoadMyCar(playerid)
@@ -248,7 +248,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
                 DestroyVehicle(player_ownable_car[playerid]);
                 player_ownable_car[playerid] = -1;
-                PlayerInfo[playerid][pCarID] = -1;
+
+                new query[256];
+                format
+                (
+                    query, sizeof query,
+                    "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+                    PlayerInfo[playerid][pID]
+                );
+                mysql_tquery(connects, query, "ownable_car_get_car", "d", playerid);
             }
 		}
     }
@@ -307,15 +315,15 @@ CMD:sellmycar(playerid, params[])
     extract params -> new to_player, price; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmycar [ID игрока] [цена]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
 
-    if(PlayerInfo[to_player][pCarID] != -1) return SCM(playerid, red, "У игрока уже имеется личный транспорт.");
+    // if(PlayerInfo[to_player][pCarID] != -1) return SCM(playerid, red, "У игрока уже имеется личный транспорт.");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока нет столько денег.");
     if(price < 0) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmycar [ID игрока] [цена]");
 
     if(!IsPlayerInAnyVehicle(playerid) || GetPlayerVehicleID(playerid) != player_ownable_car[playerid]) return SCM(playerid, red, "Вы должны находится в личном транспорте.");
 
-    return SendProposition(playerid, to_player, PROPOSITION_TYPE_SELLCAR, price);
+    return SendProposition(playerid, to_player, PROPOSITION_TYPE_SELLCAR, price, PlayerInfo[playerid][pCarID]);
 }
-CMD:car(playerid)
+CMD:old_car(playerid)
 {
     if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У вас нет личного транспорта.");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "Ваш личный транспорт не создан.");
@@ -353,5 +361,28 @@ stock DestroyOwnableCar(playerid)
         DestroyVehicle(player_ownable_car[playerid]);
         player_ownable_car[playerid] = -1;
     }
+    return 1;
+}
+
+publics ownable_car_get_car(playerid)
+{
+    new rows, fields;
+    cache_get_data(rows, fields);
+    if(rows)
+    {
+        static id;
+		id = cache_get_field_content_int(0, "id");
+        PlayerInfo[playerid][pCarID] = id;
+
+        SaveAccounts(playerid);
+
+		if(PlayerInfo[playerid][pHomeID] != -1 && player_ownable_car[playerid] == -1)
+			LoadMyCarFunc(playerid);
+    }
+    else
+    {
+        PlayerInfo[playerid][pCarID] = -1;
+    }
+    SaveAccounts(playerid);
     return 1;
 }

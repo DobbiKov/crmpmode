@@ -573,28 +573,14 @@ CMD:yes(playerid)
 
 			case PROPOSITION_TYPE_SELLCAR:
 			{
-
-				new string[128];
-				format(string, sizeof(string), "%s принимает Ваше предложение", PlayerInfo[playerid][pName]);
-				SCM(proposition, green, string);
-
-				format(string, sizeof(string), "Вы купили транспорт %s за %d рублей", GetCarName(GetVehicleModel(player_ownable_car[proposition])), value_1);
-				SCM(playerid, blue, string);
-
-				PlayerInfo[playerid][pCarID] = PlayerInfo[proposition][pCarID];
-				PlayerInfo[proposition][pCarID] = -1;
-
-				ownable_car[player_ownable_car[proposition]][oc_owner_id] = PlayerInfo[playerid][pID];
-				SaveOwnableCar(proposition);
-
-				DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[proposition]]);
-				DestroyVehicle(player_ownable_car[proposition]);
-				player_ownable_car[proposition] = -1;
-
-				GiveMoney(playerid, -value_1, "Покупка транспорта у игрока");
-				GiveMoney(proposition, value_1, "Продажа транспорта игроку");
-				SaveAccounts(playerid);
-				SaveAccounts(proposition);
+				new query[256];
+                format
+                (
+                    query, sizeof query,
+                    "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+                    PlayerInfo[playerid][pID]
+                );
+                mysql_tquery(connects, query, "propos_check_own_cars", "dddd", playerid, proposition, value_1, value_2);
 			}
 			case PROPOSITION_TYPE_SELLHOUSE:
 			{
@@ -659,5 +645,60 @@ CMD:no(playerid)
 	else SCM(playerid, 0xFF6600FF, "Вы отказались от предложения игрока");
 
 	ClearProposition(playerid);
+	return 1;
+}
+
+publics propos_check_own_cars(playerid, proposition, value_1, value_2)
+{
+	new rows, fields;
+	cache_get_data(rows, fields);
+	if(rows)
+	{
+		new _amount;
+		for(new i = 0; i < rows; i++)
+		{
+			_amount++;
+		}
+		if(_amount >= 2)
+		{
+			SCM(proposition, red, !"У игрока уже имеется два или более авто!");
+			return SCM(playerid, red, !"Вы не можете иметь более двух авто!");
+		}
+	}
+
+	if(PlayerInfo[proposition][pCarID] != value_2)
+	{
+		SCM(proposition, red, !"У вас нет автомобиля, который вы предлагали к покупке!");
+		return SCM(playerid, red, !"У игрока нет этого автомобиля в данные момент.");
+	}
+
+	new string[128];
+	format(string, sizeof(string), "%s принимает Ваше предложение", PlayerInfo[playerid][pName]);
+	SCM(proposition, green, string);
+
+	format(string, sizeof(string), "Вы купили транспорт %s за %d рублей", GetCarName(GetVehicleModel(player_ownable_car[proposition])), value_1);
+	SCM(playerid, blue, string);
+
+	PlayerInfo[playerid][pCarID] = PlayerInfo[proposition][pCarID];
+
+	ownable_car[player_ownable_car[proposition]][oc_owner_id] = PlayerInfo[playerid][pID];
+	SaveOwnableCar(proposition);
+
+	DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[proposition]]);
+	DestroyVehicle(player_ownable_car[proposition]);
+	player_ownable_car[proposition] = -1;
+
+	GiveMoney(playerid, -value_1, "Покупка транспорта у игрока");
+	GiveMoney(proposition, value_1, "Продажа транспорта игроку");
+	SaveAccounts(playerid);
+	SaveAccounts(proposition);
+	new query[256];
+	format
+	(
+		query, sizeof query,
+		"SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+		PlayerInfo[proposition][pID]
+	);
+	mysql_tquery(connects, query, "ownable_car_get_car", "d", proposition);
 	return 1;
 }

@@ -32,6 +32,7 @@
 #include "../source/player/commands/myskill.inc"
 #include "../source/player/commands/carpass.inc"
 #include "../source/player/commands/fixcar.inc"
+#include "../source/player/commands/car.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"

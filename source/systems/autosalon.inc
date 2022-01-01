@@ -101,63 +101,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     }
 	if(playertextid == PlayerText:auto_salon_td[playerid][26]) // купить*/
 	{
-
-		if(PlayerInfo[playerid][pHomeID] == -1) if(PlayerInfo[playerid][pKvartID] == -1) return SCM(playerid, red, "Для того чтобы купить транспорт необходимо иметь жильё. (дом, квартира)");
-
-		if(PlayerInfo[playerid][pCarID] != -1) return SCM(playerid, red, "У Вас уже есть личный транспорт");
-
-		if(PlayerInfo[playerid][pLicB] == 0) return SCM(playerid, red, "У Вас нет прав категории B");
-
-		new select_car = buy_car_select_car[playerid];
-
-		if(PlayerInfo[playerid][pCash] < car_market_data[select_car][car_cost]) return SCM(playerid, red, "У Вас недостаточно денег для покупки этого транспорта");
-
-		GiveMoney(playerid, -car_market_data[select_car][car_cost], "Покупка автомобиля в автосалоне");
-
-		new modelid;
-
-		modelid = car_market_data[select_car][car_id];
-
-		new query[120];
-		format
-		(
-			query, sizeof query,
-			"INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
-			PlayerInfo[playerid][pID],
-			modelid,
-			buy_car_select_color[playerid],
-			0,
-			car_market_data[select_car][car_cost]
-		);
-		mysql_query(connects, query);
-
-		SCM(playerid, blue, "Поздравляем Вас с успешной покупкой транспорта");
-		SCM(playerid, blue, "Получить номера вы можете в Полиции ({"cyellow"}/mynumber{"cblue"})");
-		SCM(playerid, blue, "Если у Вас дом, то перезайдите. Если у Вас квартира то заберите транспорт в подъезде.");
-
-		PlayerInfo[playerid][pCarID] = modelid;
-
-        SaveAccounts(playerid);
-
-		for(new i = 0; i < auto_salon_td_size; i++) PlayerTextDrawHide(playerid, auto_salon_td[playerid][i]);
-
-		FreezePlayer(playerid, 2000);
-		SetPlayerPos(playerid, 2022.1450,1883.4620,15.6600);
-		SetPlayerFacingAngle(playerid, 0.9597);
-		SetCameraBehindPlayer(playerid);
-		TogglePlayerControllable(playerid, 1);
-		SetPlayerInterior(playerid, 0);
-		SetPlayerVirtualWorld(playerid, 0);
-
-		DestroyVehicle(player_buy_car[playerid]);
-
-		buy_car_select_color[playerid] =
-		player_buy_car[playerid] = -1;
-
-		CancelSelectTextDraw(playerid);
-
-		if(PlayerInfo[playerid][pHomeID] != -1)
-			LoadMyCarFunc(playerid);
+		AutosalonBuyCar(playerid);
 	}    
     if(playertextid == PlayerText:auto_salon_td[playerid][28] || playertextid == PlayerText:INVALID_TEXT_DRAW) // отмена
     {
@@ -379,8 +323,6 @@ stock BuyCarTDUpdate(playerid)
 
 stock CarMarketShowNextCar(playerid, next = '+')
 {	
-	static const max_car_index[] = {264};
-	
 	if(next == '+')
 	{
 		if(++buy_car_select_car[playerid] > sizeof(car_market_data)-1)
@@ -424,4 +366,112 @@ stock CarMarketShowNextColor(playerid, next = '+')
 		ChangeVehicleColor(player_buy_car[playerid], buy_car_select_color[playerid], 0);
 	}
 	return 1;
+}
+
+
+
+stock AutosalonBuyCar(playerid)
+{
+	if(PlayerInfo[playerid][pHomeID] == -1) if(PlayerInfo[playerid][pKvartID] == -1) return SCM(playerid, red, "Для того чтобы купить транспорт необходимо иметь жильё. (дом, квартира)");
+	
+	new query[256];
+    format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
+    mysql_tquery(connects, query, "AutosalonCheckOwnableCarsAmount", "i", playerid);
+	return 1;
+}
+
+publics AutosalonCheckOwnableCarsAmount(playerid)
+{
+    static rows[2];
+    cache_get_data(rows[0], rows[1]);
+    if(rows[0])
+    {
+		new _amount = 0;
+		for(new i = 0; i < rows[0]; i++)
+		{
+			_amount++;
+		}
+		if(_amount >= 2)
+			return SCM(playerid, red, "У Вас уже есть 2 личных транспорта");
+    }
+
+
+	if(PlayerInfo[playerid][pLicB] == 0) return SCM(playerid, red, "У Вас нет прав категории B");
+
+	new select_car = buy_car_select_car[playerid];
+
+	if(PlayerInfo[playerid][pCash] < car_market_data[select_car][car_cost]) return SCM(playerid, red, "У Вас недостаточно денег для покупки этого транспорта");
+
+	GiveMoney(playerid, -car_market_data[select_car][car_cost], "Покупка автомобиля в автосалоне");
+
+	new modelid;
+
+	modelid = car_market_data[select_car][car_id];
+
+	new query[256];
+	format
+	(
+		query, sizeof query,
+		"INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
+		PlayerInfo[playerid][pID],
+		modelid,
+		buy_car_select_color[playerid],
+		0,
+		car_market_data[select_car][car_cost]
+	);
+	mysql_tquery(connects, query);
+
+	SCM(playerid, blue, "Поздравляем Вас с успешной покупкой транспорта");
+	SCM(playerid, blue, "Получить номера вы можете в Полиции ({"cyellow"}/mynumber{"cblue"})");
+	SCM(playerid, blue, "Если у Вас дом, то перезайдите. Если у Вас квартира то заберите транспорт в подъезде.");
+
+	for(new i = 0; i < auto_salon_td_size; i++) PlayerTextDrawHide(playerid, auto_salon_td[playerid][i]);
+
+	FreezePlayer(playerid, 2000);
+	SetPlayerPos(playerid, 2022.1450,1883.4620,15.6600);
+	SetPlayerFacingAngle(playerid, 0.9597);
+	SetCameraBehindPlayer(playerid);
+	TogglePlayerControllable(playerid, 1);
+	SetPlayerInterior(playerid, 0);
+	SetPlayerVirtualWorld(playerid, 0);
+
+	DestroyVehicle(player_buy_car[playerid]);
+
+	buy_car_select_color[playerid] =
+	player_buy_car[playerid] = -1;
+
+	CancelSelectTextDraw(playerid);
+
+	format
+	(
+		query, sizeof query,
+		"SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+		PlayerInfo[playerid][pID]
+	);
+	mysql_tquery(connects, query, "autosalon_get_last_car", "d", playerid);
+	return 1;
+}
+
+publics autosalon_get_last_car(playerid)
+{
+    static rows[2];
+    cache_get_data(rows[0], rows[1]);
+    if(rows[0])
+    {
+		static id;
+		id = cache_get_field_content_int(0, "id");
+
+		if(PlayerInfo[playerid][pCarID] == -1)
+			PlayerInfo[playerid][pCarID] = id;
+
+        SaveAccounts(playerid);
+
+		if(PlayerInfo[playerid][pHomeID] != -1 && player_ownable_car[playerid] == -1)
+			LoadMyCarFunc(playerid);
+    }
+    else
+    {
+        return SCM(playerid, red, !"У вас нет личного странспорта.");
+    }
+    return 1;
 }

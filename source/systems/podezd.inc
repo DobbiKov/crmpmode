@@ -300,9 +300,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1: 
                     {
-                        new query[60];
-                        format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
-                        mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+                        LoadMyCarFunc(playerid);
                     }
                     case 2:
                     {
