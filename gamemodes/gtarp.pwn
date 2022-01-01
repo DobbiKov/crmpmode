@@ -862,6 +862,7 @@ enum
 #include "../source/admin/commands/2 lvl/jail.inc"
 #include "../source/admin/commands/2 lvl/mute.inc"
 #include "../source/admin/commands/2 lvl/arm.inc"
+#include "../source/admin/commands/2 lvl/alock.inc"
 #include "../source/admin/commands/2 lvl/hp.inc"
 #include "../source/admin/commands/2 lvl/getskin.inc"
 #include "../source/admin/commands/2 lvl/mg.inc"
