@@ -8,6 +8,8 @@ CMD:arrest(playerid, params[])
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][pWANTED] < 1) return SCM(playerid, red, "Игрок не в розыске!");
     if(GetPVarInt(to_player, "cuffed") < 1) return SCM(playerid, red, "Игрок не в наручниках!");
+    if(!IsPlayerInRangeOfPlayer(playerid, to_player, 5.0))
+        return SCM(playerid, red, !"Игрок далеко от вас!");
 
 
 
@@ -31,6 +33,9 @@ CMD:arrest(playerid, params[])
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE); 
 
     ResetPlayerWeaponsAC(to_player);
+
+    func_ungotome(playerid, to_player);
+
     SaveAccounts(playerid);
     SaveAccounts(to_player);
     PutPlayerInKPZ(to_player);

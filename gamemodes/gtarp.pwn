@@ -202,6 +202,37 @@ new _restart_timer;
 
 //************ | Ã¿——»¬€ | ************//
 
+//*********** | GOTOME CUFF ARREST | **********
+enum
+{
+	gc_SUSPECT_STATUS_UNCUFFED,
+	gc_SUSPECT_STATUS_CUFFED,
+	gc_SUSPECT_STATUS_FOLLOWING,
+	gc_SUSPECT_STATUS_WAITING
+};
+
+
+enum gc_results
+{
+    gc_RESULT_ERROR_ID,
+    gc_RESULT_ERROR_PERMISSIONS,
+    gc_RESULT_ERROR_USED,
+    gc_RESULT_ERROR_CUFFED,
+    gc_RESULT_ERROR_UNCUFFED,
+    gc_RESULT_ERROR_FOLLOW,
+    gc_RESULT_ERROR_DISTANCE
+};
+
+new
+	gc_cufferid[MAX_PLAYERS] =
+		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
+
+	gc_cuffed_playerid[MAX_PLAYERS] =
+		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
+
+	gc_suspect_status[MAX_PLAYERS char];
+//*********************************************
+
 new pPressed[MAX_PLAYERS];
 
 enum

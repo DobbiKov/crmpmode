@@ -25,6 +25,7 @@ CMD:incar(playerid, params[])
 
     format(string, sizeof(string), "затащил в машину %s", PlayerInfo[to_player][pName]);
     cmd::me(playerid, string);
+    func_ungotome(playerid, to_player);
     PutPlayerInVehicle(to_player, GetPlayerVehicleID(playerid), place);
     return FreezePlayer(to_player, 5*60000); 
 }

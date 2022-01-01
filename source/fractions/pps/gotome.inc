@@ -38,50 +38,6 @@
 	#define gc_COLOR_SUCCESS "{2ecc71}"
 #endif
 
-enum
-{
-	gc_SUSPECT_STATUS_UNCUFFED,
-	gc_SUSPECT_STATUS_CUFFED,
-	gc_SUSPECT_STATUS_FOLLOWING,
-	gc_SUSPECT_STATUS_WAITING
-};
-
-
-enum gc_results
-{
-    gc_RESULT_ERROR_ID,
-    gc_RESULT_ERROR_PERMISSIONS,
-    gc_RESULT_ERROR_USED,
-    gc_RESULT_ERROR_CUFFED,
-    gc_RESULT_ERROR_UNCUFFED,
-    gc_RESULT_ERROR_FOLLOW,
-    gc_RESULT_ERROR_DISTANCE
-};
-
-static 
-	gc_cufferid[MAX_PLAYERS] =
-		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
-
-	gc_cuffed_playerid[MAX_PLAYERS] =
-		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
-
-	gc_suspect_status[MAX_PLAYERS char];
-
-// stock Float: gc_GetDistanceBetweenPlayers(player_x, player_y)
-// {
-// 	new 
-// 		Float: _x,
-// 		Float: _y,
-// 		Float: _z,
-// 		Float: _x2,
-// 		Float: _y2,
-// 		Float: _z2;
-
-// 	GetPlayerPos(player_x, _x, _y, _z);
-// 	GetPlayerPos(player_y, _x2, _y2, _z2);
-// 	return VectorSize(_x-_x2, _y-_y2, _z-_z2);
-// }
-
 stock gc_IsSuspectCuffed(suspectid)
 {
 	return (gc_suspect_status{suspectid}) ? (1) : (0);
@@ -146,8 +102,8 @@ CMD:ungotome(playerid, params[])
         return PlayerOffLine(playerid);//Коннект ли игрок
     if(!IsPlayerInRangeOfPlayer(playerid, to_player, 7.0))
         return SCM(playerid, red, !"Игрок далеко от вас!");
-    else if(gc_IsSuspectCuffed(playerid))
-		return SCM(playerid, red, !"Вы никого не конвоируете!");
+    if(gc_cuffed_playerid[playerid] != to_player)
+		return SCM(playerid, red, !"Вы не конвоируете данного игрока!");
 
     new string[128];
     format(string, sizeof(string), "Вы перестали конвоировать %s", PlayerInfo[to_player][pName]);
@@ -164,14 +120,20 @@ CMD:ungotome(playerid, params[])
 	if(gc_suspect_status{suspectid} == gc_SUSPECT_STATUS_FOLLOWING ||
 		gc_suspect_status{suspectid} == gc_SUSPECT_STATUS_WAITING)
 	{
-		gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_CUFFED;
-        gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_UNCUFFED;
-        gc_cufferid[suspectid] = gc_cuffed_playerid[playerid] = INVALID_PLAYER_ID;
-
-		ClearAnimations(suspectid, 1);
-		TogglePlayerControllable(suspectid, 0);
+		func_ungotome(playerid, suspectid);
 	}
 	return 1;
+}
+
+stock func_ungotome(playerid, suspectid)
+{
+    gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_CUFFED;
+    gc_suspect_status{suspectid} = gc_SUSPECT_STATUS_UNCUFFED;
+    gc_cufferid[suspectid] = gc_cuffed_playerid[playerid] = INVALID_PLAYER_ID;
+
+    ClearAnimations(suspectid, 1);
+    TogglePlayerControllable(suspectid, 0);
+    return 1;   
 }
 
 publics gc_UpdateSuspect(suspectid)
