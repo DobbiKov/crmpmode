@@ -3642,7 +3642,7 @@ stock GetCarName(vehicleid)
 		case 412: name = "»∆ 2125";
 		case 415: name = "Ferrari";
 		case 424: name = "—Ã« —3¿";
-		case 426: name = "√¿« 14)";
+		case 426: name = "Rolls Royce";
 		case 436: name = "Toyota Mark II";
 		case 445: name = "√¿« 24";
 		case 451: name = "Turismo";
@@ -3670,6 +3670,7 @@ stock GetCarName(vehicleid)
 		case 542: name = "¬¿« ÕË‚‡";
 		case 551: name = "√¿« 3110";
 		case 555: name = "«¿« 968";
+		case 558: name = "Mersedes Benz E63";
 		case 559: name = "Toyota Celica";
 		case 560: name = "Sultan";
 		case 562: name = "Elegy";
