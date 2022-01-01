@@ -3656,8 +3656,9 @@ stock GetCarName(vehicleid)
 		case 475: name = "Mitsubishi Pajero";
 		case 477: name = "ZR-350";
 		case 479: name = "ГАЗ 24-02";
-		case 489: name = "Chevrolet Niva";
+		case 489: name = "Grand Cherokee SRT";
 		case 492: name = "ВАЗ 2109";
+		case 494: name = "BMW M3";
 		case 496: name = "ЗАЗ Таврия";
 		case 500: name = "УАЗ 3151";
 		case 508: name = "УАЗ Буханка";
