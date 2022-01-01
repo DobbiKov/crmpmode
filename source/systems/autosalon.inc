@@ -9,67 +9,72 @@ enum E_STRUCT_CAR_MARKET
 	car_name[64]
 };
 
-new car_market_data[59][E_STRUCT_CAR_MARKET] =
+new car_market_data[64][E_STRUCT_CAR_MARKET] =
 {
 	{400, 1000000,  "BMW X5"},
 	{401, 150000,   "ВАЗ 2110"},
 	{402, 1500000,  "Audi A2"},
 	{404, 1000000,  "ВАЗ 2101"},
-	{410, 750000,   "хз"},
+	{410, 750000,   "Mitsubishi Eclipse"},
 	{411, 150000,   "Renault Logan"},
-	{412, 70000,   "хз"},
-	{415, 4000000,   "Ferrari"},
-	{421, 1000000,   "Mersedes Benz S600"},
-	{422, 80000,   "UAZ"},
+	{412, 70000,   	"ИЖ Комби"},
+	{415, 4000000,  "Ferrari"},
+	{421, 1000000,  "MB S600"},
+	{422, 80000,   	"UAZ"},
+	{426, 8000000,  "Rolls-Royce"},
+	{429, 80000,  	"Москвич Святогор"},
 	{436, 800000,   "Toyota Mark 2"},
-	{439, 70000,   "хз"},
+	{439, 70000,   	"ВАЗ 2112"},
 	{445, 120000,   "Волга"},
-	{451, 2000000,   "Nissan GTR"},
+	{451, 2000000,  "Nissan GTR"},
 	{458, 150000,   "ВАЗ 2114"},
-	{461, 90000,   "Ява"},
-	{462, 15000,   "Мопед"},
-	{463, 300000,   "Мотоцыкл"},
+	{461, 90000,   	"Ява"},
+	{462, 15000,   	"Мопед"},
+	{463, 300000,   "Байк"},
 	{466, 900000,   "BMW M5 E34"},
-	{467, 70000,   "Хз"},
+	{467, 70000,   	"Москвич 412"},
 	{468, 150000,   "Мотоцыкл"},
 	{475, 700000,   "Mitsubishi Pajero"},
-	{477, 2000000,   "BMW"},
-	{478, 60000,   "Хз"},
+	{477, 2000000,  "BMW"},
 	{479, 150000,   "ВАЗ 2110"},
-	{480, 3000000,   "Porshe Cayman S"},
-	{481, 6000,   "BMX"},
-	{489, 3000000,   "Toyota Land Cruiser 200"},
-	{490, 3000000,   "Shevrolet Subrban"},
+	{480, 3000000,  "Porshe Cayman S"},
+	{481, 6000,   	"BMX"},
+	{489, 3000000,  "Grand Cherokee"},
+	{490, 3000000,  "Shevrolet Subrban"},
 	{492, 130000,   "ВАЗ 2109"},
-	{495, 3000000,   "Mitsubishi"},
-	{496, 40000,   "Таврия"},
-	{505, 1000000,   "Range Rover"},
-	{506, 3000000,   "Bentley"},
-	{507, 80000,   "Mersedes E220"},
+	{495, 3000000,  "Mitsubishi"},
+	{496, 40000,   	"Таврия"},
+	{505, 1000000,  "Range Rover"},
+	{506, 3000000,  "Bentley"},
+	{507, 80000,   	"Mersedes E220"},
 	{508, 121000,   "УАЗ"},
-	{509, 8000,   "Велосипед"},
-	{510, 10000,   "Велосипед"},
+	{509, 8000,   	"Велосипед"},
+	{510, 10000,   	"Велосипед"},
 	{516, 130000,   "ВАЗ 21099"},
 	{521, 110000,   "Мотоцыкл"},
-	{522, 1200000,   "Yamaha R1"},
+	{522, 1200000,  "Yamaha R1"},
 	{529, 100000,   "ВАЗ 2106"},
+	{533, 8000000,  "M-Benz SL 280"},
 	{540, 300000,   "Lada Priora"},
-	{541, 3000000,   "Lamborhini Aventador"},
+	{541, 3000000,  "Lamborhini Aventador"},
 	{542, 100000,   "Lada Niva"},
-	{547, 80000,   "KIA"},
-	{549, 20000,   "ЗАЗ"},
+	{547, 80000,   	"KIA"},
+	{549, 20000,   	"ЗАЗ"},
 	{550, 110000,   "ВАЗ 2107"},
 	{551, 250000,   "Волга"},
-	{555, 20000,   "ЗАЗ"},
+	{555, 20000,   	"ЗАЗ"},
 	{559, 800000,   "Toyota Celica"},
-	{560, 1100000,   "Subaru Impreza"},
+	{560, 1100000,  "Subaru Impreza"},
+	{562, 800000,  	"Nissan Silvia"},
 	{565, 150000,   "ВАЗ 2108"},
-	{566, 80000,   "ВАЗ 2104"},
-	{579, 2000000,   "Mersedes Gelendwagen"},
+	{566, 80000,   	"ВАЗ 2104"},
+	{579, 2000000,  "M-Benz Gelendwagen"},
 	{585, 150000,   "ВАЗ 2115"},
-	{586, 90000,   "Ява"},
+	{586, 90000,   	"Ява"},
 	{589, 350000,   "Volkswagen Golf"},
-	{600, 125000,   "Москвич"}
+	{600, 125000,   "Москвич"},
+	{602, 2000000,  "M-Benz C63 AMG"},
+	{603, 800000,  	"F-Mustang Shelby"}
 };
 
 public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
@@ -378,13 +383,13 @@ stock CarMarketShowNextCar(playerid, next = '+')
 	
 	if(next == '+')
 	{
-		if(++buy_car_select_car[playerid] > max_car_index[0])
+		if(++buy_car_select_car[playerid] > sizeof(car_market_data)-1)
 			buy_car_select_car[playerid] = 0;
 	}
 	else 
 	{
 		if(--buy_car_select_car[playerid] < 0)
-			buy_car_select_car[playerid] = max_car_index[0];
+			buy_car_select_car[playerid] = sizeof(car_market_data)-1;
 	}
 	
 	new select_car = buy_car_select_car[playerid];
