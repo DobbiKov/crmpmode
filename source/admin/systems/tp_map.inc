@@ -40,8 +40,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new Float:mapY = GetPVarFloat(playerid, "tp_map_y");
                 new Float:mapZ = GetPVarFloat(playerid, "tp_map_z");
 
+
+                if(IsPlayerInAnyVehicle(playerid))
+				{
+				    new vehid = GetPlayerVehicleID(playerid);
+					new player_state = GetPlayerVehicleSeat(playerid);
+				    SetVehiclePos(vehid, mapX, mapY, mapZ);
+				    PutPlayerInVehicle(playerid, vehid, player_state);
+				}
+				else
+				{
+				    SetPlayerPos(playerid, mapX, mapY, mapZ);
+					FreezePlayer(playerid, 3000);
+				}
+
                 SCM(playerid, white, !"Вы были перенесены на метку.");
-                SetPlayerPos(playerid, mapX, mapY, mapZ);
                 GameTextForPlayer(playerid, "~y~TELEPORTING", 500, 4);
             }
             DeletePVar(playerid, "tp_map_x");
