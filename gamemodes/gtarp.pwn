@@ -3783,6 +3783,13 @@ stock SetPlayerSkills(playerid)
     return 1;
 }  
 
+stock PlayerName(playerid)
+{
+	new _PlayerName[MAX_PLAYER_NAME];
+	GetPlayerName(playerid,_PlayerName,sizeof(_PlayerName));
+	return _PlayerName;
+}
+
 
 #if defined DEBUG
 CMD:zalupa_pizdy_ebalnika(playerid)
