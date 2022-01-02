@@ -1895,7 +1895,7 @@ stock KillToHospital(&playerid, &killerid){
 	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
 	{
 		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объ€влены в розыск", 5000, 5);
-		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
+		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, ++PlayerInfo[killerid][pWANTED]);
 
 		format(string, sizeof(string), "[¬нимание] %s совершил убийство в отношении %s и был объ€влен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
 		SCMR(TEAM_PPS, blue, string);
@@ -3311,7 +3311,7 @@ stock GiveMoney(p, money, reason[])
 	GetPlayerIp(p, ip, sizeof(ip));
 	
 	format(fmt_msg, sizeof(fmt_msg), "%s%d", (money >= 0) ? "+" : "", money);
-	SetPlayerChatBubble(p, fmt_msg, blue, 10.0, 5000);
+	SetPlayerChatBubble(p, fmt_msg, green, 10.0, 5000);
 
 	format(fmt_msg, sizeof(fmt_msg), "~%s~ %s%d rub", (money >= 0) ? "g" : "r", (money >= 0) ? "+" : "", money);
 	GameTextForPlayer(p, fmt_msg, 1500, 1);
