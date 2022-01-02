@@ -12,6 +12,14 @@ CMD:giveaccess(playerid, params[])
 
     PlayerInfo[to_player][pFSBaccess] = 1;
     new string[144] = "";
+    format(string, sizeof(string), "%s выдал вам пропуск в здание ФСБ",  
+    PlayerName(playerid));
+    SCM(to_player, blue, string);
+
+    format(string, sizeof(string), "Вы выдали пропуск %s в здание ФСБ",  
+    PlayerName(to_player));
+    SCM(playerid, blue, string);
+
     format(string, sizeof(string), "[R] %s %s[%d]: выдал пропуск в здание ФСБ %s[%d]", 
     PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pFSBRank] ], 
     PlayerInfo[playerid][pName], 

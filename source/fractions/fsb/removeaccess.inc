@@ -12,6 +12,14 @@ CMD:removeaccess(playerid, params[])
 
     PlayerInfo[to_player][pFSBaccess] = 0;
     new string[144] = "";
+    format(string, sizeof(string), "%s забрал у вас пропуск в здание ФСБ",  
+    PlayerName(playerid));
+    SCM(to_player, blue, string);
+
+    format(string, sizeof(string), "Вы забрали пропуск у %s в здание ФСБ",  
+    PlayerName(to_player));
+    SCM(playerid, blue, string);
+
     format(string, sizeof(string), "[R] %s %s[%d]: забрал пропуск в здание ФСБ у %s[%d]", 
     PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pFSBRank] ], 
     PlayerInfo[playerid][pName], 
