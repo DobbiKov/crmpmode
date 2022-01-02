@@ -1743,7 +1743,6 @@ public OnPlayerSpawn(playerid)
 	TogglePlayerControllable(playerid,false);
 	SetTimerEx("LoadObjects",2000,false,"i",playerid);
 	
-	player_in_business[playerid] = -1;
 	player_in_toilet[playerid] = -1;
 	
 	if(PlayerInfo[playerid][pHOSPITAL] != 1)
@@ -3084,7 +3083,6 @@ stock ClearAccount(playerid)
 
 	prop_called[playerid] = -1;
 	call_called[playerid] = -1;
-	player_in_business[playerid] = -1;
 	player_in_house[playerid] = -1;
 	player_in_toilet[playerid] = -1;
 	player_in_kvart[playerid] = -1;
@@ -3432,7 +3430,7 @@ stock SetPlayerDefaultVariables(playerid)
 	{
         new rand = random(3);
         SetPlayerPos(playerid, hospital_coord[rand][0], hospital_coord[rand][1], hospital_coord[rand][2]);
-		player_in_business[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	    player_in_house[playerid] = -1;
 	}
 	if(PlayerInfo[playerid][pJail] > 0)
@@ -3457,7 +3455,6 @@ stock PlayerPutInDemorgan(playerid)
 	FreezePlayer(playerid, 2000);
 	SetPlayerPos(playerid, -80.3193, 805.4043, -4.9141);
 	ResetPlayerWeaponsAC(playerid);
-	player_in_business[playerid] = -1;
     player_in_house[playerid] = -1;
 	return 1;
 }
@@ -3468,7 +3465,6 @@ stock PutPlayerInKPZ(playerid)
 	else SetPlayerPos(playerid, 2574.4177,-2411.0747,22.4170);
 	SetPlayerVirtualWorld(playerid, 1);
 	ResetPlayerWeaponsAC(playerid);
-	player_in_business[playerid] = -1;
     player_in_house[playerid] = -1;
 	return 1;
 }
