@@ -108,7 +108,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
         case D_GPS_BUSINESS: {
             if (!response) ShowGpsDialog(playerid);
             else {
-                SetGpsCheckpoint(playerid, BusinessInfo[listitem][bExitX], BusinessInfo[listitem][bExitY], BusinessInfo[listitem][bExitZ]);
+                SetGpsCheckpoint(playerid, BusinessInfo[listitem + 1][bExitX], BusinessInfo[listitem + 1][bExitY], BusinessInfo[listitem + 1][bExitZ]);
             }
         }
         case D_GPS: {
@@ -173,7 +173,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                         new string[128];
                         foreach(new i : Allbusiness)
                         {
-                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i + 1, business_params[ BusinessInfo[i][bType] ][bname]);
+                            format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i, business_params[ BusinessInfo[i][bType] ][bname]);
                             strcat(str, string);
                         }
                         SPD(playerid, D_GPS_BUSINESS, DIALOG_STYLE_LIST, !"{"cblue"}Навигатор", str, !"Далее", !"Назад");
