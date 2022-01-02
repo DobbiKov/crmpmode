@@ -14,10 +14,10 @@ CMD:deject(playerid, params[])
     if(!IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "„еловек не находитьс€ в автомобиле!");
 
     new string[144];
-    format(string, sizeof(string), "¬ы вытащили %s из авто", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "¬ы вытащили %s из авто", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s вытащил вас из авто", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s вытащил вас из авто", PlayerName(playerid));
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "выломал дверь автомобил€");

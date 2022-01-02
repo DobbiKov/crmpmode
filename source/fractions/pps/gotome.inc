@@ -73,13 +73,13 @@ CMD:gotome(playerid, params[])
         return SCM(playerid, red, !"Игрок далеко от вас!");
 
     new string[128];
-    format(string, sizeof(string), "Вы начали конвоировать %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы начали конвоировать %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s начал вас конвоировать", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s начал вас конвоировать", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "начал конвоировать %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "начал конвоировать %s", PlayerName(to_player));
     cmd::me(playerid, string);
 
     new suspectid = to_player;
@@ -106,13 +106,13 @@ CMD:ungotome(playerid, params[])
 		return SCM(playerid, red, !"Вы не конвоируете данного игрока!");
 
     new string[128];
-    format(string, sizeof(string), "Вы перестали конвоировать %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы перестали конвоировать %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s перестал вас конвоировать", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s перестал вас конвоировать", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "перестал конвоировать %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "перестал конвоировать %s", PlayerName(to_player));
     cmd::me(playerid, string);
 
     new suspectid = to_player;

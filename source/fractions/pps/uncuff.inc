@@ -17,13 +17,13 @@ CMD:uncuff(playerid, params[])
     DeletePVar(to_player, "cuffed");
 
     new string[128];
-    format(string, sizeof(string), "Вы сняли наручники с %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы сняли наручники с %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s снял с вас наручники", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s снял с вас наручники", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "снимает наручники с %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "снимает наручники с %s", PlayerName(to_player));
     cmd::me(playerid, string);
     func_ungotome(playerid, to_player);
     return UnFreezePlayer(to_player);

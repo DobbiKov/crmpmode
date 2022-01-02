@@ -17,13 +17,13 @@ CMD:incar(playerid, params[])
     if(place < 1 || place > 3) return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /incar [ID игрока] [место (1-3)]"); 
 
     new string[128];
-    format(string, sizeof(string), "Вы затащили %s[%d] в машину!", PlayerInfo[to_player][pName], to_player);
+    format(string, sizeof(string), "Вы затащили %s в машину!", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s[%d] затащил вас в машину!", PlayerInfo[playerid][pName], playerid);
+    format(string, sizeof(string), "%s затащил вас в машину!", PlayerName(playerid));
     SCM(to_player, blue, string);
 
-    format(string, sizeof(string), "затащил в машину %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "затащил в машину %s", PlayerName(to_player));
     cmd::me(playerid, string);
     func_ungotome(playerid, to_player);
     PutPlayerInVehicle(to_player, GetPlayerVehicleID(playerid), place);

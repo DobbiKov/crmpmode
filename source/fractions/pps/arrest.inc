@@ -17,7 +17,7 @@ CMD:arrest(playerid, params[])
     PlayerInfo[to_player][pJP] = random(2);
 
     new string[144];
-    format(string, sizeof(string), "Вы посадили преступника %s в тюрьму и получили премию в размере %d рублей.", PlayerInfo[to_player][pName], PlayerInfo[to_player][pWANTED]*500);
+    format(string, sizeof(string), "Вы посадили преступника %s в тюрьму и получили премию в размере %d рублей.", PlayerName(to_player), PlayerInfo[to_player][pWANTED]*500);
     SCM(playerid, blue, string);
 
     format(string, sizeof(string), "%s %s посадил %s в тюрьму. И получил премию в размере %d рублей.", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], PlayerInfo[to_player][pWANTED]*500);

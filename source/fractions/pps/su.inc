@@ -16,7 +16,7 @@ CMD:su(playerid, params[])
     format(string, sizeof(string), "%s %s[%d] объявил в розыск (%d) %s[%d]. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pWANTED], PlayerInfo[to_player][pName], to_player, reason);
     SCMPolice(blue, string);
 
-    format(string, sizeof(string), "%s %s объявил вас в розыск. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], reason);
+    format(string, sizeof(string), "%s %s объявил вас в розыск. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), reason);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "Теперь ваш уровень розыска: %d", PlayerInfo[to_player][pWANTED]);

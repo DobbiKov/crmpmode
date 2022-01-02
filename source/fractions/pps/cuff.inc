@@ -20,13 +20,13 @@ CMD:cuff(playerid, params[])
     SetPVarInt(to_player, "cuffed", 1);
 
     new string[128];
-    format(string, sizeof(string), "Вы надели наручники на %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы надели наручники на %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s надел на вас наручники", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s надел на вас наручники", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "надевает наручники на %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "надевает наручники на %s", PlayerName(to_player));
     cmd::me(playerid, string);
     return 1;
 }

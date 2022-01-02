@@ -28,13 +28,13 @@ CMD:unmask(playerid, params[])
         return SCM(playerid, red, !"На игрока не надета маска!");
 
     new string[128];
-    format(string, sizeof(string), "Вы сняли маску с %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы сняли маску с %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s снял с вас маску", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s снял с вас маску", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "снял маску с %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "снял маску с %s", PlayerName(to_player));
     cmd::me(playerid, string);
     return TakeOffMask(to_player);
 }
