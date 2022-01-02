@@ -7,7 +7,8 @@
 #define b_type_REPAIR   5
 #define b_type_FILL     6
 
-new player_in_business[MAX_PLAYERS] = -1;
+// new player_in_business[MAX_PLAYERS] = -1;
+#define player_in_business[%0] GetPlayerVirtualWorld(%0)
 
 enum business_params_info
 {

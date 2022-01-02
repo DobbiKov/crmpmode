@@ -4,41 +4,43 @@ publics LoadBusiness()
 	cache_get_data(rows, fields);
     if(rows)
     {
+        // Iter_Add(Allbusiness, 0);
         for(new i = 0; i < rows; i++)
         {
-            BusinessInfo[i][bID] = cache_get_field_content_int(i, "bID");
-            BusinessInfo[i][bOwned] = cache_get_field_content_int(i, "bOwned");
-            BusinessInfo[i][bCash] = cache_get_field_content_int(i, "bCash");
-            BusinessInfo[i][bProfit] = cache_get_field_content_int(i, "bProfit");
-            BusinessInfo[i][bPrice] = cache_get_field_content_int(i, "bPrice");
-            BusinessInfo[i][bType] = cache_get_field_content_int(i, "bType");
+            new idx = i + 1;
+            BusinessInfo[idx][bID] = cache_get_field_content_int(i, "bID");
+            BusinessInfo[idx][bOwned] = cache_get_field_content_int(i, "bOwned");
+            BusinessInfo[idx][bCash] = cache_get_field_content_int(i, "bCash");
+            BusinessInfo[idx][bProfit] = cache_get_field_content_int(i, "bProfit");
+            BusinessInfo[idx][bPrice] = cache_get_field_content_int(i, "bPrice");
+            BusinessInfo[idx][bType] = cache_get_field_content_int(i, "bType");
 
-            BusinessInfo[i][bFillPrice] = cache_get_field_content_int(i, "bFillPrice");
-            BusinessInfo[i][bRepairPrice] = cache_get_field_content_int(i, "bRepairPrice");
-            BusinessInfo[i][bControl] = cache_get_field_content_int(i, "bControl");
-            BusinessInfo[i][bEnterPrice] = cache_get_field_content_int(i, "bEnterPrice");
-            BusinessInfo[i][bDays] = cache_get_field_content_int(i, "bDays");
+            BusinessInfo[idx][bFillPrice] = cache_get_field_content_int(i, "bFillPrice");
+            BusinessInfo[idx][bRepairPrice] = cache_get_field_content_int(i, "bRepairPrice");
+            BusinessInfo[idx][bControl] = cache_get_field_content_int(i, "bControl");
+            BusinessInfo[idx][bEnterPrice] = cache_get_field_content_int(i, "bEnterPrice");
+            BusinessInfo[idx][bDays] = cache_get_field_content_int(i, "bDays");
 
-            BusinessInfo[i][bExitX] = cache_get_field_content_float(i, "bExitX");
-            BusinessInfo[i][bExitY] = cache_get_field_content_float(i, "bExitY");
-            BusinessInfo[i][bExitZ] = cache_get_field_content_float(i, "bExitZ");
-            cache_get_field_content(i, "bOwner", BusinessInfo[i][bOwner], connects, MAX_PLAYER_NAME);
+            BusinessInfo[idx][bExitX] = cache_get_field_content_float(i, "bExitX");
+            BusinessInfo[idx][bExitY] = cache_get_field_content_float(i, "bExitY");
+            BusinessInfo[idx][bExitZ] = cache_get_field_content_float(i, "bExitZ");
+            cache_get_field_content(i, "bOwner", BusinessInfo[idx][bOwner], connects, MAX_PLAYER_NAME);
 
-            CreateDynamicMapIcon(BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ], business_params[ BusinessInfo[i][bType] ][icon], -1, -1, -1, -1, 200.0);
+            CreateDynamicMapIcon(BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], business_params[ BusinessInfo[idx][bType] ][icon], -1, -1, -1, -1, 200.0);
 
-            BusinessInfo[i][bLabel] = CreateDynamic3DTextLabel("__", 0xFFFFFFFF, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
-            BusinessInfo[i][bEnterPickup] = CreateDynamicPickup(business_params[ BusinessInfo[i][bType] ][pickup], 23, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]);
-            BusinessInfo[i][bExitPickup] = CreateDynamicPickup(business_params[ BusinessInfo[i][bType] ][pickup], 23, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ], BusinessInfo[i][bID]);
+            BusinessInfo[idx][bLabel] = CreateDynamic3DTextLabel("__", 0xFFFFFFFF, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
+            BusinessInfo[idx][bEnterPickup] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][pickup], 23, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ]);
+            BusinessInfo[idx][bExitPickup] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][pickup], 23, business_params[ BusinessInfo[idx][bType] ][ exit_x ], business_params[ BusinessInfo[idx][bType] ][ exit_y ], business_params[ BusinessInfo[idx][bType] ][ exit_z ], idx);
 
-            BusinessInfo[i][bExitPickup] = CreateDynamicPickup(business_params[ BusinessInfo[i][bType] ][pickup], 23, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ], BusinessInfo[i][bID]);
+            // BusinessInfo[idx][bExitPickup] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][pickup], 23, business_params[ BusinessInfo[idx][bType] ][ exit_x ], business_params[ BusinessInfo[idx][bType] ][ exit_y ], business_params[ BusinessInfo[idx][bType] ][ exit_z ], idx);
             
-            if(BusinessInfo[i][bType] > 0 && BusinessInfo[i][bType] < 6) BusinessInfo[i][bMenuPick] = CreateDynamicPickup(business_params[ BusinessInfo[i][bType] ][menu_pick], 23, business_params[BusinessInfo[i][bType]][coord_menu_x], business_params[BusinessInfo[i][bType]][coord_menu_y], business_params[BusinessInfo[i][bType]][coord_menu_z], BusinessInfo[i][bID]);
+            if(BusinessInfo[idx][bType] > 0 && BusinessInfo[idx][bType] < 6) BusinessInfo[idx][bMenuPick] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][menu_pick], 23, business_params[BusinessInfo[idx][bType]][coord_menu_x], business_params[BusinessInfo[idx][bType]][coord_menu_y], business_params[BusinessInfo[idx][bType]][coord_menu_z], idx);
             totalbusiness++;
 
-            Iter_Add(Allbusiness, i);
+            Iter_Add(Allbusiness, idx);
 
 
-            UpdateBusiness(i);
+            UpdateBusiness(idx);
             //Buybusiness(i);
         }
     }
@@ -161,9 +163,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                         FreezePlayer(playerid, 2000);
                         SetPlayerPos(playerid, business_params[ BusinessInfo[i][bType] ][exit_x], business_params[ BusinessInfo[i][bType] ][exit_y], business_params[ BusinessInfo[i][bType] ][exit_z]);
                         SetPlayerFacingAngle(playerid, business_params[ BusinessInfo[i][bType] ][exit_angle]);
-                        SetPlayerVirtualWorld(playerid, BusinessInfo[i][bID]);
+                        SetPlayerVirtualWorld(playerid, i);
                         if(BusinessInfo[i][bType] == b_type_EAT) SetPlayerInterior(playerid, 17);
-                        player_in_business[playerid] = i;
                     }
                 }
             }
@@ -179,7 +180,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     SetPlayerPos(playerid, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]);
                     SetPlayerVirtualWorld(playerid, 0);
                     SetPlayerInterior(playerid, 0);
-                    player_in_business[playerid] = -1;
                 }
             }
 
@@ -196,7 +196,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
         if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
         {
-            if(player_in_business[playerid] == -1)
+            if(player_in_business[playerid] == 0)
             {
                 foreach(new i : Allbusiness)
                 {
@@ -205,12 +205,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                         if(IsPlayerInRangeOfPoint(playerid, 5.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]))
                         {
                             new vehicleid = GetPlayerVehicleID(playerid);
-                            SetVehicleVirtualWorld ( vehicleid, BusinessInfo[i][bID]);
-                            SetPlayerVirtualWorld(playerid, BusinessInfo[i][bID]);
+                            SetVehicleVirtualWorld ( vehicleid, i);
+                            SetPlayerVirtualWorld(playerid, i);
                             SetVehiclePos(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_x ], business_params[ BusinessInfo[i][bType] ][ exit_y ], business_params[ BusinessInfo[i][bType] ][ exit_z ] + 0.5);
                             SetVehicleZAngle(vehicleid, business_params[ BusinessInfo[i][bType] ][ exit_angle ]);
                             PutPlayerInVehicle(playerid, vehicleid, 0);
-                            return player_in_business[playerid] = i;
+                            return player_in_business[playerid];
                         }
                     }
                 }
@@ -222,8 +222,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 SetVehicleVirtualWorld ( vehicleid, 0) ;
                 SetPlayerVirtualWorld(playerid, 0);
                 SetVehiclePos(vehicleid, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]);
-                PutPlayerInVehicle(playerid, vehicleid, 0);
-                player_in_business[playerid] = -1;             
+                PutPlayerInVehicle(playerid, vehicleid, 0);            
             }
         }
     }
@@ -262,9 +261,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 FreezePlayer(playerid, 2000);
                 SetPlayerPos(playerid, business_params[ BusinessInfo[i][bType] ][exit_x], business_params[ BusinessInfo[i][bType] ][exit_y], business_params[ BusinessInfo[i][bType] ][exit_z]);
                 SetPlayerFacingAngle(playerid, business_params[ BusinessInfo[i][bType] ][exit_angle]);
-                SetPlayerVirtualWorld(playerid, BusinessInfo[i][bID]);
+                SetPlayerVirtualWorld(playerid, i);
                 if(BusinessInfo[i][bType] == b_type_EAT) SetPlayerInterior(playerid, 17);
-                player_in_business[playerid] = i;
                 DeletePVar(playerid, "biz_id_enter");
             }
         }
