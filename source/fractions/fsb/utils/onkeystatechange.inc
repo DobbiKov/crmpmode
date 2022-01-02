@@ -21,7 +21,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			SetPlayerPos(playerid, 2442.2156,-1807.2129,32.6259);
             SetPlayerFacingAngle(playerid,176.4522);
-            2442.2156,-1807.2129,32.6259,176.4522
             SetPlayerVirtualWorld(playerid, 1);
 		}
         if(IsPlayerInRangeOfPoint(playerid, 1.0, 2442.1741,-1805.4276,32.6259)) //тп из допросной
