@@ -67,6 +67,10 @@
 #define 	PRESSED(%0) (((newkeys & (%0)) == (%0)) && ((oldkeys & (%0)) != (%0)))
 native 		IsValidVehicle(vehicleid);
 
+#define player_in_business[%0] GetPlayerVirtualWorld(%0)
+#define player_in_house[%0] GetPlayerVirtualWorld(%0)
+#define player_in_kvart[%0] GetPlayerVirtualWorld(%0)
+
 #if !defined SPECIAL_ACTION_PISSING
     const SPECIAL_ACTION_PISSING = 68;
 #endif

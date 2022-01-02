@@ -348,12 +348,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 PlayerInfo[playerid][pKvartID] = KvartInfo[i][kvart_id];
                 PlayerInfo[playerid][pPodID] = player_in_podezd[playerid];
 
-                SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_id]);
+                SetPlayerVirtualWorld(playerid, i);
                 FreezePlayer(playerid, 2000);
                 SetPlayerPos(playerid, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]);
 
                 player_in_podezd[playerid] = -1;
-                player_in_kvart[playerid] = KvartInfo[i][kvart_id];
 
                 TotalFreeKvart--;
 

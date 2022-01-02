@@ -1,6 +1,6 @@
 #define MAX_KVARTS 5000
 new TotalFreeKvart;
-new player_in_kvart[MAX_PLAYERS] = -1;
+
 new totalkvart;
 
 enum kvart_params_info

@@ -6,18 +6,19 @@ publics LoadKvart()
     {
         for(new i = 0; i < rows; i++)
         {
-            KvartInfo[i][kvart_id] = cache_get_field_content_int(i, "kvart_id");
-            KvartInfo[i][kvart_days] = cache_get_field_content_int(i, "kvart_days");
-            KvartInfo[i][kvart_type] = cache_get_field_content_int(i, "kvart_type");
-            KvartInfo[i][kvart_pod_id] = cache_get_field_content_int(i, "kvart_pod_id");
-            KvartInfo[i][kvart_Owned] = cache_get_field_content_int(i, "kvart_Owned");
-            cache_get_field_content(i, "kvart_Owner", KvartInfo[i][kvart_Owner], connects, 64);
+            new idx = i + 1;
+            KvartInfo[idx][kvart_id] = cache_get_field_content_int(i, "kvart_id");
+            KvartInfo[idx][kvart_days] = cache_get_field_content_int(i, "kvart_days");
+            KvartInfo[idx][kvart_type] = cache_get_field_content_int(i, "kvart_type");
+            KvartInfo[idx][kvart_pod_id] = cache_get_field_content_int(i, "kvart_pod_id");
+            KvartInfo[idx][kvart_Owned] = cache_get_field_content_int(i, "kvart_Owned");
+            cache_get_field_content(i, "kvart_Owner", KvartInfo[idx][kvart_Owner], connects, 64);
             
-            if(KvartInfo[i][kvart_Owned] == 0) TotalFreeKvart++;
+            if(KvartInfo[idx][kvart_Owned] == 0) TotalFreeKvart++;
             totalkvart++;
 
-            Iter_Add(Allkvart, i);
-            BuyKvart(i);
+            Iter_Add(Allkvart, idx);
+            BuyKvart(idx);
         }
     }
     printf("[UNIGVA]: Всего загружено квартир: %d", totalkvart);
@@ -64,18 +65,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
-        if(player_in_kvart[playerid] != -1)
+        if(IsPlayerInRangeOfPoint(playerid, 1.0, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]))
         {
-            if(IsPlayerInRangeOfPoint(playerid, 1.0, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]))
+            foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
             {
-                foreach(new i : Allkvart) if(player_in_kvart[playerid] == KvartInfo[i][kvart_id])
-                {
-                    SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
-                    SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
-                    player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
-                    FreezePlayer(playerid, 2000);
-                    return player_in_kvart[playerid] = -1;
-                }
+                SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
+                SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
+                player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
+                FreezePlayer(playerid, 2000);
+                return player_in_kvart[playerid];
             }
         }
         else
@@ -143,11 +141,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 new j = GetPVarInt(playerid, "enter_kvart");
-                SetPlayerVirtualWorld(playerid, KvartInfo[j][kvart_id]);
+                SetPlayerVirtualWorld(playerid, j);
                 FreezePlayer(playerid, 2000);
                 SetPlayerPos(playerid, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]);
                 player_in_podezd[playerid] = -1;
-                player_in_kvart[playerid] = KvartInfo[j][kvart_id];
                 return DeletePVar(playerid, "enter_kvart");
             }
         }
