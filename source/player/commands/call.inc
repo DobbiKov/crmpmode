@@ -74,6 +74,8 @@ publics PlayerSecondTimer(playerid)
 
 CMD:call(playerid, params[])
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона, или сим-карты.");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У вас стоит блокировка чата!");
     if(!strlen(params)) return Call(playerid);
@@ -124,6 +126,8 @@ CMD:call(playerid, params[])
 }
 CMD:togphone(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(PlayerInfo[playerid][pVIP] == 0) return SCM(playerid, red, "Данная функция доступна только VIP игрокам.");
     switch(PlayerInfo[playerid][pPhoneStatus])
     {
@@ -142,6 +146,8 @@ CMD:togphone(playerid)
 }
 CMD:p(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(GetPVarInt(playerid, "me_called") == 1) return SCM(playerid, red, "Вы уже звоните кому-то.");
     if(prop_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
@@ -158,6 +164,8 @@ CMD:p(playerid)
 }
 CMD:h(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(prop_called[playerid] == -1 && call_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
     new i;
@@ -218,6 +226,8 @@ public OnPlayerDisconnect(playerid, reason)
 
 CMD:calling(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     new index;
     if(PlayerInfo[playerid][pJob] == Job_Car) index = 1;
     else if(PlayerInfo[playerid][pJob] == Job_Taxi) index = 2;

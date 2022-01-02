@@ -60,14 +60,14 @@ stock gc_SetSuspectLook(suspectid, Float: look_x, Float: look_y)
 
 CMD:gotome(playerid, params[])
 {
-    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) 
+    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM && !IsAOpg(playerid)) 
         return YouCannotUseThisFunc(playerid);//Проверка на фракцию
     extract params -> new to_player; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /gotome [ID игрока]");
     if(to_player == playerid)
         return SCM(playerid, red, !"Вы указали свой ID!");
     if(!IsPlayerConnected(to_player)) 
         return PlayerOffLine(playerid);//Коннект ли игрок
-    if(GetPVarInt(to_player, "cuffed") != 1) 
+    if(GetPVarInt(to_player, "tied") != 1 && GetPVarInt(to_player, "cuffed") != 1) 
         return SCM(playerid, red, "Игрок не в наручниках!");//Проверка на наручники.
     if(!IsPlayerInRangeOfPlayer(playerid, to_player, 7.0))
         return SCM(playerid, red, !"Игрок далеко от вас!");
@@ -93,7 +93,7 @@ CMD:gotome(playerid, params[])
 
 CMD:ungotome(playerid, params[])
 {
-    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) 
+    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM && !IsAOpg(playerid)) 
         return YouCannotUseThisFunc(playerid);//Проверка на фракцию
     extract params -> new to_player; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /ungotome [ID игрока]");
     if(to_player == playerid)

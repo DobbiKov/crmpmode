@@ -8,4 +8,5 @@
 #include "../source/fractions/opg_o/opg_systems/drugs.inc"
 #include "../source/fractions/opg_o/opg_systems/bizwar.inc"
 #include "../source/fractions/opg_o/opg_systems/contrabanda.inc"
+#include "../source/fractions/opg_o/opg_systems/box.inc"
 

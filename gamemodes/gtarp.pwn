@@ -107,6 +107,8 @@ new PlayerText:spec_menu_TD_PTD[MAX_PLAYERS][49];
 
 new Text:anim_TD;
 
+new Text:blindtd[5];
+
 const training_td_size = 47;
 new PlayerText:training_td[MAX_PLAYERS][training_td_size];
 
@@ -2936,6 +2938,7 @@ stock stats_player(playerid, targetid)
 stock ClearAccount(playerid)
 {
 	PlayerInfo[playerid][pID] = 0;
+	PlayerBlinded[playerid] = 0;
 	PlayerInfo[playerid][pDateReg] = EOS;
     PlayerInfo[playerid][pName] = EOS;
 	PlayerInfo[playerid][pSex] = 0;
@@ -3507,6 +3510,7 @@ stock LoadPlayerTextDraws(playerid)
 {
 	#include "../source/textdraws/speed_td.inc"
 	#include "../source/textdraws/training.inc"
+	#include "../source/textdraws/blind.inc"
 	#include "../source/textdraws/spec.inc"
 	#include "../source/textdraws/logotype.inc"
 	#include "../source/textdraws/autosalon.inc"
