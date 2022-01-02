@@ -391,8 +391,10 @@ publics AutosalonCheckOwnableCarsAmount(playerid)
 		{
 			_amount++;
 		}
-		if(_amount >= 2)
-			return SCM(playerid, red, "У Вас уже есть 2 личных транспорта");
+		if(_amount >= GetAccesMaxOwnableCar(playerid))
+		{
+			return SCM(playerid, red, "Вы владеете максимальным количеством автомобилей");
+		}
     }
 
 

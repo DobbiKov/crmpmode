@@ -3786,6 +3786,11 @@ stock PlayerName(playerid)
 	return _PlayerName;
 }
 
+stock GetAccesMaxOwnableCar(playerid)
+{
+	return PlayerInfo[playerid][pVIP] > 0 ? 3 : 2;
+}
+
 
 #if defined DEBUG
 CMD:zalupa_pizdy_ebalnika(playerid)

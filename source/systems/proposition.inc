@@ -659,10 +659,10 @@ publics propos_check_own_cars(playerid, proposition, value_1, value_2)
 		{
 			_amount++;
 		}
-		if(_amount >= 2)
+		if(_amount >= GetAccesMaxOwnableCar(playerid))
 		{
-			SCM(proposition, red, !"” игрока уже имеетс€ два или более авто!");
-			return SCM(playerid, red, !"¬ы не можете иметь более двух авто!");
+			SCM(proposition, red, !"»грок владеет максимальным количеством автомобилей!");
+			return SCM(playerid, red, !"¬ы владеете максимальным количеством автомобилей!");
 		}
 	}
 
