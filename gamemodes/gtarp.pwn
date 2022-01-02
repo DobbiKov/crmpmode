@@ -162,6 +162,12 @@ new stock lic_price[4] = {0, 100000, 80000, 50000};
 new fsb_door;
 new bool: fsb_door_status = false;
 
+new fsb_dopros_door_1;
+new bool: fsb_dopros_door_1_status = false;
+
+new fsb_dopros_door_2;
+new bool: fsb_dopros_door_2_status = false;
+
 new fsb_lift;
 
 new fsb_vorota_1;
@@ -3624,6 +3630,19 @@ stock GetCoordBonnetVehicle(vehicleid, &Float:x, &Float:y, &Float:z) // для инте
     return 1;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 stock GetCarName(vehicleid)
 {
 	new name[64];
@@ -3632,19 +3651,68 @@ stock GetCarName(vehicleid)
 		case 400: name = "BMW X5";
 		case 401: name = "ИЖ 2715";
 		case 402: name = "Audi A6";
+		case 403: name = "Зил";
 		case 404: name = "ВАЗ 2101";
+		case 405: name = "Mitsubishi Lancer";
+		case 406: name = "ЗИЛ 24";
+		case 407: name = "Mercedes-Benz ATEGO";
+		case 408: name = " ЗИЛ SANITAR";
+		case 409: name = "ЧАЙКА";
 		case 410: name = "Mitsubishi Eclipse";
 		case 411: name = "ВАЗ 1118";
 		case 412: name = "ИЖ 2125";
+		case 413: name = "ПАЗ 15";
+		case 414: name = "ЛИАЗ";
 		case 415: name = "Ferrari";
+ 		case 416: name = "Mercedes-Benz Sprinter";
+		case 417: name = "Грузовой вертолёт ";
+		case 418: name = " ГАЗ 14";
+		case 419: name = "Cadillack Eldarado";
+		case 420: name = "Волга такси";
+		case 421: name = "Mercedes-Benz s600";
+		case 422: name = "УАЗ Буханка";
+		case 423: name = "Dodge Сладкая вата ";
 		case 424: name = "СМЗ С3А";
+		case 425: name = "МИ-24";
 		case 426: name = "Rolls Royce";
+		case 427: name = "ГАЗ-24 Полицейский";
+		case 428: name = "ГАЗ ВТБ";
+		case 429: name = "Москвич Святогор";
+		case 430: name = "Катер Police";
+		case 431: name = "ЛАЗ-104";
+		case 432: name = "Т-26";
+		case 433: name = "Камаз ОМОН";
+		case 434: name = "Hotknife";
+		case 435: name = "Прицеп";
 		case 436: name = "Toyota Mark II";
+	 	case 437: name = "Икарус-200";
+		case 438: name = "Волга такси";
+		case 439: name = "ВАЗ 2112";
+		case 440: name = "Фургон";
+		case 441: name = "Машинка (игрушечная)";
+		case 442: name = "Mercedes-Benz - 12";
+		case 443: name = "Ford-24";
+		case 444: name = "Chevrolet Track";
 		case 445: name = "ГАЗ 24";
-		case 451: name = "Turismo";
+		case 446: name = "Катер круиз";
+		case 447: name = "Спасательный вертолет";
+		case 448: name = "Скутер Пицца";
+		case 449: name = "Прицеп";
+		case 450: name = "Прицеп Coca-Cola";
+		case 451: name = "Nissan GTR";
+		case 452: name = "Катер";
+		case 453: name = "Катер для рыбалки";
+		case 454: name = "Катер Круизный ";
+		case 455: name = "МАЗ строительный ";
+		case 456: name = "ГАЗ-16";
+		case 457: name = "Golf-Car";
+		case 458: name = "ВАЗ 2114";
+		case 459: name = "Mercedes-Benz v250";
+		case 460: name = "Cамолёт AH-28";
 		case 461: name = "Ява 350";
 		case 462: name = "Вятка";
 		case 463: name = "Байк";
+		
 		case 466: name = "BMW 535i";
 		case 467: name = "ИЖ 412";
 		case 468: name = "Sanchez 1.1";
@@ -3657,25 +3725,117 @@ stock GetCarName(vehicleid)
 		case 494: name = "BMW M3";
 		case 496: name = "ЗАЗ Таврия";
 		case 500: name = "УАЗ 3151";
+		
+		case 507: name = "Mersedes Benz E220";
 		case 508: name = "УАЗ Буханка";
+		case 509: name = "";
+		case 510: name = "";
+		case 511: name = "";
+		case 512: name = "";
+		case 513: name = "";
+		case 514: name = "";
+		case 515: name = "";
 		case 516: name = "ВАЗ 21099";
+		case 517: name = "";
+		case 518: name = "";
+		case 519: name = "";
+		case 520: name = "";
+		case 521: name = "";
 		case 522: name = "Yamaha R1";
+		case 523: name = "";
+		case 524: name = "";
+		case 525: name = "";
+		case 526: name = "";
+		case 527: name = "";
+		case 528: name = "";
+		case 529: name = "";
+		case 530: name = "";
 		case 531: name = "Трактор Росток";
-		case 533: name = "Feltzer";
+		case 532: name = "";
+		case 533: name = "Mersedes Benz 280SL";
+		case 534: name = "";
+        case 535: name = "";
+        case 536: name = "";
+        case 537: name = "";
+        case 538: name = "";
+        case 539: name = "";
 		case 540: name = "ГАЗ 3111";
 		case 541: name = "Bullet";
 		case 542: name = "ВАЗ Нива";
+		case 543: name = "Москвич Грузовой";
+		case 544: name = "ЗИЛ Пожарный";
+		case 545: name = "Москвич Победа";
+		case 546: name = "ИЖ Комби";
+		case 547: name = "KIA Ceed";
+		case 548: name = "Вертолёт ВДВ";
+		case 549: name = "ЗАЗ 968";
+		case 550: name = "ВАЗ 2107";
 		case 551: name = "ГАЗ 3110";
+		case 552: name = "УАЗ Патриот (пожарный)";
+        case 553: name = "СССР-46532";
+		case 554: name = "УАЗ Грузовой";
 		case 555: name = "ЗАЗ 968";
+		case 556: name = "Hummer 6x6";
+		case 557: name = "Hummer 6x6";
 		case 558: name = "Mersedes Benz E63";
 		case 559: name = "Toyota Celica";
-		case 560: name = "Sultan";
-		case 562: name = "Elegy";
+		case 560: name = "Subaru Impreza";
+		case 561: name = "Москвич Универсал";
+		case 562: name = "Nissan Silvia";
+		case 563: name = "Вертолет (пожарный)";
+		case 564: name = "Танк (игрушка)";
 		case 565: name = "ВАЗ 2108";
 		case 566: name = "ВАЗ 2104";
+		case 567: name = "Chevrolet Wold Rice";
+		case 568: name = "Багги";
+		case 569: name = "Грузовой вагон";
+		case 570: name = "Электричка";
+		case 571: name = "Картинг-авто";
+		case 572: name = "Гольф Трактор";
+		case 573: name = "Камаз Спорт";
+		case 574: name = "Уборщик улиц";
+		case 575: name = "ГАЗ 20";
+		case 576: name = "Москвич 412";
+		case 577: name = "Авиафлот CR-85411";
+		case 578: name = "Камаз";
 		case 579: name = "Mersedes Gelendwagen";
 		case 580: name = "ГАЗ Чайка";
-		case 589: name = "Golf";
+		case 581: name = "Мотоцыкл на замену";
+		case 582: name = "Mersedes Benz Sprinter (СМИ)";
+		case 583: name = "Аэропртный автомобиль";
+		case 584: name = "Прицеп-цистерна";
+		case 585: name = "ВАЗ 2115";
+		case 586: name = "Ява";
+		case 587: name = "Mersedes Benz Vision AVTR";
+		case 588: name = "ЛИАЗ \"Минутка\"";
+		case 589: name = "Volkswagen Golf";
+		
+		case 590: name = "Ж/Д Вагон";
+		case 591: name = "Прицеп-лестница";
+		case 592: name = "Боинг";
+		case 593: name = "Аэрофлот АН-2";
+		case 594: name = "Горшок";
+		case 595: name = "Моторная лодка";
+		case 596: name = "Volkswagen Passat (ДПС)";
+		case 597: name = "Lada Priora (ДПС)";
+		case 598: name = "ВАЗ 2114 (ДПС)";
+		case 599: name = "UAZ Hunter (ППС)";
+		case 600: name = "Москвич Сапог";
+		case 601: name = "БТР-80";
+		case 602: name = "Mesrsedez Benz C63 AMG";
+		case 603: name = "Ford Mustang Shelby";
+		case 604: name = "Сломанный автомобиль";
+		case 605: name = "Ракета";
+		case 606: name = "Прицеп";
+		case 607: name = "Прицеп";
+		case 608: name = "Трап";
+		case 609: name = "БЗСА-4706";
+		case 610: name = "Прицеп для трактора";
+		case 611: name = "Прицеп (молоко)";
+		case 617: name = "Электричка";
+		case 618: name = "Электричка";
+		case 619: name = "Поезд";
+		case 620: name = "Поезд";
 	}
 	return name;
 }
