@@ -815,6 +815,7 @@ enum
 #include "../source/systems/payday.inc"
 #include "../source/systems/warn.inc"
 #include "../source/systems/ban.inc"
+//#include "../source/systems/body_gun.inc"
 #include "../source/systems/spec.inc"
 #include "../source/systems/mp.inc"
 #include "../source/systems/reg au.inc"
@@ -934,6 +935,7 @@ enum
 #include "../source/admin/commands/5 lvl/setyoutube.inc"
 #include "../source/admin/commands/5 lvl/agl.inc"
 #include "../source/admin/commands/5 lvl/lwarn.inc"
+#include "../source/admin/commands/5 lvl/attachveh.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
@@ -1815,6 +1817,11 @@ public OnPlayerDeath(playerid, killerid, reason)
 	{
 	    format(string, sizeof(string), "{%s}[K] %s[%d] убил %s %s[%d] (%s)", PlayerInfo[playerid][pLVL] <= 3 ? "F81414" : "C3C3C3", PlayerInfo[killerid][pName], killerid, PlayerInfo[playerid][pLVL] <= 3 ? "новичка" : "игрока", PlayerInfo[playerid][pName], playerid, gun_name[reason]);
 		SCMA(grey, string);
+	}
+	if(reason >= 10 && reason <= 13)
+	{
+		SCM(playerid, red, !"Вас отпетушили! Ваше уважение пошижено!");
+		GameTextForPlayer(playerid, "~r~ОТПЕТУШЁН", 20000, 0);
 	}
 	
 	if(PlayerInfo[playerid][pHOSPITAL] == 1)
