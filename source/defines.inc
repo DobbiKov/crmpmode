@@ -53,6 +53,9 @@
 #define 	SCMTA 		SendClientMessageToAll
 #define     SPD         ShowPlayerDialog
 
+#define     MAX_DRUGS_IN_INVENTORY 100
+#define     MAX_DRUGS_IN_INVENTORY_VIP 200
+
 #define 	IsValidEmail(%1) regex_match(%1, "|([a-z0-9_\\.\\-]{1,20})@([a-z0-9\\.\\-]{1,20})\\.([a-z]{2,4})|is")
 
 #define     publics%0(%1)			    forward%0(%1); public%0(%1)

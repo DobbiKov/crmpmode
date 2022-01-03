@@ -529,6 +529,12 @@ CMD:yes(playerid)
 			}
 			case PROPOSITION_TYPE_SELLDRUGS:
 			{
+				if(!CanPlayerGetAmountDrugs(playerid, value_1))
+				{
+					SCM(playerid, red, !"¬ы не сможете унести столько наркотиков!");
+					SCM(proposition, red, !"»грок не сможет унести столько наркотиков!");
+					return 1;
+				}
 				new string[128];
 				format(string, sizeof(string), "%s принимает ¬аше предложение", PlayerInfo[playerid][pName]);
 				SCM(proposition, green, string);

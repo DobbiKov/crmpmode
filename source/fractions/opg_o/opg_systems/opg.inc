@@ -126,6 +126,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(ALL_NARKO < strval(inputtext)) return SCM(playerid, red, "В порту нет столько наркотиков!");
                 if(PlayerInfo[playerid][pCash] < strval(inputtext)*500) return SCM(playerid, red, "У вас нет столько денег!");
                 if(strval(inputtext) < 1) return SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков вы хотите купить?", "Далее", "Отмена");
+                
+                if(!CanPlayerGetAmountDrugs(playerid, strval(inputtext)))
+                    return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
 
                 GiveMoney(playerid, -(strval(inputtext)*500), "Покупка наркотиков в порту");
                 PlayerInfo[playerid][pDrugs] += strval(inputtext);
@@ -221,6 +224,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество наркотиков, какое вы хотите взять:", "Далее", "Назад");
+
+                if(!CanPlayerGetAmountDrugs(playerid, strval(inputtext)))
+                    return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX)
                 {
