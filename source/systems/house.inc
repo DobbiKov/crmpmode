@@ -430,6 +430,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new h = GetPVarInt(playerid, "my_house_id");
                 new drugs = strval(inputtext);
 
+                if(!CanPlayerGetAmountDrugs(playerid, drugs))
+                    return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
+
                 if(HouseInfo[h][hDrugs] < drugs) return SCM(playerid, red, "В шкафу дома нет столько наркотиков.");
 
                 HouseInfo[h][hDrugs] -= drugs;
