@@ -935,7 +935,6 @@ enum
 #include "../source/admin/commands/5 lvl/setyoutube.inc"
 #include "../source/admin/commands/5 lvl/agl.inc"
 #include "../source/admin/commands/5 lvl/lwarn.inc"
-#include "../source/admin/commands/5 lvl/attachveh.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
