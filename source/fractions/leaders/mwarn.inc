@@ -14,6 +14,8 @@ CMD:mwarn(playerid, params[])
     if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!");
     if(PlayerInfo[to_player][pRang] == 10) 
         return SCM(playerid, red, "Вы не можете выдать выговор лидеру!");
+    if(PlayerInfo[to_player][pMember] <= 0)
+        return SCM(playerid, red, !"Игрок не состоит в организации!");
 
     PlayerInfo[to_player][pWarnF]++;
 

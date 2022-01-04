@@ -22,6 +22,8 @@ CMD:viphelp(playerid)
     strcat(string, temp_string);
     format(temp_string, sizeof(temp_string), "{ffffff}- возможность сменить цвет ника (/clist)\n");
     strcat(string, temp_string);
+    format(temp_string, sizeof(temp_string), "{ffffff}- возможность покинуть организацию самостоятельно (/leave)\n");
+    strcat(string, temp_string);
     format(temp_string, sizeof(temp_string), "{ffffff}- воровство патрон на складе ВДВ\n");
     strcat(string, temp_string);
     format(temp_string, sizeof(temp_string), "{ffffff}- увеличенная вместимость инвентаря\n");
