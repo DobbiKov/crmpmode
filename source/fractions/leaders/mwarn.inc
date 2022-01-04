@@ -9,6 +9,8 @@ CMD:mwarn(playerid, params[])
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
     if(!IsAFSB(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM && PlayerInfo[to_player][pMember] != PlayerInfo[playerid][pMember]) 
         return SCM(playerid, red, "Игрок не состоит в вашей организации!");
+    if(!IsAFSB(playerid) && IsAFSB(to_player))
+        return SCM(playerid, red, "Вы не можете выдать выговор данному игроку!");
     if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!");
 
     PlayerInfo[to_player][pWarnF]++;

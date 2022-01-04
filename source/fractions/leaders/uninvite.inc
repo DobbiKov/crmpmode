@@ -5,6 +5,8 @@ CMD:uninvite(playerid, params[])
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /uninvite [ID игрока] [причина]");
     if(to_player == playerid) return SCM(playerid, red, "Вы не можете уволить себя!");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
+    if(!IsAFSB(playerid) && IsAFSB(to_player))
+        return SCM(playerid, red, "Игрок не состоит в вашей организации!");
     if(PlayerInfo[to_player][pMember] != PlayerInfo[playerid][pMember]) return SCM(playerid, red, "Игрок не состоит в вашей организации!");
     if(PlayerInfo[to_player][pRang] >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!"); 
 
