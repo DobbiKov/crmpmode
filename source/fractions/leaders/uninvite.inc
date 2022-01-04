@@ -17,5 +17,7 @@ CMD:uninvite(playerid, params[])
     format(string, sizeof(string), "%s уволил вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
     SCM(to_player, blue, string);
 
+    UnInviteMyTK(to_player, PlayerInfo[to_player][pMember], reason);
+
     return UnInvite(to_player);
 }

@@ -23,11 +23,9 @@ CMD:guninvite(playerid, params[])
     format(string, sizeof(string), "%s уволил вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
     SCM(to_player, blue, string);
 
-    PlayerInfo[to_player][pMember] = 0;
-    PlayerInfo[to_player][pWarnF] = 0;
-    PlayerInfo[to_player][pRang] = 0;
-    PlayerInfo[to_player][pFSkin] = -1;
-    SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
+    UnInviteMyTK(to_player, PlayerInfo[to_player][pMember], reason);
+
+    UnInvite(to_player);
     SaveAccounts(to_player);
     return 1;
 }

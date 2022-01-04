@@ -26,6 +26,7 @@ CMD:mwarn(playerid, params[])
 
     format(string, sizeof(string), "%d", to_player);
 
+    MWarnMyTK(to_player, PlayerInfo[to_player][pMember], reason);
     if(PlayerInfo[to_player][pWarnF] >= 3) 
     {
         format(string, sizeof(string), "%s был уволен из вашей организации. Причина: 3 выговора", PlayerInfo[to_player][pName]);
@@ -33,7 +34,7 @@ CMD:mwarn(playerid, params[])
 
         format(string, sizeof(string), "Вы были уволены из организации \"%s\". Причина: 3 выговора", GetMember[ PlayerInfo[to_player][pMember] ]);
         SCM(to_player, blue, string);
-
+        UnInviteMyTK(to_player, PlayerInfo[to_player][pMember], "системное увольнение (три выговора)");
         UnInvite(to_player);
     }
     SaveAccounts(to_player);

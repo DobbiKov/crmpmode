@@ -627,6 +627,10 @@ enum e_DIALOG_IDs
 	D_CAR_COMMAND,
 	D_CAR_COMMAND_CHOOSE_CAR,
 	D_CHOOSE_CLIST,
+	
+	D_MYTK,
+	D_MYTK_HISTORY,
+	D_MYTK_HISTORY_ORG,
 };
 
 /* CHEAT */
@@ -769,6 +773,7 @@ enum
 // -------------- [ INCLUDES ] ------------------------------
 
 // --------- [ оепелеммше ] --------------
+#include "../source/systems/mytk.h"
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
 #include "../source/systems/ownable_cars.h"
@@ -805,6 +810,7 @@ enum
 #include "../source/systems/need.inc"
 
 #include "../source/systems/unsu.inc"
+#include "../source/systems/mytk.inc"
 #include "../source/systems/bizwar.inc"
 #include "../source/systems/paintball.inc"
 #include "../source/systems/advertise.inc"
@@ -1242,6 +1248,9 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][bWarn] = cache_get_field_content_int(0, "bWarn");
     PlayerInfo[playerid][bUnBan] = cache_get_field_content_int(0, "bUnBan");
     PlayerInfo[playerid][bUnWarn] = cache_get_field_content_int(0, "bUnWarn");
+    
+    if(PlayerInfo[playerid][bAdmin] >= 4)
+        PlayerInfo[playerid][pHP] = 100.0;
     
     
    	SpID[playerid] = -1;

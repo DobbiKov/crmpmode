@@ -356,7 +356,7 @@ CMD:yes(playerid)
 				PlayerInfo[playerid][pFSkin] = 1;
 				SetPlayerSkin(playerid, PlayerInfo[playerid][pFSkin]);
 				PlayerInfo[playerid][pJob] = 0;
-				
+				InviteMyTK(playerid);
 				SaveAccounts(playerid);
 
 				format(string, sizeof(string), "%d", playerid);

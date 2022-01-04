@@ -35,6 +35,7 @@
 #include "../source/player/commands/car.inc"
 #include "../source/player/commands/clist.inc"
 #include "../source/player/commands/viphelp.inc"
+#include "../source/player/commands/mytk.inc"
 
 #include "../source/player/commands/need_command/drink.inc"
 #include "../source/player/commands/need_command/pepsi.inc"

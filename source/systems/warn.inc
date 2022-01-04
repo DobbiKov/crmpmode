@@ -49,8 +49,10 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 	cache_get_data(rows, fields);
 	if(rows)
 	{
-	    new admin, string[256];
+	    new admin, acc_id, member, string[256];
 		admin = cache_get_field_content_int(0, "bAdmin");
+		acc_id = cache_get_field_content_int(0, "pID");
+		member = cache_get_field_content_int(0, "pMember");
 		if(admin > PlayerInfo[playerid][bAdmin])
 		{ 
 			format(string, sizeof(string), "[A] %s[%d] попытался заварнить %s.", PlayerInfo[playerid][pName], playerid, to_player);
@@ -62,7 +64,7 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 
 
 		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
-		mysql_tquery(connects, string, "on_player_offwarn_bans","iss", playerid, to_player, reason);
+		mysql_tquery(connects, string, "on_player_offwarn_bans","issii", playerid, to_player, reason, acc_id, member);
 	}
 	else
 	{
@@ -70,7 +72,7 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 	}
 	return 1;
 }
-publics on_player_offwarn_bans(playerid, to_player[], reason[])
+publics on_player_offwarn_bans(playerid, to_player[], reason[], acc_id, member)
 {
 	new rows, fields;
 	cache_get_data(rows, fields);
@@ -88,6 +90,8 @@ publics on_player_offwarn_bans(playerid, to_player[], reason[])
 
 		format(string, sizeof(string), "Администратор %s выдал предупреждение игроку %s [%d|3] в Offline. Причина: %s", PlayerInfo[playerid][pName], to_player, warns, reason);
 		SCMTA(red, string);
+
+		OffUnInviteMyTK(acc_id, member, "игровое предупреждение оффлайн");
 
 		new data[64], year, month, day, hour, minute, second;
 
@@ -206,6 +210,7 @@ CMD:warn(playerid, params[])
 
 		    format(string, sizeof(string), "Администратор %s выдал предупреждение игроку %s [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], PlayerInfo[i][pWarn], reason);
 		    SCMTA(red, string);
+			UnInviteMyTK(i, PlayerInfo[i][pMember], "игровое предупреждение");
 			UnInvite(i);
 
 			if(PlayerInfo[i][pWarn] == 3)

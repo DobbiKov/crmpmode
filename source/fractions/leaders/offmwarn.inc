@@ -20,13 +20,16 @@ publics off_mwarn(playerid, to_player[])
     cache_get_data(rows, fields);
     if(rows)
     {
-        new rang, member, string[256], WarnF;
+        new rang, member, string[256], WarnF, acc_id;
         member = cache_get_field_content_int(0, "pMember");
         rang = cache_get_field_content_int(0, "pRang");
         WarnF = cache_get_field_content_int(0, "pWarnF");
+        acc_id = cache_get_field_content_int(0, "pID");
 
         if(PlayerInfo[playerid][pMember] != member) return SCM(playerid, red, "Игрок не состоит в вашей организации!");
         if(rang >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Вы не можете выать выговор игроку выше вас по рангу!");
+
+        OffMWarnMyTK(acc_id, member, "выговор оффлайн");
 
         WarnF++;
 
@@ -55,6 +58,8 @@ publics off_mwarn(playerid, to_player[])
 
             format(string, sizeof(string), "Игрок %s был уволен из организации. Причина: 3 выговора", to_player);
             SCM(playerid, blue, string);
+
+            OffUnInviteMyTK(acc_id, member, "системное увольнение из-за трех выговоров(оффлайн)");
         }
         else
         {
