@@ -13,6 +13,8 @@ CMD:guninvite(playerid, params[])
         return SCM(playerid, red, !"Игрок состоит в криминальной организации!");
     if(IsAFSB(to_player))
         return SCM(playerid, red, "Игрок выше вас по рангу!");
+    if(PlayerInfo[to_player][pRang] == 10) 
+        return SCM(playerid, red, "Вы не можете уволить лидера!");
 
     new string[128];
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
