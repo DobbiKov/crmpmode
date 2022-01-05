@@ -10,7 +10,7 @@ enum E_GREEN_ZONE{
 
 new GreenZones[MAX_GREEN_ZONES][E_GREEN_ZONE] = {
     {-811.8497,1894.7438,702.0200, 40.0, 0}, //больница
-    {1820.8619,2524.6980,15.6825, 10.0, 0}, //вокзал батырево
+    {1820.8619,2524.6980,15.6825, 30.0, 0}, //вокзал батырево
     {1826.5944,2095.3025,15.8500, 20.0, 0}, //ап
     {2572.0474,-2415.8203,22.3870, 10.0, 0}, // ппс
     {2294.0359,1656.2986,-39.4774, 30.0, 0}, // шахта
@@ -28,8 +28,8 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 {
     if(areaid >= GreenZoneAreas[0] && areaid <= GreenZoneAreas[MAX_GREEN_ZONES - 1])
     {
-        for(new i = 0; i < sizeof(GreenZoneTD); i++)
-            TextDrawShowForPlayer(playerid, GreenZoneTD[i]);
+        // for(new i = 0; i < sizeof(GreenZoneTD); i++)
+        //     TextDrawShowForPlayer(playerid, GreenZoneTD[i]);
         IsPlayerInGreenZone[playerid] = true;
     }
     #if	defined	gz__OnPlayerEnterDynamicArea
@@ -53,8 +53,8 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
     if(areaid >= GreenZoneAreas[0] && areaid <= GreenZoneAreas[MAX_GREEN_ZONES - 1])
     {
-        for(new i = 0; i < sizeof(GreenZoneTD); i++)
-            TextDrawHideForPlayer(playerid, GreenZoneTD[i]);
+        // for(new i = 0; i < sizeof(GreenZoneTD); i++)
+        //     TextDrawHideForPlayer(playerid, GreenZoneTD[i]);
         IsPlayerInGreenZone[playerid] = false;
     }
     #if	defined	gz__OnPlayerLeaveDynamicArea
@@ -87,6 +87,11 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
 {
     if(IsPlayerInGreenZone[playerid] && !IsAPolice(playerid) && PlayerInfo[playerid][bAdmin] < 2)
     {
+        new Float:temp_hp;
+        GetPlayerHealth(damagedid, temp_hp);
+        temp_hp += amount;
+        PlayerInfo[damagedid][pHP] = temp_hp;
+        SetPlayerHealth(damagedid, PlayerInfo[damagedid][pHP]);
         FreezePlayer(playerid, 3000);
         ShowPlayerDialog(playerid, D_NULL, DIALOG_STYLE_MSGBOX, !"{"cblue"}DM | Зелёная зона", !"{ffffff}DM в зелёной зоне запрещен!", !"Закрыть", !"");
     }
