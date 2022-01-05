@@ -101,7 +101,7 @@ new Command4LVL[9][] =
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
-new Command5LVL[11][] = 
+new Command5LVL[12][] = 
 {
     {"{"cblue"}/commandlogs {ffffff}- Посмотреть логи команд игрока\n"},
     {"{"cblue"}/adminstats {ffffff}- Посмотреть статистику администратора\n"},
@@ -113,6 +113,7 @@ new Command5LVL[11][] =
     {"{"cblue"}/setskill {ffffff}- Выдать навыки оружия игроку\n"},
     {"{"cblue"}/setyoutube {ffffff}- Установить уровень Ютуберки\n"},
     {"{"cblue"}/agl {ffffff}- Выдать игроку лицензии\n"},
+    {"{"cblue"}/exploseplayer {ffffff}- Взорвать игрока\n"},
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
