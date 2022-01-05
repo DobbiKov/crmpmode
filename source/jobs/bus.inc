@@ -223,7 +223,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 				else
 				{
 				    DisablePlayerRaceCheckpoint(playerid);
-					PayJob[playerid] += (random(30) + 20);
+					PayJob[playerid] += (random(50) + 50);
 					NextRouteCP(playerid);
 				}
 			}

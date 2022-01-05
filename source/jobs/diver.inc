@@ -124,7 +124,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(PlayerInfo[playerid][pSex]) SetPlayerSkin(playerid, 154);
 					else SetPlayerSkin(playerid, 140);
 
-					SetPlayerHealth(playerid, 100000.0);
+					SetPlayerHealth(playerid, 100000000.0);
 
 					SCM(playerid, blue, "¬ы начали работу водолаза!");
 					SCM(playerid, yellow, "“овар находитс€ в затонувшем здании возле берега.");
@@ -169,6 +169,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		    SetPVarInt(playerid, "gruz_diver_1", 0);
 		    SetPVarInt(playerid, "gruz_diver_2", 0);
 		    DisablePlayerCheckpoint(playerid);
+			SetPlayerHealth(playerid, 100000000.0);
 		    
 			RemovePlayerAttachedObject(playerid,1);
 			RemovePlayerAttachedObject(playerid,2);

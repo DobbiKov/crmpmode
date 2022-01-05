@@ -187,7 +187,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 					SetPlayerRaceCheckpoint(playerid, 0, coord_cleaner[i][0], coord_cleaner[i][1], coord_cleaner[i][2], coord_cleaner[i+1][0], coord_cleaner[i+1][1], coord_cleaner[i+1][2], 2.0);
 					pCheckpoint[playerid] = CP_CLEANER_CP;
 
-					new rand = random(10) + 10;
+					new rand = random(40) + 40;
 
 					PayJob[playerid] += rand;
 				}
@@ -200,7 +200,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 					SetPlayerRaceCheckpoint(playerid, 0, coord_cleaner[i][0], coord_cleaner[i][1], coord_cleaner[i][2], coord_cleaner[i+1][0], coord_cleaner[i+1][1], coord_cleaner[i+1][2], 2.0);
 					pCheckpoint[playerid] = CP_CLEANER_CP;
 
-					new rand = random(10) + 10;
+					new rand = random(40) + 40;
 
 					PayJob[playerid] += rand;
 				}
