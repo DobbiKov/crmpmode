@@ -6,7 +6,7 @@ CMD:leaders(playerid)
     {
         if(!IsPlayerConnected(i) || PlayerInfo[i][pLogin] != true) continue;
 
-        if(PlayerInfo[i][pRang] >= 9)
+        if(PlayerInfo[i][pRang] >= 9 && !IsAFSB(i))
         {
             if(PlayerInfo[i][pPhoneNumber] < 1) format(text, sizeof(text), "None");
             else format(text, sizeof(text), "%d", PlayerInfo[i][pPhoneNumber]);
