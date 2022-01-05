@@ -106,6 +106,7 @@ new PlayerText: auto_salon_td[MAX_PLAYERS][auto_salon_td_size];
 new PlayerText:spec_menu_TD_PTD[MAX_PLAYERS][49];
 
 new Text:anim_TD;
+new Text:GreenZoneTD[4];
 
 new Text:blindtd[5];
 
@@ -790,6 +791,7 @@ enum
 
 // ------ [ SYSTEMS ] ------------
 #include "../source/server/logs_system.inc"
+#include "../source/systems/greenzone.inc"
 
 #include "../source/systems/foreach_veh.inc"
 
@@ -941,6 +943,7 @@ enum
 #include "../source/admin/commands/5 lvl/setyoutube.inc"
 #include "../source/admin/commands/5 lvl/agl.inc"
 #include "../source/admin/commands/5 lvl/lwarn.inc"
+#include "../source/admin/commands/5 lvl/exploseplayer.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
@@ -1092,7 +1095,7 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `toilets`", "LoadToilets", "");
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	
-
+    LoadGreenZones();
     #include "../source/server/load.inc"
 	#include <../include/map/interiors.inc>
 	#include <../include/map/map.inc>
@@ -3102,6 +3105,8 @@ stock ClearAccount(playerid)
 	mech_fuel_price[playerid] = -1;
 	mech_fuel_bizid[playerid] = -1;
 	
+	IsPlayerInGreenZone[playerid] = false;
+	
 
 
 
@@ -3535,6 +3540,7 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/blind.inc"
 	#include "../source/textdraws/spec.inc"
 	#include "../source/textdraws/logotype.inc"
+	#include "../source/textdraws/greenzone.inc"
 	#include "../source/textdraws/autosalon.inc"
 	#include "../source/textdraws/bizwar.inc"
 	#include "../source/textdraws/anim.inc"
