@@ -10,7 +10,6 @@ CMD:incar(playerid, params[])
     GetPlayerPos(playerid, x, y, z);
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID!");
-    if(IsAPolice(playerid) && IsAPolice(to_player)) return SCM(playerid, red, "Данный игрок состоит в полиции!");
     if(GetPVarInt(to_player, "cuffed") != 1 && GetPVarInt(to_player, "tied") != 1) return SCM(playerid, red, "Человек не связан!");
     if(!IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, "Вы не сидите в авто!");
     if(IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "Человек находиться в автомобиле!");

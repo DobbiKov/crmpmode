@@ -11,7 +11,6 @@ CMD:cuff(playerid, params[])
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
     if(IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "Игрок находиться в автомобиле!");
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID!");
-    if(IsAPolice(to_player)) return SCM(playerid, red, "Данный игрок состоит в полиции!");
     if(GetPVarInt(to_player, "cuffed") == 1 || GetPVarInt(to_player, "tied") == 1) return SCM(playerid, red, "Человек уже в наручниках!");
 
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);    

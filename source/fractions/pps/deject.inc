@@ -10,7 +10,6 @@ CMD:deject(playerid, params[])
     GetPlayerPos(playerid, x, y, z);
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID!");
-    if(IsAPolice(to_player)) return SCM(playerid, red, "Данный игрок состоит в полиции!");
     if(!IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "Человек не находиться в автомобиле!");
 
     new string[144];
