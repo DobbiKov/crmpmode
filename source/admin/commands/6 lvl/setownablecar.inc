@@ -51,7 +51,7 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
         (
             query, sizeof query,
             "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
-            PlayerInfo[playerid][pID]
+            owner_id
         );
         mysql_tquery(connects, query, "setowncar_check_own_cars", "dsdddd", playerid, to_player, model_id, cost_oc_car, owner_id, adminlvl);
     }
