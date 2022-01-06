@@ -1,6 +1,8 @@
 CMD:switchfskin(playerid)
 {
 	if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pRang] < 8)
+		return SCM(playerid, red, !"Вы не во внедрении!");
 
 	// new name[MAX_PLAYER_NAME];
 	new fmt_str[18];
