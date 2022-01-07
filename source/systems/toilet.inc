@@ -13,6 +13,22 @@ enum toilet_params_info
 	Float: menu_z,
 }
 
+#define MAX_TOILET_PLACES 6
+enum E_TOILET_PLACES{
+    Float: toilet_x,
+    Float: toilet_y,
+    Float: toilet_z
+}
+
+new toilet_places[MAX_TOILET_PLACES][E_TOILET_PLACES] = {
+    {1732.6979,1714.5021,-9.2800}, // туалет в доме среднего класса
+    {-2291.7400,361.2034,-86.4541}, // туалет в квартире
+    {1593.2013,1659.0579,-1.1600}, // туалет в доме высокого класса
+    {1302.3712,1496.1536,1002.3200}, // туалет в казарме
+    {331.7525,1650.8275,2002.9399}, // туалет в доме низкого класса
+    {850.4100,802.4863,-73.0036} // туалет в АО 1
+};
+
 new toilet_params[1][toilet_params_info] =
 {
     {-2657.8372,2243.6729,510.8259,175.1000, -2657.8291,2244.9656,510.8259}
@@ -59,6 +75,17 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
+        if(IsPlayerNearToiletPan(playerid))
+        {
+            if(PlayerInfo[playerid][pNeedToilet] == 100) return SCM(playerid, red, "Вы не хотите в туалет!");
+
+            PlayerInfo[playerid][pNeedToilet] = 100;
+            cmd::do(playerid, "Чувствует облегчение...");
+            SCM(playerid, blue, "Вы справили нужду.");
+            ApplyAnimation(playerid, "PAULNMAC",			"Piss_loop",			4.0, true,  0, 0, 0, 0);
+            SetTimerEx("toilet_player", 5000, false, "d", playerid);
+            SaveAccounts(playerid);
+        }
         if(player_in_toilet[playerid] == -1)
         {
             foreach(new i : AllToilets)
@@ -90,17 +117,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 FreezePlayer(playerid, 2000);
                 player_in_toilet[playerid] = -1;
             }
-            if(IsPlayerInRangeOfPoint(playerid, 1.0, toilet_params[0][menu_x], toilet_params[0][menu_y], toilet_params[0][menu_z]))
-            {
-                if(PlayerInfo[playerid][pNeedToilet] == 100) return SCM(playerid, red, "Вы не хотите в туалет!");
-
-                PlayerInfo[playerid][pNeedToilet] = 100;
-                cmd::do(playerid, "Чувствует облегчение...");
-                SCM(playerid, blue, "Вы справили нужду.");
-                ApplyAnimation(playerid, "PAULNMAC",			"Piss_loop",			4.0, true,  0, 0, 0, 0);
-                SetTimerEx("toilet_player", 5000, false, "d", playerid);
-                SaveAccounts(playerid);
-            }
         }
     }
 	#if	defined	toilet__OnPlayerKeyStateChange
@@ -119,6 +135,22 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 #if	defined	toilet__OnPlayerKeyStateChange
 	forward toilet__OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
 #endif
+
+stock IsPlayerNearToiletPan(playerid)
+{
+    if(IsPlayerInRangeOfPoint(playerid, 1.0, toilet_params[0][menu_x], toilet_params[0][menu_y], toilet_params[0][menu_z]))
+    {
+        return true;
+    }
+    for(new i = 0; i < MAX_TOILET_PLACES; i++)
+    {
+        if(IsPlayerInRangeOfPoint(playerid, 1.0, toilet_places[i][toilet_x], toilet_places[i][toilet_y], toilet_places[i][toilet_z]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 publics toilet_player(playerid)
 {
