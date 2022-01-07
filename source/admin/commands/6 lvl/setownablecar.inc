@@ -46,6 +46,9 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
         owner_id = cache_get_field_content_int(0, "pID");
         adminlvl = cache_get_field_content_int(0, "bAdmin");
 
+        if(PlayerInfo[playerid][bAdmin] < adminlvl)
+            return SCM(playerid, red, !"Вы не можете выдать авто данному игроку!");
+            
         new query[256];
         format
         (
