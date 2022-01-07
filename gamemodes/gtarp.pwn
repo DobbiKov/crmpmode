@@ -46,6 +46,7 @@ L1:
 #include	<float>
 #include	<sscanf2>
 #include    <foreach>
+//#include    <nex-ac>
 #include    <mxdate>
 #include    <regex>
 #include 	<crp>
@@ -834,12 +835,13 @@ enum
 
 //------------[ ANTICHEAT] ---------------
 #include "../source/anticheat/anticheat.inc"
-#include "../source/anticheat/speedhack.inc"
+//#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
-#include "../source/anticheat/ac_hp.inc"
+//#include "../source/anticheat/ac_hp.inc"
+//#include "../source/anticheat/ac_onfoot_crash.inc"
+//#include "../source/anticheat/ac_tpinveh.inc"
+
 //#include "../source/anticheat/ac_airbreak.inc"
-#include "../source/anticheat/ac_onfoot_crash.inc"
-#include "../source/anticheat/ac_tpinveh.inc"
 
 #include "../source/anticheat/teamkill.inc"
 
@@ -1059,7 +1061,6 @@ enum
 #include "../source/fractions/opg_o/opg.inc"
 
 
-//#include    <nex-ac>
 public OnGameModeInit()
 {
 	SetGameModeText(""gamemode"");

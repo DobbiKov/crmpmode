@@ -116,6 +116,10 @@ stock ResultMessageCheat(p, r)
 		case 10: result = "#010"; // - AIRBREAK
 		case 11: result = "#011"; // - ANTI ONFOOT CRASH
 		case 12: result = "#012"; // - ANTI BULLET HIT TYPE
+		// default:{
+		// 	format(result, sizeof(result), "%d", r);
+
+		// }
     }
 
 	new Year, Month, Day;
@@ -135,3 +139,11 @@ publics AntiCheatMess(playerid)
 	if(GetPVarInt(playerid, "Cheater") == 1) SetPVarInt(playerid, "Cheater", 0);
 	return 1;
 }
+
+// public OnCheatDetected(playerid, ip_address[], type, code)
+// {
+// 	new string[144];
+// 	format(string, sizeof(string), "ac: type - %d | code - %d", type, code);
+// 	SCMTA(red, string);
+// 	return ResultMessageCheat(playerid, code);
+// }
