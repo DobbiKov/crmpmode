@@ -161,15 +161,8 @@ new Text3D: PortNarkoText;
 new stock lic_names[4][] = {"", "Бизнесс", "Полёты", "Оружие"};
 new stock lic_price[4] = {0, 100000, 80000, 50000};
 
-
-new fsb_door;
-new bool: fsb_door_status = false;
-
-new fsb_dopros_door_1;
-new bool: fsb_dopros_door_1_status = false;
-
-new fsb_dopros_door_2;
-new bool: fsb_dopros_door_2_status = false;
+new fsb_dopros_door_3;
+new bool: fsb_dopros_door_3_status = false;
 
 new fsb_lift;
 
@@ -376,7 +369,13 @@ new
 	PRIBATH_PICK_EXIT,
 	BATH_PICK_ENTER,
 	BATH_PICK_EXIT,
-	PAINT_PICK;
+	PAINT_PICK,
+
+	FSB_STREET_PICK,
+	FSB_OFFICE_PICK,
+	FSB_GARAGE_PICK,
+	FSB_ROOF_PICK,
+	FSB_OFFICE_PICK_2;
 
 
 enum e_DIALOG_IDs 
@@ -634,6 +633,7 @@ enum e_DIALOG_IDs
 	D_MYTK,
 	D_MYTK_HISTORY,
 	D_MYTK_HISTORY_ORG,
+	D_FSB_ENTER_DIALOG,
 };
 
 /* CHEAT */
@@ -704,7 +704,7 @@ new stock FractionInfo[9][fInfo] =
 	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
-	{"ФСБ",  								0x00000000,	2408.6252,-1802.5015,32.5537,	213.1126,			0,	0}
+	{"ФСБ",  								0x00000000,	1219.7074,1514.0560,2516.6799,	309.0167,			0,	0}
 };
 
 
@@ -2369,6 +2369,38 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	    SetPlayerPos(playerid, 2579.2434, -2415.9292, 21.9888);
 	    SetPlayerFacingAngle(playerid, 270.6595);
 	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	
+/*
+	FSB_STREET_PICK,
+	FSB_OFFICE_PICK,
+	FSB_GARAGE_PICK,
+	FSB_ROOF_PICK,
+	FSB_OFFICE_PICK_2;
+*/
+	if(pickupid == FSB_STREET_PICK)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 1237.8195,1535.9994,2516.6799);
+	    SetPlayerFacingAngle(playerid, 175.8488);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == FSB_OFFICE_PICK)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2413.3867,-1844.7305,21.8547);
+	    SetPlayerFacingAngle(playerid, 183.6358);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == FSB_GARAGE_PICK || pickupid == FSB_ROOF_PICK || pickupid == FSB_OFFICE_PICK_2)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+		ShowEnterDialog(playerid);
 	}
 	return 1;
 }

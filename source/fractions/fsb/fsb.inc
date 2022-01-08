@@ -3,6 +3,7 @@
 
 #include "../source/fractions/fsb/utils/timer.inc"
 #include "../source/fractions/fsb/utils/scm_more_infiltrate_comm.inc"
+#include "../source/fractions/fsb/utils/show_enter_dialog.inc"
 
 #include "../source/fractions/fsb/readsms.inc"
 #include "../source/fractions/fsb/switchskin.inc"

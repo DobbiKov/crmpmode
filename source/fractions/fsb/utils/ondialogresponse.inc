@@ -3,6 +3,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
 	{
+        case D_FSB_ENTER_DIALOG:{
+            if(!response) return 1;
+            FreezePlayer(playerid, 2000);
+            SetPlayerPos(playerid, fsb_office_positions[listitem][0], fsb_office_positions[listitem][1], fsb_office_positions[listitem][2]);
+            SetPlayerFacingAngle(playerid,fsb_office_positions[listitem][3]);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
 		case D_SET_FSB_NUMBERS:{
             new vehicleid = GetPlayerVehicleID(playerid);
             if(response)
