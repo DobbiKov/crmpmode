@@ -1,8 +1,8 @@
 //************* | MYSQL | *************//
 #define 	sqlhost     "localhost"
-#define 	sqluser     "root"
-#define 	sqlpass     "Hello123456"
-#define 	sqldb       "unigvacrmp"
+#define 	sqluser     "gs28883"
+#define 	sqlpass     "zF4P9amEUg"
+#define 	sqldb       "gs28883"
 
 //host
 // #define 	sqlhost     "185.206.212.246"
@@ -11,8 +11,8 @@
 // #define 	sqldb       "unigva"
 
 //*********** |  | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.6.5"
-#define     hostname    "[ Unigva RolePlay | Сервер для Олдов ]"
+#define 	gamemode    "UNIGVA - Beta 0.6.6"
+#define     hostname    "[ Unigva RolePlay | Первый сервер ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "unigva-rp.ru"
 #define     name_serv   "Unigva RolePlay"
