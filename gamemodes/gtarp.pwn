@@ -52,6 +52,7 @@ L1:
 #include 	<crp>
 #include    <md5>
 #include    <fly>
+#include    <flysuperman>
 
 //#define FILTERSCRIPT
 //#include <IsPlayerNear>
@@ -918,6 +919,7 @@ enum
 #include "../source/admin/commands/3 lvl/setskin.inc"
 #include "../source/admin/commands/3 lvl/givegun.inc"
 #include "../source/admin/commands/3 lvl/fly.inc"
+#include "../source/admin/commands/3 lvl/sfly.inc"
 #include "../source/admin/commands/3 lvl/offget.inc"
 #include "../source/admin/commands/3 lvl/unarrest.inc"
 #include "../source/admin/commands/3 lvl/abiz.inc"

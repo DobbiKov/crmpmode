@@ -50,7 +50,7 @@ new Command2LVL[30][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[34][] = 
+new Command3LVL[35][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
@@ -68,6 +68,7 @@ new Command3LVL[34][] =
     {"{"cblue"}/setskin {ffffff}- Установить временный скин игроку\n"},
     {"{"cblue"}/givegun {ffffff}- Выдать оружие игроку\n"},
     {"{"cblue"}/fly {ffffff}- Режим полета\n"},
+    {"{"cblue"}/sfly {ffffff}- Режим супер полета\n"},
     {"{"cblue"}/offget {ffffff}- Статистика игрока в оффлайне\n"},
     {"{"cblue"}/ban {ffffff}- Заблокировать аккаунт игроку (онлайн/оффлайн)\n"},
     {"{"cblue"}/warn {ffffff}- выдать предупреждение на аккаунт игрока(онлайн/оффлайн)\n"},
