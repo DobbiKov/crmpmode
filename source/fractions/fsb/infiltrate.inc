@@ -1,5 +1,5 @@
 CMD:infiltrate(playerid, params[]){
-    if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(!IsAFSB(playerid) || PlayerInfo[playerid][pFSBRank] < 4) return YouCannotUseThisFunc(playerid);
     return ShowInfiltrateDialog(playerid);
 }
 
