@@ -1,4 +1,4 @@
-#define MAX_RADARS 100
+#define MAX_RADARS 500
 enum r_info
 {
 	radar_id,

@@ -31,7 +31,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 GetPlayerPos(playerid, posX, posY, posZ);
                 
                 SCM(playerid, blue, "Вы начали установку радара. Установите радар на нужную позицию.");
+				new str[12];
                 new radar = CreateObject(18880, posX+1, posY, posZ-0.35, 0.0, 0.0, 0.0);
+				valstr(str, radar);
+				SCM(playerid, white, str);
                 SetPVarInt(playerid, "CreateRadar", 1);
                 SetPVarInt(playerid, "RadarObject", radar);
                 EditObject(playerid, radar);
