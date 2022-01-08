@@ -354,6 +354,7 @@
 	AddStaticVehicleEx(579, 2407.8250,-1816.1100,19.2039,178.0999,0,0,3600);//gelik
 	AddStaticVehicleEx(579, 2403.6257,-1816.1276,19.2118,181.2769,0,0,3600);//gelik
 	AddStaticVehicleEx(579, 2399.6091,-1816.1813,19.2055,179.7655,0,0,3600);//gelik
+	AddStaticVehicleEx(497,2416.3975,-1814.2605,40.9934,267.8776,0,0, 3600); // גונעמכ¸ע פסב
 	job_car[TEAM_FSB_CAR][1] = AddStaticVehicleEx(601,2420.7625,-1796.6593,18.6905,179.8344,16,16,3600); // לארטםא fsb
 
 	SetVehicleHealth(job_car[TEAM_FSB_CAR][0], 1000000.0);
