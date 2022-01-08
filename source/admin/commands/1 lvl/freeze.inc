@@ -8,7 +8,7 @@ CMD:freeze(playerid, params[])
 	if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
 
 	new string[256];
-	format(string, sizeof(string), "[A] %s[%d] замороил игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
+	format(string, sizeof(string), "[A] %s[%d] заморозил игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
 	SCMA(grey, string);
 	
 	format(string, sizeof(string), "Администратор %s[%d] заморозил вас!", PlayerInfo[playerid][pName], playerid);
