@@ -3111,6 +3111,7 @@ stock ClearAccount(playerid)
 	mech_fuel_bizid[playerid] = -1;
 	
 	IsPlayerInGreenZone[playerid] = false;
+	isCanIznas[playerid] = true;
 	
 
 
