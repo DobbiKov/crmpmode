@@ -76,6 +76,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(IsPlayerInAnyVehicle(playerid))
         {
             new vehicleid = GetPlayerVehicleID(playerid);
+            cmd::openvdv(playerid);
 
             if(job_car[TEAM_VDV_METALL_CAR][0] <= vehicleid <= job_car[TEAM_VDV_METALL_CAR][1])
             {
