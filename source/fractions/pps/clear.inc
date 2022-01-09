@@ -11,10 +11,10 @@ CMD:clear(playerid, params[])
     PlayerInfo[to_player][pWANTED]--;
 
     new string[144];
-    format(string, sizeof(string), "%s %s[%d] снял 1 уровень розыска(%d) у %s[%d].", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pWANTED], PlayerInfo[to_player][pName], to_player);
+    format(string, sizeof(string), "%s %s[%d] снял 1 уровень розыска(%d) у %s[%d].", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), playerid, PlayerInfo[to_player][pWANTED], PlayerName(to_player), to_player);
     SCMPolice(blue, string);
 
-    format(string, sizeof(string), "%s %s[%d] снял с вас 1 уровень розыска", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid);
+    format(string, sizeof(string), "%s %s[%d] снял с вас 1 уровень розыска", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), playerid);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "Теперь ваш уровень розыска: %d", PlayerInfo[to_player][pWANTED]);

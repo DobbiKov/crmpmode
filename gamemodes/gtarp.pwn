@@ -46,11 +46,13 @@ L1:
 #include	<float>
 #include	<sscanf2>
 #include    <foreach>
+//#include    <nex-ac>
 #include    <mxdate>
 #include    <regex>
 #include 	<crp>
 #include    <md5>
 #include    <fly>
+#include    <flysuperman>
 
 //#define FILTERSCRIPT
 //#include <IsPlayerNear>
@@ -89,12 +91,13 @@ new dialog_listitem_values[MAX_PLAYERS][24];
 
 
 new
-	connects, stringer[2500],
+	connects, logs_connects, stringer[2500],
 	Text:logotype_td[4],
 	STimer[MAX_PLAYERS]
 ;
 
 // ------ [ TEXTDRAWS ] ---------------
+new tmpobjid;
 
 const speedometer_td_size = 15;
 new PlayerText:speed_td[MAX_PLAYERS][speedometer_td_size];
@@ -105,6 +108,9 @@ new PlayerText: auto_salon_td[MAX_PLAYERS][auto_salon_td_size];
 new PlayerText:spec_menu_TD_PTD[MAX_PLAYERS][49];
 
 new Text:anim_TD;
+new Text:GreenZoneTD[4];
+
+new Text:blindtd[5];
 
 const training_td_size = 47;
 new PlayerText:training_td[MAX_PLAYERS][training_td_size];
@@ -155,9 +161,10 @@ new Text3D: PortNarkoText;
 new stock lic_names[4][] = {"", "Бизнесс", "Полёты", "Оружие"};
 new stock lic_price[4] = {0, 100000, 80000, 50000};
 
+new fsb_dopros_door_3;
+new bool: fsb_dopros_door_3_status = false;
 
-new fsb_door;
-new bool: fsb_door_status = false;
+new fsb_lift;
 
 new fsb_vorota_1;
 new bool: fsb_vorota_1_status = false;
@@ -173,6 +180,16 @@ new bool: post_dps_1_status = false;
 new post_dps_2;
 new bool: post_dps_2_status = false;
 
+new dps_door;
+new bool: dps_door_status = false;
+
+
+new post_batyrevo_arzamas_1;
+new bool: post_batyrevo_arzamas_1_status = true;
+
+new post_batyrevo_arzamas_2;
+new bool: post_batyrevo_arzamas_2_status = true;
+
 new open_pps;
 new open_pps_status = false;
 
@@ -183,7 +200,42 @@ new shlak_vdv;
 new bool: shlak_vdv_status = false;
 
 new player_second_timer[MAX_PLAYERS];
+
+new _restart_timer;
+
+
 //************ | МАССИВЫ | ************//
+
+//*********** | GOTOME CUFF ARREST | **********
+enum
+{
+	gc_SUSPECT_STATUS_UNCUFFED,
+	gc_SUSPECT_STATUS_CUFFED,
+	gc_SUSPECT_STATUS_FOLLOWING,
+	gc_SUSPECT_STATUS_WAITING
+};
+
+
+enum gc_results
+{
+    gc_RESULT_ERROR_ID,
+    gc_RESULT_ERROR_PERMISSIONS,
+    gc_RESULT_ERROR_USED,
+    gc_RESULT_ERROR_CUFFED,
+    gc_RESULT_ERROR_UNCUFFED,
+    gc_RESULT_ERROR_FOLLOW,
+    gc_RESULT_ERROR_DISTANCE
+};
+
+new
+	gc_cufferid[MAX_PLAYERS] =
+		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
+
+	gc_cuffed_playerid[MAX_PLAYERS] =
+		{INVALID_PLAYER_ID, INVALID_PLAYER_ID, ...},
+
+	gc_suspect_status[MAX_PLAYERS char];
+//*********************************************
 
 new pPressed[MAX_PLAYERS];
 
@@ -202,16 +254,30 @@ enum
 	TEAM_HEAL_CAR,
 	TEAM_OREX_CAR,
 	TEAM_SUN_CAR,
+	
+	TEAM_OREX_FURGON_CAR,
+	TEAM_SUN_FURGON_CAR,
+
 	TEAM_FSB_CAR,
+	TEAM_FSB_FURGON_CAR,
 	
 	TEAM_VDV_CAR,
 	TEAM_VDV_BTR_CAR,
 	TEAM_VDV_TANK_CAR,
 	TEAM_VDV_METALL_CAR,
+	TEAM_VDV_HYDRA_CAR,
 	
 	VELO,
 };
-new job_car[20][2];
+new job_car[23][2];
+
+enum 
+	E_TRUNK
+{
+	trunk_drugs_bags = 0,
+};
+
+new vehicle_trunk[MAX_VEHICLES][E_TRUNK];
 
 enum
 	E_VEHICLE
@@ -240,6 +306,15 @@ new mech_fuel[MAX_PLAYERS] = 0;
 
 new player_end_job_timer[MAX_PLAYERS];
 
+enum
+{
+    need_drink,
+    need_eat,
+    need_toilet,
+    need_wash
+};
+
+
 new pCheckpoint[MAX_PLAYERS];
 enum
 {
@@ -258,6 +333,7 @@ enum
 	CP_WANTED,
 	CP_CALLING,
 	CP_GPS,
+	CP_CONTRABANDA,
 };
 new
 	MINER_PICK_ENTER,
@@ -286,12 +362,20 @@ new
 	VOENKOM_PICK_EXIT,
 	SMI_PICK_ENTER,
 	SMI_PICK_EXIT,
+	DPS_PICK_ENTER,
+	DPS_PICK_EXIT,
 	
 	PRIBATH_PICK_ENTER,
 	PRIBATH_PICK_EXIT,
 	BATH_PICK_ENTER,
 	BATH_PICK_EXIT,
-	PAINT_PICK;
+	PAINT_PICK,
+
+	FSB_STREET_PICK,
+	FSB_OFFICE_PICK,
+	FSB_GARAGE_PICK,
+	FSB_ROOF_PICK,
+	FSB_OFFICE_PICK_2;
 
 
 enum e_DIALOG_IDs 
@@ -333,6 +417,7 @@ enum e_DIALOG_IDs
     D_SET_XDAY,
     D_ASK_RESTART,
     D_SET_SERVER_NAME,
+    D_SET_CONTRABAND_TIME,
     D_CHECK_PASS,
     D_CHANGE_PASS,
     D_SET_DB,
@@ -509,6 +594,7 @@ enum e_DIALOG_IDs
 	D_GPS,
 	D_GPS_PUBLICPLACES,
 	D_GPS_JOBS,
+	D_GPS_WORKS,
 	D_GPS_ENTERTAINMENTS,
 	D_GPS_STATEORGANIZATIONS,
 	D_GPS_GANGS,
@@ -524,21 +610,48 @@ enum e_DIALOG_IDs
 	
 	D_ADMIN_PANEL,
 	D_ASK_ADMIN_CHANGE_PASSWORD,
+	D_ADMIN_TP_MAP,
 	
 	D_CHOOSE_TIPSTER_TYPE,
 	D_CHOOSE_TIPSTER_FRACTION,
 	D_CHOOSE_TIPSTER_JOB,
 	D_FSB_INFILTRATE,
+	D_FSB_INFILTRATE_RANK,
+	D_SWITCH_FSKIN,
 	D_SET_FSB_NUMBERS,
 	D_GUN_FSB,
+	
+	D_TP_GPS,
+	
+	D_CALL_CONTRABANDA,
+	D_CLEAR_SU,
+	
+	D_CAR_COMMAND,
+	D_CAR_COMMAND_CHOOSE_CAR,
+	D_CHOOSE_CLIST,
+	
+	D_MYTK,
+	D_MYTK_HISTORY,
+	D_MYTK_HISTORY_ORG,
+	D_FSB_ENTER_DIALOG,
 };
+
+/* CHEAT */
+
+new time_podoz,time_zcar;
+
+new time_vcar,time_lspawn,time_pick;
+
+new addchet[MAX_PLAYERS];
+
+/* CHEAT */
 
 enum PInfo
 {
 	pID, pName[MAX_PLAYER_NAME],
 	pEmail[42], pKey[64], // Регистрационные данные
 	pLVL, pExp, pSex, pChar, pCash, pBCash, pDonate, bool:pLogin, pJail, pMute, pJailOffMess[256], pMuteOffMess[256], Float:pLastX, Float:pLastY, Float:pLastZ, pPinCode, pRegIP[16], pLastIP[16], pNewIp[16], pTruckLVL, pTruckEXP, // Система персонажа
-	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall,
+	pLastConnect[64], pLicA, pLicB, pLicC, pLicD, pZakon, pFines, pSumFines, pOffUninviteMess[144], pLogo, pGun[13], pAmmo[13], pTipster, pJobTipster, pPhoneNumber, pPhone, pPhoneCash, pPhoneStatus, pKPZ, pCuff, pWANTED, pJP, pMetall, pFSBaccess,
 	pPatr, pDrugs, pLomka,// система персонажа
 	
 	pLicBiz, pLicGun, pLicFly, pVoen, pVoenEXP, pBizID, pCarID, pHomeID, pPodID, pKvartID,
@@ -548,9 +661,9 @@ enum PInfo
 	pHouseOffMess[144], pBizOffMess[144], pKvartOffMess[144], pFAMoffuninvite[144],
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
-	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, // Система фракций
+	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, pFSBRank, // Система фракций
 	pReadsms, pReadR,
-	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bYoutube, bDeveloper, bStreamerMode,
+	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bAns, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
@@ -567,7 +680,7 @@ new stock gun_name[56][] = {"Кулак", "Кастет", "Клюжка для гольфа", "Полицейская
 							"Балончик", "Огнетушитель", "Фото Камера", "Очки ночного зрения", "Вторые очки ночного зрения", "Парашут", "Телефон", "ДжетПак", "СкейтБорд", "Автомобиль(ДБ)", "Лопасти вертолета", "Взрыв", "", "Утопленник", "Падение с высоты"};
 
 new stock AdminPays[9] = {0, 800, 1600, 2000, 2500, 3000, 4000, 5000, 5000};
-new stock GetRangAdmin[10][30] = {"", "Стажер","Младший Администратор","Администратор","Старший Администратор","Зам. ГА","Главный Администратор","Спец. Администратор","Руководитель",""};
+new stock GetRangAdmin[10][30] = {"", "Агент поддержки","Младший Администратор","Администратор","Старший Администратор","Зам. ГА","Главный Администратор","Спец. Администратор","Руководитель",""};
 
 enum fInfo
 {
@@ -591,7 +704,7 @@ new stock FractionInfo[9][fInfo] =
 	{"ВДВ",  								0x00000000,	1300.9718,1523.2183,1002.3200,	185.3512,			0,	0},
 	{"ОПГ Ореховский",  					0x00000000,	2609.8279,1762.3534,6.8659,		94.1141,			0,	0},
 	{"ОПГ Солнцевские",  					0x00000000,	1706.1318,1334.0438,26.0344,	182.1382,			0,	0},
-	{"ФСБ",  								0x00000000,	2408.6252,-1802.5015,32.5537,	213.1126,			0,	0}
+	{"ФСБ",  								0x00000000,	1219.7074,1514.0560,2516.6799,	309.0167,			0,	0}
 };
 
 
@@ -599,30 +712,33 @@ new jobs_name[5][20] = {"Безработный", "Водитель автобуса", "Водитель Такси", "А
 new stock GetMember[9][36] = {"Гражданский","Администрация Посёлка","СМИ","Полиция","Больница","ВДВ","ОПГ Ореховские","ОПГ Солнцевские", "ФСБ"};
 new stock rangFractionID[9] = {10,10,10,10,10,10,10,10,10};
 
+
+
+
 new stock ChangeSkin[9][10] =
 {
     {0,0,0,0,0,0,0,0,0,0},
-	{208, 164, 228, 187, 227, 295, 147, EOS, EOS, EOS},
+	{182, 164, 228, 187, 227, 295, 147, 234, 229, 141},
 	{188, 261, 217, 211, EOS, EOS, EOS, EOS, EOS, EOS},
-	{266, 280, 281, 282, 283, 288, 284, 285, 286},
+	{266, 280, 281, 282, 288, 284, 285, 265, 76},
 	{276, 275, 274, 70, 148, EOS, EOS, EOS, EOS, EOS},
-	{287, 255, 179, 61, 191, EOS, EOS, EOS, EOS, EOS},
-	{125, 111, 124, 299, 112, 272, 93, EOS, EOS, EOS},
-	{125, 111, 124, 299, 112, 272, 93, EOS, EOS, EOS},
-	{285,286,EOS,EOS,EOS,EOS,EOS,EOS,EOS,EOS}
+	{287, 255, 179, 61, 191, 206, EOS, EOS, EOS, EOS},
+	{126, 121, 127, 123, 223, 272, 40, EOS, EOS, EOS},
+	{125, 111, 124, 112, 171, 93, EOS, EOS, EOS},
+	{277,278,279,286,163,165,166,56,EOS,EOS}
 };
 
 new stock PlayerRank[9][11][46] =
 {
 	{"Гражданский", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-	{"", "Секретарь","Гл.Секретарь","Охранник","Гл.Охраны","Адвокат","Гл.Адвокат","Депутат","Министр","Зам.Мэра","Мэр"},
+	{"", "Секретарь","Гл.Секретарь","Охранник","Начальник Охраны","Адвокат","Депутат","Прокурор","Министр","Вице-губернатор","Губернатор"},
 	{"", "Помощник редакции","Верстальщик новостей","Радиотехник","Журналист","Ст. журналист","Корректор","Помощник редактора","Редактор","Заместитель Директора","Директор"},
-	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Лейтенант","Ст. Лейтенант","Майор","Подполковник","Полковник","Генерал"},
-	{"", "Интерн","Младший Мед.Работник","Старший Мед.Работник","Врач-Участковый","Старший Врач-Участковый","Хирург","Младший Специалист","Старший Специалист","Заведущий","Глав.Врач"},
+	{"", "Рядовой","Сержант","Ст.Сержант","Прапорщик","Лейтенант", "Капитан","Майор","Подполковник","Полковник","Генерал"},
+	{"", "Интерн","Мед.Работник","Врач-Участковый","Врач-Терапевт","Стоматолог","Хирург","Младший Специалист","Старший Специалист","Заведующий","Глав.Врач"},
 	{"", "Рядовой","Сержант","Ст.Сержант","Старшина","Лейтенант","Капитан","Майор","Подполковник","Полковник","Генерал"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
 	{"", "Шнырь","Босяк","Барыга","Фраер","Бандит","Смотритель","Бригадир","Жиган","Вор в законе","Авторитет"},
-	{"","","","","","","","","","", ""}
+	{"","Внештатный сотрудник","Младший оперативник","Следователь-специалист","Старший оперативник","Инспектор безопасности","Офицер внутренней разведки","Начальник безопасности","Начальник разведки","Заместитель начальника ФСБ", "Начальник ФСБ"}
 };
 new
 	pay_orgs[9][11]=
@@ -658,13 +774,17 @@ enum
 };
 
 // -------------- [ INCLUDES ] ------------------------------
-//---------- [ FUNCS ] -------------------
-#include "../source/server/funcs.inc"
+
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
+#include "../source/systems/mytk.h"
 #include "../source/systems/kvart.h"
 #include "../source/systems/business.h"
+#include "../source/systems/ownable_cars.h"
 
 #include "../source/fractions/opg_o/opg.h"
+
+//---------- [ FUNCS ] -------------------
+#include "../source/server/funcs.inc"
 //---------[HEH]------------
 #include "../source/anticheat/isrpnick.inc"
 
@@ -672,6 +792,9 @@ enum
 #include "../source/player/rules.inc"
 
 // ------ [ SYSTEMS ] ------------
+#include "../source/server/logs_system.inc"
+#include "../source/systems/greenzone.inc"
+
 #include "../source/systems/foreach_veh.inc"
 
 #include "../source/systems/bussines.inc"
@@ -690,6 +813,8 @@ enum
 #include "../source/systems/bath.inc"
 #include "../source/systems/need.inc"
 
+#include "../source/systems/unsu.inc"
+#include "../source/systems/mytk.inc"
 #include "../source/systems/bizwar.inc"
 #include "../source/systems/paintball.inc"
 #include "../source/systems/advertise.inc"
@@ -700,6 +825,7 @@ enum
 #include "../source/systems/payday.inc"
 #include "../source/systems/warn.inc"
 #include "../source/systems/ban.inc"
+//#include "../source/systems/body_gun.inc"
 #include "../source/systems/spec.inc"
 #include "../source/systems/mp.inc"
 #include "../source/systems/reg au.inc"
@@ -710,58 +836,23 @@ enum
 
 //------------[ ANTICHEAT] ---------------
 #include "../source/anticheat/anticheat.inc"
-#include "../source/anticheat/speedhack.inc"
+//#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
-#include "../source/anticheat/ac_hp.inc"
+//#include "../source/anticheat/ac_hp.inc"
+//#include "../source/anticheat/ac_onfoot_crash.inc"
+//#include "../source/anticheat/ac_tpinveh.inc"
+
 //#include "../source/anticheat/ac_airbreak.inc"
-#include "../source/anticheat/ac_onfoot_crash.inc"
-#include "../source/anticheat/ac_tpinveh.inc"
 
 #include "../source/anticheat/teamkill.inc"
 
 // -------[ COMMANDS ] -----------
-#include "../source/player/commands/s.inc"
-#include "../source/player/commands/b.inc"
-#include "../source/player/commands/rp.inc"
-#include "../source/player/commands/id.inc"
-#include "../source/player/commands/wisper.inc"
-#include "../source/player/commands/time.inc"
-#include "../source/player/commands/stats.inc"
-#include "../source/player/commands/mycoords.inc"
-#include "../source/player/commands/menu.inc"
-#include "../source/player/commands/help.inc"
-#include "../source/player/commands/leaders.inc"
-#include "../source/player/commands/call.inc"
-#include "../source/player/commands/sms.inc"
-#include "../source/player/commands/dice.inc"
-#include "../source/player/commands/lic.inc"
-#include "../source/player/commands/pass.inc"
-#include "../source/player/commands/ad.inc"
-#include "../source/player/commands/eject.inc"
-#include "../source/player/commands/anim.inc"
-#include "../source/player/commands/slimit.inc"
-#include "../source/player/commands/pay.inc"
-#include "../source/player/commands/tune.inc"
-#include "../source/player/commands/fill.inc"
-#include "../source/player/commands/lock.inc"
-#include "../source/player/commands/mynumber.inc"
-#include "../source/player/commands/tickets.inc"
-#include "../source/player/commands/paintlist.inc"
-#include "../source/player/commands/gps.inc"
-#include "../source/player/commands/skill.inc"
-#include "../source/player/commands/recipes.inc"
-#include "../source/player/commands/myskill.inc"
-
-#include "../source/player/commands/need_command/drink.inc"
-#include "../source/player/commands/need_command/pepsi.inc"
-#include "../source/player/commands/need_command/smoke.inc"
-#include "../source/player/commands/need_command/eat.inc"
-#include "../source/player/commands/need_command/mask.inc"
-#include "../source/player/commands/need_command/healme.inc"
+#include "../source/player/player_commands.inc"
 
 // ------- [ ADMINS ] ------------
 #include "../source/admin/commands/commands.inc"
 #include "../source/admin/commands/fulldostup.inc"
+#include "../source/admin/systems/tp_map.inc"
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
@@ -780,7 +871,10 @@ enum
 #include "../source/admin/commands/1 lvl/spawnplayer.inc"
 #include "../source/admin/commands/1 lvl/info.inc"
 
+#include "../source/admin/commands/2 lvl/get_player_by_mysql.inc"
 #include "../source/admin/commands/2 lvl/tp.inc"
+#include "../source/admin/commands/2 lvl/check_cheat.inc"
+#include "../source/admin/commands/2 lvl/gm.inc"
 #include "../source/admin/commands/2 lvl/g.inc"
 #include "../source/admin/commands/2 lvl/gethere.inc"
 #include "../source/admin/commands/2 lvl/nick.inc"
@@ -794,6 +888,7 @@ enum
 #include "../source/admin/commands/2 lvl/jail.inc"
 #include "../source/admin/commands/2 lvl/mute.inc"
 #include "../source/admin/commands/2 lvl/arm.inc"
+#include "../source/admin/commands/2 lvl/alock.inc"
 #include "../source/admin/commands/2 lvl/hp.inc"
 #include "../source/admin/commands/2 lvl/getskin.inc"
 #include "../source/admin/commands/2 lvl/mg.inc"
@@ -824,6 +919,7 @@ enum
 #include "../source/admin/commands/3 lvl/setskin.inc"
 #include "../source/admin/commands/3 lvl/givegun.inc"
 #include "../source/admin/commands/3 lvl/fly.inc"
+#include "../source/admin/commands/3 lvl/sfly.inc"
 #include "../source/admin/commands/3 lvl/offget.inc"
 #include "../source/admin/commands/3 lvl/unarrest.inc"
 #include "../source/admin/commands/3 lvl/abiz.inc"
@@ -843,12 +939,15 @@ enum
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
 #include "../source/admin/commands/5 lvl/templeader.inc"
+#include "../source/admin/commands/5 lvl/commandlogs.inc"
+#include "../source/admin/commands/5 lvl/adminstats.inc"
 #include "../source/admin/commands/5 lvl/tempjob.inc"
 #include "../source/admin/commands/5 lvl/createradar.inc"
 #include "../source/admin/commands/5 lvl/setskill.inc"
 #include "../source/admin/commands/5 lvl/setyoutube.inc"
 #include "../source/admin/commands/5 lvl/agl.inc"
 #include "../source/admin/commands/5 lvl/lwarn.inc"
+#include "../source/admin/commands/5 lvl/exploseplayer.inc"
 
 #include "../source/admin/commands/6 lvl/setplayerskin.inc"
 #include "../source/admin/commands/6 lvl/givemoney.inc"
@@ -916,6 +1015,9 @@ enum
 // FSB
 #include "../source/fractions/fsb/fsb.inc"
 
+// DPS
+#include "../source/fractions/dps/dps.inc"
+
 // PPS
 #include "../source/fractions/pps/pps.inc"
 #include "../source/fractions/pps/stopcar.inc"
@@ -925,7 +1027,9 @@ enum
 #include "../source/fractions/pps/su.inc"
 #include "../source/fractions/pps/clear.inc"
 #include "../source/fractions/pps/cuff.inc"
+#include "../source/fractions/pps/gotome.inc"
 #include "../source/fractions/pps/uncuff.inc"
+#include "../source/fractions/pps/unmask.inc"
 #include "../source/fractions/pps/ticket.inc"
 #include "../source/fractions/pps/search.inc"
 #include "../source/fractions/pps/take.inc"
@@ -957,23 +1061,18 @@ enum
 
 //OPG
 #include "../source/fractions/opg_o/opg.inc"
-#include "../source/fractions/opg_o/makegun.inc"
-#include "../source/fractions/opg_o/sellgun.inc"
-#include "../source/fractions/opg_o/selldrugs.inc"
-#include "../source/fractions/opg_o/tie.inc"
-#include "../source/fractions/opg_o/untie.inc"
-#include "../source/fractions/opg_o/close.inc"
-#include "../source/fractions/opg_o/drugs.inc"
-#include "../source/fractions/opg_o/bizwar.inc"
 
-//#include    <nex-ac>
+
 public OnGameModeInit()
 {
+    AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
 	SetGameModeText(""gamemode"");
 	SendRconCommand("hostname "hostname"");
 	SendRconCommand("mapname "mapname"");
+	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
+    CreateLogsMySQLConnection(sqlhost, sqluser, "unigvacrmplogs", sqlpass);
 
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
@@ -1000,11 +1099,13 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `toilets`", "LoadToilets", "");
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	
-
+    LoadGreenZones();
     #include "../source/server/load.inc"
 	#include <../include/map/interiors.inc>
 	#include <../include/map/map.inc>
     #include <../include/map/createobject.inc>
+    
+    SetTimer("MoveFSBLiftTo3flat", 1000 * 10, false);
 
 	return 1;
 }
@@ -1093,6 +1194,9 @@ publics LoginCallback(playerid, password[])
     PlayerInfo[playerid][pJP] = cache_get_field_content_int(0, "pJP");
     PlayerInfo[playerid][pHOSPITAL] = cache_get_field_content_int(0, "pHOSPITAL");
     PlayerInfo[playerid][pIsFSB] = cache_get_field_content_int(0, "pIsFSB");
+    PlayerInfo[playerid][pFSBRank] = cache_get_field_content_int(0, "pFSBRank");
+    PlayerInfo[playerid][pFines] = cache_get_field_content_int(0, "pFines");
+    PlayerInfo[playerid][pSumFines] = cache_get_field_content_int(0, "pSumFines");
     
     PlayerInfo[playerid][pFamID] = cache_get_field_content_int(0, "pFamID");
     PlayerInfo[playerid][pFamRang] = cache_get_field_content_int(0, "pFamRang");
@@ -1139,13 +1243,23 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][pWarnA] = cache_get_field_content_int(0, "pWarnA");
 	PlayerInfo[playerid][bAdmin] = cache_get_field_content_int(0, "bAdmin");
 	PlayerInfo[playerid][bDeveloper] = cache_get_field_content_int(0, "bDeveloper");
-	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube");
+	PlayerInfo[playerid][bYoutube] = cache_get_field_content_int(0, "bYoutube"); 
  	PlayerInfo[playerid][bJail] = cache_get_field_content_int(0, "bJail");
+ 	PlayerInfo[playerid][bAns] = cache_get_field_content_int(0, "bAns");
     PlayerInfo[playerid][bMute] = cache_get_field_content_int(0, "bMute");
  	PlayerInfo[playerid][bOffJail] = cache_get_field_content_int(0, "bOffJail");
     PlayerInfo[playerid][bOffMute] = cache_get_field_content_int(0, "bOffMute");
     PlayerInfo[playerid][bOffWarn] = cache_get_field_content_int(0, "bOffWarn");
     PlayerInfo[playerid][bOffBan] = cache_get_field_content_int(0, "bOffBan");
+    PlayerInfo[playerid][bBan] = cache_get_field_content_int(0, "bBan");
+    PlayerInfo[playerid][bWarn] = cache_get_field_content_int(0, "bWarn");
+    PlayerInfo[playerid][bUnBan] = cache_get_field_content_int(0, "bUnBan");
+    PlayerInfo[playerid][bUnWarn] = cache_get_field_content_int(0, "bUnWarn");
+    
+    if(PlayerInfo[playerid][bAdmin] >= 4)
+        PlayerInfo[playerid][pHP] = 100.0;
+    
+    
    	SpID[playerid] = -1;
 	SpType[playerid] = SP_TYPE_NONE;
 	
@@ -1278,9 +1392,7 @@ publics LoginCallback(playerid, password[])
 	
 	if(PlayerInfo[playerid][pHomeID] != -1)
 	{
-		new query[60];
-		format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
-		mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+		LoadMyCarFunc(playerid);
 	}
     return 1;
 }
@@ -1325,6 +1437,7 @@ stock SaveAccounts(playerid)
 		`pARM` = '%f',\
 		`pJail` = '%d',\
 		`bJail` = '%d',\
+		`bAns` = '%d',\
 		`bBan` = '%d',\
 		`bWarn` = '%d',\
 		`bYoutube` = '%d',\
@@ -1398,6 +1511,7 @@ stock SaveAccounts(playerid)
 		`pFamRang` = '%d',\
 		`pTelegramId` = '%d',\
 		`pIsFSB` = '%d',\
+		`pFSBRank` = '%d',\
 		`pDonate` = '%d' WHERE `pName` = '%s'",
 		PlayerInfo[playerid][pName],
 		PlayerInfo[playerid][pLastConnect],
@@ -1428,6 +1542,7 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][pARM],
 		PlayerInfo[playerid][pJail],
 		PlayerInfo[playerid][bJail],
+		PlayerInfo[playerid][bAns],
 		PlayerInfo[playerid][bBan],
 		PlayerInfo[playerid][bWarn],
 		PlayerInfo[playerid][bYoutube],
@@ -1494,6 +1609,7 @@ stock SaveAccounts(playerid)
 	 	PlayerInfo[playerid][pFamRang],
 	 	PlayerInfo[playerid][pTelegramId],
 	 	PlayerInfo[playerid][pIsFSB],
+	 	PlayerInfo[playerid][pFSBRank],
 	 	PlayerInfo[playerid][pDonate],
 	 	PlayerInfo[playerid][pName]
 	);
@@ -1592,6 +1708,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+    TakeOffMask(playerid);
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
 	GetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
@@ -1643,13 +1760,15 @@ public OnPlayerSpawn(playerid)
 	if(!IsPlayerConnected(playerid)) return 1;
     DeletePVar(playerid,"K_Times");
     KillTimer(STimer[playerid]);
+    DropContrabandaBag(playerid);
+    time_lspawn = gettime();
+    addchet[playerid]=0;
     
     
 	SetPlayerScore(playerid, PlayerInfo[playerid][pLVL]);
 	TogglePlayerControllable(playerid,false);
 	SetTimerEx("LoadObjects",2000,false,"i",playerid);
 	
-	player_in_business[playerid] = -1;
 	player_in_toilet[playerid] = -1;
 	
 	if(PlayerInfo[playerid][pHOSPITAL] != 1)
@@ -1669,6 +1788,7 @@ public OnPlayerSpawn(playerid)
 			PlayerInfo[playerid][pAmmo][i] = 0;
 			SaveAccounts(playerid);
 		}
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	PreloadAllAnimLibs(playerid);
 	if(PlayerInfo[playerid][pBackPack] == 1) SetPlayerAttachedObject(playerid, 1, 3026, 1, -0.176000, -0.066000, 0.0000,0.0000, 0.0000, 0.0000, 1.07600, 1.079999, 1.029000);
@@ -1684,14 +1804,22 @@ public OnPlayerSpawn(playerid)
         SetPlayerHealth(playerid, 100.0);
         PlayerInfo[playerid][pHP] = 100.0;
 	}
+	if(g_capture[C_STATUS] == true)
+	{
+		SetPlayerPos(playerid, FractionInfo[ PlayerInfo[playerid][pMember] ][fPosX], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosY], FractionInfo[ PlayerInfo[playerid][pMember] ][fPosZ]);
+		SetPlayerHealth(playerid, 100.0);
+	}
 	return 1;
 }
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
+    TakeOffMask(playerid);
     SetPVarInt(playerid,"K_Times",GetPVarInt(playerid,"K_Times") + 1);
     if(GetPVarInt(playerid,"K_Times") > 1) return NewKick(playerid);
     if(killerid == playerid) return ResultCheat(playerid, 7);
+    DropContrabandaBag(playerid);
+    SetPlayerHealth(playerid, 1.0);
     
 	for(new i = 0; i < 13; i++)
 	{
@@ -1704,6 +1832,11 @@ public OnPlayerDeath(playerid, killerid, reason)
 	{
 	    format(string, sizeof(string), "{%s}[K] %s[%d] убил %s %s[%d] (%s)", PlayerInfo[playerid][pLVL] <= 3 ? "F81414" : "C3C3C3", PlayerInfo[killerid][pName], killerid, PlayerInfo[playerid][pLVL] <= 3 ? "новичка" : "игрока", PlayerInfo[playerid][pName], playerid, gun_name[reason]);
 		SCMA(grey, string);
+	}
+	if(reason >= 10 && reason <= 13)
+	{
+		SCM(playerid, red, !"Вас отпетушили! Ваше уважение пошижено!");
+		GameTextForPlayer(playerid, "~r~ОТПЕТУШЁН", 20000, 0);
 	}
 	
 	if(PlayerInfo[playerid][pHOSPITAL] == 1)
@@ -1792,7 +1925,7 @@ stock KillToHospital(&playerid, &killerid){
 	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
 	{
 		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
-		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, PlayerInfo[playerid][pWANTED] + 1);
+		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, ++PlayerInfo[killerid][pWANTED]);
 
 		format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
 		SCMR(TEAM_PPS, blue, string);
@@ -1802,10 +1935,12 @@ stock KillToHospital(&playerid, &killerid){
 
 public OnVehicleSpawn(vehicleid)
 {
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 10000.0);
-	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 10000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_BTR_CAR][1], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_VDV_TANK_CAR][1], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][0], 1000000.0);
+	SetVehicleHealth(job_car[TEAM_FSB_CAR][1], 1000000.0);
 	
 	static engine, lights, alarm, doors, bonnet, boot, objective;
 	GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
@@ -1821,6 +1956,16 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
     if(!PlayerInfo[playerid][pLogin]) return 0;
+    
+    if(text[0] == '.')
+	{
+		text[0] = '/';
+		FixCommand(text);
+		CallLocalFunction("OnPlayerCommandText", "is", playerid, text);
+		return 0;
+	}
+
+
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
 	    SCM(playerid, green, !"В данный момент у вас имеется блокировка чата. Время до сняти: /time");
@@ -1882,6 +2027,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
+    time_zcar = gettime();
 	if( GetPVarInt(playerid, "key_anti_flood") > gettime())
 	{
  		return SCM(playerid, red, "Не флудите. Иначе вы будете кикнуты.");
@@ -1893,6 +2039,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
+    time_vcar = gettime();
 	return 1;
 }
 public OnPlayerStateChange(playerid, newstate, oldstate)
@@ -2207,6 +2354,54 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 		SCM(playerid, blue, "Вы успешно зарегестрировались. Ожидайте начала пентбола.");
 		PlayerInfo[playerid][pInvitePaintBall] = true;
 	}
+	
+	
+	if(pickupid == DPS_PICK_ENTER)
+	{
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2583.0352, -2424.7869, 900.2700);
+	    SetPlayerFacingAngle(playerid, 357.1234);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == DPS_PICK_EXIT)
+	{
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2579.2434, -2415.9292, 21.9888);
+	    SetPlayerFacingAngle(playerid, 270.6595);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	
+/*
+	FSB_STREET_PICK,
+	FSB_OFFICE_PICK,
+	FSB_GARAGE_PICK,
+	FSB_ROOF_PICK,
+	FSB_OFFICE_PICK_2;
+*/
+	if(pickupid == FSB_STREET_PICK)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 1237.8195,1535.9994,2516.6799);
+	    SetPlayerFacingAngle(playerid, 175.8488);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == FSB_OFFICE_PICK)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+	    FreezePlayer(playerid, 2000);
+	    SetPlayerPos(playerid, 2413.3867,-1844.7305,21.8547);
+	    SetPlayerFacingAngle(playerid, 183.6358);
+	    SetPlayerVirtualWorld(playerid, 0);
+	}
+	if(pickupid == FSB_GARAGE_PICK || pickupid == FSB_ROOF_PICK || pickupid == FSB_OFFICE_PICK_2)
+	{
+		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
+            return SCM(playerid, red, !"У вас нет пропуска!");
+		ShowEnterDialog(playerid);
+	}
 	return 1;
 }
 
@@ -2272,20 +2467,6 @@ public OnPlayerUpdate(playerid)
 {
     PlayerInfo[playerid][pAFK] = 0;
     player_afk_time[playerid] = 0;
-
-	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
-	{
-	    ResetPlayerMoney(playerid);
-	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
-	}
-	if(PlayerInfo[playerid][pMember] == TEAM_FSB)
-	{
-        PlayerInfo[playerid][pIsFSB] = 1;
-	}
-	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
-	{
-		PlayerInfo[playerid][pIsFSB] = 0;
-	}
 	return 1;
 }
 
@@ -2348,6 +2529,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 }
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
+    time_pick = gettime();
 	return 1;
 }
 public OnPlayerLeaveDynamicArea(playerid, areaid)
@@ -2472,12 +2654,29 @@ stock CreateMySQLConnection(host[], user[], database[], pass[])
 	connects = mysql_connect(host, user, database, pass);
 	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
 	else return printf("[MYSQL]: Подключиться к базе не удалось");
-	mysql_tquery(connects, "SET CHARACTER SET 'utf8'", "", "");
-	mysql_tquery(connects, "SET NAMES 'utf8'", "", "");
-	mysql_tquery(connects, "SET character_set_client = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET character_set_connection = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET character_set_results = 'cp1251'", "", "");
-	mysql_tquery(connects, "SET SESSION collation_connection = 'utf8_general_ci'", "", "");
+	
+	mysql_set_charset("cp1251");
+	
+	//
+	//mysql_tquery(connects, "SET CHARACTER SET 'cp1251'", "", "");
+	
+	//mysql_tquery(connects, "SET NAMES 'utf8'", "", "");
+	//mysql_tquery(connects, "SET NAMES 'cp1251'", "", "");
+	//mysql_tquery(connects, "SET character_set_client = 'utf8'", "", "");
+	//mysql_tquery(connects, "SET character_set_connection = 'utf8'", "", "");
+	//mysql_tquery(connects, "SET character_set_results = 'utf8'", "", "");
+	//mysql_tquery(connects, "SET SESSION character_set_server = 'utf8'", "", "");
+	//mysql_tquery(connects, "SET SESSION collation_connection = 'utf8_general_ci'", "", "");
+	return 1;
+}
+
+stock CreateLogsMySQLConnection(host[], user[], database[], pass[])
+{
+	logs_connects = mysql_connect(host, user, database, pass);
+	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
+	else return printf("[MYSQL]: Подключиться к базе не удалось");
+	
+	mysql_set_charset("cp1251");
 	return 1;
 }
 
@@ -2748,7 +2947,7 @@ stock stats_player(playerid, targetid)
 {
     stringer[0] = EOS;
     new string_last[256];
-    format(string_last, sizeof(string_last), "{FFFFFF}Имя: \t\t\t\t{"cblue"}%s{FFFFFF}\n", PlayerInfo[targetid][pName]);
+    format(string_last, sizeof(string_last), "{FFFFFF}Имя: \t\t\t\t{"cblue"}%s (%d){FFFFFF}\n", PlayerInfo[targetid][pName], PlayerInfo[targetid][pID]);
     strcat(stringer,string_last);
     format(string_last, sizeof(string_last), "Уровень: \t\t\t%d\n", PlayerInfo[targetid][pLVL]);
     strcat(stringer,string_last);
@@ -2773,8 +2972,18 @@ stock stats_player(playerid, targetid)
     format(string_last, sizeof(string_last), "Наркозависимость: \t\t%d\n", PlayerInfo[targetid][pLomka]);
     strcat(stringer,string_last);
     format(string_last, sizeof(string_last), "Пол: \t\t\t\t%s\n", (PlayerInfo[targetid][pSex] == 1) ? ("Мужской") : ("Женский"));
-    strcat(stringer,string_last);
-    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", "Дома");
+	strcat(stringer,string_last);
+    
+	new live[144] = "";
+	if(PlayerInfo[targetid][pHomeID] > -1)
+	    format(live, sizeof(live), "Дом №%d", PlayerInfo[targetid][pHomeID]);
+	else if(PlayerInfo[targetid][pKvartID] > -1)
+	    format(live, sizeof(live), "Подъезд №%d, квартира №%d", PlayerInfo[targetid][pPodID], PlayerInfo[targetid][pKvartID]);
+	else
+	    format(live, sizeof(live), "%s", "Бездомный");
+
+    
+    format(string_last, sizeof(string_last), "Проживание: \t\t\t%s\n\n", live);
     strcat(stringer,string_last);
     
     format(string_last, sizeof(string_last), "Организация: \t\t\t%s\n", GetMember[PlayerInfo[targetid][pMember]]);
@@ -2793,6 +3002,7 @@ stock stats_player(playerid, targetid)
 stock ClearAccount(playerid)
 {
 	PlayerInfo[playerid][pID] = 0;
+	PlayerBlinded[playerid] = 0;
 	PlayerInfo[playerid][pDateReg] = EOS;
     PlayerInfo[playerid][pName] = EOS;
 	PlayerInfo[playerid][pSex] = 0;
@@ -2847,11 +3057,15 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pBeer] = 0;
  	PlayerInfo[playerid][pLighter] = 0;
  	PlayerInfo[playerid][pChips] = 0;
+ 	PlayerInfo[playerid][pFines] = 0;
+ 	PlayerInfo[playerid][pSumFines] = 0;
  	
  	PlayerInfo[playerid][pReadsms] = 0;
     PlayerInfo[playerid][pJobTipster] = 0;
 	PlayerInfo[playerid][pIsFSB] = 0;
+	PlayerInfo[playerid][pFSBRank] = 0;
     PlayerInfo[playerid][pTipster] = 0;
+ 	PlayerInfo[playerid][pFSBaccess] = 0;
  	
  	PlayerInfo[playerid][bStreamerMode] = 0;
  	
@@ -2876,7 +3090,9 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pHOSPITAL] = 0;
  	PlayerInfo[playerid][pWarn] = 0;
  	PlayerInfo[playerid][pSupport] = 0;
+ 	PlayerInfo[playerid][bAns] = 0;
  	PlayerInfo[playerid][bJail] = 0;
+ 	PlayerInfo[playerid][bAns] = 0;
  	PlayerInfo[playerid][bMute] = 0;
 	PlayerInfo[playerid][bBan] = 0;
 	PlayerInfo[playerid][bWarn] = 0;
@@ -2928,16 +3144,16 @@ stock ClearAccount(playerid)
 	mech_fuel_price[playerid] = -1;
 	mech_fuel_bizid[playerid] = -1;
 	
+	IsPlayerInGreenZone[playerid] = false;
+	isCanIznas[playerid] = true;
+	
 
 
 
 
 	prop_called[playerid] = -1;
 	call_called[playerid] = -1;
-	player_in_business[playerid] = -1;
-	player_in_house[playerid] = -1;
 	player_in_toilet[playerid] = -1;
-	player_in_kvart[playerid] = -1;
 	player_in_podezd[playerid] = -1;
 	player_job_vehicle_arend[playerid] = -1;
 	player_job_vehicle_created[playerid] = -1;
@@ -2994,6 +3210,7 @@ publics LoadOther()
         flood = cache_get_field_content_int(0, "flood");
         offtop = cache_get_field_content_int(0, "offtop");
         smiMoney = cache_get_field_content_int(0, "smiMoney");
+        next_contraband_time = cache_get_field_content_int(0, "next_contraband_time");
         
         XDay = cache_get_field_content_int(0, "XDay");
         server_pass_status = cache_get_field_content_int(0, "server_pass_status");
@@ -3057,11 +3274,37 @@ publics PlayerSecondTimer(playerid)
 {
 	
 	new string[144];
+	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
+	{
+	    ResetPlayerMoney(playerid);
+	    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+	}
+	/* FSB */
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pFSBRank] != PlayerInfo[playerid][pRang])
+	{
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
+	}
+	if(PlayerInfo[playerid][pMember] == TEAM_FSB && PlayerInfo[playerid][pIsFSB] != 1)
+	{
+        PlayerInfo[playerid][pIsFSB] = 1;
+        PlayerInfo[playerid][pFSBRank] = PlayerInfo[playerid][pRang];
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pIsFSB] != 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
+	}
+	if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pFSBRank] > 0)
+	{
+		PlayerInfo[playerid][pIsFSB] = 0;
+		PlayerInfo[playerid][pFSBRank] = 0;
+	}
 	if(PlayerInfo[playerid][pAFK] >= 3)
 	{
 		format(string,sizeof(string),"AFK: %s",Converts(PlayerInfo[playerid][pAFK]));
 		SetPlayerChatBubble(playerid, string, red, 10.0, 980);
 	}
+	/* FSB */
 
 	PlayerInfo[playerid][pAFK] ++;
 	
@@ -3134,7 +3377,7 @@ stock GiveMoney(p, money, reason[])
 	GetPlayerIp(p, ip, sizeof(ip));
 	
 	format(fmt_msg, sizeof(fmt_msg), "%s%d", (money >= 0) ? "+" : "", money);
-	SetPlayerChatBubble(p, fmt_msg, blue, 10.0, 5000);
+	SetPlayerChatBubble(p, fmt_msg, green, 10.0, 5000);
 
 	format(fmt_msg, sizeof(fmt_msg), "~%s~ %s%d rub", (money >= 0) ? "g" : "r", (money >= 0) ? "+" : "", money);
 	GameTextForPlayer(p, fmt_msg, 1500, 1);
@@ -3255,8 +3498,7 @@ stock SetPlayerDefaultVariables(playerid)
 	{
         new rand = random(3);
         SetPlayerPos(playerid, hospital_coord[rand][0], hospital_coord[rand][1], hospital_coord[rand][2]);
-		player_in_business[playerid] = -1;
-	    player_in_house[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	if(PlayerInfo[playerid][pJail] > 0)
 	{
@@ -3280,8 +3522,6 @@ stock PlayerPutInDemorgan(playerid)
 	FreezePlayer(playerid, 2000);
 	SetPlayerPos(playerid, -80.3193, 805.4043, -4.9141);
 	ResetPlayerWeaponsAC(playerid);
-	player_in_business[playerid] = -1;
-    player_in_house[playerid] = -1;
 	return 1;
 }
 stock PutPlayerInKPZ(playerid)
@@ -3291,8 +3531,6 @@ stock PutPlayerInKPZ(playerid)
 	else SetPlayerPos(playerid, 2574.4177,-2411.0747,22.4170);
 	SetPlayerVirtualWorld(playerid, 1);
 	ResetPlayerWeaponsAC(playerid);
-	player_in_business[playerid] = -1;
-    player_in_house[playerid] = -1;
 	return 1;
 }
 //-------------------------
@@ -3339,8 +3577,10 @@ stock LoadPlayerTextDraws(playerid)
 {
 	#include "../source/textdraws/speed_td.inc"
 	#include "../source/textdraws/training.inc"
+	#include "../source/textdraws/blind.inc"
 	#include "../source/textdraws/spec.inc"
 	#include "../source/textdraws/logotype.inc"
+	#include "../source/textdraws/greenzone.inc"
 	#include "../source/textdraws/autosalon.inc"
 	#include "../source/textdraws/bizwar.inc"
 	#include "../source/textdraws/anim.inc"
@@ -3424,6 +3664,7 @@ stock KillTimers(playerid)
     KillTimer(STimer[playerid]);
     KillTimer(TMask[playerid]);
     KillTimer(hospital_timer[playerid]);
+    KillTimer(_restart_timer);
 	return 1;
 }
 
@@ -3450,6 +3691,19 @@ stock GetCoordBonnetVehicle(vehicleid, &Float:x, &Float:y, &Float:z) // для инте
     return 1;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 stock GetCarName(vehicleid)
 {
 	new name[64];
@@ -3458,19 +3712,68 @@ stock GetCarName(vehicleid)
 		case 400: name = "BMW X5";
 		case 401: name = "ИЖ 2715";
 		case 402: name = "Audi A6";
+		case 403: name = "Зил";
 		case 404: name = "ВАЗ 2101";
+		case 405: name = "Mitsubishi Lancer";
+		case 406: name = "ЗИЛ 24";
+		case 407: name = "Mercedes-Benz ATEGO";
+		case 408: name = " ЗИЛ SANITAR";
+		case 409: name = "ЧАЙКА";
 		case 410: name = "Mitsubishi Eclipse";
 		case 411: name = "ВАЗ 1118";
 		case 412: name = "ИЖ 2125";
+		case 413: name = "ПАЗ 15";
+		case 414: name = "ЛИАЗ";
 		case 415: name = "Ferrari";
+ 		case 416: name = "Mercedes-Benz Sprinter";
+		case 417: name = "Грузовой вертолёт ";
+		case 418: name = " ГАЗ 14";
+		case 419: name = "Cadillack Eldarado";
+		case 420: name = "Волга такси";
+		case 421: name = "Mercedes-Benz s600";
+		case 422: name = "УАЗ Буханка";
+		case 423: name = "Dodge Сладкая вата ";
 		case 424: name = "СМЗ С3А";
-		case 426: name = "ГАЗ 14)";
+		case 425: name = "МИ-24";
+		case 426: name = "Rolls Royce";
+		case 427: name = "ГАЗ-24 Полицейский";
+		case 428: name = "ГАЗ ВТБ";
+		case 429: name = "Москвич Святогор";
+		case 430: name = "Катер Police";
+		case 431: name = "ЛАЗ-104";
+		case 432: name = "Т-26";
+		case 433: name = "Камаз ОМОН";
+		case 434: name = "Hotknife";
+		case 435: name = "Прицеп";
 		case 436: name = "Toyota Mark II";
+	 	case 437: name = "Икарус-200";
+		case 438: name = "Волга такси";
+		case 439: name = "ВАЗ 2112";
+		case 440: name = "Фургон";
+		case 441: name = "Машинка (игрушечная)";
+		case 442: name = "Mercedes-Benz - 12";
+		case 443: name = "Ford-24";
+		case 444: name = "Chevrolet Track";
 		case 445: name = "ГАЗ 24";
-		case 451: name = "Turismo";
+		case 446: name = "Катер круиз";
+		case 447: name = "Спасательный вертолет";
+		case 448: name = "Скутер Пицца";
+		case 449: name = "Прицеп";
+		case 450: name = "Прицеп Coca-Cola";
+		case 451: name = "Nissan GTR";
+		case 452: name = "Катер";
+		case 453: name = "Катер для рыбалки";
+		case 454: name = "Катер Круизный ";
+		case 455: name = "МАЗ строительный ";
+		case 456: name = "ГАЗ-16";
+		case 457: name = "Golf-Car";
+		case 458: name = "ВАЗ 2114";
+		case 459: name = "Mercedes-Benz v250";
+		case 460: name = "Cамолёт AH-28";
 		case 461: name = "Ява 350";
 		case 462: name = "Вятка";
 		case 463: name = "Байк";
+		
 		case 466: name = "BMW 535i";
 		case 467: name = "ИЖ 412";
 		case 468: name = "Sanchez 1.1";
@@ -3478,30 +3781,189 @@ stock GetCarName(vehicleid)
 		case 475: name = "Mitsubishi Pajero";
 		case 477: name = "ZR-350";
 		case 479: name = "ГАЗ 24-02";
-		case 489: name = "Chevrolet Niva";
+		case 489: name = "Grand Cherokee SRT";
 		case 492: name = "ВАЗ 2109";
+		case 494: name = "BMW M3";
 		case 496: name = "ЗАЗ Таврия";
 		case 500: name = "УАЗ 3151";
+		
+		case 507: name = "Mersedes Benz E220";
 		case 508: name = "УАЗ Буханка";
+		case 509: name = "";
+		case 510: name = "";
+		case 511: name = "";
+		case 512: name = "";
+		case 513: name = "";
+		case 514: name = "";
+		case 515: name = "";
 		case 516: name = "ВАЗ 21099";
+		case 517: name = "";
+		case 518: name = "";
+		case 519: name = "";
+		case 520: name = "";
+		case 521: name = "";
 		case 522: name = "Yamaha R1";
+		case 523: name = "";
+		case 524: name = "";
+		case 525: name = "";
+		case 526: name = "";
+		case 527: name = "";
+		case 528: name = "";
+		case 529: name = "";
+		case 530: name = "";
 		case 531: name = "Трактор Росток";
-		case 533: name = "Feltzer";
+		case 532: name = "";
+		case 533: name = "Mersedes Benz 280SL";
+		case 534: name = "";
+        case 535: name = "";
+        case 536: name = "";
+        case 537: name = "";
+        case 538: name = "";
+        case 539: name = "";
 		case 540: name = "ГАЗ 3111";
 		case 541: name = "Bullet";
 		case 542: name = "ВАЗ Нива";
+		case 543: name = "Москвич Грузовой";
+		case 544: name = "ЗИЛ Пожарный";
+		case 545: name = "Москвич Победа";
+		case 546: name = "ИЖ Комби";
+		case 547: name = "KIA Ceed";
+		case 548: name = "Вертолёт ВДВ";
+		case 549: name = "ЗАЗ 968";
+		case 550: name = "ВАЗ 2107";
 		case 551: name = "ГАЗ 3110";
+		case 552: name = "УАЗ Патриот (пожарный)";
+        case 553: name = "СССР-46532";
+		case 554: name = "УАЗ Грузовой";
 		case 555: name = "ЗАЗ 968";
+		case 556: name = "Hummer 6x6";
+		case 557: name = "Hummer 6x6";
+		case 558: name = "Mersedes Benz E63";
 		case 559: name = "Toyota Celica";
-		case 560: name = "Sultan";
-		case 562: name = "Elegy";
+		case 560: name = "Subaru Impreza";
+		case 561: name = "Москвич Универсал";
+		case 562: name = "Nissan Silvia";
+		case 563: name = "Вертолет (пожарный)";
+		case 564: name = "Танк (игрушка)";
 		case 565: name = "ВАЗ 2108";
 		case 566: name = "ВАЗ 2104";
+		case 567: name = "Chevrolet Wold Rice";
+		case 568: name = "Багги";
+		case 569: name = "Грузовой вагон";
+		case 570: name = "Электричка";
+		case 571: name = "Картинг-авто";
+		case 572: name = "Гольф Трактор";
+		case 573: name = "Камаз Спорт";
+		case 574: name = "Уборщик улиц";
+		case 575: name = "ГАЗ 20";
+		case 576: name = "Москвич 412";
+		case 577: name = "Авиафлот CR-85411";
+		case 578: name = "Камаз";
 		case 579: name = "Mersedes Gelendwagen";
 		case 580: name = "ГАЗ Чайка";
-		case 589: name = "Golf";
+		case 581: name = "Мотоцыкл на замену";
+		case 582: name = "Mersedes Benz Sprinter (СМИ)";
+		case 583: name = "Аэропртный автомобиль";
+		case 584: name = "Прицеп-цистерна";
+		case 585: name = "ВАЗ 2115";
+		case 586: name = "Ява";
+		case 587: name = "Mersedes Benz Vision AVTR";
+		case 588: name = "ЛИАЗ \"Минутка\"";
+		case 589: name = "Volkswagen Golf";
+		
+		case 590: name = "Ж/Д Вагон";
+		case 591: name = "Прицеп-лестница";
+		case 592: name = "Боинг";
+		case 593: name = "Аэрофлот АН-2";
+		case 594: name = "Горшок";
+		case 595: name = "Моторная лодка";
+		case 596: name = "Volkswagen Passat (ДПС)";
+		case 597: name = "Lada Priora (ДПС)";
+		case 598: name = "ВАЗ 2114 (ДПС)";
+		case 599: name = "UAZ Hunter (ППС)";
+		case 600: name = "Москвич Сапог";
+		case 601: name = "БТР-80";
+		case 602: name = "Mesrsedez Benz C63 AMG";
+		case 603: name = "Ford Mustang Shelby";
+		case 604: name = "Сломанный автомобиль";
+		case 605: name = "Ракета";
+		case 606: name = "Прицеп";
+		case 607: name = "Прицеп";
+		case 608: name = "Трап";
+		case 609: name = "БЗСА-4706";
+		case 610: name = "Прицеп для трактора";
+		case 611: name = "Прицеп (молоко)";
+		case 617: name = "Электричка";
+		case 618: name = "Электричка";
+		case 619: name = "Поезд";
+		case 620: name = "Поезд";
 	}
 	return name;
+}
+
+publics split(const strsrc[], strdest[][], delimiter)
+{
+        new i, li;
+        new aNum;
+        new len;
+        while(i <= strlen(strsrc))
+        {
+            if(strsrc[i]==delimiter || i==strlen(strsrc))
+            {
+                len = strmid(strdest[aNum], strsrc, li, i, 128);
+                strdest[aNum][len] = 0;
+                li = i+1;
+                aNum++;
+            }
+            i++;
+        }
+        return 1;
+}
+
+stock FixCommand(input[])
+{
+	
+	for(new i = 0; i < strlen(input); i++)
+	{
+		switch(input[i])
+		{
+			case EOS: break;
+			case 'А', 'а': input[i] = 'f';
+			case 'Б', 'б': input[i] = ',';
+			case 'В', 'в': input[i] = 'd';
+			case 'Г', 'г': input[i] = 'u';
+			case 'Д', 'д': input[i] = 'l';
+			case 'Е', 'е': input[i] = 't';
+			case 'Ё', 'ё': input[i] = '`';
+			case 'Ж', 'ж': input[i] = ';';
+			case 'З', 'з': input[i] = 'p';
+			case 'И', 'и': input[i] = 'b';
+			case 'Й', 'й': input[i] = 'q';
+			case 'К', 'к': input[i] = 'r';
+			case 'Л', 'л': input[i] = 'k';
+			case 'М', 'м': input[i] = 'v';
+			case 'Н', 'н': input[i] = 'y';
+			case 'О', 'о': input[i] = 'j';
+			case 'П', 'п': input[i] = 'g';
+			case 'Р', 'р': input[i] = 'h';
+			case 'С', 'с': input[i] = 'c';
+			case 'Т', 'т': input[i] = 'n';
+			case 'У', 'у': input[i] = 'e';
+			case 'Ф', 'ф': input[i] = 'a';
+			case 'Х', 'х': input[i] = '[';
+			case 'Ц', 'ц': input[i] = 'w';
+			case 'Ч', 'ч': input[i] = 'x';
+			case 'Ш', 'ш': input[i] = 'i';
+			case 'Щ', 'щ': input[i] = 'o';
+			case 'Ъ', 'ъ': input[i] = ']';
+			case 'Ы', 'ы': input[i] = 's';
+			case 'Ь', 'ь': input[i] = 'm';
+			case 'Э', 'э': input[i] = '\'';
+			case 'Ю', 'ю': input[i] = '.';
+			case 'Я', 'я': input[i] = 'z';
+		}
+	}
+	return 1;
 }
 
 // ------------------- [ НЕ ЛЕЗЬ ] ----------------------
@@ -3538,6 +4000,18 @@ stock SetPlayerSkills(playerid)
     return 1;
 }  
 
+stock PlayerName(playerid)
+{
+	new _PlayerName[MAX_PLAYER_NAME];
+	GetPlayerName(playerid,_PlayerName,sizeof(_PlayerName));
+	return _PlayerName;
+}
+
+stock GetAccesMaxOwnableCar(playerid)
+{
+	return PlayerInfo[playerid][pVIP] > 0 ? 3 : 2;
+}
+
 
 #if defined DEBUG
 CMD:zalupa_pizdy_ebalnika(playerid)
@@ -3562,5 +4036,11 @@ CMD:getmybizid(playerid){
 	new string[144];
 	format(string, sizeof(string), "%d", PlayerInfo[playerid][pBizID]);
 	SCM(playerid, blue, string);
+}
+CMD:getpcarid(playerid)
+{
+	new string[144];
+	format(string, sizeof(string), "%d", PlayerInfo[playerid][pCarID]);
+	return SCM(playerid, white, string);
 }
 #endif

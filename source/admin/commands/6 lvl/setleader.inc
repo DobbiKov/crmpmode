@@ -14,7 +14,7 @@ CMD:setleader(playerid, params[])
     new string[128];
     if(PlayerInfo[to_player][pMember] > 0)
     {
-        format(string, sizeof(string), "[A]: %s[%d] снял %s[%d] с должности лидера организации %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[ PlayerInfo[to_player][pMember] ]);
+        format(string, sizeof(string), "[A] %s[%d] снял %s[%d] с должности лидера организации %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[ PlayerInfo[to_player][pMember] ]);
         SCMA(grey, string);
         PlayerInfo[to_player][pMember] = 0;
         PlayerInfo[to_player][pRang] = 0;
@@ -29,7 +29,7 @@ CMD:setleader(playerid, params[])
     PlayerInfo[to_player][pFSkin] = 1;
     PlayerInfo[to_player][pJob] = 0;
 
-    format(string, sizeof(string), "[A]: %s[%d] назначил %s[%d] лидером организации %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[id]);
+    format(string, sizeof(string), "[A] %s[%d] назначил %s[%d] лидером организации %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[id]);
     SCMA(grey, string);
 
     format(string, sizeof(string), "Администратор %s назначил вас лидером организации %s", PlayerInfo[playerid][pName], GetMember[id]);

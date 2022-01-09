@@ -6,10 +6,7 @@ publics Restart(playerid)
 	restart_time--;
 	if(restart_time == 0)
 	{
-	    foreach(new i : Player)
-	    {
-	        SaveAccounts(i);
-	    }
+		KillTimer(_restart_timer);
 	    SCMTA(red, "Внимание! Происходит перезагрузка сервера!");
 		SetTimer("Restart_", 5000, false);
 	}
@@ -19,13 +16,13 @@ publics Restart_()
 {
 	foreach(new i: Player)
 	{
-	    SaveAccounts(i);
-		if(GetPVarInt(i, "restart") != 1)
-		{
-	    	NewKick(i);
-		}
+	    if(PlayerInfo[i][pLogin] != false)
+			SaveAccounts(i);
 	}
-	return SendRconCommand("gmx");
+	kick_all_players();
+	KillTimer(_restart_timer);
+	SendRconCommand("gmx");
+	return GameModeExit();
 }
 stock Restart_Server(playerid)
 {
@@ -36,7 +33,7 @@ stock Restart_Server(playerid)
 
 	SCMTA(red, "Внимание! Через 5 минут произойдет перезагрузка сервера!");
 
-	SetTimer("Restart", 60000, true);
+	_restart_timer = SetTimer("Restart", 60000, true);
 
 	SetPVarInt(playerid, "restart", 1);
 
@@ -54,29 +51,30 @@ publics minuteupdate()
 	}
 	if(hour == 4 && minute == 1)
 	{
-	    SCMTA(red, "Внимание! Через 4 минут произойдёт техническая перезагрузка сервера!");
+	    SCMTA(red, "Внимание! Через 4 минуты произойдёт техническая перезагрузка сервера!");
 	}
 	if(hour == 4 && minute == 2)
 	{
-	    SCMTA(red, "Внимание! Через 3 минут произойдёт техническая перезагрузка сервера!");
+	    SCMTA(red, "Внимание! Через 3 минуты произойдёт техническая перезагрузка сервера!");
 	}
 	if(hour == 4 && minute == 3)
 	{
-	    SCMTA(red, "Внимание! Через 2 минут произойдёт техническая перезагрузка сервера!");
+	    SCMTA(red, "Внимание! Через 2 минуты произойдёт техническая перезагрузка сервера!");
 	}
 	if(hour == 4 && minute == 4)
 	{
-	    SCMTA(red, "Внимание! Через 1 минут произойдёт техническая перезагрузка сервера!");
+	    SCMTA(red, "Внимание! Через 1 минуту произойдёт техническая перезагрузка сервера!");
 	}
 	if(hour == 4 && minute == 5)
 	{
 	    SCMTA(red, "Внимание! Происходит техническая перезагрузка сервера!");
 	    foreach(new i : Player)
 	    {
-	        SaveAccounts(i);
-	        GameTextForAll("~r~SERVER IS RESTARTING", 9000, 5);
-	        Kick(i);
+			if(PlayerInfo[i][pLogin] != false)
+	        	SaveAccounts(i);
 	    }
+		GameTextForAll("~r~SERVER IS RESTARTING", 9000, 5);
+		kick_all_players();
 	    SetTimer("TehRestart", 5000, false);
 	}
     #if defined gmx__minuteupdate

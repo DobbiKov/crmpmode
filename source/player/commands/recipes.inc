@@ -10,7 +10,7 @@ CMD:recipes(playerid){
     strcat(str, string);
     format(string, sizeof(string), "{ffffff}Micro-USI: {"cblue"}%s{ffffff}\n\n", PlayerInfo[playerid][R_USI] == 1 ? "Есть" : "Нет");
     strcat(str, string);
-    format(string, sizeof(string), "{ffffff}MP-5: {"cblue"}%s{ffffff}\n\n", PlayerInfo[playerid][R_MP5] == 1 ? "Есть" : "Нет");
+    format(string, sizeof(string), "{ffffff}АК-74У: {"cblue"}%s{ffffff}\n\n", PlayerInfo[playerid][R_MP5] == 1 ? "Есть" : "Нет");
     strcat(str, string);
     format(string, sizeof(string), "{ffffff}Shot-Gun: {"cblue"}%s{ffffff}\n\n", PlayerInfo[playerid][R_SHOTGUN] == 1 ? "Есть" : "Нет");
     strcat(str, string);

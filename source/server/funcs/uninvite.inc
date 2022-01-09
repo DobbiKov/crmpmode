@@ -5,6 +5,7 @@ stock UnInvite(playerid)
     PlayerInfo[playerid][pRang] = 0;
     PlayerInfo[playerid][pFSkin] = -1;
     PlayerInfo[playerid][pIsFSB] = 0;
+    PlayerInfo[playerid][pFSBRank] = 0;
     ResetPlayerWeaponsAC(playerid);
     SetPlayerSkin(playerid, PlayerInfo[playerid][pChar]);
     return SaveAccounts(playerid);

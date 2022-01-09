@@ -34,14 +34,13 @@ stock SetSpawnAtHome(playerid)
     SetPlayerPos(playerid, house_params[ HouseInfo[h][hType] ][store_pos_x], house_params[ HouseInfo[h][hType] ][store_pos_y], house_params[ HouseInfo[h][hType] ][store_pos_z] + 0.5);
     SetPlayerVirtualWorld(playerid, h);
     SetPlayerInterior(playerid, 0);
-	player_in_house[playerid] = h;
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtKvartira(playerid)
 {
-	if(PlayerInfo[playerid][pKvartID] == -1 || PlayerInfo[playerid][pPodID] == -1)
+	if(PlayerInfo[playerid][pKvartID] == -1)
 	{
 		SCM(playerid, red, "У вас нет квартиры.");
 		return SpawnList(playerid);
@@ -49,11 +48,14 @@ stock SetSpawnAtKvartira(playerid)
     SpawnPlayer(playerid);
 
     SetPlayerPos(playerid, kvart_params[0][kvart_spawn_x], kvart_params[0][kvart_spawn_y], kvart_params[0][kvart_spawn_z]);
-    SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pKvartID]);
+	new kvart_idx = 0;
+	foreach(new i : Allkvart) 
+		if(KvartInfo[i][kvart_id] == PlayerInfo[playerid][pKvartID]) 
+			kvart_idx = i;
+    SetPlayerVirtualWorld(playerid, kvart_idx);
     SetPlayerInterior(playerid, 0);
-	player_in_kvart[playerid] = PlayerInfo[playerid][pKvartID];
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtOrganithation(playerid)
@@ -73,7 +75,7 @@ stock SetSpawnAtOrganithation(playerid)
 	SetCameraBehindPlayer(playerid);
 
     SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
 	return 1;
 }
 stock SetSpawnAtLastPlace(playerid)
@@ -92,7 +94,9 @@ stock SetSpawnAtLastPlace(playerid)
     SpawnPlayer(playerid);
 	SetPlayerPos(playerid, x, y, z);
 	SetPlayerDefaultVariables(playerid);
-	FreezePlayer(playerid, 5000);
+	FreezePlayer(playerid, 10000);
+	SetPlayerInterior(playerid, 0);
+	SetPlayerVirtualWorld(playerid, 0);
 	return 1;
 }
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])

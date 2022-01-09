@@ -4,7 +4,7 @@ enum ClothesParametersEnum{
     clothesSkinId,
     clothesPrice
 }
-const MaxClothesShopSkins = 32;
+const MaxClothesShopSkins = 31;
 new ClothesParameters[MaxClothesShopSkins][ClothesParametersEnum] = {
     {0, 1, 1000},
     {1, 102, 500},
@@ -19,28 +19,50 @@ new ClothesParameters[MaxClothesShopSkins][ClothesParametersEnum] = {
     {10, 25, 2000},
     {11, 155, 2500},
     {12, 177, 5000},
-    {13, 181, 5000},
-    {14, 101, 5000},
-    {15, 289, 7500},
-    {16, 290, 7500},
-    {17, 291, 7500},
-    {18, 249, 10000},
-    {19, 258, 10000},
-    {20, 259, 10000},
-    {21, 100, 10000},
-    {22, 247, 10000},
-    {23, 254, 10000},
-    {24, 15, 20000},
-    {25, 170, 20000},
-    {26, 59, 25000},
-    {27, 185, 25000},
-    {28, 223, 30000},
-    {29, 240, 60000},
-    {30, 46, 100000},
-    {31, 186, 100000}
+    {13, 101, 5000},
+    {14, 289, 7500},
+    {15, 290, 7500},
+    {16, 291, 7500},
+    {17, 249, 10000},
+    {18, 258, 10000},
+    {19, 259, 10000},
+    {20, 100, 10000},
+    {21, 247, 10000},
+    {22, 254, 10000},
+    {23, 15, 20000},
+    {24, 170, 20000},
+    {25, 59, 25000},
+    {26, 185, 25000},
+    {27, 223, 30000},
+    {28, 240, 60000},
+    {29, 46, 100000},
+    {30, 186, 100000}
+};
+const MaxClothesShopSkinsFemale = 7;
+new ClothesParametersFemale[MaxClothesShopSkinsFemale][ClothesParametersEnum] = {
+    {0, 1, 1000},
+    {1, 238, 1000},
+    {1, 224, 3000},
+    {1, 197, 6000},
+    {1, 196, 7000},
+    {1, 225, 8500},
+    {1, 151, 20000}
+
 };
 
 new bool: IsBuyClothes[MAX_PLAYERS];
+
+#define ClothesParametersbySex(%0)[%1][%2]      PlayerInfo[%0][pSex] == 1 ? ClothesParameters[%1][%2] : ClothesParametersFemale[%1][%2]
+#define MaxClothesShopSkinsbySex(%0)            PlayerInfo[%0][pSex] == 1 ? MaxClothesShopSkins : MaxClothesShopSkinsFemale
+
+// stock ClothesParametersbySex(playerid)
+// {
+//     return PlayerInfo[playerid][pSex] == 1 ? ClothesParameters : ClothesParametersFemale;
+// }
+// stock  MaxClothesShopSkinsbySex(playerid)
+// {
+//     return PlayerInfo[playerid][pSex] == 1 ? MaxClothesShopSkins : MaxClothesShopSkinsFemale;
+// }
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
@@ -120,30 +142,32 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
     if(clickedid == BuyClothes_TD[4]) //next
     {
         ClothesShopState[playerid]++;
-        if(ClothesShopState[playerid] >= MaxClothesShopSkins) ClothesShopState[playerid] = 1;
+        new max_skins = MaxClothesShopSkinsbySex(playerid);
+        if( ClothesShopState[playerid] >= max_skins ) ClothesShopState[playerid] = 1;
         new string[144];
-        format(string, sizeof(string), "%d rub", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
+        format(string, sizeof(string), "%d rub", ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice]);
         PlayerTextDrawSetString(playerid, BuyClothes_PTD[0][playerid], string);
-        SetPlayerSkin(playerid, ClothesParameters[ClothesShopState[playerid]][clothesSkinId]);  
+        SetPlayerSkin(playerid, ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesSkinId]);  
     }
     if(clickedid == BuyClothes_TD[5]) //back
     {
         ClothesShopState[playerid]--;
-        if(ClothesShopState[playerid] < 1) ClothesShopState[playerid] = MaxClothesShopSkins-1;
+        if(ClothesShopState[playerid] < 1) ClothesShopState[playerid] = MaxClothesShopSkinsbySex(playerid)-1;
         new string[144];
-        format(string, sizeof(string), "%d rub", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
+        format(string, sizeof(string), "%d rub", ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice]);
         PlayerTextDrawSetString(playerid, BuyClothes_PTD[0][playerid], string);
-        SetPlayerSkin(playerid, ClothesParameters[ClothesShopState[playerid]][clothesSkinId]);  
+        SetPlayerSkin(playerid, ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesSkinId]);  
     }
     if(clickedid == BuyClothes_TD[6]) //buy
     { 
-        if(PlayerInfo[playerid][pCash] < ClothesParameters[ClothesShopState[playerid]][clothesPrice]) return SCM(playerid, red, !"У вас недостаточно средств.");
-        PlayerInfo[playerid][pChar] = ClothesParameters[ClothesShopState[playerid]][clothesSkinId];
+        new skin_price = ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice];
+        if(PlayerInfo[playerid][pCash] < skin_price) return SCM(playerid, red, !"У вас недостаточно средств.");
+        PlayerInfo[playerid][pChar] = ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesSkinId];
 
         new string[144];
-        format(string, sizeof(string), "Вы успешно приобрели скин за %d рублей.", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
+        format(string, sizeof(string), "Вы успешно приобрели скин за %d рублей.", ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice]);
         SCM(playerid, blue, string);
-        GiveMoney(playerid, -ClothesParameters[ClothesShopState[playerid]][clothesPrice], !"Покупка скина");
+        GiveMoney(playerid, -ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice], !"Покупка скина");
         if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет фракционый скин.");
         ExitBuyClothes(playerid);
         SaveAccounts(playerid);
@@ -174,7 +198,7 @@ stock SetBuyClothes(playerid){
     SetPlayerVirtualWorld(playerid, playerid+20);
     SetPlayerCameraPos(playerid, 562.5885, 2136.6760, 1552.0860);
     SetPlayerCameraLookAt(playerid, 560.5141,2136.6279,1551.4860);
-    SetPlayerSkin(playerid, ClothesParameters[ClothesShopState[playerid]][clothesSkinId]);
+    SetPlayerSkin(playerid, ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesSkinId]);
 
     for (new i = 0; i < 7; i++)
         TextDrawShowForPlayer(playerid, BuyClothes_TD[i]);
@@ -182,7 +206,7 @@ stock SetBuyClothes(playerid){
     PlayerTextDrawShow(playerid, BuyClothes_PTD[0][playerid]);
 
     new string[144];
-    format(string, sizeof(string), "%d rub", ClothesParameters[ClothesShopState[playerid]][clothesPrice]);
+    format(string, sizeof(string), "%d rub", ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice]);
     PlayerTextDrawSetString(playerid, BuyClothes_PTD[0][playerid], string);
     SelectTextDraw(playerid, white);
     TogglePlayerControllable(playerid, false);

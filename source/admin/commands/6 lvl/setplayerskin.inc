@@ -4,7 +4,7 @@ CMD:setplayerskin(playerid, params[])
 
     extract params -> new to_player, skin; else return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setskin [id игрока] [ID скина]");
 
-    if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+    if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
 
 	PlayerInfo[to_player][pChar] = skin;
     SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);

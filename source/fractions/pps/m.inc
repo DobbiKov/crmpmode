@@ -6,7 +6,7 @@ CMD:m(playerid, params[])
     if(!strlen(text)) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /m [текст]");
 
     new string[144];
-    format(string, sizeof(string), "[M] %s %s[%d]: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid, text);
+    format(string, sizeof(string), "[M] %s %s: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), text);
     ProxDetector(50.0, playerid, string, yellow, yellow, yellow, yellow,yellow);
     return 1;
 }

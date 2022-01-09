@@ -25,7 +25,7 @@ CMD:rang(playerid,params[])
 	        
 			format(string, sizeof(string), "¬аш ранг в организации был повышен до %s (%d)", PlayerRank[ PlayerInfo[to_player][pMember] ][ PlayerInfo[to_player][pRang] ], PlayerInfo[to_player][pRang]);
 			SCM(to_player, blue, string);
-
+			RangUpMyTK(to_player);
             SaveAccounts(to_player);
 		}
 		case '-':
@@ -44,6 +44,7 @@ CMD:rang(playerid,params[])
 			format(string, sizeof(string), "¬аш ранг в организации был понижен до %s (%d)", PlayerRank[ PlayerInfo[to_player][pMember] ][ PlayerInfo[to_player][pRang] ], PlayerInfo[to_player][pRang]);
 			SCM(to_player, blue, string);
 
+			RangDownMyTK(to_player);
             SaveAccounts(to_player);
 		}
         default: return SCM(playerid, 0xFFCC00AA, "Х[ѕодсказка] {ffffff}¬ведите: /rang [ID игрока] [+/-]"); 

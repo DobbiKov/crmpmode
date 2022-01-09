@@ -24,7 +24,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         }
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1490.5315,1668.2097,-5.3244))
         {
-            if(PlayerInfo[playerid][pMember] == TEAM_VDV || IsAFSB(playerid))SPD(playerid, D_GUN_VDV, DIALOG_STYLE_LIST, "{"cblue"}ВДВ | Оружие", "{"cblue"}1. {FFFFFF}Пистолет (9-mm)\n{"cblue"}2. {FFFFFF}Автомат Калашникова\n{"cblue"}3. {FFFFFF}Дубинка", "Далее", "Закрыть");
+            if(PlayerInfo[playerid][pMember] == TEAM_VDV || IsAFSB(playerid))
+                SPD(playerid, D_GUN_VDV, DIALOG_STYLE_LIST, "{"cblue"}ВДВ | Оружие", "{"cblue"}1. {FFFFFF}Пистолет (9-mm)\n{"cblue"}2. {FFFFFF}Автомат Калашникова\n{"cblue"}3. {FFFFFF}Дубинка", "Далее", "Закрыть");
         }
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1453.0112,1761.9174,-7.5053))
         {
@@ -75,6 +76,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(IsPlayerInAnyVehicle(playerid))
         {
             new vehicleid = GetPlayerVehicleID(playerid);
+            cmd::openvdv(playerid);
 
             if(job_car[TEAM_VDV_METALL_CAR][0] <= vehicleid <= job_car[TEAM_VDV_METALL_CAR][1])
             {
@@ -171,6 +173,16 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         if(job_car[TEAM_VDV_METALL_CAR][0] <= vehicleid <= job_car[TEAM_VDV_METALL_CAR][1])
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
+            {
+                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                RemovePlayerFromVehicle(playerid);   
+                return ClearAnimations(playerid, true);
+            }
+        }
+        if(job_car[TEAM_VDV_HYDRA_CAR][0] <= vehicleid <= job_car[TEAM_VDV_HYDRA_CAR][1])
+        {
+            if( (PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid)) 
+            || (PlayerInfo[playerid][pMember] == TEAM_VDV && PlayerInfo[playerid][pRang] < 8) )
             {
                 SCM(playerid, red, "У вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);   

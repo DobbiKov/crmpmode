@@ -17,7 +17,7 @@ CMD:nick(playerid, params[])
     }
     else
     {
-        format(string, sizeof(string), "[A]: %s[%d] попросил игрока %s[%d] сменить NickName", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
+        format(string, sizeof(string), "[A] %s[%d] попросил игрока %s[%d] сменить NickName", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
         SCMA(grey, string);
 
         format(string, sizeof(string), "Администратор %s попросил вас сменить NonRP NickName!");

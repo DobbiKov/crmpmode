@@ -3,6 +3,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
 	{
+        case D_FSB_ENTER_DIALOG:{
+            if(!response) return 1;
+            FreezePlayer(playerid, 2000);
+            SetPlayerPos(playerid, fsb_office_positions[listitem][0], fsb_office_positions[listitem][1], fsb_office_positions[listitem][2]);
+            SetPlayerFacingAngle(playerid,fsb_office_positions[listitem][3]);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
 		case D_SET_FSB_NUMBERS:{
             new vehicleid = GetPlayerVehicleID(playerid);
             if(response)
@@ -32,7 +39,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        GivePlayerWeaponAC(playerid, 23, 120);
+                        GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 2:
                     {
@@ -48,6 +55,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 5:{
 						SCM(playerid, blue, !"Вы взяли бронежилет.");
 						SetPlayerArmour(playerid, 100.0);
+					}
+					case 6:{
+                        if(PlayerInfo[playerid][pMask] >= 2) return SCM(playerid, red, "Вы не можете унести столько масок");
+						SCM(playerid, blue, !"Вы взяли маску.");
+                        PlayerInfo[playerid][pMask]++;
 					}
                 }
             }

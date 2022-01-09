@@ -1,0 +1,9 @@
+enum{
+    org_history_a_t_null,
+    org_history_a_t_invite,
+    org_history_a_t_uninvite,
+    org_history_a_t_rang_up,
+    org_history_a_t_rang_down,
+    org_history_a_t_mwarn,
+    org_history_a_t_unmwarn
+};

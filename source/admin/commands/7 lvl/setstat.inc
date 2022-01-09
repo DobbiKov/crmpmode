@@ -10,6 +10,7 @@ CMD:setstat(playerid, params[])
 	}
 	
     if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+	if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
     
     switch(what)
     {

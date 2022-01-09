@@ -33,7 +33,7 @@ stock AdvertiseOne()
 {
 	SendClientMessageToAll(lightgreen,"__________________________________________________________________________________________________________");
 	SendClientMessageToAll(lightgreen,"                                                                                                          ");
-    SendClientMessageToAll(-1,"{99CC00}Получение дополнительных средств: vk.com/un_chernov /donate");
+    SendClientMessageToAll(-1,"{99CC00}Получение дополнительных средств: unigva-rp.ru /donate");
     SendClientMessageToAll(-1,"{99CC00}Приведи друга - получи деньги. При регистрации необходимо указать Ваш ник");
     SendClientMessageToAll(-1,"{99CC00}При возникновении вопросов/жалоб, введите: /menu, далее выберите: \"Вопросы/жалобы на игроков\"");
     SendClientMessageToAll(-1,"{99CC00}Всю полезную информацию Вы можете найти в /gps, /menu");

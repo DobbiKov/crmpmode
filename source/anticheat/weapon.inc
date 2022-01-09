@@ -63,31 +63,31 @@ stock GetWeaponSlotEx(weaponid)
 	return -1;
 }
 
-public OnPlayerUpdate(playerid)
-{
-	// new weapon[13][2];
-	// for(new i = 0; i < 13; i++)
-	// {
-	// 	GetPlayerWeaponData(playerid, i, weapon[i][0], weapon[i][1]);
-	// 	if(PlayerInfo[playerid][pGun][i] < 1) continue;
-	// 	if(PlayerInfo[playerid][pGun][i] != weapon[i][0])
-	// 	{ 
-	// 	    if( GetPVarInt(playerid, "Cheater") != 1 ) return ResultMessageCheat(playerid, 1);
-	// 	}
-	// }
-	#if defined ac_weap__OnPlayerUpdate
-		return ac_weap__OnPlayerUpdate(playerid);
-	#else
-		return 1;
-	#endif
-}
-#if defined _ALS_OnPlayerUpdate
-	#undef OnPlayerUpdate
-#else
-	#define _ALS_OnPlayerUpdate
-#endif
+// public OnPlayerUpdate(playerid)
+// {
+// 	// new weapon[13][2];
+// 	// for(new i = 0; i < 13; i++)
+// 	// {
+// 	// 	GetPlayerWeaponData(playerid, i, weapon[i][0], weapon[i][1]);
+// 	// 	if(PlayerInfo[playerid][pGun][i] < 1) continue;
+// 	// 	if(PlayerInfo[playerid][pGun][i] != weapon[i][0])
+// 	// 	{ 
+// 	// 	    if( GetPVarInt(playerid, "Cheater") != 1 ) return ResultMessageCheat(playerid, 1);
+// 	// 	}
+// 	// }
+// 	#if defined ac_weap__OnPlayerUpdate
+// 		return ac_weap__OnPlayerUpdate(playerid);
+// 	#else
+// 		return 1;
+// 	#endif
+// }
+// #if defined _ALS_OnPlayerUpdate
+// 	#undef OnPlayerUpdate
+// #else
+// 	#define _ALS_OnPlayerUpdate
+// #endif
 
-#define OnPlayerUpdate ac_weap__OnPlayerUpdate
-#if defined ac_weap__OnPlayerUpdate
-	forward ac_weap__OnPlayerUpdate(playerid);
-#endif
+// #define OnPlayerUpdate ac_weap__OnPlayerUpdate
+// #if defined ac_weap__OnPlayerUpdate
+// 	forward ac_weap__OnPlayerUpdate(playerid);
+// #endif

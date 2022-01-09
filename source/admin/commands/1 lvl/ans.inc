@@ -10,5 +10,6 @@ CMD:ans(playerid, params[])
 	format(string, sizeof(string), "Администратор %s[%d] для %s[%d]: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, message);
 	SCMA(orange, string);
 	SCM(to_player, orange, string);
-	return 1;
+	PlayerInfo[playerid][bAns]++;
+	return SaveAccounts(playerid);
 }

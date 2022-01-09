@@ -4,6 +4,7 @@ CMD:setint(playerid, params[])
 
 	extract params -> new to_player, interior; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /setint [id игрока] [мир]");
 	if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+    if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
 
 	SetPlayerInterior(to_player, interior);
 

@@ -16,13 +16,13 @@ CMD:untie(playerid, params[])
     DeletePVar(to_player, "tied");
 
     new string[128];
-    format(string, sizeof(string), "¬ы разв€зали руки %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "¬ы разв€зали руки %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s разв€зал вам руки", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s разв€зал вам руки", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "разв€зывает руки %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "разв€зывает руки %s", PlayerName(to_player));
     cmd::me(playerid, string);
     return 1;
 }

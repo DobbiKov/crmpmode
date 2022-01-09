@@ -1,12 +1,12 @@
 CMD:openvdv(playerid)
 {
+	if(!IsPlayerInRangeOfPoint(playerid, 10.0, 1892.1500, 1722.0699, 15.6500)) return 1;
+	
 	if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
 		return SCM(playerid, red, "Вам недоступна данная возможность");
 	
 	if(PlayerInfo[playerid][pMember] == TEAM_VDV && PlayerInfo[playerid][pRang] < 3)
 		return SCM(playerid, red, "Вам недоступна данная возможность");
-	
-	if(!IsPlayerInRangeOfPoint(playerid, 10.0, 1892.1500, 1722.0699, 15.6500)) return 1;
 	
 	switch(open_vdv_status)
 	{
@@ -16,7 +16,7 @@ CMD:openvdv(playerid)
 			
 			open_vdv_status = 1;
 			
-			SCM(playerid, blue, "Вы открыли ворота");
+			SCM(playerid, green, !"Вы открыли ворота");
 			
 			SetPlayerChatBubble(playerid,"Открывает ворота",blue,30.0,10000);
 		}
@@ -26,7 +26,7 @@ CMD:openvdv(playerid)
 			
 			open_vdv_status = 0;
 			
-			SCM(playerid, red, "Вы закрыли ворота");
+			SCM(playerid, red, !"Вы закрыли ворота");
 			
 			SetPlayerChatBubble(playerid,"Закрывает ворота",red,30.0,10000);
 		}

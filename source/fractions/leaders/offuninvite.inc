@@ -21,7 +21,8 @@ publics off_uninvite(playerid, to_player[], reason[])
     cache_get_data(rows, fields);
     if(rows)
     {
-        new rang, member, string[256];
+        new acc_id, rang, member, string[256];
+        acc_id = cache_get_field_content_int(0, "pID");
         member = cache_get_field_content_int(0, "pMember");
         rang = cache_get_field_content_int(0, "pRang");
 
@@ -30,6 +31,8 @@ publics off_uninvite(playerid, to_player[], reason[])
 
         format(string, sizeof(string), "Вы уволили игрока %s из организации. Причина: %s", to_player, reason);
         SCM(playerid, blue, string);
+
+        OffUnInviteMyTK(acc_id, member, reason);
 
         format(string, sizeof(string), "UPDATE `accounts` SET `pMember` = '0' WHERE `pName` = '%s'", to_player);
         mysql_tquery(connects, string, "", "");

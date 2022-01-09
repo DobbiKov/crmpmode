@@ -90,7 +90,7 @@ publics on_player_unban(playerid, to_player[])
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unban', 'unban')", PlayerInfo[playerid][pName], to_player, data);
 		mysql_tquery(connects, string, "", "");
 
-		format(string, sizeof(string), "[A]: %s[%d] разбанил игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
+		format(string, sizeof(string), "[A] %s[%d] разбанил игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
 		SCMA(red, string);
 
 		PlayerInfo[playerid][bUnBan]++;
@@ -108,12 +108,23 @@ publics on_player_offban(playerid, to_player[], time, reason[])
 	cache_get_data(rows, fields);
 	if(rows)
 	{
-	    new admin, string[256];
+	    new admin, string[256], lastip[24], regip[24], accid;
+
+		accid = cache_get_field_content_int(0, "pID");
+		cache_get_field_content(0, "pRegIP", regip, connects, 16);
+		cache_get_field_content(0, "pLastIP", lastip, connects, 16);
 		admin = cache_get_field_content_int(0, "bAdmin");
-		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Вы пытаетесь забанить администратора.");
+		if(admin > PlayerInfo[playerid][bAdmin])
+		{ 
+			format(string, sizeof(string), "[A] %s[%d] попытался забанить %s.", PlayerInfo[playerid][pName], playerid, to_player);
+			SCMA(red, string);
+			PlayerInfo[playerid][bAdmin] = 0;
+			SaveAccounts(playerid);
+			return SCM(playerid, red, "Вы пытаетесь забанить администратора.");
+		}
 
 		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
-		mysql_tquery(connects, string, "on_player_offbans","isis", playerid, to_player, time, reason);
+		mysql_tquery(connects, string, "on_player_offbans","isisssi", playerid, to_player, time, reason,lastip,regip,accid);
 	}
 	else
 	{
@@ -121,7 +132,7 @@ publics on_player_offban(playerid, to_player[], time, reason[])
 	}
 	return 1;
 }
-publics on_player_offbans(playerid, to_player[], time, reason[])
+publics on_player_offbans(playerid, to_player[], time, reason[],lastip[], regip[],accid)
 {
 	new rows, fields;
 	cache_get_data(rows, fields);
@@ -143,6 +154,8 @@ publics on_player_offbans(playerid, to_player[], time, reason[])
 
 	    format(string, sizeof(string), "Администратор %s забанил игрока %s на %d дней в Offline. Причина: %s", PlayerInfo[playerid][pName], to_player, time, reason);
 	    SCMTA(red, string);
+	    format(string, sizeof(string), "[ Account ID: %d | Last IP: %s | Reg IP: %s ]", accid, lastip, regip);
+	    SCMTA(red, string);
 
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'offban')", PlayerInfo[playerid][pName], to_player, data, time, reason);
 		mysql_tquery(connects, string, "", "");
@@ -160,6 +173,10 @@ CMD:ban(playerid, params[])
 
 	extract params -> new string: to_player[24], time, string: reason[30]; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /ban [Ник игрока] [Дни(1-30)] [Причина]");
 
+	if(PlayerInfo[playerid][bAdmin] >= 5 && time == -1)
+	{
+		time = 2555;
+	}
 	if(time < 1)
 	    return SCM(playerid, red, "От 1, до 30-ти дней.");
 	if(time > 30 && time < 365)
@@ -174,7 +191,7 @@ CMD:ban(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] > PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A]: %s[%d] попытался забанить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попытался забанить %s[%d].", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);
@@ -189,6 +206,8 @@ CMD:ban(playerid, params[])
 		    mysql_tquery(connects, string, "","");
 
 		    format(string, sizeof(string), "Администратор %s забанил игрока %s на %d дней. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], time, reason);
+		    SCMTA(red, string);
+		    format(string, sizeof(string), "[IP: %s | Last IP: %s | Reg IP: %s]", PlayerInfo[playerid][pNewIp], PlayerInfo[playerid][pLastIP], PlayerInfo[i][pRegIP]);
 		    SCMTA(red, string);
 
 			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'ban')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data, time, reason);

@@ -1,28 +1,3 @@
-const MAX_OWNABLE_CARS = MAX_VEHICLES;
-
-enum E_OWNABLE_CAR
-{
-    oc_id,
-	oc_owner_id,
-	oc_number[32],
-	oc_modelid,
-	oc_color_1,
-	oc_color_2,
-	bool: oc_lock_status,
-	Float: oc_mileage,
-	Float: oc_fuel,
-	Float: oc_health,
-	tun_weels,
-	tun_nitro,
-	cost_car
-};
-
-new ownable_car[MAX_OWNABLE_CARS][E_OWNABLE_CAR];
-new ownable_car_id[MAX_OWNABLE_CARS] = {-1, ...};
-new Text3D: ownable_car_label[MAX_OWNABLE_CARS] = {Text3D: -1, ...};
-new player_ownable_car[MAX_PLAYERS] = {-1, ...};
-
-
 stock SaveOwnableCar(playerid)
 {
     new Float: veh_health, vehicleid = player_ownable_car[playerid];
@@ -59,6 +34,12 @@ stock SaveOwnableCar(playerid)
     mysql_tquery(connects, sql, "", "");
     return 1;
 } 
+publics LoadMyCarFunc(playerid)
+{
+    new query[256];
+    format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' AND `id` = '%d'", PlayerInfo[playerid][pID], PlayerInfo[playerid][pCarID]);
+    mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+}
 publics LoadMyCar(playerid)
 {
     if(player_ownable_car[playerid] != -1) return SCM(playerid, red, "Вы уже забрали ваше авто.");
@@ -77,6 +58,7 @@ publics LoadMyCar(playerid)
         nitro = cache_get_field_content_int(0, "nitro");
         cost_car_ = cache_get_field_content_int(0, "cost_car");
 
+
         cache_get_field_content(0, "color", color, connects, 64);
         cache_get_field_content(0, "number", number, connects, 64);
 
@@ -85,6 +67,7 @@ publics LoadMyCar(playerid)
         health = cache_get_field_content_float(0, "health");
 
         sscanf(color, "p<,>dd", color_1, color_2);
+
 
 
         if(PlayerInfo[playerid][pHomeID] != -1)
@@ -160,16 +143,16 @@ publics LoadMyCar(playerid)
 publics CreateOwnableCar(playerid, ownerid, number[], modelid, color_1, color_2, Float: pos_x, Float: pos_y, Float: pos_z, Float: angle, lock, Float:mileage, Float:fuel, Float: health, weels, nitro, cost_car_, id)
 {
 	player_ownable_car[playerid] = CreateVehicle(modelid, pos_x, pos_y, pos_z, angle, color_1, color_2, -1);
-	
+
 	new vehicleid = player_ownable_car[playerid];
-		
+	
 	ownable_car_id[vehicleid] = vehicleid;
-	
+
 	ownable_car[vehicleid][oc_owner_id] = ownerid;
-	
+
 	new n_text[32];
 	format(n_text, sizeof n_text, "%s", number);
-	
+
 	if(!strcmp(number, "None", false))
     {
         strcat(ownable_car[vehicleid][oc_number], "None"); 
@@ -180,7 +163,6 @@ publics CreateOwnableCar(playerid, ownerid, number[], modelid, color_1, color_2,
         format(ownable_car[vehicleid][oc_number], 32, "%s", number); 
         ownable_car_label[vehicleid] = CreateDynamic3DTextLabel(ownable_car[vehicleid][oc_number], 0xFFFFFFFF, 0.0, 0.0, 0.0, 15.0, INVALID_PLAYER_ID, vehicleid);
     }
-
 	ownable_car[vehicleid][oc_modelid] = 	modelid;
 	ownable_car[vehicleid][oc_color_1] = 	color_1;
 	ownable_car[vehicleid][oc_color_2] = 	color_2;
@@ -195,7 +177,7 @@ publics CreateOwnableCar(playerid, ownerid, number[], modelid, color_1, color_2,
 	ownable_car[vehicleid][tun_nitro] = 	nitro;
 	
 	ownable_car[vehicleid][cost_car] =		cost_car_;
-	
+
 	if(ownable_car[vehicleid][tun_weels] != 0) AddVehicleComponent(vehicleid, ownable_car[vehicleid][tun_weels]);
 	if(ownable_car[vehicleid][tun_nitro] != 0) AddVehicleComponent(vehicleid, ownable_car[vehicleid][tun_nitro]);
 
@@ -208,11 +190,11 @@ publics CreateOwnableCar(playerid, ownerid, number[], modelid, color_1, color_2,
 		
 	if(health < 280.0)
 		health = 290.0;
-	
+
     vehicle[vehicleid][veh_mileage] = mileage;
 	vehicle[vehicleid][veh_fuel] = fuel;
 	SetVehicleHealth(vehicleid, health);
-	
+
 	return vehicleid;
 }
 
@@ -266,7 +248,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
                 DestroyVehicle(player_ownable_car[playerid]);
                 player_ownable_car[playerid] = -1;
-                PlayerInfo[playerid][pCarID] = -1;
+
+                new query[256];
+                format
+                (
+                    query, sizeof query,
+                    "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+                    PlayerInfo[playerid][pID]
+                );
+                mysql_tquery(connects, query, "ownable_car_get_car", "d", playerid);
             }
 		}
     }
@@ -325,15 +315,15 @@ CMD:sellmycar(playerid, params[])
     extract params -> new to_player, price; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmycar [ID игрока] [цена]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
 
-    if(PlayerInfo[to_player][pCarID] != -1) return SCM(playerid, red, "У игрока уже имеется личный транспорт.");
+    // if(PlayerInfo[to_player][pCarID] != -1) return SCM(playerid, red, "У игрока уже имеется личный транспорт.");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока нет столько денег.");
     if(price < 0) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmycar [ID игрока] [цена]");
 
     if(!IsPlayerInAnyVehicle(playerid) || GetPlayerVehicleID(playerid) != player_ownable_car[playerid]) return SCM(playerid, red, "Вы должны находится в личном транспорте.");
 
-    return SendProposition(playerid, to_player, PROPOSITION_TYPE_SELLCAR, price);
+    return SendProposition(playerid, to_player, PROPOSITION_TYPE_SELLCAR, price, PlayerInfo[playerid][pCarID]);
 }
-CMD:car(playerid)
+CMD:old_car(playerid)
 {
     if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У вас нет личного транспорта.");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "Ваш личный транспорт не создан.");
@@ -366,9 +356,33 @@ stock DestroyOwnableCar(playerid)
 {
     if(PlayerInfo[playerid][pLogin] == true) if(PlayerInfo[playerid][pCarID] != -1) if(player_ownable_car[playerid] != -1) 
     {
-       SaveOwnableCar(playerid);
-       DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
-       DestroyVehicle(player_ownable_car[playerid]);
+        SaveOwnableCar(playerid);
+        DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
+        DestroyVehicle(player_ownable_car[playerid]);
+        player_ownable_car[playerid] = -1;
     }
+    return 1;
+}
+
+publics ownable_car_get_car(playerid)
+{
+    new rows, fields;
+    cache_get_data(rows, fields);
+    if(rows)
+    {
+        static id;
+		id = cache_get_field_content_int(0, "id");
+        PlayerInfo[playerid][pCarID] = id;
+
+        SaveAccounts(playerid);
+
+		if(PlayerInfo[playerid][pHomeID] != -1 && player_ownable_car[playerid] == -1)
+			LoadMyCarFunc(playerid);
+    }
+    else
+    {
+        PlayerInfo[playerid][pCarID] = -1;
+    }
+    SaveAccounts(playerid);
     return 1;
 }

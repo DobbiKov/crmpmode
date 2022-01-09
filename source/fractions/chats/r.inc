@@ -7,8 +7,10 @@ CMD:r(playerid, params[])
 
     new string[144];
     format(string, sizeof(string), "[R] %s %s[%d]: %s", (PlayerInfo[playerid][pMember] > 0) ? (PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ]) : (jobs_name[ PlayerInfo[playerid][pJob] ]), PlayerInfo[playerid][pName], playerid, text);
-    if(PlayerInfo[playerid][pMember] > 0) SCMR(PlayerInfo[playerid][pMember], green, string);
-    else if(PlayerInfo[playerid][pJob] > 0) SCMR(PlayerInfo[playerid][pJob], green, string);
+    if(PlayerInfo[playerid][pMember] > 0) 
+        SCMR(PlayerInfo[playerid][pMember], green, string);
+    else if(PlayerInfo[playerid][pJob] > 0) 
+        SCMR(PlayerInfo[playerid][pJob], green, string);
 
     format(string, sizeof(string), "передал в рацию: \"%s\"", text);
     cmd::me(playerid, string);
@@ -25,8 +27,10 @@ CMD:rb(playerid, params[])
     new string[144];
     format(string, sizeof(string), "(( OOC: [R] %s %s[%d]: %s ))", (PlayerInfo[playerid][pMember] > 0) ? (PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ]) : (jobs_name[ PlayerInfo[playerid][pJob] ]), PlayerInfo[playerid][pName], playerid, text);
 
-    if(PlayerInfo[playerid][pMember] > 0) SCMR(PlayerInfo[playerid][pMember], green, string);
-    else if(PlayerInfo[playerid][pJob] > 0) SCMR(PlayerInfo[playerid][pJob], green, string);
+    if(PlayerInfo[playerid][pMember] > 0) 
+        SCMR(PlayerInfo[playerid][pMember], green, string);
+    else if(PlayerInfo[playerid][pJob] > 0) 
+        SCMR(PlayerInfo[playerid][pJob], green, string);
     
     return 1;
 }
@@ -34,6 +38,7 @@ CMD:rb(playerid, params[])
 CMD:rfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /r");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rfsb [Текст]");
@@ -50,6 +55,7 @@ CMD:rfsb(playerid, params[])
 CMD:rbfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /rb");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rbfsb [Текст]");
@@ -97,9 +103,16 @@ stock SCMR(fraction, color, text[])
 {
     foreach(new i : Player)
     {
+        new string[144];
+        // format(string, sizeof(string), "DEBUG: id: %d member: %d fraction %d", i, PlayerInfo[i][pMember], fraction);
+        // print(string);
+
         if(PlayerInfo[i][pMember] > 0) 
         {
-            if(PlayerInfo[i][pMember] == fraction)
+            // format(string, sizeof(string), "DEBUG: id: %d member: > 0", i);
+            // print(string); 
+
+            if(PlayerInfo[i][pMember] == fraction && fraction != TEAM_FSB)
             {
                 SCM(i, color, text);
             }
@@ -113,27 +126,39 @@ stock SCMR(fraction, color, text[])
         }
         if(IsAFSB(i) && fraction == TEAM_FSB)
         {
+            // format(string, sizeof(string), "DEBUG: id: %d FSB R", i);
+            // print(string); 
             SCM(i, color, text);
         }
         else if(IsAFSB(i) || PlayerInfo[i][bAdmin] >= 2)
         {
             if(PlayerInfo[i][pTipster] == -1)
             {
-                new string[256];
+                // format(string, sizeof(string), "DEBUG: id: %d tipster -1", i);
+                // print(string); 
+
+
+                // new string[256];
                 format(string, sizeof(string), "[%s]: %s", GetMember[fraction], text);
                 return SCM(i, color, string);
             }
             
             if(PlayerInfo[i][pJobTipster] == fraction)  
             {
-                new string[256];
+
+
+                // new string[256];
                 format(string, sizeof(string), "[%s]: %s", jobs_name[fraction], text);
                 SCM(i, color, string);
             }
 
             if(PlayerInfo[i][pTipster] == fraction)
             {
-                new string[256];
+                // format(string, sizeof(string), "DEBUG: id: %d tipster %d, frac %d", i, PlayerInfo[i][pTipster], fraction);
+                // print(string);
+
+
+                // new string[256];
                 format(string, sizeof(string), "[%s]: %s", GetMember[fraction], text);
                 SCM(i, color, string);
             } 

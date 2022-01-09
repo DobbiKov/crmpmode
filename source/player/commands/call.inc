@@ -74,6 +74,8 @@ publics PlayerSecondTimer(playerid)
 
 CMD:call(playerid, params[])
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона, или сим-карты.");
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У вас стоит блокировка чата!");
     if(!strlen(params)) return Call(playerid);
@@ -84,6 +86,11 @@ CMD:call(playerid, params[])
         if(PlayerInfo[playerid][pPhoneCash] < 10) return SCM(playerid, red, "На балансе телефона недостаточно средств.");
         if(PlayerInfo[playerid][pPhoneStatus] == 1) return SCM(playerid, red, "Ваш телефон выключен.");
         if(number == PlayerInfo[playerid][pPhoneNumber]) return SCM(playerid, red, "Вы ввели свой номер телефона.");
+
+        if(number == 777 && IsAOpg(playerid) && PlayerInfo[playerid][pRang] == 10)
+        {
+            return CallContrabanda(playerid);
+        }
 
         foreach(new i : Player)
         {
@@ -119,6 +126,8 @@ CMD:call(playerid, params[])
 }
 CMD:togphone(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(PlayerInfo[playerid][pVIP] == 0) return SCM(playerid, red, "Данная функция доступна только VIP игрокам.");
     switch(PlayerInfo[playerid][pPhoneStatus])
     {
@@ -137,6 +146,8 @@ CMD:togphone(playerid)
 }
 CMD:p(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(GetPVarInt(playerid, "me_called") == 1) return SCM(playerid, red, "Вы уже звоните кому-то.");
     if(prop_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
@@ -153,6 +164,8 @@ CMD:p(playerid)
 }
 CMD:h(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     if(prop_called[playerid] == -1 && call_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
     new i;
@@ -213,6 +226,8 @@ public OnPlayerDisconnect(playerid, reason)
 
 CMD:calling(playerid)
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     new index;
     if(PlayerInfo[playerid][pJob] == Job_Car) index = 1;
     else if(PlayerInfo[playerid][pJob] == Job_Taxi) index = 2;
@@ -513,4 +528,18 @@ stock CheckCall(index, playerid)
         break;
     }
     return false;
+}
+
+stock CallContrabanda(playerid)
+{
+    if(gettime() < next_contraband_time)
+    {
+        new string[144];
+        format(string, sizeof(string), "Следующий заказ контрабанды возможен %s!", date("%dd.%mm.%yyyy, %hh:%ii:%ss",next_contraband_time));
+        return SCM(playerid, red, string);
+    }
+    new string[256] = "";
+    format(string, sizeof(string), "{ffffff}Вы желаете заказать {"cblue"}%d г. {ffffff}контрабанды за {"cblue"}%d тыс. {ffffff}рублей?", CONTRABANDA_VALUE * CONTRABANDA_GRAM_IN_BAG, CONTRABANDA_VALUE * CONTRABANDA_GRAM_IN_BAG * CONTRABANDA_PRICE);
+    ShowPlayerDialog(playerid, D_CALL_CONTRABANDA, DIALOG_STYLE_MSGBOX, !"Заказ контрабанды", string, !"Заказать", !"Отказаться");
+    return 0;
 }

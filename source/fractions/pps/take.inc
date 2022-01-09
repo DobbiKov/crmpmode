@@ -31,13 +31,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         PlayerInfo[to_player][pDrugs] = 0;
-                        format(string, sizeof(string), "изъ€л(-а) наркотики у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "изъ€л(-а) наркотики у %s", PlayerName(to_player));
                         cmd::me(playerid, string);
 
-                        format(string, sizeof(string), "¬ы изъ€ли наркотики у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "¬ы изъ€ли наркотики у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас наркотики", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);
+                        format(string, sizeof(string), "%s %s изъ€л у вас наркотики", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 1:
@@ -49,28 +49,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string), "¬ы изъ€ли металл у %s", PlayerInfo[to_player][pName]);
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас металл", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);
+                        format(string, sizeof(string), "%s %s изъ€л у вас металл", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 2:
                     {
                         PlayerInfo[to_player][pPatr] = 0;
-                        format(string, sizeof(string), "изъ€л(-а) патроны у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "изъ€л(-а) патроны у %s", PlayerName(to_player));
                         cmd::me(playerid, string);
 
-                        format(string, sizeof(string), "¬ы изъ€ли патроны у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "¬ы изъ€ли патроны у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас патроны", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);
+                        format(string, sizeof(string), "%s %s изъ€л у вас патроны", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 3:
                     {
                         ResetPlayerWeaponsAC(to_player);
-                        format(string, sizeof(string), "изъ€л(-а) все оружие у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "изъ€л(-а) все оружие у %s", PlayerName(to_player));
                         cmd::me(playerid, string);
 
-                        format(string, sizeof(string), "¬ы изъ€ли все оружие у %s", PlayerInfo[to_player][pName]);
+                        format(string, sizeof(string), "¬ы изъ€ли все оружие у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
                         format(string, sizeof(string), "%s %s изъ€л у вас все оружие", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);

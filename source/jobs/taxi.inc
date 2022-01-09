@@ -131,7 +131,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         {
 			
             
-			if(PlayerInfo[playerid][pJob] != Job_Car)
+			if(PlayerInfo[playerid][pJob] != Job_Taxi)
 			{
 				new Float:x, Float:y, Float:z;
 				GetPlayerPos(playerid, x, y, z);

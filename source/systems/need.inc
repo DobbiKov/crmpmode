@@ -1,18 +1,41 @@
+stock getNeeds(playerid, needType)
+{
+    switch(needType)
+    {
+        case need_drink: return PlayerInfo[playerid][pNeedDrink];
+        case need_eat: return PlayerInfo[playerid][pNeedEat];
+        case need_toilet: return PlayerInfo[playerid][pNeedToilet];
+        case need_wash: return PlayerInfo[playerid][pNeedWash];
+    }
+    return -1;
+}
+
+stock setNeeds(playerid, needType, needValue)
+{
+    if(needValue < 0) needValue = 0;
+    if(needValue > 100) needValue = 100;
+    switch(needType)
+    {
+        case need_drink: PlayerInfo[playerid][pNeedDrink] = needValue;
+        case need_eat: PlayerInfo[playerid][pNeedEat] = needValue;
+        case need_toilet: PlayerInfo[playerid][pNeedToilet] = needValue;
+        case need_wash: PlayerInfo[playerid][pNeedWash] = needValue;
+    }
+}
+
 publics minuteupdate()
 {
 	new hours,minutes,seconds;
     gettime(hours, minutes, seconds);
 
     foreach(new i : Player)
-    if(minutes == 5 || minutes == 15 || minutes == 30 || minutes == 45)
+    if(minutes == 5 || minutes == 15 || minutes == 30 || minutes == 45 || minutes == 55)
     {
-        PlayerInfo[i][pNeedToilet] -= 2;
-        if(PlayerInfo[i][pNeedToilet] < 0) PlayerInfo[i][pNeedToilet] = 0;
-        if(PlayerInfo[i][pNeedToilet] < 40) SCM(i, need, "Вы хотите в туалет!");
+        setNeeds(i, need_toilet, getNeeds(i, need_toilet) - 5);
+        if(getNeeds(i, need_toilet) < 40) SCM(i, need, "Вы хотите в туалет!");
 
-        PlayerInfo[i][pNeedEat] -= 4;
-        if(PlayerInfo[i][pNeedEat] < 0) PlayerInfo[i][pNeedEat] = 0;
-        if(PlayerInfo[i][pNeedEat] < 40) 
+        setNeeds(i, need_eat, getNeeds(i, need_eat) - 4);
+        if(getNeeds(i, need_eat) < 40) 
         {
             SCM(i, need, "Вы проголодались! Посетите столовую или купите чипсы в 24/7. Узнать состояние персонажа: /need");
             PlayerPlaySound(i, 40403, 0.0, 0.0, 0.0);
@@ -21,16 +44,14 @@ publics minuteupdate()
             PlayerInfo[i][pHP] = health - 3;
             SetPlayerHealth(i, health - 3);
         }
-        PlayerInfo[i][pNeedDrink] -= 3;
-        if(PlayerInfo[i][pNeedDrink] < 0) PlayerInfo[i][pNeedDrink] = 0;
-        if(PlayerInfo[i][pNeedDrink] < 40)
+        setNeeds(i, need_drink, getNeeds(i, need_drink) - 3);
+        if(getNeeds(i, need_drink) < 40)
         {
             SCM(i, need, "Вы хотите пить! Посетите столовую или купите пепси в 24/7. Узнать состояние персонажа: /need");
         }
 
-        PlayerInfo[i][pNeedWash]--;
-        if(PlayerInfo[i][pNeedWash] < 0) PlayerInfo[i][pNeedWash] = 0;
-        if(PlayerInfo[i][pNeedWash] < 40)
+        setNeeds(i, need_wash, getNeeds(i, need_wash) - 3);
+        if(getNeeds(i, need_wash) < 40)
         {
             cmd::do(i, "Плохо пахнет...");
             SCM(i, need, "Вы начинаете плохо пахнуть! Посетите баню или помойтесь дома в душе. Узнать состояние персонажа: /need");

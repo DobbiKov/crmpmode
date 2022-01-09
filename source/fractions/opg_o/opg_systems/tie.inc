@@ -19,13 +19,13 @@ CMD:tie(playerid, params[])
     SetPVarInt(to_player, "tied", 1);
 
     new string[128];
-    format(string, sizeof(string), "¬ы св€зали руки %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "¬ы св€зали руки %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s св€зал вам руки", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s св€зал вам руки", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "св€зывает руки %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "св€зывает руки %s", PlayerName(to_player));
     cmd::me(playerid, string);
     return 1;
 }

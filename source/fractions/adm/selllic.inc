@@ -1,6 +1,7 @@
 CMD:selllic(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] != TEAM_ADM) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pRang] < 3) return SCM(playerid, red, "Данную функцию можно использовать с 3-го ранга!");
 
     extract params -> new to_player, type; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /selllic [ID игрока] [тип лицензии]");
 

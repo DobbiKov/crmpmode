@@ -10,10 +10,10 @@ CMD:tazer(playerid, params[])
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
 
     new string[128];
-    format(string, sizeof(string), "Вы ударили %s электрошокером", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы ударили %s электрошокером", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s ударил вас электрошокером", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s ударил вас электрошокером", PlayerName(playerid));
     SCM(to_player, blue, string);
     return FreezePlayer(to_player, 5000);
 }

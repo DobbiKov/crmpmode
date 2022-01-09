@@ -37,8 +37,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				new temp[26];
+				new temp[64];
 			    mysql_real_escape_string(inputtext, temp);
+				format(temp, sizeof(temp), "%s", inputtext);
 			    if(!strcmp(inputtext, PlayerInfo[playerid][pName], true))
 				{
 					 SCM(playerid, white, "Нельзя указывать собственный ник. Если вы не знаете других игроков нажмите кнопку 'Пропустить'");

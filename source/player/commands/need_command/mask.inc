@@ -10,15 +10,26 @@ CMD:mask(playerid)
     ApplyAnimation(playerid, "SHOP","ROB_Shifty", 4.0, false, 0, 0, 0, 0);
     cmd::me(playerid, "надел маску");
     SetPVarInt(playerid, "pMask", 1);
-    SCM(playerid, blue, "¬ы надели одели маску! ¬аше местоположение скрыто на 10 минут!");
-    TMask[playerid] = SetTimerEx("PlayerMask", 1000*60*10, false, "i", playerid);
+
+    new name[144] = "";
+    format(name, sizeof(name), "UNKNOWN[%d]", PlayerInfo[playerid][pID]);
+    SetPlayerName(playerid, name);
+
+    SCM(playerid, blue, "¬ы надели маску! ¬аше местоположение скрыто.");
+    // TMask[playerid] = SetTimerEx("PlayerMask", 1000*60*10, false, "i", playerid);
     return 1;
 }
 
-publics PlayerMask(playerid)
+// publics PlayerMask(playerid)
+// {
+//     SCM(playerid, blue, "10 минут прошло, с вас была сн€та маска.");
+//     return TakeOffMask(playerid);
+// }
+
+stock TakeOffMask(playerid)
 {
     SetPlayerColor(playerid, 0xFFFFFFFF);
-    SCM(playerid, blue, "10 минут прошло, с вас была сн€та маска.");
     DeletePVar(playerid, "pMask");
+    SetPlayerName(playerid, PlayerInfo[playerid][pName]);
     return 1;
 }
