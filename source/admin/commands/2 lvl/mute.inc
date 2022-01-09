@@ -8,7 +8,7 @@ CMD:mute(playerid, params[])
 
 	if(!strlen(reason)) return SCM(playerid, yellow, !"[Подсказка]: {FFFFFF}Используйте /mute [ID игрока] [минуты] [причину]");
 
-	if( time < 1 ||  time > 280 ) return SCM(playerid, blue, "[A]: Время должно быть не больше 280 и не меньше 1!");
+	if( time < 1 ||  time > 280 ) return SCM(playerid, blue, "[A] Время должно быть не больше 280 и не меньше 1!");
 
 	if(PlayerInfo[to_player][pMute] > 0) return SCM(playerid, red, "У игрока уже стоит затычка.");
 

@@ -29,6 +29,8 @@ publics Off_AWarn(playerid, to_player[])
         admin = cache_get_field_content_int(0, "bAdmin");
 
         if(admin < 1) return SCM(playerid, red, "Игрок не является Администратором!");
+        if(PlayerInfo[playerid][bAdmin] <= admin) 
+            return SCM(playerid, red, !"Вы не можете выдать выговор данному администратору!");
 
         awarns++;
         new string[144];

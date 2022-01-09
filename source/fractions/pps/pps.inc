@@ -1,3 +1,45 @@
+public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
+{
+	if(IsAPolice(playerid))
+	{
+		if(weaponid == 3)
+		{
+			new string[128];
+			format(string, sizeof(string), "Вы оглушили %s на 5 секунд", PlayerInfo[damagedid][pName]);
+			SCM(playerid, blue, string);
+
+			format(string, sizeof(string), "%s оглушил вас на 5 секунд", PlayerInfo[playerid][pName]);
+			SCM(damagedid, blue, string);
+			return FreezePlayer(damagedid, 5000);
+		}
+		if(weaponid == 23)
+		{
+			new string[128];
+			format(string, sizeof(string), "Вы оглушили %s электрошокером", PlayerInfo[damagedid][pName]);
+			SCM(playerid, blue, string);
+
+			format(string, sizeof(string), "%s оглушил вас электрошокером", PlayerInfo[playerid][pName]);
+			SCM(damagedid, blue, string);
+			return FreezePlayer(damagedid, 10000);
+		}
+	}
+	#if	defined	pps__OnPlayerGiveDamage
+		return pps__OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+	#else
+		return 1;
+	#endif
+}
+#if	defined	_ALS_OnPlayerGiveDamage
+	#undef	OnPlayerGiveDamage
+#else
+	#define	_ALS_OnPlayerGiveDamage
+#endif
+
+#define	OnPlayerGiveDamage pps__OnPlayerGiveDamage
+#if	defined	pps__OnPlayerGiveDamage
+	forward pps__OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+#endif
+
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if(!ispassenger)
@@ -41,7 +83,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
-                        GivePlayerWeaponAC(playerid, 23, 60);
+                        GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 1:
                     {
@@ -86,28 +128,28 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2567.2139,-2416.3386,22.3545))
+        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2567.2139,-2416.3386,22.3545) && IsAPolice(playerid))
         {
 			SPD(playerid, D_GUN_PPS, DIALOG_STYLE_LIST, "{"cblue"}ППС | Оружие", "\
-			{"cblue"}1. {FFFFFF}USP-S\n\
-			{"cblue"}2. {FFFFFF}MP-5\n\
+			{"cblue"}1. {FFFFFF}Электрошокер\n\
+			{"cblue"}2. {FFFFFF}АК-74У\n\
 			{"cblue"}3. {FFFFFF}Дубинка\n\
 			{"cblue"}4. {FFFFFF}Жезл\n\
 			{"cblue"}5. {FFFFFF}Бронежилет", "Далее", "Закрыть");
         }
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, 2759.7024, -1385.3208, 24.1169))
 		{
-			if(PlayerInfo[playerid][pMember] != TEAM_PPS) return 1;
+			if(!IsAPolice(playerid) && PlayerInfo[playerid][bAdmin] < 3) return 1;
 
 			if(post_dps_1_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_dps_1, 2747.48, -1382.81, 23.44, 4.0,  0.00, 90.00, 0.00);
 				post_dps_1_status = true;
 			}
 			else if(post_dps_1_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_dps_1, 2747.48, -1382.81, 23.44, 4.0, 0.00, 0.00, 0.00);
 				post_dps_1_status = false;
 			}
@@ -115,19 +157,57 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, 2735.4485, -1380.7979, 24.1169))
 		{
-			if(PlayerInfo[playerid][pMember] != TEAM_PPS) return 1;
+			if(!IsAPolice(playerid) && PlayerInfo[playerid][bAdmin] < 3) return 1;
 
 			if(post_dps_2_status == false)
 			{
-				SCM(playerid, red, "Вы закрыли шлагбаум");
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
 				MoveObject(post_dps_2, 2746.83, -1382.82, 23.37, 4.0, 0.00, -90.00, 0.00);
 				post_dps_2_status = true;
 			}
 			else if(post_dps_2_status == true)
 			{
-				SCM(playerid, blue, "Вы открыли шлагбаум");
+				SCM(playerid, green, !"Вы открыли шлагбаум");
 				MoveObject(post_dps_2, 2746.83, -1382.82, 23.37, 4.0, 0.00, 0.00, 0.00);//2
 				post_dps_2_status = false;
+			}
+
+		}
+
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, 1539.4611,2968.5437,12.6569))
+		{
+			if(!IsAPolice(playerid) && PlayerInfo[playerid][bAdmin] < 3) return 1;
+
+			if(post_batyrevo_arzamas_1_status == false)
+			{
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
+				MoveObject(post_batyrevo_arzamas_1, 1553.36, 2967.01, 11.69, 4.00, 0.00, -90.00, 90.00);
+				post_batyrevo_arzamas_1_status = true;
+			}
+			else if(post_batyrevo_arzamas_1_status == true)
+			{
+				SCM(playerid, green, !"Вы открыли шлагбаум");
+				MoveObject(post_batyrevo_arzamas_1,  1553.36, 2967.01, 11.69, 4.00, 0.00, 0.00, 90.00);//2
+				post_batyrevo_arzamas_1_status = false;
+			}
+
+		}
+
+		if(IsPlayerInRangeOfPoint(playerid, 2.0, 1538.7238,2951.9695,12.6569))
+		{
+			if(!IsAPolice(playerid) && PlayerInfo[playerid][bAdmin] < 3) return 1;
+
+			if(post_batyrevo_arzamas_2_status == false)
+			{
+				SCM(playerid, red, !"Вы закрыли шлагбаум");
+				MoveObject(post_batyrevo_arzamas_2,   1524.45, 2952.78, 11.69, 4.00, 0.00, 90.00, 90.00);
+				post_batyrevo_arzamas_2_status = true;
+			}
+			else if(post_batyrevo_arzamas_2_status == true)
+			{
+				SCM(playerid, green, !"Вы открыли шлагбаум");
+				MoveObject(post_batyrevo_arzamas_2,  1524.45, 2952.78, 11.69, 4.00, 0.00, 0.00, 90.00);//2
+				post_batyrevo_arzamas_2_status = false;
 			}
 
 		}

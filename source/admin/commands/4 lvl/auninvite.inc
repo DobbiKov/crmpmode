@@ -5,6 +5,7 @@ CMD:auninvite(playerid, params[])
     extract params -> new to_player, string: reason[128]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /auninvite [ID игрока] [причина]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
     if(PlayerInfo[playerid][bAdmin] < 6) if(PlayerInfo[to_player][pRang] >= 10) return SCM(playerid, red, "Игрок являеться лидером организации."); 
+    if(PlayerInfo[to_player][pMember] < 1) return SCM(playerid, red, !"Игрок не состоит в организации!");
 
     new string[128];
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
@@ -14,12 +15,9 @@ CMD:auninvite(playerid, params[])
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "[A] %s[%d] уволил игрока %s[%d] из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[ PlayerInfo[to_player][pMember] ], reason);
+    SCMA(grey, string);
 
-    PlayerInfo[to_player][pMember] = 0;
-    PlayerInfo[to_player][pWarnF] = 0;
-    PlayerInfo[to_player][pRang] = 0;
-    PlayerInfo[to_player][pFSkin] = -1;
-    ResetPlayerWeaponsAC(to_player);
-    SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
+    UnInviteMyTK(to_player, PlayerInfo[to_player][pMember], reason);
+    UnInvite(to_player);
     return SaveAccounts(to_player);
 }

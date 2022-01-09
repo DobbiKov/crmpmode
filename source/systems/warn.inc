@@ -49,12 +49,22 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 	cache_get_data(rows, fields);
 	if(rows)
 	{
-	    new admin, string[256];
+	    new admin, acc_id, member, string[256];
 		admin = cache_get_field_content_int(0, "bAdmin");
-		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Вы пытаетесь заварнить администратора.");
+		acc_id = cache_get_field_content_int(0, "pID");
+		member = cache_get_field_content_int(0, "pMember");
+		if(admin > PlayerInfo[playerid][bAdmin])
+		{ 
+			format(string, sizeof(string), "[A] %s[%d] попытался заварнить %s.", PlayerInfo[playerid][pName], playerid, to_player);
+			SCMA(red, string);
+			PlayerInfo[playerid][bAdmin] = 0;
+			SaveAccounts(playerid);
+			return SCM(playerid, red, "Вы пытаетесь заварнить администратора.");
+		}
+
 
 		format(string, sizeof(string), "SELECT * FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
-		mysql_tquery(connects, string, "on_player_offwarn_bans","iss", playerid, to_player, reason);
+		mysql_tquery(connects, string, "on_player_offwarn_bans","issii", playerid, to_player, reason, acc_id, member);
 	}
 	else
 	{
@@ -62,7 +72,7 @@ publics on_player_offwarn(playerid, to_player[], reason[])
 	}
 	return 1;
 }
-publics on_player_offwarn_bans(playerid, to_player[], reason[])
+publics on_player_offwarn_bans(playerid, to_player[], reason[], acc_id, member)
 {
 	new rows, fields;
 	cache_get_data(rows, fields);
@@ -80,6 +90,8 @@ publics on_player_offwarn_bans(playerid, to_player[], reason[])
 
 		format(string, sizeof(string), "Администратор %s выдал предупреждение игроку %s [%d|3] в Offline. Причина: %s", PlayerInfo[playerid][pName], to_player, warns, reason);
 		SCMTA(red, string);
+
+		OffUnInviteMyTK(acc_id, member, "игровое предупреждение оффлайн");
 
 		new data[64], year, month, day, hour, minute, second;
 
@@ -150,7 +162,7 @@ publics on_player_unwarn(playerid, to_player[])
 		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'offunwarn', 'offunwarn')", PlayerInfo[playerid][pName], to_player, data);
 		mysql_tquery(connects, string, "", "");
 
-		format(string, sizeof(string), "[A]: %s[%d] снял 1 предупреждение у игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
+		format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
 		SCMA(red, string);
 
 		format(string, sizeof(string), "UPDATE `accounts` SET `pWarns` = '%d' WHERE `pName` = '%s' LIMIT 1", warns, to_player);
@@ -179,7 +191,7 @@ CMD:warn(playerid, params[])
  		{
  		    if(PlayerInfo[i][bAdmin] >= PlayerInfo[playerid][bAdmin])
  		    {
- 		        format(string, sizeof(string), "[A]: %s[%d] попытался заварнить %s[%d].");
+ 		        format(string, sizeof(string), "[A] %s[%d] попытался заварнить %s[%d].", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
  		        SCMA(red, string);
  		        PlayerInfo[playerid][bAdmin] = 0;
  		        return SaveAccounts(playerid);
@@ -198,6 +210,7 @@ CMD:warn(playerid, params[])
 
 		    format(string, sizeof(string), "Администратор %s выдал предупреждение игроку %s [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], PlayerInfo[i][pWarn], reason);
 		    SCMTA(red, string);
+			UnInviteMyTK(i, PlayerInfo[i][pMember], "игровое предупреждение");
 			UnInvite(i);
 
 			if(PlayerInfo[i][pWarn] == 3)
@@ -279,7 +292,7 @@ CMD:unwarn(playerid, params[])
 				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unwarn', 'unwarn')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data);
 				mysql_tquery(connects, string, "", "");
 
-		        format(string, sizeof(string), "[A]: %s[%d] снял 1 предупреждение у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
+		        format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);
 		        return SCMA(red, string);
 		    }
 		}

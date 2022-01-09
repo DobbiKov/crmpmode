@@ -166,7 +166,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetPlayerSkills(playerid);
 						PlayerInfo[playerid][pDonate] -= 50;
 						SaveAccounts(playerid);
-						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием MP-5.");
+						SCM(playerid, blue, !"Вы успешно приобрели навыки владения оружием АК-74У.");
 					}
 					case 4:{
 						if(PlayerInfo[playerid][SKILL_AK_47] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");

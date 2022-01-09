@@ -6,7 +6,7 @@ CMD:jail(playerid, params[])
 
 	if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
 	if(!strlen(reason)) return SCM(playerid, yellow, !"[Подсказка]: {FFFFFF}Используйте /jail [ID игрока] [минуты] [причину]");
-	if( time < 1 ||  time > 280 ) return SCM(playerid, blue, "[A]: Время должно быть не больше 280 и не меньше 1!");
+	if( time < 1 ||  time > 280 ) return SCM(playerid, blue, "[A] Время должно быть не больше 280 и не меньше 1!");
 	if(PlayerInfo[to_player][pJail] > 0) return SCM(playerid, red, "Игрок уже сидит в деморгане.");
 
 	PlayerInfo[to_player][pJail] = time*60;
@@ -32,6 +32,6 @@ CMD:jail(playerid, params[])
 
 	mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'jail')", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], string, time, reason);
 	mysql_tquery(connects, sql_str, "", "");
-
+	SpawnPlayer(to_player);
 	return PlayerPutInDemorgan(to_player);
 }

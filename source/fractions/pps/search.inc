@@ -7,7 +7,7 @@ CMD:search(playerid, params[])
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID.");
 
     new fmt_dialog[1024], string[144];
-    format(string, sizeof(string), "обыскал(-а) %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "обыскал(-а) %s", PlayerName(to_player));
     cmd::me(playerid, string);
 
     format

@@ -2,7 +2,7 @@ CMD:driveby(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 7) return ShowCommandNotFound(playerid);
 
-	extract params -> new to_player; else return SCM(playerid, yellow, !"[Подсказка]: {FFFFFF}Используйте /driveby [ID игрока]");
+	extract params -> new to_player; else return SCM(playerid, blue, !"[Подсказка]: {FFFFFF}Используйте /driveby [ID игрока]");
 
 	if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
 	if(PlayerInfo[to_player][pJail] > 0) return SCM(playerid, red, "Игрок уже сидит в деморгане.");

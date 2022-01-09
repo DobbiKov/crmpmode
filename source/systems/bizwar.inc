@@ -41,6 +41,8 @@ public OnGameModeInit()
 #endif
 
 stock StartBizwar(playerid, opgId, bizOpgId, bizId){
+    if(playerid == INVALID_PLAYER_ID)
+        return 1;
     if(g_capture[C_STATUS]) return 0;
     foreach(new i : Player){
         if(PlayerInfo[i][pMember] == opgId || PlayerInfo[i][pMember] == bizOpgId){

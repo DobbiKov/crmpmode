@@ -2,6 +2,14 @@ CMD:templeader(playerid, params[])
 { 
     if(PlayerInfo[playerid][bAdmin] < 5) return ShowCommandNotFound(playerid);
 
+    if(PlayerInfo[playerid][pMember] > 0)
+    {
+        new string[144];
+        format(string, sizeof(string), "[A] %s[%d] снял с себя временную лидерку %s", PlayerInfo[playerid][pName], playerid, GetMember[ PlayerInfo[playerid][pMember] ]);
+        SCMA(grey, string);
+        return UnInvite(playerid);  
+    }
+
     new string[64], fmt_dialog[300];
     for(new i = 0; i < sizeof(GetMember); i++)
     {

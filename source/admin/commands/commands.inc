@@ -16,8 +16,10 @@ new Command1LVL[14][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[28][] = 
+new Command2LVL[30][] = 
 {
+    {"{"cblue"}/get_player_by_mysql {ffffff}- узнать никнейм игрока по ID аккунта\n"},
+    {"{"cblue"}/alock {ffffff}- Открыть/закрыть транспорт\n"},
     {"{"cblue"}/tp {ffffff}- Телепорт\n"},
     {"{"cblue"}/goto {ffffff}- Телепорт к игроку\n"},
     {"{"cblue"}/gethere {ffffff}- Телепортировать игрока к себе\n"},
@@ -48,7 +50,7 @@ new Command2LVL[28][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[34][] = 
+new Command3LVL[35][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
@@ -66,6 +68,7 @@ new Command3LVL[34][] =
     {"{"cblue"}/setskin {ffffff}- Установить временный скин игроку\n"},
     {"{"cblue"}/givegun {ffffff}- Выдать оружие игроку\n"},
     {"{"cblue"}/fly {ffffff}- Режим полета\n"},
+    {"{"cblue"}/sfly {ffffff}- Режим супер полета\n"},
     {"{"cblue"}/offget {ffffff}- Статистика игрока в оффлайне\n"},
     {"{"cblue"}/ban {ffffff}- Заблокировать аккаунт игроку (онлайн/оффлайн)\n"},
     {"{"cblue"}/warn {ffffff}- выдать предупреждение на аккаунт игрока(онлайн/оффлайн)\n"},
@@ -99,8 +102,10 @@ new Command4LVL[9][] =
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
-new Command5LVL[9][] = 
+new Command5LVL[12][] = 
 {
+    {"{"cblue"}/commandlogs {ffffff}- Посмотреть логи команд игрока\n"},
+    {"{"cblue"}/adminstats {ffffff}- Посмотреть статистику администратора\n"},
     {"{"cblue"}/settime {ffffff}- Установить время на сервере\n"},
     {"{"cblue"}/setweather {ffffff}- Установить погоду на сервере\n"},
     {"{"cblue"}/templeader {ffffff}- Выдать временную лидерку\n"},
@@ -109,6 +114,7 @@ new Command5LVL[9][] =
     {"{"cblue"}/setskill {ffffff}- Выдать навыки оружия игроку\n"},
     {"{"cblue"}/setyoutube {ffffff}- Установить уровень Ютуберки\n"},
     {"{"cblue"}/agl {ffffff}- Выдать игроку лицензии\n"},
+    {"{"cblue"}/exploseplayer {ffffff}- Взорвать игрока\n"},
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 

@@ -1,7 +1,7 @@
 CMD:free(playerid, params[])
 {
-    if(PlayerInfo[playerid][pRang] < 5) return SCM(playerid, red, "Данную функцию можно использовать с 5-го ранга!");
     if(PlayerInfo[playerid][pMember] != TEAM_ADM) return YouCannotUseThisFunc(playerid);
+    if(PlayerInfo[playerid][pRang] < 5) return SCM(playerid, red, "Данную функцию можно использовать с 5-го ранга!");
 
     extract params -> new to_player, price; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /free [ID игрока] [цена]");
 

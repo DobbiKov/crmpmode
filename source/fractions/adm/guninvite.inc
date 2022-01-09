@@ -9,6 +9,14 @@ CMD:guninvite(playerid, params[])
     if(to_player == playerid) return SCM(playerid, red, "ВЫ указали свой ID!");
     if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!");
     if(PlayerInfo[playerid][pMember] == PlayerInfo[to_player][pMember]) return SCM(playerid, red, "Игрок состоит в вашей организаации!");
+    if(IsAOpg(to_player))
+        return SCM(playerid, red, !"Игрок состоит в криминальной организации!");
+    if(IsAFSB(to_player))
+        return SCM(playerid, red, "Игрок выше вас по рангу!");
+    if(PlayerInfo[to_player][pRang] == 10) 
+        return SCM(playerid, red, "Вы не можете уволить лидера!");
+    if(PlayerInfo[to_player][pMember] <= 0)
+        return SCM(playerid, red, !"Игрок не состоит в организации!");
 
     new string[128];
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
@@ -17,11 +25,9 @@ CMD:guninvite(playerid, params[])
     format(string, sizeof(string), "%s уволил вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
     SCM(to_player, blue, string);
 
-    PlayerInfo[to_player][pMember] = 0;
-    PlayerInfo[to_player][pWarnF] = 0;
-    PlayerInfo[to_player][pRang] = 0;
-    PlayerInfo[to_player][pFSkin] = -1;
-    SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
+    UnInviteMyTK(to_player, PlayerInfo[to_player][pMember], reason);
+
+    UnInvite(to_player);
     SaveAccounts(to_player);
     return 1;
 }

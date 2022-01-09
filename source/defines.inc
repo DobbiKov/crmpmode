@@ -1,8 +1,8 @@
 //************* | MYSQL | *************//
 #define 	sqlhost     "localhost"
-#define 	sqluser     "root"
-#define 	sqlpass     "Hello123456"
-#define 	sqldb       "unigvacrmp"
+#define 	sqluser     "gs28883"
+#define 	sqlpass     "zF4P9amEUg"
+#define 	sqldb       "gs28883"
 
 //host
 // #define 	sqlhost     "185.206.212.246"
@@ -11,12 +11,12 @@
 // #define 	sqldb       "unigva"
 
 //*********** |  | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.6"
-#define     hostname    "[ Unigva RolePlay | Сервер для Олдов ]"
+#define 	gamemode    "UNIGVA - Beta 0.6.6"
+#define     hostname    "[ Unigva RolePlay | Первый сервер ]"
 #define     mapname     "Criminal Russia"
-#define     site_url    "dobbikov.gq"
+#define     site_url    "unigva-rp.ru"
 #define     name_serv   "Unigva RolePlay"
-#define     forum_url   "dobbikov.gq"
+#define     forum_url   "forum.unigva-rp.ru"
 
 //************* |  | *************//
 #define     red        	0xFF0000AA
@@ -53,10 +53,14 @@
 #define 	SCMTA 		SendClientMessageToAll
 #define     SPD         ShowPlayerDialog
 
+#define     MAX_DRUGS_IN_INVENTORY 100
+#define     MAX_DRUGS_IN_INVENTORY_VIP 200
+
 #define 	IsValidEmail(%1) regex_match(%1, "|([a-z0-9_\\.\\-]{1,20})@([a-z0-9\\.\\-]{1,20})\\.([a-z]{2,4})|is")
 
 #define     publics%0(%1)			    forward%0(%1); public%0(%1)
 #define 	FreezePlayer(%0,%1)    	    TogglePlayerControllable(%0, false), SetTimerEx("PlayerToggle", %1, false, "d", %0)
+#define 	UnFreezePlayer(%0)    	    TogglePlayerControllable(%0, true)
 #define     ShowCommandNotFound(%0)     SCM(%0, white, !"{"cwhite"}Команда не найдена. Используйте {"cblue"}/menu {"cwhite"}для поиска команд.")
 #define     YouCannotUseThisFunc(%0)    SCM(%0, red, !"Вы не можете использовать данную функцию.")
 #define     PlayerOffLine(%0)           SCM(%0, red, !"Игрок оффлайн.")
@@ -66,11 +70,15 @@
 #define 	PRESSED(%0) (((newkeys & (%0)) == (%0)) && ((oldkeys & (%0)) != (%0)))
 native 		IsValidVehicle(vehicleid);
 
+#define player_in_business[%0] GetPlayerVirtualWorld(%0)
+#define player_in_house[%0] GetPlayerVirtualWorld(%0)
+#define player_in_kvart[%0] GetPlayerVirtualWorld(%0)
+
 #if !defined SPECIAL_ACTION_PISSING
     const SPECIAL_ACTION_PISSING = 68;
 #endif
 
-new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Eduard_Dobbikov", "Dregory_Dobbikov", "Sam_Esmail", "Lewis_Clifford", "Roman_Dobbikov"};
+new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Anton_Panikaxi", "Lewis_Clifford", "Roman_Dobbikov"};
 
 // native GameTextForAll(const string[],time,style);
 // native GameTextForPlayer(playerid,const string[],time,style);

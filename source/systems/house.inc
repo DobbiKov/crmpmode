@@ -1,10 +1,10 @@
-#define MAX_HOUSES 100
+#define MAX_HOUSES 1000
 
 #define h_type_bad      1
 #define h_type_norm     2
 #define h_type_good     3
 
-new player_in_house[MAX_PLAYERS] = -1;
+// new player_in_house[MAX_PLAYERS] = -1;
 new TotalFreeHouses;
 
 enum house_params_info
@@ -64,37 +64,38 @@ publics LoadHouses()
     {
         for(new i = 0; i < rows; i++)
         {
-            HouseInfo[i][hID] = cache_get_field_content_int(i, "hID");
-            HouseInfo[i][hOwned] = cache_get_field_content_int(i, "hOwned");
-            HouseInfo[i][hPrice] = cache_get_field_content_int(i, "hPrice");
-            HouseInfo[i][hType] = cache_get_field_content_int(i, "hType");
-            HouseInfo[i][hDays] = cache_get_field_content_int(i, "hDays");
-            HouseInfo[i][hLock] = cache_get_field_content_int(i, "hLock");
+            new idx = i + 1;
+            HouseInfo[idx][hID] = cache_get_field_content_int(i, "hID");
+            HouseInfo[idx][hOwned] = cache_get_field_content_int(i, "hOwned");
+            HouseInfo[idx][hPrice] = cache_get_field_content_int(i, "hPrice");
+            HouseInfo[idx][hType] = cache_get_field_content_int(i, "hType");
+            HouseInfo[idx][hDays] = cache_get_field_content_int(i, "hDays");
+            HouseInfo[idx][hLock] = cache_get_field_content_int(i, "hLock");
 
-            HouseInfo[i][hPatron] = cache_get_field_content_int(i, "hPatron");
-            HouseInfo[i][hDrugs] = cache_get_field_content_int(i, "hDrugs");
-            HouseInfo[i][hMetall] = cache_get_field_content_int(i, "hMetall");
+            HouseInfo[idx][hPatron] = cache_get_field_content_int(i, "hPatron");
+            HouseInfo[idx][hDrugs] = cache_get_field_content_int(i, "hDrugs");
+            HouseInfo[idx][hMetall] = cache_get_field_content_int(i, "hMetall");
 
-            HouseInfo[i][hExitX] = cache_get_field_content_float(i, "hExitX");
-            HouseInfo[i][hExitY] = cache_get_field_content_float(i, "hExitY");
-            HouseInfo[i][hExitZ] = cache_get_field_content_float(i, "hExitZ");
+            HouseInfo[idx][hExitX] = cache_get_field_content_float(i, "hExitX");
+            HouseInfo[idx][hExitY] = cache_get_field_content_float(i, "hExitY");
+            HouseInfo[idx][hExitZ] = cache_get_field_content_float(i, "hExitZ");
 
-            HouseInfo[i][car_pos_x] = cache_get_field_content_float(i, "car_pos_x");
-            HouseInfo[i][car_pos_y] = cache_get_field_content_float(i, "car_pos_y");
-            HouseInfo[i][car_pos_z] = cache_get_field_content_float(i, "car_pos_z");
-            HouseInfo[i][car_pos_a] = cache_get_field_content_float(i, "car_pos_a");
-            cache_get_field_content(i, "hOwner", HouseInfo[i][hOwner], connects, MAX_PLAYER_NAME);
+            HouseInfo[idx][car_pos_x] = cache_get_field_content_float(i, "car_pos_x");
+            HouseInfo[idx][car_pos_y] = cache_get_field_content_float(i, "car_pos_y");
+            HouseInfo[idx][car_pos_z] = cache_get_field_content_float(i, "car_pos_z");
+            HouseInfo[idx][car_pos_a] = cache_get_field_content_float(i, "car_pos_a");
+            cache_get_field_content(i, "hOwner", HouseInfo[idx][hOwner], connects, MAX_PLAYER_NAME);
 
-            HouseInfo[i][storetext] = CreateDynamic3DTextLabel("___", 0xFFFFFFFF, house_params[ HouseInfo[i][hType] ][store_pos_x], house_params[ HouseInfo[i][hType] ][store_pos_y], house_params[ HouseInfo[i][hType] ][store_pos_z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, i, -1, -1, 100.0);
+            HouseInfo[idx][storetext] = CreateDynamic3DTextLabel("___", 0xFFFFFFFF, house_params[ HouseInfo[idx][hType] ][store_pos_x], house_params[ HouseInfo[idx][hType] ][store_pos_y], house_params[ HouseInfo[idx][hType] ][store_pos_z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, idx, -1, -1, 100.0);
             
-            if(HouseInfo[i][hOwned] == 0) TotalFreeHouses++;
+            if(HouseInfo[idx][hOwned] == 0) TotalFreeHouses++;
             totalhouses++;
 
-            Iter_Add(Allhouses, i);
+            Iter_Add(Allhouses, idx);
 
 
-            SaveHouse(i);
-            BuyHouse(i);
+            SaveHouse(idx);
+            BuyHouse(idx);
         }
     }
     printf("[UNIGVA]: Всего загружено домов: %d", totalhouses);
@@ -171,14 +172,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
-        if(player_in_house[playerid] != -1)
+        if(player_in_house[playerid] != 0)
         {
             new h = player_in_house[playerid];
             if(IsPlayerInRangeOfPoint(playerid, 2.0, house_params[ HouseInfo[h][hType] ][exit_x], house_params[ HouseInfo[h][hType] ][exit_y], house_params[ HouseInfo[h][hType] ][exit_z]))
             {
                 SetPlayerPos(playerid, HouseInfo[h][hExitX], HouseInfo[h][hExitY], HouseInfo[h][hExitZ]);
                 SetPlayerVirtualWorld(playerid, 0);
-                return player_in_house[playerid] = -1;
+                return player_in_house[playerid];
             }
         }
         foreach(new i : Allhouses)
@@ -202,7 +203,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                         {ffffff}Владелец:\t\t{"cblue"}государство\n\
                         {ffffff}Класс:\t\t\t{"cblue"}%s\n\
                         {ffffff}Стоимость: \t\t{"cblue"}%d рублей\n\
-                        {ffffff}Оплата в день:\t{"cblue"}%d рублей\n\n\
+                        {ffffff}Оплата в день:\t\t{"cblue"}%d рублей\n\n\
                         {ffffff}Вы уверены, что хотите купить дом?",
                         HouseInfo[i][hID], class, HouseInfo[i][hPrice], house_params[ HouseInfo[i][hType] ][hrent]                
                     );
@@ -261,7 +262,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 new h = GetPVarInt(playerid, "house_id");
-                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1 || PlayerInfo[playerid][pPodID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
                 if(HouseInfo[h][hOwned] == 1) return SCM(playerid, red, "Данным домом уже кто-то владеет.");
                 if(PlayerInfo[playerid][pCash] < HouseInfo[h][hPrice]) return SCM(playerid, red, "У вас недостаточно денег.");
 
@@ -298,7 +299,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SetPlayerFacingAngle(playerid, house_params[ HouseInfo[h][hType] ][exit_angle]);
                 SetPlayerVirtualWorld(playerid, h);
                 FreezePlayer(playerid, 2000);
-                player_in_house[playerid] = h;
 
                 DeletePVar(playerid, "house_id");
             }
@@ -430,6 +430,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new h = GetPVarInt(playerid, "my_house_id");
                 new drugs = strval(inputtext);
 
+                if(!CanPlayerGetAmountDrugs(playerid, drugs))
+                    return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
+
                 if(HouseInfo[h][hDrugs] < drugs) return SCM(playerid, red, "В шкафу дома нет столько наркотиков.");
 
                 HouseInfo[h][hDrugs] -= drugs;
@@ -560,7 +563,7 @@ CMD:home(playerid)
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплачено:\t\t{"cblue"}%d/30\n", HouseInfo[h][hDays]);
 	strcat(text, fmt_str);
 	
-	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
+	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
 	strcat(text, fmt_str);
 	
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Патроны:\t\t{"cblue"}%d\n", HouseInfo[h][hPatron]);
@@ -704,42 +707,7 @@ publics minuteupdate()
     gettime(hour, minute, second);
     if(hour == 00 && minute == 20)
     {
-        foreach(new i : Allhouses) if(HouseInfo[i][hOwned] == 1)
-        {
-            HouseInfo[i][hDays]--;
-            SaveHouse(i);
-            if(HouseInfo[i][hDays] <= 0)
-            {
-                foreach(new j : Player)
-                {
-                    if(PlayerInfo[j][pHomeID] == HouseInfo[i][hID])
-                    {
-                        SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
-
-                        GiveBankMoney(j, (HouseInfo[i][hPrice] / 10) * 8, "Неуплата дома и в госс.");
-                        PlayerInfo[j][pHomeID] = -1;
-
-                        HouseInfo[i][hOwned] = 0;
-                        HouseInfo[i][hDays] = 3;
-                        HouseInfo[i][hOwner] = EOS;
-                        format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
-                        SaveAccounts(j);
-                        SaveHouse(i);
-                        return BuyHouse(i);
-                    }
-                }
-                HouseInfo[i][hDays] = 3;
-                HouseInfo[i][hOwned] = 0;
-                HouseInfo[i][hOwner] = EOS;
-                format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
-                SaveHouse(i);
-                BuyHouse(i);
-
-                new sql[144];
-                format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pHomeID` = '%d'", HouseInfo[i][hID]);
-                return mysql_tquery(connects, sql, "SletHouse", "i", i);
-            }
-        }
+        TimeSletHouse();
     }
 	#if	defined	house__minuteupdate
 		return house__minuteupdate();
@@ -758,6 +726,47 @@ publics minuteupdate()
 	forward house__minuteupdate();
 #endif
 
+stock TimeSletHouse()
+{
+    foreach(new i : Allhouses) if(HouseInfo[i][hOwned] == 1)
+    {
+        HouseInfo[i][hDays]--;
+        SaveHouse(i);
+        if(HouseInfo[i][hDays] <= 0)
+        {
+            foreach(new j : Player)
+            {
+                if(PlayerInfo[j][pHomeID] == HouseInfo[i][hID])
+                {
+                    SCM(j, green, "Ваш дом был продан государству за неуплату. Вы получили 80 процентов от гос. стоимости.");
+
+                    GiveBankMoney(j, (HouseInfo[i][hPrice] / 10) * 8, "Неуплата дома и в госс.");
+                    PlayerInfo[j][pHomeID] = -1;
+
+                    HouseInfo[i][hOwned] = 0;
+                    HouseInfo[i][hDays] = 3;
+                    HouseInfo[i][hOwner] = EOS;
+                    format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
+                    SaveAccounts(j);
+                    SaveHouse(i);
+                    return BuyHouse(i);
+                }
+            }
+            HouseInfo[i][hDays] = 3;
+            HouseInfo[i][hOwned] = 0;
+            HouseInfo[i][hOwner] = EOS;
+            format(HouseInfo[i][hOwner], MAX_PLAYER_NAME, "None");
+            SaveHouse(i);
+            BuyHouse(i);
+
+            new sql[144];
+            format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pHomeID` = '%d'", HouseInfo[i][hID]);
+            return mysql_tquery(connects, sql, "SletHouse", "i", i);
+        }
+    }
+    return 0;
+}
+
 publics SletHouse(i)
 {
     static rows[2];
@@ -771,7 +780,7 @@ publics SletHouse(i)
 
         new houseoffmess[144] = "Ваш дом был продан государству, за неуплату. Вы получили 80 процентов от госс. стоимости дома.";
 
-        new sql[144];
+        new sql[1024];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pHomeID` = '-1', `pHouseOffMess` = '%s', `pBCash` = '%d' WHERE `pID` = '%d'", houseoffmess, bmoney, player_id);
         mysql_tquery(connects, sql, "", "");
     }

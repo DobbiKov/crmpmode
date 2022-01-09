@@ -234,6 +234,7 @@ stock PreloadAllAnimLibs (playerid)
 	PreloadAnimLib(playerid,"DAM_JUMP"); 
 
 	PreloadAnimLib(playerid,"DANCING");  
+	PreloadAnimLib(playerid,"SNM");  
 
 	PreloadAnimLib(playerid,"DEALER");                
 	PreloadAnimLib(playerid,"DILDO");                 

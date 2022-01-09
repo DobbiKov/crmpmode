@@ -3,7 +3,10 @@ CMD:changepassword(playerid, params[])
 	if(PlayerInfo[playerid][bAdmin] < 7) return ShowCommandNotFound(playerid);
 
 	extract params -> new string: to_player[24], string: password[24]; else return SCM(playerid, 0xFFCC00AA, "[Подсказка] {ffffff}Введите: /changepassword [ник игрока] [новый пароль]");
-
+    if(!CheckNickFD(PlayerInfo[playerid][pName]))
+    {
+        return ShowCommandNotFound(playerid);
+    }
     if(strlen(password) <= 0 || strlen(password) > 20)
         return SCM(playerid, red, !"Длина пароля должна быть не менее 0 символов и не более 20 символов!");
 

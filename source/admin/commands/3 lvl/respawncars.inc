@@ -6,9 +6,10 @@ CMD:respawncars(playerid, params[])
 	else if(!(radius >= -1 && radius <= 0x50)) return SCM(playerid, grey, "Неверное значение радиуса");
 	if(radius == -1)
 	{
+
 	    for(new i = 1; i < MAX_VEHICLES; i++)
 		{
-		    if(!IsVehicleOccupied(i)) SetVehicleToRespawn(i);
+		    if(!IsVehicleOccupied(i) && IsAbleToRespawnVehicle(i)) SetVehicleToRespawn(i);
 		}
 		new string[128];
 		format(string, sizeof(string), "[A] %s[%d] зареспавнил весь транспорт на сервере", PlayerInfo[playerid][pName], playerid);

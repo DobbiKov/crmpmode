@@ -26,33 +26,33 @@ CMD:setcarnumber(playerid, params[])
             return 1;
         }
     }
-    new sql[144];
-    format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pName` = '%s'", to_player);
-    mysql_tquery(connects, sql, "CheckPlayerForSetCarNumber", "iss", playerid, to_player, number);
-    return 1;
+    // new sql[144];
+    // format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pName` = '%s'", to_player);
+    // mysql_tquery(connects, sql, "CheckPlayerForSetCarNumber", "iss", playerid, to_player, number);
+    return SCM(playerid, red, !"Такого игрока нет!");
 }
 
-publics CheckPlayerForSetCarNumber(playerid, to_player[], number[])
-{
-    static rows[2];
-    cache_get_data(rows[0], rows[1]);
-    if(rows[0])
-    {
-        static carid, owner_id;
-        carid = cache_get_field_content_int(0, "pCarID");
-        owner_id = cache_get_field_content_int(0, "pID");
-        if(carid == -1) return SCM(playerid, red, "У данного игрока нет личного транспорта.");
+// publics CheckPlayerForSetCarNumber(playerid, to_player[], number[])
+// {
+//     static rows[2];
+//     cache_get_data(rows[0], rows[1]);
+//     if(rows[0])
+//     {
+//         static carid, owner_id;
+//         carid = cache_get_field_content_int(0, "pCarID");
+//         owner_id = cache_get_field_content_int(0, "pID");
+//         if(carid == -1) return SCM(playerid, red, "У данного игрока нет личного транспорта.");
 
-        new sql[144];
-        format(sql, sizeof(sql), "UPDATE `ownable_cars` SET `number` = '%s' WHERE `owner_id` = '%d'", number, owner_id);
-        mysql_tquery(connects, sql, "", "");
+//         new sql[144];
+//         format(sql, sizeof(sql), "UPDATE `ownable_cars` SET `number` = '%s' WHERE `owner_id` = '%d'", number, owner_id);
+//         mysql_tquery(connects, sql, "", "");
 
-        format(sql, sizeof(sql), "Вы выдали игроку %s номера на личный транспорт: %s", to_player, number);
-        SCM(playerid, white, sql);
-    }
-    else
-    {
-        return SCM(playerid, red, "Такого игрока нет.");
-    }
-    return 1;
-}
+//         format(sql, sizeof(sql), "Вы выдали игроку %s номера на личный транспорт: %s", to_player, number);
+//         SCM(playerid, white, sql);
+//     }
+//     else
+//     {
+//         return SCM(playerid, red, "Такого игрока нет.");
+//     }
+//     return 1;
+// }

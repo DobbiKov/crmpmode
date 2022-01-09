@@ -1,4 +1,4 @@
-#define MAX_RADARS 100
+#define MAX_RADARS 500
 enum r_info
 {
 	radar_id,
@@ -90,6 +90,14 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 publics callback_radar(playerid, r_id)
 {
+	if(IsAPolice(playerid))
+	{
+		new vehicleid = GetPlayerVehicleID(playerid);
+		if(job_car[TEAM_PPS_CAR][0] <= vehicleid <= job_car[TEAM_PPS_CAR][1] || job_car[TEAM_FSB_CAR][0] <= vehicleid <= job_car[TEAM_FSB_CAR][1])
+		{
+			return 1;
+		}
+	}
     new speed = SpeedVehicle(playerid);
     
     if(speed > RadarInfo[r_id][radar_speed]+10)

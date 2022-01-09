@@ -5,30 +5,31 @@ CMD:setownablecar(playerid, params[])
     extract params -> new string: to_player[32], model_id, cost_oc_car; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /setownablecar [NickName игрока] [Модель авто] [Стоимость авто]");
     if(model_id < 400 || model_id > 611) return SCM(playerid, red, "Модель авто не менее 400 и не более 611.");
 
-    foreach(new i : Player)
-    {
-        if(!strcmp(PlayerInfo[i][pName], to_player, false))
-        {
-            if(PlayerInfo[i][pCarID] != -1) return SCM(playerid, red, "У данного игрока имеется авто.");
+    // foreach(new i : Player)
+    // {
+    //     if(!strcmp(PlayerInfo[i][pName], to_player, false))
+    //     {
+    //         if(PlayerInfo[i][pCarID] != -1) return SCM(playerid, red, "У данного игрока имеется авто.");
 
-            new query[120];
-            format
-            (
-                query, sizeof query,
-                "INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
-                PlayerInfo[playerid][pID],
-                model_id,
-                0,0,
-                cost_oc_car
-            );
-            mysql_tquery(connects, query, "", "");
-            PlayerInfo[i][pCarID] = model_id;
+    //         new query[120];
+    //         format
+    //         (
+    //             query, sizeof query,
+    //             "INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
+    //             PlayerInfo[playerid][pID],
+    //             model_id,
+    //             0,0,
+    //             cost_oc_car
+    //         );
+    //         mysql_tquery(connects, query, "", "");
+    //         PlayerInfo[i][pCarID] = model_id;
+    //         SaveAccounts(playerid);
 
-            format(query, sizeof(query), "Вы выдали игроку %s личный транспорт [Модель: %d] [Стоимость: %d]", to_player, model_id, cost_oc_car);
-            SCM(playerid, white, query);
-            return 1;
-        }
-    }
+    //         format(query, sizeof(query), "Вы выдали игроку %s личный транспорт [Модель: %d] [Стоимость: %d]", to_player, model_id, cost_oc_car);
+    //         SCM(playerid, white, query);
+    //         return 1;
+    //     }
+    // }
     new sql[144];
     format(sql, sizeof(sql), "SELECT * FROM `accounts` WHERE `pName` = '%s'", to_player);
     mysql_tquery(connects, sql, "CheckPlayerForSetOwnableCar", "isii", playerid, to_player, model_id, cost_oc_car);
@@ -41,33 +42,62 @@ publics CheckPlayerForSetOwnableCar(playerid, to_player[], model_id, cost_oc_car
     cache_get_data(rows[0], rows[1]);
     if(rows[0])
     {
-        static carid, owner_id;
-        carid = cache_get_field_content_int(0, "pCarID");
+        static owner_id, adminlvl;
         owner_id = cache_get_field_content_int(0, "pID");
+        adminlvl = cache_get_field_content_int(0, "bAdmin");
 
-        if(carid != -1) return SCM(playerid, red, "У данного игрока имеется личный транспорт.");
-
-        new query[120];
+        if(PlayerInfo[playerid][bAdmin] < adminlvl)
+            return SCM(playerid, red, !"Вы не можете выдать авто данному игроку!");
+            
+        new query[256];
         format
         (
             query, sizeof query,
-            "INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
-            owner_id,
-            model_id,
-            0,0,
-            cost_oc_car
+            "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d' ORDER BY id DESC",
+            owner_id
         );
-        mysql_tquery(connects, query, "", "");
-
-        format(query, sizeof(query), "UPDATE `accounts` SET `pCarID` = '%d' WHERE `pName` = '%s'", model_id, to_player);
-        mysql_tquery(connects, query, "", "");
-
-        format(query, sizeof(query), "Вы выдали игроку %s личный транспорт [Модель: %d] [Стоимость: %d]", to_player, model_id, cost_oc_car);
-        SCM(playerid, white, query);
+        mysql_tquery(connects, query, "setowncar_check_own_cars", "dsdddd", playerid, to_player, model_id, cost_oc_car, owner_id, adminlvl);
     }
     else
     {
         return SCM(playerid, red, "Такого игрока нет.");
     }
+    return 1;
+}
+
+publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, owner_id, adminlvl)
+{
+    static rows[2];
+    cache_get_data(rows[0], rows[1]);
+    if(rows[0])
+    {
+        new _amount;
+        for(new i = 0; i < rows[0]; i++)
+        {
+            _amount++;
+        }
+        if(_amount >= 2 && adminlvl < 7 && !CheckFD(playerid))
+            return SCM(playerid, red, !"У игрока уже имеется два или более транспортных средств.");
+        if(_amount >= 3 && adminlvl < 8 && !CheckNickFD(to_player) && !CheckFD(playerid))
+            return SCM(playerid, red, !"У игрока уже имеется три или более транспортных средств.");
+    }
+    new query[120];
+    format
+    (
+        query, sizeof query,
+        "INSERT INTO `ownable_cars` (`owner_id`,`model_id`,`color`,`cost_car`) VALUES ('%d','%d','%d, %d', '%d')",
+        owner_id,
+        model_id,
+        0,0,
+        cost_oc_car
+    );
+    mysql_tquery(connects, query, "", "");
+
+    format(query, sizeof(query), "UPDATE `accounts` SET `pCarID` = '%d' WHERE `pName` = '%s'", model_id, to_player);
+    mysql_tquery(connects, query, "", "");
+
+    format(query, sizeof(query), "Вы выдали игроку %s личный транспорт [Модель: %d] [Стоимость: %d]", to_player, model_id, cost_oc_car);
+    SCM(playerid, white, query);
+
     return 1;
 }

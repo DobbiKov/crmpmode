@@ -1,5 +1,7 @@
 CMD:sms(playerid, params[])
 {
+    if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
+        return SCM(playerid, red, !"В данный момент вы связаны!");
     extract params -> new number, string: text[128]; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sms [номер абонента] [текст]");
     if(PlayerInfo[playerid][pPhone] < 1 || PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона.");
     if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона, или сим-карты.");

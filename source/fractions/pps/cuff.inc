@@ -1,6 +1,6 @@
 CMD:cuff(playerid, params[])
 {
-    if(!IsAPolice(playerid)) return YouCannotUseThisFunc(playerid);
+    if(!IsAPolice(playerid) && PlayerInfo[playerid][pMember] != TEAM_ADM) return YouCannotUseThisFunc(playerid);
     
     extract params -> new to_player; else return SCM(playerid, yellow, "[Оповещение]: {FFFFFF}Используйте /cuff [ID игрока]");
     
@@ -11,7 +11,6 @@ CMD:cuff(playerid, params[])
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
     if(IsPlayerInAnyVehicle(to_player)) return SCM(playerid, red, "Игрок находиться в автомобиле!");
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID!");
-    if(IsAPolice(to_player)) return SCM(playerid, red, "Данный игрок состоит в полиции!");
     if(GetPVarInt(to_player, "cuffed") == 1 || GetPVarInt(to_player, "tied") == 1) return SCM(playerid, red, "Человек уже в наручниках!");
 
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);    
@@ -20,13 +19,13 @@ CMD:cuff(playerid, params[])
     SetPVarInt(to_player, "cuffed", 1);
 
     new string[128];
-    format(string, sizeof(string), "Вы надели наручники на %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "Вы надели наручники на %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s надел на вас наручники", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s надел на вас наручники", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "надевает наручники на %s", PlayerInfo[to_player][pName]);
+    format(string, sizeof(string), "надевает наручники на %s", PlayerName(to_player));
     cmd::me(playerid, string);
     return 1;
 }

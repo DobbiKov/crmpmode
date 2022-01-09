@@ -1,4 +1,4 @@
-#define MAX_PODEZDS 100
+#define MAX_PODEZDS 500
 
 new player_in_podezd[MAX_PLAYERS] = -1;
 
@@ -186,7 +186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1 || PlayerInfo[playerid][pPodID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
                         foreach(new i : Allkvart)
                         {
                             if(KvartInfo[i][kvart_pod_id] == player_in_podezd[playerid])
@@ -300,9 +300,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1: 
                     {
-                        new query[60];
-                        format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
-                        mysql_tquery(connects, query, "LoadMyCar", "i", playerid);
+                        LoadMyCarFunc(playerid);
                     }
                     case 2:
                     {
@@ -350,12 +348,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 PlayerInfo[playerid][pKvartID] = KvartInfo[i][kvart_id];
                 PlayerInfo[playerid][pPodID] = player_in_podezd[playerid];
 
-                SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_id]);
+                SetPlayerVirtualWorld(playerid, i);
                 FreezePlayer(playerid, 2000);
                 SetPlayerPos(playerid, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]);
 
                 player_in_podezd[playerid] = -1;
-                player_in_kvart[playerid] = KvartInfo[i][kvart_id];
 
                 TotalFreeKvart--;
 

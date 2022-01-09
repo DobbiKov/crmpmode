@@ -15,10 +15,11 @@ CMD:setadmin(playerid, params[])
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))
  		{
+			if(!IsPlayerConnected(i) || PlayerInfo[i][pLogin] != true) return PlayerOffLine(playerid);
 	 		PlayerInfo[i][bAdmin] = level;
 
 			new string[256];
-			format(string, sizeof(string), "[A]: %s[%d] установил игроку %s[%d] %d уровень админки", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i, level);
+			format(string, sizeof(string), "[A] %s[%d] установил игроку %s[%d] %d уровень админки", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i, level);
 			SCMA(grey, string);
 			SaveAccounts(playerid);
 			return SaveAccounts(i);
@@ -41,7 +42,7 @@ publics off_set_admin(playerid, to_player[], level)
 	    if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Данный игрок уже администратор.");
 
 	    new string[256], sql_str[128];
-	    format(string, sizeof(string), "[A]: %s[%d] установил игроку %s %d уровень администратора", PlayerInfo[playerid][pName], playerid, to_player, level);
+	    format(string, sizeof(string), "[A] %s[%d] установил игроку %s %d уровень администратора", PlayerInfo[playerid][pName], playerid, to_player, level);
 	    SCMA(grey, string);
 
 	    format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `bAdmin` = '%d' WHERE `pName` = '%s' LIMIT 1", level, to_player);

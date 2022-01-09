@@ -6,18 +6,19 @@ publics LoadKvart()
     {
         for(new i = 0; i < rows; i++)
         {
-            KvartInfo[i][kvart_id] = cache_get_field_content_int(i, "kvart_id");
-            KvartInfo[i][kvart_days] = cache_get_field_content_int(i, "kvart_days");
-            KvartInfo[i][kvart_type] = cache_get_field_content_int(i, "kvart_type");
-            KvartInfo[i][kvart_pod_id] = cache_get_field_content_int(i, "kvart_pod_id");
-            KvartInfo[i][kvart_Owned] = cache_get_field_content_int(i, "kvart_Owned");
-            cache_get_field_content(i, "kvart_Owner", KvartInfo[i][kvart_Owner], connects, 64);
+            new idx = i + 1;
+            KvartInfo[idx][kvart_id] = cache_get_field_content_int(i, "kvart_id");
+            KvartInfo[idx][kvart_days] = cache_get_field_content_int(i, "kvart_days");
+            KvartInfo[idx][kvart_type] = cache_get_field_content_int(i, "kvart_type");
+            KvartInfo[idx][kvart_pod_id] = cache_get_field_content_int(i, "kvart_pod_id");
+            KvartInfo[idx][kvart_Owned] = cache_get_field_content_int(i, "kvart_Owned");
+            cache_get_field_content(i, "kvart_Owner", KvartInfo[idx][kvart_Owner], connects, 64);
             
-            if(KvartInfo[i][kvart_Owned] == 0) TotalFreeKvart++;
+            if(KvartInfo[idx][kvart_Owned] == 0) TotalFreeKvart++;
             totalkvart++;
 
-            Iter_Add(Allkvart, i);
-            BuyKvart(i);
+            Iter_Add(Allkvart, idx);
+            BuyKvart(idx);
         }
     }
     printf("[UNIGVA]: Всего загружено квартир: %d", totalkvart);
@@ -64,18 +65,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys == 1024)
     {
-        if(player_in_kvart[playerid] != -1)
+        if(IsPlayerInRangeOfPoint(playerid, 1.0, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]))
         {
-            if(IsPlayerInRangeOfPoint(playerid, 1.0, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]))
+            foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
             {
-                foreach(new i : Allkvart) if(player_in_kvart[playerid] == KvartInfo[i][kvart_id])
-                {
-                    SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
-                    SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
-                    player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
-                    FreezePlayer(playerid, 2000);
-                    return player_in_kvart[playerid] = -1;
-                }
+                SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
+                SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
+                player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
+                FreezePlayer(playerid, 2000);
+                return player_in_kvart[playerid];
             }
         }
         else
@@ -87,7 +85,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     foreach(new j : Allkvart) if(KvartInfo[j][kvart_pod_id] == player_in_podezd[playerid] && KvartInfo[j][kvart_type] == i)
                     {
                         new owner[MAX_PLAYER_NAME] = "Государство";
-                        if(KvartInfo[i][kvart_Owned] == 1) format(owner, sizeof(owner), "%s", KvartInfo[i][kvart_Owner]);
+                        if(KvartInfo[j][kvart_Owned] == 1) format(owner, sizeof(owner), "%s", KvartInfo[j][kvart_Owner]);
                         new fmt_dialog[256];
                         format
                         (
@@ -98,7 +96,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                             Стоимость: \t\t{"cblue"}%d рублей{FFFFFF}\n\
                             Арендная плата: \t{"cblue"}%d рублей{FFFFFF}\n\n\
                             Вы уверенны, что хотите войти в квартиру?",
-                            KvartInfo[i][kvart_type]+1,
+                            KvartInfo[j][kvart_type]+1,
                             owner,
                             2000,
                             2000
@@ -143,11 +141,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 new j = GetPVarInt(playerid, "enter_kvart");
-                SetPlayerVirtualWorld(playerid, KvartInfo[j][kvart_id]);
+                SetPlayerVirtualWorld(playerid, j);
                 FreezePlayer(playerid, 2000);
                 SetPlayerPos(playerid, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]);
                 player_in_podezd[playerid] = -1;
-                player_in_kvart[playerid] = KvartInfo[j][kvart_id];
                 return DeletePVar(playerid, "enter_kvart");
             }
         }
@@ -190,6 +187,7 @@ publics minuteupdate()
                             SCM(j, green, "Ваша квартира была продана государству за неуплату.");
 
                             PlayerInfo[j][pKvartID] = -1;
+                            PlayerInfo[j][pPodID] = -1;
 
                             KvartInfo[i][kvart_Owned] = 0;
                             KvartInfo[i][kvart_days] = 3;
@@ -209,8 +207,8 @@ publics minuteupdate()
 
                     new offkvartmess[144] = "Ваша квартира была передана государству, за неуплату.";
 
-                    new sql[144];
-                    format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
+                    new sql[1024];
+                    format(sql, sizeof(sql), "UPDATE `accounts` SET `pKvartOffMess` = '%s', `pKvartID` = '-1', `pPodID` = '-1' WHERE `pKvartID` = '%d'", offkvartmess, KvartInfo[i][kvart_id]);
                     return mysql_tquery(connects, sql, "", "");
                 }
             }

@@ -39,8 +39,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			SPD(playerid, D_AREND_TRUCK, DIALOG_STYLE_LIST, "{"cblue"}Аренда фуры", "\
 			{"cblue"}1. {FFFFFF}Фургон\t\t{"cblue"}(0 уровень и 800 рублей)\n\
-			{"cblue"}1. {FFFFFF}ЗИЛ\t\t{"cblue"}(5 уровень и 2000 рублей)\n\
-			{"cblue"}2. {FFFFFF}КАМАЗ\t{"cblue"}(10 уровень и 4500 рублей)", "Арендовать", "Закрыть");
+			{"cblue"}2. {FFFFFF}ЗИЛ\t\t{"cblue"}(5 уровень и 2000 рублей)\n\
+			{"cblue"}3. {FFFFFF}КАМАЗ\t{"cblue"}(10 уровень и 4500 рублей)", "Арендовать", "Закрыть");
         }
     }
 	if(newkeys == 2)
@@ -243,7 +243,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
 			}
 		}
-		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid])
+		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid] && PlayerInfo[playerid][pJob] == Job_Truck)
 		{
 		    if(pCheckpoint[playerid] == CP_SIT_IN_TRUCK)
 		    {
@@ -385,9 +385,12 @@ publics PlayerSecondTimer(playerid)
 publics EndJobTrucker(playerid)
 {
 	SCM(playerid, red, "К сожалению, вы не успели сесть в грузовикк!");
-	
-	DestroyVehicle(player_job_vehicle_created[playerid]);
-	DestroyVehicle(player_job_vehicle_created_2[playerid]);
+	if(player_job_vehicle_created[playerid] != -1)
+		DestroyVehicle(player_job_vehicle_created[playerid]);
+	if(player_job_vehicle_created_2[playerid] != -1)
+		DestroyVehicle(player_job_vehicle_created_2[playerid]);
+
+
 	DisablePlayerRaceCheckpoint(playerid);
 	player_job_vehicle_created[playerid] = -1;
 	player_job_vehicle_created_2[playerid] = -1;

@@ -10,5 +10,5 @@ CMD:eject(playerid, params[])
     format(string, sizeof(string), "выкинул-(а) из транспорта %s", PlayerInfo[to_player][pName]);
     cmd::me(playerid, string);
     RemovePlayerFromVehicle(to_player);
-    return TogglePlayerControllable(playerid, 1);
+    return UnFreezePlayer(to_player);
 }

@@ -3,34 +3,45 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	
     if(newkeys == 1024)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 2.0, 2400.3328,-1825.6747,32.5537))
+        if(IsPlayerInRangeOfPoint(playerid, 2.0, 1230.8363,1514.2933,2516.6799) && IsAFSB(playerid))
         {
 			SPD(playerid, D_GUN_FSB, DIALOG_STYLE_LIST, "{"cblue"}ФСБ | Оружие", "\
 			{"cblue"}1. {FFFFFF}Дубинка\n\
-			{"cblue"}2. {FFFFFF}USP-S\n\
+			{"cblue"}2. {FFFFFF}Электрошокер\n\
 			{"cblue"}3. {FFFFFF}Desert Eagle\n\
 			{"cblue"}4. {FFFFFF}М4-А1\n\
 			{"cblue"}5. {FFFFFF}Снайперская Винтовка\n\
-			{"cblue"}6. {FFFFFF}Бронежилет", "Далее", "Закрыть");
+			{"cblue"}6. {FFFFFF}Бронежилет\n\
+			{"cblue"}7. {FFFFFF}Маска", "Далее", "Закрыть");
         }
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2397.47, -1836.63, 21.57))
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, 1210.27, 1524.17, 2515.68)) //3
 		{
-			if(!IsAFSB(playerid)) return 1;
+			if(!IsAFSB(playerid)) 
+                return SCM(playerid, red, !"У вас нет пропуска!");
 
-			if(fsb_door_status == false)
+			if(fsb_dopros_door_3_status == false)
 			{
-				SCM(playerid, blue, "Вы открыли дверь");
-				MoveObject(fsb_door, 2397.47, -1836.63, 21.57, 4.0,  0.00, 0.00, -60.00);
-				fsb_door_status = true;
+				SCM(playerid, green, !"Вы открыли дверь");
+				MoveObject(fsb_dopros_door_3, 1210.27, 1524.17, 2515.68, 0.16,  0.02, 0.00, 0.00);
+				fsb_dopros_door_3_status = true;
 			}
-			else if(fsb_door_status == true)
+			else if(fsb_dopros_door_3_status == true)
 			{
 				SCM(playerid, red, "Вы закрыли дверь");
-				MoveObject(fsb_door, 2397.47, -1836.63, 21.57, 4.0,  0.00, 0.00, 0.00);
-				fsb_door_status = false;
+				MoveObject(fsb_dopros_door_3, 1210.27, 1524.17, 2515.68, 0.16, 0.02, 0.00, 90.00);
+				fsb_dopros_door_3_status = false;
 			}
 
+		}
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44)) //ворота внутри двора ФСБ
+		{
+			CloseOpenIndoorVorota(playerid);
+		}
+
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42)) //ворота снаружи двора ФСБ
+		{
+			CloseOpenOutdoorVorota(playerid);
 		}
         
     }
@@ -49,42 +60,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             }
         }
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2395.02, -1792.44, 22.44)) //ворота внутри двора ФСБ
 		{
-			if(!IsAFSB(playerid)) return 1;
-
-			if(fsb_vorota_1_status == false)
-			{
-				SCM(playerid, blue, "Вы открыли ворота");
-				MoveObject(fsb_vorota_1, 2395.02, -1792.44, 25.70, 4.0,  0.00, 0.00, 0.00);
-				fsb_vorota_1_status = true;
-			}
-			else if(fsb_vorota_1_status == true)
-			{
-				SCM(playerid, red, "Вы закрыли ворота");
-				MoveObject(fsb_vorota_1, 2395.02, -1792.44, 22.44, 4.0,  0.00, 0.00, 0.00);
-				fsb_vorota_1_status = false;
-			}
-
+			CloseOpenIndoorVorota(playerid);
 		}
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, 2445.66, -1795.02, 22.42)) //ворота снаружи двора ФСБ
 		{
-			if(!IsAFSB(playerid)) return 1;
-
-			if(fsb_vorota_2_status == false)
-			{
-				SCM(playerid, blue, "Вы открыли ворота");
-				MoveObject(fsb_vorota_2, 2445.66, -1795.02, 25.68, 4.0,  0.00, 0.00, 90.00);
-				fsb_vorota_2_status = true;
-			}
-			else if(fsb_vorota_2_status == true)
-			{
-				SCM(playerid, red, "Вы закрыли ворота");
-				MoveObject(fsb_vorota_2, 2445.66, -1795.02, 22.42, 4.0,  0.00, 0.00, 90.00);
-				fsb_vorota_2_status = false;
-			}
-
+			CloseOpenOutdoorVorota(playerid);
 		}
     }
 	#if	defined	fsb__OnPlayerKeyStateChange
@@ -103,3 +86,40 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 #if	defined	fsb__OnPlayerKeyStateChange
 	forward fsb__OnPlayerKeyStateChange(playerid, newkeys, oldkeys);
 #endif
+
+stock CloseOpenIndoorVorota(playerid)
+{
+    if(!IsAFSB(playerid)) return 1;
+
+    if(fsb_vorota_1_status == false)
+    {
+        SCM(playerid, green, !"Вы открыли ворота");
+        MoveObject(fsb_vorota_1, 2395.02, -1792.44, 25.70, 4.0,  0.00, 0.00, 0.00);
+        fsb_vorota_1_status = true;
+    }
+    else if(fsb_vorota_1_status == true)
+    {
+        SCM(playerid, red, "Вы закрыли ворота");
+        MoveObject(fsb_vorota_1, 2395.02, -1792.44, 22.44, 4.0,  0.00, 0.00, 0.00);
+        fsb_vorota_1_status = false;
+    }   
+    return 1; //I wrote this return, to disable "warning" from PAWN.
+}
+stock CloseOpenOutdoorVorota(playerid)
+{
+    if(!IsAFSB(playerid)) return 1;
+
+    if(fsb_vorota_2_status == false)
+    {
+        SCM(playerid, green, !"Вы открыли ворота");
+        MoveObject(fsb_vorota_2, 2445.66, -1795.02, 25.68, 4.0,  0.00, 0.00, 90.00);
+        fsb_vorota_2_status = true;
+    }
+    else if(fsb_vorota_2_status == true)
+    {
+        SCM(playerid, red, !"Вы закрыли ворота");
+        MoveObject(fsb_vorota_2, 2445.66, -1795.02, 22.42, 4.0,  0.00, 0.00, 90.00);
+        fsb_vorota_2_status = false;
+    }
+    return 1; //I wrote this return, to disable "warning" from PAWN.
+}

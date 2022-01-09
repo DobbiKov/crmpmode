@@ -15,10 +15,10 @@ CMD:takelic(playerid, params[])
             if(PlayerInfo[to_player][pLicA] < 1) return SCM(playerid, red, "У игрока отсутсвует лицензия данной категории!");
 
             PlayerInfo[to_player][pLicA] = 0;
-            format(string, sizeof(string), "Вы отобрали права категории A у %s", PlayerInfo[to_player][pName]);
+            format(string, sizeof(string), "Вы отобрали права категории A у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории A", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "%s %s отобрал у вас права категории A", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -28,10 +28,10 @@ CMD:takelic(playerid, params[])
             if(PlayerInfo[to_player][pLicB] < 1) return SCM(playerid, red, "У игрока отсутсвует лицензия данной категории!");
 
             PlayerInfo[to_player][pLicB] = 0;
-            format(string, sizeof(string), "Вы отобрали права категории B у %s", PlayerInfo[to_player][pName]);
+            format(string, sizeof(string), "Вы отобрали права категории B у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории B", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "%s %s отобрал у вас права категории B", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -41,10 +41,10 @@ CMD:takelic(playerid, params[])
             if(PlayerInfo[to_player][pLicC] < 1) return SCM(playerid, red, "У игрока отсутсвует лицензия данной категории!");
 
             PlayerInfo[to_player][pLicC] = 0;
-            format(string, sizeof(string), "Вы отобрали права категории C у %s", PlayerInfo[to_player][pName]);
+            format(string, sizeof(string), "Вы отобрали права категории C у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории C", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "%s %s отобрал у вас права категории C", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -54,10 +54,10 @@ CMD:takelic(playerid, params[])
             if(PlayerInfo[to_player][pLicD] < 1) return SCM(playerid, red, "У игрока отсутсвует лицензия данной категории!");
 
             PlayerInfo[to_player][pLicD] = 0;
-            format(string, sizeof(string), "Вы отобрали права категории D у %s", PlayerInfo[to_player][pName]);
+            format(string, sizeof(string), "Вы отобрали права категории D у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории D", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "%s %s отобрал у вас права категории D", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
