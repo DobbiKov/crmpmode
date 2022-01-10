@@ -1072,7 +1072,7 @@ public OnGameModeInit()
 	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
-    CreateLogsMySQLConnection(sqlhost, sqluser, "unigvacrmplogs", sqlpass);
+    CreateLogsMySQLConnection(logssqlhost, logssqluser, logssqldb, logssqlpass);
 
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
@@ -2673,8 +2673,8 @@ stock CreateMySQLConnection(host[], user[], database[], pass[])
 stock CreateLogsMySQLConnection(host[], user[], database[], pass[])
 {
 	logs_connects = mysql_connect(host, user, database, pass);
-	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
-	else return printf("[MYSQL]: Подключиться к базе не удалось");
+	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе логов успешно");
+	else return printf("[MYSQL]: Подключиться к базе логов не удалось");
 	
 	mysql_set_charset("cp1251");
 	return 1;
