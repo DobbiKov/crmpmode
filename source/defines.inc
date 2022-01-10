@@ -29,6 +29,8 @@
 #define     name_serv   "Unigva RolePlay"
 #define     forum_url   "forum.unigva-rp.ru"
 
+#define     server_num  "1"
+
 //************* | ˜˜˜˜˜ | *************//
 #define     red        	0xFF0000AA
 #define     lightred   	0xFF0033FF
