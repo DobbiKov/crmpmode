@@ -4,10 +4,16 @@
 #define 	sqlpass     "zF4P9amEUg"
 #define 	sqldb       "gs28883"
 
-#define 	logssqlhost     "185.206.212.246"
-#define 	logssqluser     "unigva"
-#define 	logssqlpass     "TapolskyAnatoliyUnigvovich436!!"
-#define 	logssqldb       "unigvacrmplogs"
+#define 	logssqlhost     "localhost"
+#define 	logssqluser     "gs28883"
+#define 	logssqlpass     "zF4P9amEUg"
+#define 	logssqldb       "gs28883"
+
+
+// #define 	logssqlhost     "185.206.212.246"
+// #define 	logssqluser     "unigva"
+// #define 	logssqlpass     "TapolskyAnatoliyUnigvovich436!!"
+// #define 	logssqldb       "unigvacrmplogs"
 
 //host
 // #define 	sqlhost     "185.206.212.246"
