@@ -35,21 +35,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
+                        if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
                         GivePlayerWeaponAC(playerid, 3, 60);
                     }
                     case 1:
                     {
+                        if(GetPlayerWeaponAmmo(playerid, 23) >= 10)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
                         GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 2:
                     {
+                        if(GetPlayerWeaponAmmo(playerid, 24) >= 60)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
                         GivePlayerWeaponAC(playerid, 24, 50);
                     }
                     case 3:
                     {
+                        if(GetPlayerWeaponAmmo(playerid, 31) >= 300)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
                         GivePlayerWeaponAC(playerid, 31, 150);
                     }
 					case 4:{
+                        if(GetPlayerWeaponAmmo(playerid, 34) >= 20)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
 						GivePlayerWeaponAC(playerid, 34, 10);
 					}
 					case 5:{
@@ -60,6 +70,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][pMask] >= 2) return SCM(playerid, red, "¬ы не можете унести столько масок");
 						SCM(playerid, blue, !"¬ы вз€ли маску.");
                         PlayerInfo[playerid][pMask]++;
+					}
+					case 7:{
+                        if(PlayerInfo[playerid][pHeal] >= 2) return SCM(playerid, red, "¬ы не можете унести столько аптечек");
+						SCM(playerid, blue, !"¬ы вз€ли аптечку.");
+                        PlayerInfo[playerid][pHeal]++;
 					}
                 }
             }

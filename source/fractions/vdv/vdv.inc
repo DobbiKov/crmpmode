@@ -254,6 +254,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_PATRON < 50) return SCM(playerid, red, "Ќа складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 50) return SCM(playerid, red, "Ќа складе недостаточно металла!");
 
+                        if(GetPlayerWeaponAmmo(playerid, 22) >= 100)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
+
                         GivePlayerWeaponAC(playerid, 22, 50);
 
                         REPOSITORY_ARMY_METALL -= 50;
@@ -265,6 +268,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_PATRON < 120) return SCM(playerid, red, "Ќа складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 60) return SCM(playerid, red, "Ќа складе недостаточно металла!");
 
+                        if(GetPlayerWeaponAmmo(playerid, 30) >= 240)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
+
                         GivePlayerWeaponAC(playerid, 30, 120);
 
                         REPOSITORY_ARMY_METALL -= 60;
@@ -275,6 +281,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     {
                         if(REPOSITORY_ARMY_PATRON < 1) return SCM(playerid, red, "Ќа складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 1) return SCM(playerid, red, "Ќа складе недостаточно металла!");
+                        
+                        if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
+                            return SCM(playerid, red, !"” вас уже максимальное количество патрон дл€ данного вида оружи€.");
 
                         GivePlayerWeaponAC(playerid, 3, 1);
 
