@@ -10,10 +10,11 @@ CMD:uncuff(playerid, params[])
     GetPlayerPos(playerid, x, y, z);
     if(!IsPlayerInRangeOfPoint(to_player, 5.0, x, y, z)) return SCM(playerid, red, "Человек далеко от вас!");
     if(to_player == playerid) return SCM(playerid, red, "Вы указали свой ID!");
-    if(GetPVarInt(to_player, "cuffed") != 1) return SCM(playerid, red, "Человек не в наручниках!");
+    if(GetPVarInt(to_player, "cuffed") != 1 && GetPVarInt(playerid, "tied") != 1) return SCM(playerid, red, "Человек не в наручниках!");
 
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
     DeletePVar(to_player, "cuffed");
+    DeletePVar(to_player, "tied");
 
     new string[128];
     format(string, sizeof(string), "Вы сняли наручники с %s", PlayerName(to_player));
