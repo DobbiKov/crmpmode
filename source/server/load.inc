@@ -60,7 +60,7 @@
 	PAINT_PICK = CreatePickup(353, 23, 2234.5137,1376.8782,11.5700, 0);
 
 
-	FSB_STREET_PICK = CreatePickup(19133, 23, 2412.3313,-1841.6781,22.9476, 0);
+	FSB_STREET_PICK = CreatePickup(19133, 23, 2412.4924,-1841.6857,22.9476, 0);
 	FSB_OFFICE_PICK = CreatePickup(19133, 23, 1237.6288,1538.0011,2516.6799, 0);
 	FSB_GARAGE_PICK = CreatePickup(19133, 23, 2398.5386,-1835.7471,19.7334, 0);
 	FSB_ROOF_PICK = CreatePickup(19133, 23, 2436.0796,-1793.6783,40.7679, 0);
@@ -115,6 +115,8 @@
 
     Create3DTextLabel("ֽאזלטעו: {"cblue"}L.ALT", white, 2441.7510,-1803.7308,32.5537, 5.0, 0, 0);
     Create3DTextLabel("ֽאזלטעו: {"cblue"}L.ALT", white, 2442.1741,-1805.4276,32.6259, 5.0, 1, 0);
+
+    Create3DTextLabel("ֽאזלטעו: {"cblue"}L.ALT", white, 1230.8363,1514.2933,2516.6799, 5.0, 1, 0); //פסב דאםû
 	
 
 
