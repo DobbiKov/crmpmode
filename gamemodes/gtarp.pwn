@@ -3363,13 +3363,15 @@ stock GiveSmiMoney(cash){
 }
 stock GiveMoney(p, money, reason[])
 {
-	new Year, Month, Day;
-	getdate(Year, Month, Day);
+	// new Year, Month, Day;
+	// getdate(Year, Month, Day);
 
-	new Hour, Minute;
-	gettime(Hour, Minute);
+	// new Hour, Minute;
+	// gettime(Hour, Minute);
 	
 	PlayerInfo[p][pCash] += money;
+	if(PlayerInfo[p][pCash] < 0)
+		PlayerInfo[p][pCash] = 0;
 	ResetPlayerMoney(p);
 	GivePlayerMoney(p, PlayerInfo[p][pCash]);
 
@@ -3382,7 +3384,7 @@ stock GiveMoney(p, money, reason[])
 	format(fmt_msg, sizeof(fmt_msg), "~%s~ %s%d rub", (money >= 0) ? "g" : "r", (money >= 0) ? "+" : "", money);
 	GameTextForPlayer(p, fmt_msg, 1500, 1);
 
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givemoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d-%02d-%02d %d:%02d')", PlayerInfo[p][pID], money, reason, ip, Day, Month, Year, Hour, Minute);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givemoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d')", PlayerInfo[p][pID], money, reason, ip, gettime());
 	mysql_tquery(connects, stringer);
 }
 
@@ -3395,14 +3397,16 @@ stock GiveBankMoney(p, money, reason[])
 	gettime(Hour, Minute);
 
 	PlayerInfo[p][pBCash] += money;
+	if(PlayerInfo[p][pBCash] < 0)
+		PlayerInfo[p][pBCash] = 0;
 
 	new ip[20];
 	GetPlayerIp(p, ip, sizeof(ip));
 	
-	new time[128];
-	format(time, sizeof(time), "%d-%02d-%02d %d:%02d", Day, Month, Year, Hour, Minute);
+	// new time[128];
+	// format(time, sizeof(time), "%d-%02d-%02d %d:%02d", Day, Month, Year, Hour, Minute);
 
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givebankmoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%s')", PlayerInfo[p][pID], money, reason, ip, time);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givebankmoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d')", PlayerInfo[p][pID], money, reason, ip, gettime());
 	mysql_tquery(connects, stringer);
 }
 
