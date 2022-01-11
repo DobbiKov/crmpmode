@@ -50,14 +50,14 @@ new Command2LVL[30][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[35][] = 
+new Command3LVL[36][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
     {"{"cblue"}/getip{ffffff}- Узнать IP-Address игрока\n"},
     {"{"cblue"}/offgetip {ffffff}- Узнать IP-Address игрока в оффлайне\n"},
     {"{"cblue"}/cc {ffffff}- Очистить чат\n"},
-    // {"{"cblue"}/punishments {ffffff}- Посмотреть историю наказаний игрока\n"},
+    {"{"cblue"}/punishments {ffffff}- Посмотреть историю наказаний игрока\n"},
     {"{"cblue"}/unjail {ffffff}- Выпустить игрока из деморгана\n"},
     {"{"cblue"}/unmute {ffffff}- Снять мут с игрока\n"},
     {"{"cblue"}/fixveh {ffffff}- Починить авто\n"},
