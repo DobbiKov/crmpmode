@@ -57,6 +57,7 @@ new Command3LVL[35][] =
     {"{"cblue"}/getip{ffffff}- Узнать IP-Address игрока\n"},
     {"{"cblue"}/offgetip {ffffff}- Узнать IP-Address игрока в оффлайне\n"},
     {"{"cblue"}/cc {ffffff}- Очистить чат\n"},
+    // {"{"cblue"}/punishments {ffffff}- Посмотреть историю наказаний игрока\n"},
     {"{"cblue"}/unjail {ffffff}- Выпустить игрока из деморгана\n"},
     {"{"cblue"}/unmute {ffffff}- Снять мут с игрока\n"},
     {"{"cblue"}/fixveh {ffffff}- Починить авто\n"},

@@ -48,12 +48,6 @@ stock ChangeName(playerid)
 
 	format(stringer, 512, "UPDATE `referals` SET `login_invited` = '%s' WHERE `login_invited` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
-
-	format(stringer, 512, "UPDATE `nakazania` SET `AdminName` = '%s' WHERE `AdminName` = '%s'", playerName,PlayerInfo[playerid][pName]);
-	mysql_tquery(connects, stringer, "", "");
-
-	format(stringer, 512, "UPDATE `nakazania` SET `Name` = '%s' WHERE `Name` = '%s'", playerName,PlayerInfo[playerid][pName]);
-	mysql_tquery(connects, stringer, "", "");
 	
 	format(stringer, 512, "UPDATE `kvart` SET `kvart_Owner` = '%s' WHERE `kvart_Owner` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");

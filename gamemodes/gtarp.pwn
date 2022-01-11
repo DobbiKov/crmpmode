@@ -908,6 +908,7 @@ enum
 #include "../source/admin/commands/3 lvl/getip.inc"
 #include "../source/admin/commands/3 lvl/offgetip.inc"
 #include "../source/admin/commands/3 lvl/cc.inc"
+#include "../source/admin/commands/3 lvl/punishments.inc"
 #include "../source/admin/commands/3 lvl/unjail.inc"
 #include "../source/admin/commands/3 lvl/unmute.inc"
 #include "../source/admin/commands/3 lvl/fixveh.inc"
