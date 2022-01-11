@@ -67,6 +67,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/mwarn [id игрока] [причина] - Выдать выговор игроку\n"\
 		"/removeaccess [id игрока] - Забрать пропуск в здание ФСБ\n"\
 		"/infiltrate - Внедриться в организацию\n"\
+		"/location - Узнать местоположение игрока\n"\
 		"/readsms - Прослушка сообщений\n"\
 		"/switchskin [ID скина] - Сменить одежду\n"\
 		"/switchfskin - Сменить фракционную одежду\n"\
