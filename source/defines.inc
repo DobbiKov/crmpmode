@@ -1,13 +1,13 @@
 //************* | MYSQL | *************//
 #define 	sqlhost     "localhost"
-#define 	sqluser     "gs28883"
-#define 	sqlpass     "zF4P9amEUg"
-#define 	sqldb       "gs28883"
+#define 	sqluser     "gs29164"
+#define 	sqlpass     "pZP4vqGLIQ"
+#define 	sqldb       "gs29164"
 
 #define 	logssqlhost     "localhost"
-#define 	logssqluser     "gs28883"
-#define 	logssqlpass     "zF4P9amEUg"
-#define 	logssqldb       "gs28883"
+#define 	logssqluser     "gs29164"
+#define 	logssqlpass     "pZP4vqGLIQ"
+#define 	logssqldb       "gs29164"
 
 
 // #define 	logssqlhost     "185.206.212.246"

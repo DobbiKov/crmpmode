@@ -10,7 +10,7 @@ CMD:setname(playerid,params[])
 	format(stringer,128,"[A] %s сменил ник игроку %s на %s",PlayerInfo[playerid][pName],PlayerInfo[params[0]][pName],playerName);
 	SCMA(0x00CC66FF,stringer);
 
-	if(GetPVarInt(params[0],"changename_fix")) return 1;
+	// if(GetPVarInt(params[0],"changename_fix")) return 1;
 	ChangeName(params[0]);
 	return 1;
 }
@@ -63,8 +63,14 @@ stock ChangeName(playerid)
 	
 	format(stringer, 512, "UPDATE `bussines` SET `bOwner` = '%s' WHERE `bOwner` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
-	
+
 	format(stringer, 512, "UPDATE `bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `radars` SET `radar_set` = '%s' WHERE `radar_set` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	format(stringer, 512, "UPDATE `unwarn` SET `Nick` = '%s' WHERE `Nick` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
 
 	if(PlayerInfo[playerid][pBizID] != -1){
@@ -96,11 +102,14 @@ stock ChangeName(playerid)
 	}
 
  	stringer[0] = EOS;
-	new year, month, day, strstre[30];
- 	getdate(year, month, day);
- 	format(strstre,sizeof(strstre),"%d/%d/%d",day,month,year);
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
-	mysql_tquery(connects, stringer);
+	new strstre[30], string[256];
+	new day, month, year, hour, minute, second;
+	getdate(day, month, year);
+	gettime(hour, minute, second);
+	format(strstre, sizeof(strstre), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
+
+	mysql_format(connects, string, sizeof(string), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
+	mysql_tquery(connects, string);
 
 	format(stringer,100, "Игрок %s сменил имя на %s",PlayerInfo[playerid][pName],playerName);
 	SCMA(orange, stringer);

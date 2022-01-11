@@ -431,6 +431,12 @@ stock DonateChangeName(playerid, playerName[])
 	
 	format(stringer, 512, "UPDATE `bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `radars` SET `radar_set` = '%s' WHERE `radar_set` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	format(stringer, 512, "UPDATE `unwarn` SET `Nick` = '%s' WHERE `Nick` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
 
 	if(PlayerInfo[playerid][pBizID] != -1){
 		foreach(new i : Allbusiness){
@@ -461,9 +467,11 @@ stock DonateChangeName(playerid, playerName[])
 	}
 
  	stringer[0] = EOS;
-	new year, month, day, strstre[30];
- 	getdate(year, month, day);
- 	format(strstre,sizeof(strstre),"%d/%d/%d",day,month,year);
+	new strstre[30];
+	new day, month, year, hour, minute, second;
+	getdate(day, month, year);
+	gettime(hour, minute, second);
+	format(strstre, sizeof(strstre), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
 	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
 	mysql_tquery(connects, stringer);
 
