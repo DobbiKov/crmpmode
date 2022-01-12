@@ -2444,7 +2444,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys == 4)
+	if(newkeys == 4 && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
 	    new carid = GetPlayerVehicleID(playerid);
 	    new engine, lights, alarm, doors, bonnet, boot, objective;
