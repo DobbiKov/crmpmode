@@ -533,6 +533,7 @@ DROP TABLE IF EXISTS `name_log`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `name_log` (
   `nID` int NOT NULL AUTO_INCREMENT,
+  `nAccountId` int NOT NULL,
   `nOldName` varchar(26) NOT NULL,
   `nNewName` varchar(26) NOT NULL,
   `nDate` date NOT NULL,
@@ -543,12 +544,6 @@ CREATE TABLE `name_log` (
 --
 -- Dumping data for table `name_log`
 --
-
-LOCK TABLES `name_log` WRITE;
-/*!40000 ALTER TABLE `name_log` DISABLE KEYS */;
-INSERT INTO `name_log` VALUES (1,'Lox_Ebala','Lox_Ebala','0000-00-00'),(2,'Egor_Dobbikov','Egor_Dobbikov','0000-00-00'),(3,'Oleh_Dobbikov','Oleh_Dobbikov','0000-00-00'),(4,'Roma_Dobbi','Roma_Dobbi','0000-00-00'),(5,'Roman_Dobbikov','Roma_Dobbikov','0000-00-00'),(6,'Roma_Dobbikov','Roman_Dobbikov','0000-00-00'),(7,'Roman_Dobbikov','Roma_Dobbikov','0000-00-00'),(8,'Egor_Dobbikov','Egor_Dobbi','0000-00-00'),(9,'Egor_Dobbi','Egor_Dobbikov','0000-00-00');
-/*!40000 ALTER TABLE `name_log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `org_history`

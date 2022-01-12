@@ -29,9 +29,9 @@ publics CallChangeName(playerid)
     GetPVarString(playerid, "WantNickChange", playerName, MAX_PLAYER_NAME);
 
 	format(stringer,512,"[A] %s[%d] подал завку на смену ника. Желаемый ник: %s",PlayerInfo[playerid][pName],playerid,playerName);
-	SCMA(0x00CC66FF,stringer);
-	SCMA(0x00CC66FF,"Чтобы сменить ему ник Используйте /setname");
-	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Заявка на смену ника отправлена администрации");
+	SCMA(lightgreen,stringer);
+	SCMA(lightgreen,"Чтобы сменить ему ник Используйте /setname");
+	SCM(playerid, blue, "[Внимание]{"cwhite"}: Заявка на смену ника отправлена администрации");
 	return 1;
 }
 stock ChangeName(playerid)
@@ -108,7 +108,11 @@ stock ChangeName(playerid)
 	gettime(hour, minute, second);
 	format(strstre, sizeof(strstre), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
 
-	mysql_format(connects, string, sizeof(string), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
+	mysql_format(connects, string, sizeof(string), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`, `nAccountId`) VALUES ('%s', '%s', '%s', '%d')", 
+	PlayerInfo[playerid][pName], 
+	playerName, 
+	strstre,
+	PlayerInfo[playerid][pID]);
 	mysql_tquery(connects, string);
 
 	format(stringer,100, "Игрок %s сменил имя на %s",PlayerInfo[playerid][pName],playerName);
@@ -117,7 +121,7 @@ stock ChangeName(playerid)
 	SetPlayerName(playerid, playerName);
 	strmid(PlayerInfo[playerid][pName], playerName, 0, strlen(playerName), 31);
 
- 	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Пропишите новый ник в окне CR-MP");
+ 	SCM(playerid, blue, "[Внимание]{"cwhite"}: Пропишите новый ник в окне CR-MP");
 
 	DeletePVar(playerid,"WantNickChange");
 	return 1;

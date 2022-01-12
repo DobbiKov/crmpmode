@@ -472,7 +472,11 @@ stock DonateChangeName(playerid, playerName[])
 	getdate(day, month, year);
 	gettime(hour, minute, second);
 	format(strstre, sizeof(strstre), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`, `nAccountId`) VALUES ('%s', '%s', '%s', '%d')", 
+	PlayerInfo[playerid][pName], 
+	playerName, 
+	strstre,
+	PlayerInfo[playerid][pID]);
 	mysql_tquery(connects, stringer);
 
 	format(stringer,100, "Игрок %s сменил имя на %s [Через донат]",PlayerInfo[playerid][pName],playerName);
@@ -481,7 +485,7 @@ stock DonateChangeName(playerid, playerName[])
 	SetPlayerName(playerid, playerName);
 	strmid(PlayerInfo[playerid][pName], playerName, 0, strlen(playerName), 31);
 
- 	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Пропишите новый ник в окне CR-MP");
+ 	SCM(playerid, blue, "[Внимание]{"cwhite"}: Пропишите новый ник в окне CR-MP");
 
 	DeletePVar(playerid,"WantNickChange");
 	return 1;
