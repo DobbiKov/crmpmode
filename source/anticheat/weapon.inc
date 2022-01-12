@@ -1,7 +1,11 @@
+#define CUSTOM_MAX_WEAPON_TYPES 50
+new stock AccessedWeapons[MAX_PLAYERS][CUSTOM_MAX_WEAPON_TYPES];
+
 stock GivePlayerWeaponAC(playerid, weaponid, ammo)
 {
     new slot = GetWeaponSlotEx(weaponid);
 	if(slot == -1) return 0;
+	AccessedWeapons[playerid][weaponid] = 1;
 	PlayerInfo[playerid][pGun][slot] = weaponid;
     if(ammo > 0) PlayerInfo[playerid][pAmmo][slot] += ammo;
     else PlayerInfo[playerid][pAmmo][slot] -= ammo;
@@ -13,6 +17,7 @@ stock SetPlayerWeaponAC(playerid, weaponid, ammo)
 {
     new slot = GetWeaponSlotEx(weaponid);
 	if(slot == -1) return 0;
+	AccessedWeapons[playerid][weaponid] = 1;
 	PlayerInfo[playerid][pGun][slot] = weaponid;
     if(ammo > 0) PlayerInfo[playerid][pAmmo][slot] += ammo;
     else PlayerInfo[playerid][pAmmo][slot] -= ammo;
@@ -62,6 +67,35 @@ stock GetWeaponSlotEx(weaponid)
 	}
 	return -1;
 }
+
+publics PlayerSecondTimer(playerid)
+{
+    new player_weapon = GetPlayerWeapon(playerid);
+	// new str[60];
+	// format(str, sizeof(str), "DEBUG: %d %s", player_weapon, (AccessedWeapons[playerid][player_weapon] > 0) ? ("true") : ("false"));
+	// SCM(playerid, white, str);
+	if(player_weapon > 0 && AccessedWeapons[playerid][player_weapon] < 1)
+	{
+		ResetPlayerWeaponsAC(playerid);
+		ResultMessageCheat(playerid, 1);
+	}
+
+    #if defined ac_weap__PlayerSecondTimer
+        return ac_weap__PlayerSecondTimer(playerid);
+    #else
+        return 1;
+    #endif
+}
+#if	defined	_ALS_PlayerSecondTimer
+	#undef	PlayerSecondTimer
+#else
+	#define	_ALS_PlayerSecondTimer
+#endif
+
+#define	PlayerSecondTimer ac_weap__PlayerSecondTimer
+#if	defined	ac_weap__PlayerSecondTimer
+	forward ac_weap__PlayerSecondTimer(playerid); 
+#endif
 
 // public OnPlayerUpdate(playerid)
 // {

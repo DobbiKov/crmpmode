@@ -1784,7 +1784,7 @@ public OnPlayerSpawn(playerid)
 		{
 			if(!PlayerInfo[playerid][pGun][i] || !PlayerInfo[playerid][pAmmo][i]) continue;
 			ResetPlayerWeapons(playerid);
-			GivePlayerWeapon(playerid, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
+			GivePlayerWeaponAC(playerid, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
 		}
 	}
 	else
@@ -3155,6 +3155,11 @@ stock ClearAccount(playerid)
 	IsPlayerInGreenZone[playerid] = false;
 	isCanIznas[playerid] = true;
 	
+	for(new i = 0; i < CUSTOM_MAX_WEAPON_TYPES; i++)
+	{
+	    AccessedWeapons[playerid][i] = 0;
+	}
+	
 
 
 
@@ -4050,5 +4055,9 @@ CMD:getpcarid(playerid)
 	new string[144];
 	format(string, sizeof(string), "%d", PlayerInfo[playerid][pCarID]);
 	return SCM(playerid, white, string);
+}
+CMD:getunacweapon(playerid)
+{
+	return GivePlayerWeapon(playerid, 24, 10);
 }
 #endif
