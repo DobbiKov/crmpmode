@@ -9,6 +9,15 @@ stock GivePlayerWeaponAC(playerid, weaponid, ammo)
 	PlayerInfo[playerid][pGun][slot] = weaponid;
     if(ammo > 0) PlayerInfo[playerid][pAmmo][slot] += ammo;
     else PlayerInfo[playerid][pAmmo][slot] -= ammo;
+
+	#if defined SLIPPYGUARD
+	
+	PG_DATA[playerid][pGunEst] = 1; 
+	if(IsOdinPatrGun(weaponid)) ammo = 1, PG_DATA[playerid][pGuns][weaponid] = ammo;
+	else PG_DATA[playerid][pGuns][weaponid] = PG_DATA[playerid][pGuns][weaponid] + ammo;
+	
+	#endif
+
 	GivePlayerWeapon(playerid, weaponid, ammo);
 	return 1;
 }
@@ -44,6 +53,14 @@ stock ResetPlayerWeaponsAC(playerid)
         PlayerInfo[playerid][pGun][i] = 0;
 		PlayerInfo[playerid][pAmmo][i] = 0;
 	}
+
+	#if defined SLIPPYGUARD
+	
+	PG_DATA[playerid][pGunEst] = 1; 
+	for(new i =0 ; i < 47; i++) PG_DATA[playerid][pGuns][i] = 0;
+	
+	#endif
+
 	ResetPlayerWeapons(playerid);
 	return 1;
 }

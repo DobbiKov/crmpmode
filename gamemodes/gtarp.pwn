@@ -40,6 +40,12 @@ L1:
 	#define MAX_PLAYERS 50
 #endif
 
+
+//#define SLIPPYGUARD
+//#if defined SLIPPYGUARD
+//	#include <pawnraknet>
+//#endif
+
 #include    <a_mysql>
 #include    <dc_cmd>
 #include    <streamer>
@@ -82,7 +88,18 @@ L1:
 #define TEAM_FSB    8
 
 #pragma disablerecursion
+
+//************ | “¿…Ã≈–€ | ***************//
+new PlayerTimer[MAX_PLAYERS][4];
+
+#define @_200 0
+#define @_1000 1
+#define @_5000 2
+#define @_10000 3
+
 //************ | œ≈–≈Ã≈ÕÕ€≈ | ************//
+//new gamemodeloaded = 0;
+
 new Iterator:Vehicle<MAX_VEHICLES>;
 
 new change_team_skin_playerid[MAX_PLAYERS];
@@ -779,6 +796,9 @@ enum
 };
 
 // -------------- [ INCLUDES ] ------------------------------
+//------------[ ANTICHEAT] ---------------
+//#include "../source/anticheat/sleepy_ac.h"
+//#include "../source/anticheat/sleepy_ac.inc"
 
 // --------- [ œ≈–≈Ã≈ÕÕ€≈ ] --------------
 #include "../source/systems/mytk.h"
@@ -840,9 +860,11 @@ enum
 #include "../source/systems/skills.inc"
 
 //------------[ ANTICHEAT] ---------------
+
 #include "../source/anticheat/anticheat.inc"
 //#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
+//#include "../source/anticheat/ac_flood_veh.inc"
 //#include "../source/anticheat/ac_hp.inc"
 //#include "../source/anticheat/ac_onfoot_crash.inc"
 //#include "../source/anticheat/ac_tpinveh.inc"
@@ -1073,12 +1095,14 @@ enum
 
 public OnGameModeInit()
 {
-    AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
+	AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
+    
 	SetGameModeText(""gamemode"");
 	SendRconCommand("hostname "hostname"");
 	SendRconCommand("mapname "mapname"");
 	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
+	
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
     //CreateLogsMySQLConnection(logssqlhost, logssqluser, logssqldb, logssqlpass);
 
@@ -1093,7 +1117,6 @@ public OnGameModeInit()
 
 	SetTimer("secondupdate", 1000, true);
 	SetTimer("minuteupdate", 55000, true);
-	
 
 	mysql_tquery(connects, "SELECT * FROM `other`", "LoadOther", "");
 	mysql_tquery(connects, "SELECT * FROM `anticheats`", "LoadAntiCheats", "");
@@ -1108,13 +1131,14 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	
     LoadGreenZones();
+    
     #include "../source/server/load.inc"
 	#include <../include/map/interiors.inc>
 	#include <../include/map/map.inc>
-    #include <../include/map/createobject.inc>
+	#include <../include/map/createobject.inc>
     
     SetTimer("MoveFSBLiftTo3flat", 1000 * 10, false);
-
+    
 	return 1;
 }
 
@@ -1661,6 +1685,7 @@ stock SaveAccounts(playerid)
 
 public OnPlayerConnect(playerid)
 {
+	//SCM(playerid, -1, "ÈÓ"); //DEBUG
     ClearAccount(playerid);
 	ClearProposition(playerid);
 	for(new i = 0; i < 100; i++)
@@ -1702,6 +1727,11 @@ public OnPlayerConnect(playerid)
 	LoadPlayerTextDraws(playerid);
 	ClearAnimations(playerid);
 	player_second_timer[playerid] = SetTimerEx("PlayerSecondTimer", 1000, true, "i", playerid);
+	/*
+	PlayerTimer[playerid][@_200] = SetTimerEx("@_200mc_PlayerTimer", 200, true, "d", playerid);
+	PlayerTimer[playerid][@_1000] = SetTimerEx("@_1000mc_PlayerTimer", 1000, true, "d", playerid);
+	PlayerTimer[playerid][@_5000] = SetTimerEx("@_5000mc_PlayerTimer", 5000, true, "d", playerid);
+	PlayerTimer[playerid][@_10000] = SetTimerEx("@_10000mc_PlayerTimer", 10000, true, "d", playerid);*/
 
 	
 	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i], true)) return 1;
@@ -2556,6 +2586,10 @@ public OnQueryError(errorid, error[], callback[], query[], connectionHandle)
 	printf("[ERROR MYSQL] ID %d | %s | ‘ÛÌÍˆËˇ: %s | «‡ÔÓÒ: %s |", errorid, error, callback, query);
 	return true;
 }
+public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat)
+{
+	return 1;
+}
 //************* | PUBLIC | *************//
 publics UpdateSpeedometr(playerid)
 {
@@ -3160,7 +3194,42 @@ stock ClearAccount(playerid)
 	    AccessedWeapons[playerid][i] = 0;
 	}
 	
+	#if defined SLIPPYGUARD
 
+	PG_DATA[playerid][pGunEst] =
+	PG_DATA[playerid][pCarEntTime] =
+	PG_DATA[playerid][pCarSpeed] =
+
+	PG_DATA[playerid][pCarTolkKol] =
+	PG_DATA[playerid][pCarTolkTick] =
+
+	PG_DATA[playerid][Pizdorvanka] =
+	PG_DATA[playerid][Kill_Time] =
+
+	PG_DATA[playerid][FLOOD_CMD] =
+	PG_DATA[playerid][FLOOD_TXT] =
+	PG_DATA[playerid][FLOOD_TICK] =
+	PG_DATA[playerid][warning_kick] =
+	PG_DATA[playerid][P_SET_POS_TICK] = 0;
+
+	PG_DATA[playerid][P_POS_X] =
+	PG_DATA[playerid][P_POS_Y] =
+	PG_DATA[playerid][P_POS_Z] =
+	PG_DATA[playerid][P_SET_POS_X] =
+	PG_DATA[playerid][P_SET_POS_Y] =
+	PG_DATA[playerid][P_SET_POS_Z] = 0.0;
+
+	PG_DATA[playerid][PG_ObhodAvt] =
+	PG_DATA[playerid][USE_CRASHER] = false;
+
+	PG_DATA[playerid][pCarAC] = -1;
+
+	for(new i; i < 3; i++) PG_DATA[playerid][pCarTolkKord][i] = 0.0;
+	for(new i; i < 47; i++) PG_DATA[playerid][pGuns][i] = 0;
+	PG_DATA[playerid][pCarTolkVeh] = INVALID_VEHICLE_ID;
+
+
+	#endif
 
 
 
@@ -4025,6 +4094,18 @@ stock GetAccesMaxOwnableCar(playerid)
 	return PlayerInfo[playerid][pVIP] > 0 ? 3 : 2;
 }
 
+stock emptyMessage(string[])
+{
+	for(new i; string[i] != 0x0; i++)
+	{
+		switch(string[i])
+		{
+		case 0x20: continue;
+		default: return 0;
+		}
+	}
+	return 1;
+}
 
 #if defined DEBUG
 CMD:zalupa_pizdy_ebalnika(playerid)

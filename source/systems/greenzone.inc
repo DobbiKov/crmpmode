@@ -76,10 +76,13 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 stock LoadGreenZones()
 {
+    print("grenzones");
     for(new i = 0; i < MAX_GREEN_ZONES; i++)
     {
         GreenZoneAreas[i] = CreateDynamicSphere(GreenZones[i][gz_X], GreenZones[i][gz_Y], GreenZones[i][gz_Z], GreenZones[i][gz_Radius], GreenZones[i][gz_vw]);
+        print("grenzone");
     }
+    printf("[UNIGVA]: Всего загружено зелёных зон: %d", MAX_GREEN_ZONES);
     return 1;
 }
 
@@ -96,7 +99,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
         ShowPlayerDialog(playerid, D_NULL, DIALOG_STYLE_MSGBOX, !"{"cblue"}DM | Зелёная зона", !"{ffffff}DM в зелёной зоне запрещен!", !"Закрыть", !"");
     }
     #if	defined	greenzone__OnPlayerGiveDamage
-		return greenzone__OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid);
+		return greenzone__OnPlayerGiveDamage(playerid, damagedid, amount, weaponid);
 	#else
 		return 1;
 	#endif
