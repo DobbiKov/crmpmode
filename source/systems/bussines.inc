@@ -776,8 +776,9 @@ stock GiveBusinessMoney(id, money, playerid = -1)
     SetPVarInt(playerid, "playerid", playerid);
     return 1;
 }
-ALTX:buybusiness("/buybiz");
-CMD:buybusiness(playerid)
+
+//ALTX:buybusiness("/buybiz");
+CMD:buybusiness(playerid, params[])
 {
     foreach(new i : Allbusiness)
     {
@@ -803,7 +804,7 @@ CMD:buybusiness(playerid)
     }
     return 1;
 }
-ALTX:business("/biz");
+//ALTX:business("/biz");
 CMD:business(playerid)
 {
     if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
@@ -860,7 +861,7 @@ CMD:business(playerid)
 
     return 1;
 }
-ALTX:sellbusiness("/sellbiz");
+//ALTX:sellbusiness("/sellbiz");
 CMD:sellbusiness(playerid)
 {
     if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");

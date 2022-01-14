@@ -127,7 +127,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 	}
 };
 
-ALTX:menu("/mn", "/mm");
+//ALTX:menu("/mn", "/mm");
 CMD:menu(playerid)
 {
     ShowMenu(playerid);

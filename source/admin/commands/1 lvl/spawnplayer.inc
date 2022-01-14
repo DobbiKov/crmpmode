@@ -1,4 +1,4 @@
-ALTX:spawnplayer("/spa");
+//ALTX:spawnplayer("/spa");
 CMD:spawnplayer(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 1) return ShowCommandNotFound(playerid);

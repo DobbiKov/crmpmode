@@ -4,7 +4,7 @@ new miner_zp, loader_zp, diver_zp, dm, db, nonrp, drive, mg, epp, caps, offtop, 
 
 
 
-ALTX:serverpanel("/spanel");
+//ALTX:serverpanel("/spanel");
 CMD:serverpanel(playerid)
 {
 	if(PlayerInfo[playerid][bAdmin] < 1) return ShowCommandNotFound(playerid);

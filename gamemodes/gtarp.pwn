@@ -5,6 +5,10 @@ main()
 	#pragma unused a
 }
 
+#pragma warning disable 239
+#pragma warning disable 214
+#pragma warning disable 218
+
 @___If_u_can_read_this_u_r_nerd();    // 10 different ways to crash DeAMX
 @___If_u_can_read_this_u_r_nerd()    // and also a nice tag for exported functions table in the AMX file
 { // by Daniel_Cortez \\ pro-pawn.ru
@@ -30,6 +34,7 @@ L1:
 
 
 //************* | »Õ À”ƒ€ | *************//
+
 #include 	<a_samp>
 #include    <crashdetect>
 
@@ -87,7 +92,7 @@ L1:
 #define TEAM_SUN  	7
 #define TEAM_FSB    8
 
-#pragma disablerecursion
+// #pragma disablerecursion
 
 //************ | “¿…Ã≈–€ | ***************//
 new PlayerTimer[MAX_PLAYERS][4];
@@ -961,7 +966,6 @@ enum
 #include "../source/admin/commands/4 lvl/fstats.inc"
 #include "../source/admin/commands/4 lvl/veh.inc"
 #include "../source/admin/commands/4 lvl/delveh.inc"
-#include "../source/admin/commands/4 lvl/alldelveh.inc"
 #include "../source/admin/commands/4 lvl/alldelveh.inc"
 
 #include "../source/admin/commands/5 lvl/setweather.inc"

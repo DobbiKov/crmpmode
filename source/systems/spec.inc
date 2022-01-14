@@ -5,7 +5,7 @@ new SpecTimer[MAX_PLAYERS];
 
 
 
-ALTX:sp("/spec", "/re");
+//ALTX:sp("/spec", "/re");
 CMD:sp(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 1) return ShowCommandNotFound(playerid);
@@ -56,7 +56,7 @@ CMD:sp(playerid, params[])
 	SpecTimer[playerid] = SetTimerEx("Spec_Menu_TD", 500, true, "ff", playerid, SpID[playerid]);
 	return 1;
 }
-ALTX:spoff("/reoff", "/specoff");
+//ALTX:spoff("/reoff", "/specoff");
 CMD:spoff(playerid)
 {
 	if(PlayerInfo[playerid][bAdmin] < 1) return ShowCommandNotFound(playerid);

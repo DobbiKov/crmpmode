@@ -1,4 +1,4 @@
-ALTX:gethere("/gh");
+//ALTX:gethere("/gh");
 CMD:gethere(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 2) return ShowCommandNotFound(playerid);

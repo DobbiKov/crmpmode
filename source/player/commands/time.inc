@@ -1,4 +1,4 @@
-ALTX:time("/t");
+//ALTX:time("/t");
 CMD:time(playerid)
 {
 	new h,m,s;

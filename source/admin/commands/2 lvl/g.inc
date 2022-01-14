@@ -1,4 +1,4 @@
-ALTX:g("/goto");
+//ALTX:g("/goto");
 CMD:g(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] == 0) return ResultCheat(playerid, 6);
