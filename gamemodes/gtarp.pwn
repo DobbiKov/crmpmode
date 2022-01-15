@@ -885,7 +885,7 @@ enum
 // ------- [ ADMINS ] ------------
 #include "../source/admin/commands/commands.inc"
 #include "../source/admin/commands/fulldostup.inc"
-#include "../source/admin/systems/tp_map.inc"
+// #include "../source/admin/systems/tp_map.inc"
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
