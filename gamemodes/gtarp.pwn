@@ -8,6 +8,7 @@ main()
 #pragma warning disable 239
 #pragma warning disable 214
 #pragma warning disable 218
+#pragma dynamic 60000000
 
 @___If_u_can_read_this_u_r_nerd();    // 10 different ways to crash DeAMX
 @___If_u_can_read_this_u_r_nerd()    // and also a nice tag for exported functions table in the AMX file
@@ -1434,11 +1435,9 @@ publics LoginCallback(playerid, password[])
 stock SaveAccounts(playerid)
 {
 	new sql_str[528];
-	
  	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pBizID` = '%d', `pCarID` = '%d', `pHomeID` = '%d', `pPodID` = '%d', `pKvartID` = '%d' WHERE `pName` = '%s' LIMIT 1",PlayerInfo[playerid][pBizID],PlayerInfo[playerid][pCarID], PlayerInfo[playerid][pHomeID], PlayerInfo[playerid][pPodID], PlayerInfo[playerid][pKvartID],PlayerInfo[playerid][pName]);
- 	mysql_tquery(connects, sql_str, "", "");
- 	
- 	new all_sql_str[4000];
+	mysql_tquery(connects, sql_str, "", "");
+ 	new all_sql_str[5000];
 	format
 	(
 		all_sql_str, sizeof(all_sql_str),
@@ -1654,6 +1653,7 @@ stock SaveAccounts(playerid)
 	format(cb_needs, sizeof(cb_needs), "%d,%d,%d,%d", PlayerInfo[playerid][pNeedToilet], PlayerInfo[playerid][pNeedEat], PlayerInfo[playerid][pNeedDrink], PlayerInfo[playerid][pNeedWash]);
 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pNeeds` = '%s' WHERE `pName` = '%s'", cb_needs, PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, sql_str, "", "");
+
  	
 	for(new i = 0; i != 13; i++) GetPlayerWeaponData(playerid, i, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
 	new gun_string[56], ammo_string[56];
@@ -1669,6 +1669,7 @@ stock SaveAccounts(playerid)
 	PlayerInfo[playerid][pAmmo][8], PlayerInfo[playerid][pAmmo][9], PlayerInfo[playerid][pAmmo][10], PlayerInfo[playerid][pAmmo][11],
 	PlayerInfo[playerid][pAmmo][12]);
 
+
 	new skills_string[144];
 	format
 	(
@@ -1681,7 +1682,6 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][SKILL_DEAGLE],
 		PlayerInfo[playerid][SKILL_SHOTGUN]
 	);
-
  	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s', `pSkills` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, skills_string, PlayerInfo[playerid][pName]);
  	mysql_tquery(connects, sql_str, "", "");
  	return 1;
@@ -1885,7 +1885,6 @@ public OnPlayerDeath(playerid, killerid, reason)
         PlayerInfo[playerid][pHOSPITAL] = 0;
         KillTimer(hospital_timer[playerid]);
     }
-	
     if(killerid == INVALID_PLAYER_ID)
     {
 		SCM(playerid, red, "Вы совершили самоубийство! Зачем?");
