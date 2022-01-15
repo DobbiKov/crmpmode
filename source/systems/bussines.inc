@@ -204,6 +204,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     {
                         if(IsPlayerInRangeOfPoint(playerid, 5.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]))
                         {
+                            SCM(playerid, white, "Воспользоваться услугами СТО: {"cblue"}/tune");
                             new vehicleid = GetPlayerVehicleID(playerid);
                             SetVehicleVirtualWorld ( vehicleid, i);
                             SetPlayerVirtualWorld(playerid, i);
