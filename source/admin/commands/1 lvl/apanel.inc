@@ -1,4 +1,5 @@
-ALTX:adminpanel("/apanel");
+CMD:apanel(playerid)
+    return cmd::adminpanel(playerid);
 CMD:adminpanel(playerid)
 {
 	if(PlayerInfo[playerid][bAdmin] < 1) return ShowCommandNotFound(playerid);

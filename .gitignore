@@ -1,7 +1,8 @@
 server_log.txt
 mysql_log.txt
 rus.txt
-gamemodes/gtarp.amx
+*.amx
+gtarp.amx
 .vscode
 scriptfiles
 .DS_Store

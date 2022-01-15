@@ -1,4 +1,5 @@
-ALTX:nonrp("/nrp");
+CMD:nrp(playerid, params[])
+    return cmd::nonrp(playerid, params);
 CMD:nonrp(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 2) return ShowCommandNotFound(playerid);

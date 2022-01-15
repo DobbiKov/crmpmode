@@ -65,14 +65,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new color[2];
 				
 				if(sscanf(inputtext, "p<,>d, d", color[0], color[1]))
-					return 
-						ShowPlayerDialog
-						(
-							playerid, D_TUNE_CHANGE_COLOR, DIALOG_STYLE_INPUT,
-							"{"cblue"}Перекраска авто",
-							"{ffffff}Введите цвет в формате: цвет, цвет. Пример: 1, 1",
-							"Перекрасить", "Отмена"
-						);  
+                {
+                    ShowPlayerDialog
+                    (
+                        playerid, D_TUNE_CHANGE_COLOR, DIALOG_STYLE_INPUT,
+                        "{"cblue"}Перекраска авто",
+                        "{ffffff}Введите цвет в формате: цвет, цвет. Пример: 1, 1",
+                        "Перекрасить", "Отмена"
+                    );  
+                    return 1;
+                }
 				
 				new vehicleid = GetPlayerVehicleID(playerid);
 				
@@ -85,14 +87,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					SCM(playerid, red, "ID цвета от 0 до 255.");
 					
-					return 
-						ShowPlayerDialog
-						(
-							playerid, D_TUNE_CHANGE_COLOR, DIALOG_STYLE_INPUT,
-							"{"cblue"}Перекраска авто",
-							"{ffffff}Введите цвет в формате: цвет, цвет. Пример: 1, 1",
-							"Перекрасить", "Отмена"
-						);  
+                    ShowPlayerDialog
+                    (
+                        playerid, D_TUNE_CHANGE_COLOR, DIALOG_STYLE_INPUT,
+                        "{"cblue"}Перекраска авто",
+                        "{ffffff}Введите цвет в формате: цвет, цвет. Пример: 1, 1",
+                        "Перекрасить", "Отмена"
+                    );  
+					return 1;
 				}
 
                 GiveMoney(playerid, -1000, "Перекраска авто в СТО");
