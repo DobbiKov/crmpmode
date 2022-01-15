@@ -252,7 +252,7 @@ CMD:calling(playerid)
         if(calling[index][i][cID] != -1)
         {
             new Float: dist = GetPlayerDistanceFromPoint(playerid, calling[index][i][cX], calling[index][i][cY], calling[index][i][cZ]);
-            format(string, sizeof(string), "{FFFFFF}%s[%d] (%f ì.)\n", PlayerInfo[ calling[index][i][cPlayerID] ][pName], calling[index][i][cPlayerID], floatround(dist, floatround_round));
+            format(string, sizeof(string), "{FFFFFF}%s[%d] (%d ì.)\n", PlayerInfo[ calling[index][i][cPlayerID] ][pName], calling[index][i][cPlayerID], floatround(dist));
             strcat(sttr, string);
 
             dialog_listitem_values[playerid][count] = i;
