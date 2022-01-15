@@ -27,6 +27,6 @@ port 1177
 #define 	sqlpass     "8m36QM0o1d"
 #define 	sqldb       "gs47333"
 ```
-4. Compile file `gtarp.pwn`
+4. Compile file `gtarp.pwn` (windows: `pawno/pawno.exe` | mac OS arm: `sh compile.sh` in termainal)
 5. Upload file `gtarp.amx` to server in folder `gamemodes`
 6. Upload MySQL database to MySQL on your hosting.
