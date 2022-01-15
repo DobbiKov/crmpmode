@@ -2,6 +2,7 @@ server_log.txt
 mysql_log.txt
 rus.txt
 *.amx
+gtarp.amx
 .vscode
 scriptfiles
 .DS_Store
