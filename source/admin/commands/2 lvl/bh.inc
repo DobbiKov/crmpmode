@@ -1,4 +1,5 @@
-//ALTX:bh("/bunnyhop");
+CMD:bunnyhop(playerid, params[])
+    return cmd::bh(playerid, params);
 CMD:bh(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 2) return ShowCommandNotFound(playerid);

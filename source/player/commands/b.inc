@@ -1,4 +1,5 @@
-//ALTX:n("/b");
+CMD:b(playerid, params[])
+    return cmd::n(playerid, params);
 CMD:n(playerid, params[])
 {
     if(sscanf(params, "s[100]", params[0])) return SCM(playerid, white, "{"cblue"}• [Подсказка]{"cwhite"}: Используйте /b [текст]");

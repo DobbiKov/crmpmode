@@ -1,7 +1,8 @@
-//ALTX:g("/goto");
+CMD:goto(playerid, params[])
+    return cmd::g(playerid, params);
 CMD:g(playerid, params[])
 {
-    if(PlayerInfo[playerid][bAdmin] == 0) return ResultCheat(playerid, 6);
+    if(PlayerInfo[playerid][bAdmin] == 0) return ResultMessageCheat(playerid, 6);
     if(PlayerInfo[playerid][bAdmin] < 2) return ShowCommandNotFound(playerid);
 
     extract params -> new to_player; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Введите /goto [id игрока]");

@@ -127,7 +127,10 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 	}
 };
 
-//ALTX:menu("/mn", "/mm");
+CMD:mm(playerid)
+    return cmd::menu(playerid);
+CMD:mn(playerid)
+    return cmd::menu(playerid);
 CMD:menu(playerid)
 {
     ShowMenu(playerid);
