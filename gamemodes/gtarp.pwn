@@ -4007,47 +4007,59 @@ publics split(const strsrc[], strdest[][], delimiter)
 
 stock FixCommand(input[])
 {
-	
-	for(new i = 0; i < strlen(input); i++)
+	new command[144];
+	new params[144] = " ";
+	new split_command[24][144]; 
+	split(input, split_command, ' ');
+
+	format(command, sizeof(command), "%s", split_command[0]);
+
+	for(new i = 1; i < sizeof(split_command); i++)
 	{
-		switch(input[i])
+		strcat(params, split_command[i]);
+		strcat(params, " ");
+	}
+	for(new i = 0; i < strlen(command); i++)
+	{
+		switch(command[i])
 		{
 			case EOS: break;
-			case 'À', 'à': input[i] = 'f';
-			case 'Á', 'á': input[i] = ',';
-			case 'Â', 'â': input[i] = 'd';
-			case 'Ã', 'ã': input[i] = 'u';
-			case 'Ä', 'ä': input[i] = 'l';
-			case 'Å', 'å': input[i] = 't';
-			case '¨', '¸': input[i] = '`';
-			case 'Æ', 'æ': input[i] = ';';
-			case 'Ç', 'ç': input[i] = 'p';
-			case 'È', 'è': input[i] = 'b';
-			case 'É', 'é': input[i] = 'q';
-			case 'Ê', 'ê': input[i] = 'r';
-			case 'Ë', 'ë': input[i] = 'k';
-			case 'Ì', 'ì': input[i] = 'v';
-			case 'Í', 'í': input[i] = 'y';
-			case 'Î', 'î': input[i] = 'j';
-			case 'Ï', 'ï': input[i] = 'g';
-			case 'Ğ', 'ğ': input[i] = 'h';
-			case 'Ñ', 'ñ': input[i] = 'c';
-			case 'Ò', 'ò': input[i] = 'n';
-			case 'Ó', 'ó': input[i] = 'e';
-			case 'Ô', 'ô': input[i] = 'a';
-			case 'Õ', 'õ': input[i] = '[';
-			case 'Ö', 'ö': input[i] = 'w';
-			case '×', '÷': input[i] = 'x';
-			case 'Ø', 'ø': input[i] = 'i';
-			case 'Ù', 'ù': input[i] = 'o';
-			case 'Ú', 'ú': input[i] = ']';
-			case 'Û', 'û': input[i] = 's';
-			case 'Ü', 'ü': input[i] = 'm';
-			case 'İ', 'ı': input[i] = '\'';
-			case 'Ş', 'ş': input[i] = '.';
-			case 'ß', 'ÿ': input[i] = 'z';
+			case 'À', 'à': command[i] = 'f';
+			case 'Á', 'á': command[i] = ',';
+			case 'Â', 'â': command[i] = 'd';
+			case 'Ã', 'ã': command[i] = 'u';
+			case 'Ä', 'ä': command[i] = 'l';
+			case 'Å', 'å': command[i] = 't';
+			case '¨', '¸': command[i] = '`';
+			case 'Æ', 'æ': command[i] = ';';
+			case 'Ç', 'ç': command[i] = 'p';
+			case 'È', 'è': command[i] = 'b';
+			case 'É', 'é': command[i] = 'q';
+			case 'Ê', 'ê': command[i] = 'r';
+			case 'Ë', 'ë': command[i] = 'k';
+			case 'Ì', 'ì': command[i] = 'v';
+			case 'Í', 'í': command[i] = 'y';
+			case 'Î', 'î': command[i] = 'j';
+			case 'Ï', 'ï': command[i] = 'g';
+			case 'Ğ', 'ğ': command[i] = 'h';
+			case 'Ñ', 'ñ': command[i] = 'c';
+			case 'Ò', 'ò': command[i] = 'n';
+			case 'Ó', 'ó': command[i] = 'e';
+			case 'Ô', 'ô': command[i] = 'a';
+			case 'Õ', 'õ': command[i] = '[';
+			case 'Ö', 'ö': command[i] = 'w';
+			case '×', '÷': command[i] = 'x';
+			case 'Ø', 'ø': command[i] = 'i';
+			case 'Ù', 'ù': command[i] = 'o';
+			case 'Ú', 'ú': command[i] = ']';
+			case 'Û', 'û': command[i] = 's';
+			case 'Ü', 'ü': command[i] = 'm';
+			case 'İ', 'ı': command[i] = '\'';
+			case 'Ş', 'ş': command[i] = '.';
+			case 'ß', 'ÿ': command[i] = 'z';
 		}
 	}
+	format(input, 144, "%s %s", command, params);
 	return 1;
 }
 
