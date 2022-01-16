@@ -31,7 +31,7 @@ CMD:drugs(playerid, params[])
             ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
             SCM(playerid, blue, "Вы использовали наркотики!");
             cmd::me(playerid, "использовал наркотики");
-            SetPlayerDrunkLevel(playerid,GetPlayerDrunkLevel(playerid)+80000);
+            SetPlayerDrunkLevel(playerid,GetPlayerDrunkLevel(playerid)+8000);
             SetPlayerWeather(playerid, 162);
             SetTimerEx("Walkanim",6000,0,"i",playerid);
             SetTimerEx("EffectGone",60000,0,"i",playerid);

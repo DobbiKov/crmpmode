@@ -30,7 +30,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1453.0112,1761.9174,-7.5053))
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV) return 1;
-            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,1,1,1,1,1);
 			SetPlayerAttachedObject(playerid, 1 ,3052, 1,0.11,0.36,0.0,0.0,90.0);
 			SetPVarInt(playerid, "vdv_tonn_load", 1);
 			SCM(playerid, blue, "Вы подняли ящик! Теперь отнесите его на склад!");
