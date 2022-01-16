@@ -216,7 +216,7 @@ CMD:ban(playerid, params[])
 	if(time > 365)
 		return SCM(playerid, red, "От 1, до 30-ти дней.");
 
-	new string[256], unbandate, data[64], year, month, day, hour, minute, second;
+	new string[512], unbandate, data[64], year, month, day, hour, minute, second;
  	foreach(new i:Player)
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))
