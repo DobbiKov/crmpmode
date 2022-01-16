@@ -155,7 +155,7 @@ publics CreateOwnableCar(playerid, ownerid, number[], modelid, color_1, color_2,
 
 	if(!strcmp(number, "None", false))
     {
-        strcat(ownable_car[vehicleid][oc_number], "None"); 
+        format(ownable_car[vehicleid][oc_number], 32, "%s", number); 
         ownable_car_label[vehicleid] = CreateDynamic3DTextLabel("[ мер мнлепнб ]", 0xFFFFFFFF, 0.0, 0.0, 0.0, 15.0, INVALID_PLAYER_ID, vehicleid);
     }
     else 
@@ -359,6 +359,22 @@ stock DestroyOwnableCar(playerid)
         SaveOwnableCar(playerid);
         DestroyDynamic3DTextLabel(ownable_car_label[player_ownable_car[playerid]]);
         DestroyVehicle(player_ownable_car[playerid]);
+
+
+        ownable_car[ player_ownable_car[playerid] ][ oc_id ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ oc_owner_id ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ oc_number ] = EOS;
+        ownable_car[ player_ownable_car[playerid] ][ oc_modelid ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ oc_color_1 ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ oc_color_2 ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ oc_lock_status ] = false;
+        ownable_car[ player_ownable_car[playerid] ][ oc_mileage ] = 0.0;
+        ownable_car[ player_ownable_car[playerid] ][ oc_fuel ] = 0.0;
+        ownable_car[ player_ownable_car[playerid] ][ oc_health ] = 1000.0;
+        ownable_car[ player_ownable_car[playerid] ][ tun_weels ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ tun_nitro ] = -1;
+        ownable_car[ player_ownable_car[playerid] ][ cost_car ] = -1;
+        
         player_ownable_car[playerid] = -1;
     }
     return 1;
