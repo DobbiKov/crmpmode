@@ -14,17 +14,17 @@ CMD:time(playerid)
 	new fmt_msg[256];
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
-		format(fmt_msg, sizeof fmt_msg, "Время до разблокировки чата: %d:%02d.", floatround(PlayerInfo[playerid][pMute] / 60) % 60, (PlayerInfo[playerid][pMute] % 60));
+		format(fmt_msg, sizeof fmt_msg, "Время до разблокировки чата: %02d:%02d:%02d.", floatround(PlayerInfo[playerid][pMute] / 3600, floatround_floor), floatround(PlayerInfo[playerid][pMute] / 60) % 60, (PlayerInfo[playerid][pMute] % 60));
 		SendClientMessage(playerid, 0x66CC00FF, fmt_msg);
 	}
 	if(PlayerInfo[playerid][pJail] > 0)
 	{
-		format(fmt_msg, sizeof fmt_msg, "Время до выхода из деморгана: %d:%02d.", floatround(PlayerInfo[playerid][pJail] / 60) % 60, (PlayerInfo[playerid][pJail] % 60));
+		format(fmt_msg, sizeof fmt_msg, "Время до выхода из деморгана: %02d:%02d:%02d.", floatround(PlayerInfo[playerid][pJail] / 3600, floatround_floor), floatround(PlayerInfo[playerid][pJail] / 60) % 60, (PlayerInfo[playerid][pJail] % 60));
 		SendClientMessage(playerid, 0x66CC00FF, fmt_msg);
 	}
 	if(PlayerInfo[playerid][pKPZ] > 0)
 	{
-		format(fmt_msg, sizeof fmt_msg, "Время до выхода из КПЗ: %d:%02d.", floatround(PlayerInfo[playerid][pKPZ] / 60) % 60, (PlayerInfo[playerid][pKPZ] % 60));
+		format(fmt_msg, sizeof fmt_msg, "Время до выхода из КПЗ: %02d:%02d:%02d.", floatround(PlayerInfo[playerid][pKPZ] / 3600, floatround_floor), floatround(PlayerInfo[playerid][pKPZ] / 60) % 60, (PlayerInfo[playerid][pKPZ] % 60));
 		SendClientMessage(playerid, 0x66CC00FF, fmt_msg);
 	}
 	return 1;
