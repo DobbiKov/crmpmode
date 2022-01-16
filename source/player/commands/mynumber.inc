@@ -2,7 +2,6 @@ CMD:mynumber(playerid)
 {
     if(!IsPlayerInRangeOfPoint(playerid, 4.0, 2571.1816,-2417.4631,22.3738) || GetPlayerVirtualWorld(playerid) != 1) return SCM(playerid, red, "Вы должны находится в здании Полиции.");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "У вас нет личного транспорта, либо он не создан.");
-    SCMTA(red, ownable_car[player_ownable_car[playerid]][oc_number]);
     if(strcmp(ownable_car[player_ownable_car[playerid]][oc_number], "None", false)) return SCM(playerid, red, "На вашем транспорте уже имеются номера."); 
 
     new model = GetVehicleModel(player_ownable_car[playerid]);
