@@ -14,7 +14,7 @@ CMD:offtop(playerid, params[])
 
 	new fmt_query[256];
 
-	format(fmt_query, sizeof fmt_query, "Администратор %s поставил затычку %s на %d минут. Причина: OFFTOP", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], offtop);
+	format(fmt_query, sizeof fmt_query, "Администратор %s поставил затычку %s на %d минут. Причина: offtop", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], offtop);
 	SCMTA(0xFF4530FF, fmt_query);
 
 	format(fmt_query, sizeof fmt_query, "[A] %s[%d] поставил затычку %s[%d] на %d минут (offtop)", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, offtop);
@@ -28,7 +28,13 @@ CMD:offtop(playerid, params[])
 	gettime(hour, minute, second);
 	format(string, sizeof(string), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
 
-	mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', 'MG', 'mute')", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], string, offtop);
+	mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', 'offtop', 'mute')", 
+		PlayerInfo[playerid][pName], 
+		PlayerInfo[to_player][pName], 
+		PlayerInfo[playerid][pID], 
+		PlayerInfo[to_player][pID], 
+		string, 
+		offtop);	
 	mysql_tquery(connects, sql_str, "", "");
 
     new sttr[1024];

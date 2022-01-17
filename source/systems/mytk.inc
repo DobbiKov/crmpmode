@@ -174,27 +174,27 @@ stock CompileMyTKString(_date, _org_id, action_type, data[])
     {
         case org_history_a_t_invite:
         {
-            format(string, sizeof(string), "{ffffff}%s вступил в организацию %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), GetMember[_org_id]);
+            format(string, sizeof(string), "{ffffff}%s вступил в организацию %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), GetMember[_org_id]);
         }
         case org_history_a_t_uninvite:
         {
-            format(string, sizeof(string), "{ffffff}%s был уволен из организации %s. ѕричина: %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), GetMember[_org_id], data);
+            format(string, sizeof(string), "{ffffff}%s был уволен из организации %s. ѕричина: %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), GetMember[_org_id], data);
         }
         case org_history_a_t_rang_up:
         {
-            format(string, sizeof(string), "{ffffff}%s был повышен до должности %s(%d)\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), PlayerRank[_org_id][strval(data)], strval(data));
+            format(string, sizeof(string), "{ffffff}%s был повышен до должности %s(%d)\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), PlayerRank[_org_id][strval(data)], strval(data));
         }
         case org_history_a_t_rang_down:
         {
-            format(string, sizeof(string), "{ffffff}%s был понижен до должности %s(%d)\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), PlayerRank[_org_id][strval(data)], strval(data));
+            format(string, sizeof(string), "{ffffff}%s был понижен до должности %s(%d)\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), PlayerRank[_org_id][strval(data)], strval(data));
         }
         case org_history_a_t_mwarn:
         {
-            format(string, sizeof(string), "{ffffff}%s получил выговор. ѕричина: %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), data);
+            format(string, sizeof(string), "{ffffff}%s получил выговор. ѕричина: %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), data);
         }
         case org_history_a_t_unmwarn:
         {
-            format(string, sizeof(string), "{ffffff}%s сн€л выговор\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)));
+            format(string, sizeof(string), "{ffffff}%s сн€л выговор\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date));
         }
     }
 

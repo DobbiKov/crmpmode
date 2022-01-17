@@ -26,9 +26,10 @@ publics on_player_offjail(playerid, to_player[], time, reason[])
 	cache_get_data(rows, fields);
 	if(rows)
 	{
-	    new admin, jail;
+	    new admin, jail, acc_id;
  	    jail = cache_get_field_content_int(0, "pJail");
 		admin = cache_get_field_content_int(0, "bAdmin");
+		acc_id = cache_get_field_content_int(0, "pID");
 		if(admin > PlayerInfo[playerid][bAdmin]) return SCM(playerid, red, "Вы пытаетесь посадить администратора.");
 
     	if(jail > 0) return SCM(playerid, red, "Игрок уже сидит в деморгане.");
@@ -54,7 +55,14 @@ publics on_player_offjail(playerid, to_player[], time, reason[])
 		gettime(hour, minute, second);
 		format(string, sizeof(string), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
 
-		mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'offjail')", PlayerInfo[playerid][pName], to_player, string, time, reason);
+		mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'offjail')", 
+			PlayerInfo[playerid][pName], 
+			to_player, 
+			PlayerInfo[playerid][pID], 
+			acc_id,
+			string, 
+			time,
+			reason);
 		mysql_tquery(connects, sql_str, "", "");
 	}
 	else

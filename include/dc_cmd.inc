@@ -31,7 +31,7 @@ enum dc_cmd_script_type{
 
 
 	#define CMD:%0(%1)	\
-				forward cmd_%0(%1);	\
+				public cmd_%0(%1);	\
 				public cmd_%0(%1)
 
 	#define COMMAND:%1(%2)	\
@@ -45,10 +45,10 @@ enum dc_cmd_script_type{
 				public cmd_%1(playerid, params[])	\
 					return cmd_%0(playerid, params);
 
-	#define ALTX:%0(%1);	\
-		public alt_%0();	\
-		public alt_%0()	\
-			RegisterAlt("/"#%0, %1);
+	// #define ALTX:%0(%1);	\
+	// 	forward alt_%0();	\
+	// 	public alt_%0()	\
+	// 		RegisterAlt("/"#%0, %1);
 
 	#define	cmd::%0(%1)	\
 				cmd_%0(%1)

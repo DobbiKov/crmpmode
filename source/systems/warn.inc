@@ -99,7 +99,14 @@ publics on_player_offwarn_bans(playerid, to_player[], reason[], acc_id, member)
 	    getdate(year, month, day);
 	    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
-		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '7', '%s', 'warn')", PlayerInfo[playerid][pName], to_player, data);
+		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'warn')", 
+			PlayerInfo[playerid][pName], 
+			to_player, 
+			PlayerInfo[playerid][pID], 
+			acc_id,
+			data, 
+			7,
+			reason);
 		mysql_tquery(connects, string, "", "");
 
 		if(warns == 3)
@@ -113,7 +120,14 @@ publics on_player_offwarn_bans(playerid, to_player[], reason[], acc_id, member)
 		    format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s'", to_player);
 		    mysql_tquery(connects, string, "", "");
 
-			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '10', '3 warns', 'offban')", PlayerInfo[playerid][pName], to_player, data);
+			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '3 warns', 'offban')", 
+				PlayerInfo[playerid][pName], 
+				to_player, 
+				PlayerInfo[playerid][pID], 
+				acc_id,
+				data, 
+				10,
+				reason);
 			mysql_tquery(connects, string, "", "");
 
 			format(string, sizeof(string), "Администратор %s заблокировал игрока %s на 10 дней в Offline. Причина: 3 Предупреждения", PlayerInfo[playerid][pName], to_player);
@@ -147,8 +161,9 @@ publics on_player_unwarn(playerid, to_player[])
 	cache_get_data(rows, fields);
 	if(rows)
 	{
-	    new warns;
+	    new warns, acc_id;
 	    warns = cache_get_field_content_int(0, "pWarn");
+	    acc_id = cache_get_field_content_int(0, "pID");
 	    warns--;
 		new string[256], data[64], year, month, day, hour, minute, second;
 
@@ -159,7 +174,13 @@ publics on_player_unwarn(playerid, to_player[])
         format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s' LIMIT 1", to_player);
         mysql_tquery(connects, string, "","");
 
-		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'offunwarn', 'offunwarn')", PlayerInfo[playerid][pName], to_player, data);
+		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', 'offunwarn', 'offunwarn')", 
+			PlayerInfo[playerid][pName], 
+			to_player, 
+			PlayerInfo[playerid][pID], 
+			acc_id,
+			data, 
+			0);		
 		mysql_tquery(connects, string, "", "");
 
 		format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
@@ -201,7 +222,14 @@ CMD:warn(playerid, params[])
  		    getdate(year, month, day);
  		    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
-			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '7', '%s', 'warn')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data, reason);
+			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'warn')", 
+				PlayerInfo[playerid][pName], 
+				PlayerInfo[i][pName], 
+				PlayerInfo[playerid][pID], 
+				PlayerInfo[i][pID],
+				data, 
+				7,
+				reason);	
 			mysql_tquery(connects, string, "", "");
 
 			PlayerInfo[i][bAdmin] = 0;
@@ -224,7 +252,13 @@ CMD:warn(playerid, params[])
 			    format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s'", PlayerInfo[i][pName]);
 			    mysql_tquery(connects, string, "", "");
 
-				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '10', '3 warns', 'ban')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data);
+				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '3 warns', 'ban')", 
+					PlayerInfo[playerid][pName], 
+					PlayerInfo[i][pName], 
+					PlayerInfo[playerid][pID], 
+					PlayerInfo[i][pID],
+					data, 
+					10);	
 				mysql_tquery(connects, string, "", "");
 
 				format(string, sizeof(string), "Администратор %s заблокировал игрока %s на 10 дней. Причина: 3 Предупреждения", PlayerInfo[playerid][pName], PlayerInfo[i][pName]);
@@ -289,7 +323,13 @@ CMD:unwarn(playerid, params[])
 			    getdate(year, month, day);
 			    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
 
-				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unwarn', 'unwarn')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data);
+				mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', 'unwarn', 'unwarn')", 
+					PlayerInfo[playerid][pName], 
+					PlayerInfo[i][pName], 
+					PlayerInfo[playerid][pID], 
+					PlayerInfo[i][pID],
+					data, 
+					0);	
 				mysql_tquery(connects, string, "", "");
 
 		        format(string, sizeof(string), "[A] %s[%d] снял 1 предупреждение у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[i][pName], i);

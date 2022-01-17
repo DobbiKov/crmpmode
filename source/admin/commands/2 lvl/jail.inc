@@ -30,7 +30,14 @@ CMD:jail(playerid, params[])
 	gettime(hour, minute, second);
 	format(string, sizeof(string), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
 
-	mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'jail')", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], string, time, reason);
+	mysql_format(connects, sql_str, sizeof(sql_str), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'jail')", 
+		PlayerInfo[playerid][pName], 
+		PlayerInfo[to_player][pName], 
+		PlayerInfo[playerid][pID], 
+		PlayerInfo[to_player][pID], 
+		string,
+		time,
+		reason);
 	mysql_tquery(connects, sql_str, "", "");
 	SpawnPlayer(to_player);
 	return PlayerPutInDemorgan(to_player);

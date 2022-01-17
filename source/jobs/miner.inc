@@ -338,7 +338,7 @@ publics GivePlayerOre(playerid)
 	SetPlayerAttachedObject(playerid, 3, 906, 6, -0.032336, 0.111448, 0.001745, 0.000000, 0.000000, 0.000000, 0.026124, 0.048238, 0.048593);
 
 	SetTimerEx("GivePlayerTeleg", 5700, false, "i", playerid);
-	ApplyAnimation(playerid, "PED", "IDLE_chat", 4.100, 0, 1, 1, 1, 1, 0);
+	ApplyAnimation(playerid, "PED", "IDLE_chat", 4.100, 1, 1, 1, 1, 1, 0);
 
 	return 1;
 }
@@ -357,7 +357,7 @@ publics GivePlayerTeleg(playerid)
 	SetPVarInt(playerid, "gruz_mine", 1);
 
 	ClearAnimations(playerid);
-	ApplyAnimation(playerid, "GHANDS", "gsign3LH", 4.1, 0, 1, 1, 1, 2250, 0);
+	ApplyAnimation(playerid, "GHANDS", "gsign3LH", 4.1, 1, 1, 1, 1, 2250, 0);
 
 	return 1;
 }

@@ -101,8 +101,8 @@ publics minuteupdate()
 
 stock GivePaintBallWeapon(playerid)
 {
-    GivePlayerWeapon(playerid, 24, 500);
-    GivePlayerWeapon(playerid, 30, 500);
-    GivePlayerWeapon(playerid, 27, 500);
+    GivePlayerWeaponAC(playerid, 24, 500);
+    GivePlayerWeaponAC(playerid, 30, 500);
+    GivePlayerWeaponAC(playerid, 27, 500);
     return 1;
 }

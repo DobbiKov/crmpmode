@@ -1,4 +1,5 @@
-ALTX:godmode("/gm");
+CMD:gm(playerid, params[])
+    return cmd::godmode(playerid, params);
 CMD:godmode(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 2 && PlayerInfo[playerid][bYoutube] == 0) return ShowCommandNotFound(playerid);

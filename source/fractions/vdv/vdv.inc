@@ -30,7 +30,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(IsPlayerInRangeOfPoint(playerid, 3.0, 1453.0112,1761.9174,-7.5053))
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV) return 1;
-            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+            ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,1,1,1,1,1);
 			SetPlayerAttachedObject(playerid, 1 ,3052, 1,0.11,0.36,0.0,0.0,90.0);
 			SetPVarInt(playerid, "vdv_tonn_load", 1);
 			SCM(playerid, blue, "Вы подняли ящик! Теперь отнесите его на склад!");
@@ -254,6 +254,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_PATRON < 50) return SCM(playerid, red, "На складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 50) return SCM(playerid, red, "На складе недостаточно металла!");
 
+                        if(GetPlayerWeaponAmmo(playerid, 22) >= 100)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+
                         GivePlayerWeaponAC(playerid, 22, 50);
 
                         REPOSITORY_ARMY_METALL -= 50;
@@ -265,6 +268,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_PATRON < 120) return SCM(playerid, red, "На складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 60) return SCM(playerid, red, "На складе недостаточно металла!");
 
+                        if(GetPlayerWeaponAmmo(playerid, 30) >= 240)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+
                         GivePlayerWeaponAC(playerid, 30, 120);
 
                         REPOSITORY_ARMY_METALL -= 60;
@@ -275,6 +281,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     {
                         if(REPOSITORY_ARMY_PATRON < 1) return SCM(playerid, red, "На складе недостаточно патронов!");
                         if(REPOSITORY_ARMY_METALL < 1) return SCM(playerid, red, "На складе недостаточно металла!");
+                        
+                        if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
 
                         GivePlayerWeaponAC(playerid, 3, 1);
 

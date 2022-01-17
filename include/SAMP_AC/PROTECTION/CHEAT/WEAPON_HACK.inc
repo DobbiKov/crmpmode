@@ -1,0 +1,27 @@
+	new SAMP_AC_REAL_WEAPON = GetPlayerWeapon(playerid);
+
+	if(SAMP_AC_REAL_WEAPON != -1 && SAMP_AC_TICK > SERVER_INFO[playerid][SAMP_UPDATE_GUN] + SAMP_AC_PING && (SAMP_AC_REAL_WEAPON >= 0 && SAMP_AC_REAL_WEAPON <= 46))
+	{
+		new SAMP_AC_REAL_WEAPON_SLOT = SAMP_AC_WEAPON_SLOT[SAMP_AC_REAL_WEAPON];
+		for(new i = 0; i != 13; i ++)
+		{
+			new SAMP_AC_CHECK_WEAPON[13], SAMP_AC_CHECK_AMMOUT[13];
+			GetPlayerWeaponData(playerid, i, SAMP_AC_CHECK_WEAPON[i], SAMP_AC_CHECK_AMMOUT[i]);
+			
+			if(SAMP_AC_CHECK_WEAPON[i] > 0 && SAMP_AC_CHECK_WEAPON[i] != WEAPON_PARACHUTE && SAMP_AC_TICK > SERVER_INFO[playerid][SAMP_FIX_WEAPON] + SAMP_AC_PING)
+			{
+				if(SAMP_AC_CHECK_WEAPON[i] != SERVER_INFO[playerid][SAMP_WEAPON][i] || SAMP_AC_REAL_WEAPON != SERVER_INFO[playerid][SAMP_WEAPON][SAMP_AC_REAL_WEAPON_SLOT])
+				{
+					if(SAMP_AC_CHECK_WEAPON[i] != 0 && SAMP_AC_CHECK_WEAPON[i] != 43 && SAMP_AC_CHECK_WEAPON[i] != 46)
+					{
+						if(++ WEAPON_FIX_WARNING[SAMP_AC_REAL_WEAPON_SLOT][playerid] > 4)
+						{
+							SAMP_AC_SEND_WARNING_FOR_SCRIPT(playerid, "Weapon Hack", 12, 0);
+						}
+					}
+				}
+				else WEAPON_FIX_WARNING[SAMP_AC_REAL_WEAPON_SLOT][playerid] = 0;
+			}
+		}
+		SERVER_INFO[playerid][SAMP_UPDATE_GUN] = SAMP_AC_TICK + 1200;
+	}

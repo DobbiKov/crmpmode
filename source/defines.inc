@@ -1,8 +1,19 @@
 //************* | MYSQL | *************//
 #define 	sqlhost     "localhost"
-#define 	sqluser     "gs28883"
-#define 	sqlpass     "zF4P9amEUg"
-#define 	sqldb       "gs28883"
+#define 	sqluser     "gs29164"
+#define 	sqlpass     "pZP4vqGLIQ"
+#define 	sqldb       "gs29164"
+
+#define 	logssqlhost     "localhost"
+#define 	logssqluser     "gs29164"
+#define 	logssqlpass     "pZP4vqGLIQ"
+#define 	logssqldb       "gs29164"
+
+
+// #define 	logssqlhost     "185.206.212.246"
+// #define 	logssqluser     "unigva"
+// #define 	logssqlpass     "TapolskyAnatoliyUnigvovich436!!"
+// #define 	logssqldb       "unigvacrmplogs"
 
 //host
 // #define 	sqlhost     "185.206.212.246"
@@ -11,12 +22,14 @@
 // #define 	sqldb       "unigva"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.6.6"
+#define 	gamemode    "UNIGVA - Beta 0.6.9"
 #define     hostname    "[ Unigva RolePlay | Ïåðâûé ñåðâåð ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "unigva-rp.ru"
 #define     name_serv   "Unigva RolePlay"
 #define     forum_url   "forum.unigva-rp.ru"
+
+#define     server_num  "1"
 
 //************* | ˜˜˜˜˜ | *************//
 #define     red        	0xFF0000AA

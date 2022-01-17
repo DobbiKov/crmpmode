@@ -1,3 +1,11 @@
+enum E_TP_MAP
+{
+    Float:tp_map_x,
+    Float:tp_map_y,
+    Float:tp_map_z
+};
+new tpmap_coords[MAX_PLAYERS][E_TP_MAP];
+
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
     if(PlayerInfo[playerid][bAdmin] >= 2)
@@ -7,9 +15,9 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
         !"{ffffff}Была обнаружена новая метка на карте.\nТелепортировать вас?", 
         !"Да", 
         !"Нет");
-        SetPVarFloat(playerid, "tp_map_x", fX);
-        SetPVarFloat(playerid, "tp_map_y", fY);
-        SetPVarFloat(playerid, "tp_map_z", fZ);
+        tpmap_coords[playerid][tp_map_x] = fX;
+        tpmap_coords[playerid][tp_map_y] = fY;
+        tpmap_coords[playerid][tp_map_z] = fZ;
     }
     #if	defined	tp_map__OnPlayerClickMap
 		return tp_map__OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ);
@@ -36,9 +44,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if(response)
             {
-                new Float:mapX = GetPVarFloat(playerid, "tp_map_x");
-                new Float:mapY = GetPVarFloat(playerid, "tp_map_y");
-                new Float:mapZ = GetPVarFloat(playerid, "tp_map_z");
+                new Float:mapX = tpmap_coords[playerid][tp_map_x];
+                new Float:mapY = tpmap_coords[playerid][tp_map_y];
+                new Float:mapZ = tpmap_coords[playerid][tp_map_z];
 
 
                 if(IsPlayerInAnyVehicle(playerid))
@@ -57,9 +65,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SCM(playerid, white, !"Вы были перенесены на метку.");
                 GameTextForPlayer(playerid, "~y~TELEPORTING", 500, 4);
             }
-            DeletePVar(playerid, "tp_map_x");
-            DeletePVar(playerid, "tp_map_y");
-            DeletePVar(playerid, "tp_map_z");
         }
     }
 	#if	defined	tp_map__OnDialogResponse

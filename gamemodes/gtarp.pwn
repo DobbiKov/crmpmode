@@ -5,6 +5,11 @@ main()
 	#pragma unused a
 }
 
+#pragma warning disable 239
+#pragma warning disable 214
+#pragma warning disable 218
+#pragma dynamic 60000000
+
 @___If_u_can_read_this_u_r_nerd();    // 10 different ways to crash DeAMX
 @___If_u_can_read_this_u_r_nerd()    // and also a nice tag for exported functions table in the AMX file
 { // by Daniel_Cortez \\ pro-pawn.ru
@@ -30,6 +35,7 @@ L1:
 
 
 //************* | ИНКЛУДЫ | *************//
+
 #include 	<a_samp>
 #include    <crashdetect>
 
@@ -39,6 +45,12 @@ L1:
 #else
 	#define MAX_PLAYERS 50
 #endif
+
+
+//#define SLIPPYGUARD
+//#if defined SLIPPYGUARD
+//	#include <pawnraknet>
+//#endif
 
 #include    <a_mysql>
 #include    <dc_cmd>
@@ -81,8 +93,19 @@ L1:
 #define TEAM_SUN  	7
 #define TEAM_FSB    8
 
-#pragma disablerecursion
+// #pragma disablerecursion
+
+//************ | ТАЙМЕРЫ | ***************//
+new PlayerTimer[MAX_PLAYERS][4];
+
+#define @_200 0
+#define @_1000 1
+#define @_5000 2
+#define @_10000 3
+
 //************ | ПЕРЕМЕННЫЕ | ************//
+//new gamemodeloaded = 0;
+
 new Iterator:Vehicle<MAX_VEHICLES>;
 
 new change_team_skin_playerid[MAX_PLAYERS];
@@ -331,6 +354,7 @@ enum
 	CP_CLEANER_CP,
 	CP_EXAM_DRIVING,
 	CP_WANTED,
+	CP_LOCATION,
 	CP_CALLING,
 	CP_GPS,
 	CP_CONTRABANDA,
@@ -634,6 +658,10 @@ enum e_DIALOG_IDs
 	D_MYTK_HISTORY,
 	D_MYTK_HISTORY_ORG,
 	D_FSB_ENTER_DIALOG,
+	
+	D_SMI_BANK,
+	D_SMI_PUT_MONEY,
+	D_SMI_GET_MONEY,
 };
 
 /* CHEAT */
@@ -774,6 +802,9 @@ enum
 };
 
 // -------------- [ INCLUDES ] ------------------------------
+//------------[ ANTICHEAT] ---------------
+//#include "../source/anticheat/sleepy_ac.h"
+//#include "../source/anticheat/sleepy_ac.inc"
 
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
 #include "../source/systems/mytk.h"
@@ -835,9 +866,11 @@ enum
 #include "../source/systems/skills.inc"
 
 //------------[ ANTICHEAT] ---------------
+
 #include "../source/anticheat/anticheat.inc"
 //#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
+//#include "../source/anticheat/ac_flood_veh.inc"
 //#include "../source/anticheat/ac_hp.inc"
 //#include "../source/anticheat/ac_onfoot_crash.inc"
 //#include "../source/anticheat/ac_tpinveh.inc"
@@ -852,7 +885,7 @@ enum
 // ------- [ ADMINS ] ------------
 #include "../source/admin/commands/commands.inc"
 #include "../source/admin/commands/fulldostup.inc"
-#include "../source/admin/systems/tp_map.inc"
+// #include "../source/admin/systems/tp_map.inc"
 
 #include "../source/admin/commands/1 lvl/admins.inc"
 #include "../source/admin/commands/1 lvl/serverpanel.inc"
@@ -908,6 +941,7 @@ enum
 #include "../source/admin/commands/3 lvl/getip.inc"
 #include "../source/admin/commands/3 lvl/offgetip.inc"
 #include "../source/admin/commands/3 lvl/cc.inc"
+#include "../source/admin/commands/3 lvl/punishments.inc"
 #include "../source/admin/commands/3 lvl/unjail.inc"
 #include "../source/admin/commands/3 lvl/unmute.inc"
 #include "../source/admin/commands/3 lvl/fixveh.inc"
@@ -933,7 +967,6 @@ enum
 #include "../source/admin/commands/4 lvl/fstats.inc"
 #include "../source/admin/commands/4 lvl/veh.inc"
 #include "../source/admin/commands/4 lvl/delveh.inc"
-#include "../source/admin/commands/4 lvl/alldelveh.inc"
 #include "../source/admin/commands/4 lvl/alldelveh.inc"
 
 #include "../source/admin/commands/5 lvl/setweather.inc"
@@ -984,6 +1017,8 @@ enum
 #include "../source/admin/commands/7 lvl/addpod.inc"
 #include "../source/admin/commands/7 lvl/addtoilet.inc"
 #include "../source/admin/commands/7 lvl/addatm.inc"
+#include "../source/admin/commands/7 lvl/deactivate.inc"
+#include "../source/admin/commands/7 lvl/activate.inc"
 
 // ------- [ JOBS ] ---------------
 #include "../source/jobs/jobs.inc"
@@ -1065,14 +1100,16 @@ enum
 
 public OnGameModeInit()
 {
-    AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
+	AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
+    
 	SetGameModeText(""gamemode"");
 	SendRconCommand("hostname "hostname"");
 	SendRconCommand("mapname "mapname"");
 	SendRconCommand("weburl "site_url"");
 	SendRconCommand("language Russia");
+	
 	CreateMySQLConnection(sqlhost, sqluser, sqldb, sqlpass);
-    CreateLogsMySQLConnection(sqlhost, sqluser, "unigvacrmplogs", sqlpass);
+    //CreateLogsMySQLConnection(logssqlhost, logssqluser, logssqldb, logssqlpass);
 
 	DisableInteriorEnterExits();
 	EnableStuntBonusForAll(0);
@@ -1085,7 +1122,6 @@ public OnGameModeInit()
 
 	SetTimer("secondupdate", 1000, true);
 	SetTimer("minuteupdate", 55000, true);
-	
 
 	mysql_tquery(connects, "SELECT * FROM `other`", "LoadOther", "");
 	mysql_tquery(connects, "SELECT * FROM `anticheats`", "LoadAntiCheats", "");
@@ -1100,13 +1136,14 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	
     LoadGreenZones();
+    
     #include "../source/server/load.inc"
 	#include <../include/map/interiors.inc>
 	#include <../include/map/map.inc>
-    #include <../include/map/createobject.inc>
+	#include <../include/map/createobject.inc>
     
     SetTimer("MoveFSBLiftTo3flat", 1000 * 10, false);
-
+    
 	return 1;
 }
 
@@ -1354,11 +1391,10 @@ publics LoginCallback(playerid, password[])
 	    SaveAccounts(playerid);
 	}
 	
-	
-	
- 	new querybans[256];
-    format(querybans, sizeof(querybans), "SELECT * FROM `bans` WHERE `Nick` = '%s'", PlayerInfo[playerid][pName]);
-	mysql_function_query(connects, querybans, true, "CheckBan", "d", playerid);
+	new querybans[256];
+ 	new querydeactivates[256];
+    format(querydeactivates, sizeof(querydeactivates), "SELECT * FROM `deactivated_accs` WHERE `account_id` = '%d'", PlayerInfo[playerid][pID]);
+	mysql_function_query(connects, querydeactivates, true, "CheckDeactivates", "d", playerid);
 	
 	format(string, sizeof(string), "Вы успешно авторизовались! Номер вашего аккаунта: %d", PlayerInfo[playerid][pID]);
 	SCM(playerid, need, string);
@@ -1399,11 +1435,9 @@ publics LoginCallback(playerid, password[])
 stock SaveAccounts(playerid)
 {
 	new sql_str[528];
-	
  	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pBizID` = '%d', `pCarID` = '%d', `pHomeID` = '%d', `pPodID` = '%d', `pKvartID` = '%d' WHERE `pName` = '%s' LIMIT 1",PlayerInfo[playerid][pBizID],PlayerInfo[playerid][pCarID], PlayerInfo[playerid][pHomeID], PlayerInfo[playerid][pPodID], PlayerInfo[playerid][pKvartID],PlayerInfo[playerid][pName]);
- 	mysql_tquery(connects, sql_str, "", "");
- 	
- 	new all_sql_str[4000];
+	mysql_tquery(connects, sql_str, "", "");
+ 	new all_sql_str[5000];
 	format
 	(
 		all_sql_str, sizeof(all_sql_str),
@@ -1619,6 +1653,7 @@ stock SaveAccounts(playerid)
 	format(cb_needs, sizeof(cb_needs), "%d,%d,%d,%d", PlayerInfo[playerid][pNeedToilet], PlayerInfo[playerid][pNeedEat], PlayerInfo[playerid][pNeedDrink], PlayerInfo[playerid][pNeedWash]);
 	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pNeeds` = '%s' WHERE `pName` = '%s'", cb_needs, PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, sql_str, "", "");
+
  	
 	for(new i = 0; i != 13; i++) GetPlayerWeaponData(playerid, i, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
 	new gun_string[56], ammo_string[56];
@@ -1634,6 +1669,7 @@ stock SaveAccounts(playerid)
 	PlayerInfo[playerid][pAmmo][8], PlayerInfo[playerid][pAmmo][9], PlayerInfo[playerid][pAmmo][10], PlayerInfo[playerid][pAmmo][11],
 	PlayerInfo[playerid][pAmmo][12]);
 
+
 	new skills_string[144];
 	format
 	(
@@ -1646,7 +1682,6 @@ stock SaveAccounts(playerid)
 		PlayerInfo[playerid][SKILL_DEAGLE],
 		PlayerInfo[playerid][SKILL_SHOTGUN]
 	);
-
  	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pGun` = '%s', `pAmmo` = '%s', `pSkills` = '%s' WHERE `pName` = '%s'", gun_string, ammo_string, skills_string, PlayerInfo[playerid][pName]);
  	mysql_tquery(connects, sql_str, "", "");
  	return 1;
@@ -1654,6 +1689,7 @@ stock SaveAccounts(playerid)
 
 public OnPlayerConnect(playerid)
 {
+	//SCM(playerid, -1, "йо"); //DEBUG
     ClearAccount(playerid);
 	ClearProposition(playerid);
 	for(new i = 0; i < 100; i++)
@@ -1695,6 +1731,11 @@ public OnPlayerConnect(playerid)
 	LoadPlayerTextDraws(playerid);
 	ClearAnimations(playerid);
 	player_second_timer[playerid] = SetTimerEx("PlayerSecondTimer", 1000, true, "i", playerid);
+	/*
+	PlayerTimer[playerid][@_200] = SetTimerEx("@_200mc_PlayerTimer", 200, true, "d", playerid);
+	PlayerTimer[playerid][@_1000] = SetTimerEx("@_1000mc_PlayerTimer", 1000, true, "d", playerid);
+	PlayerTimer[playerid][@_5000] = SetTimerEx("@_5000mc_PlayerTimer", 5000, true, "d", playerid);
+	PlayerTimer[playerid][@_10000] = SetTimerEx("@_10000mc_PlayerTimer", 10000, true, "d", playerid);*/
 
 	
 	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i], true)) return 1;
@@ -1777,7 +1818,7 @@ public OnPlayerSpawn(playerid)
 		{
 			if(!PlayerInfo[playerid][pGun][i] || !PlayerInfo[playerid][pAmmo][i]) continue;
 			ResetPlayerWeapons(playerid);
-			GivePlayerWeapon(playerid, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
+			GivePlayerWeaponAC(playerid, PlayerInfo[playerid][pGun][i], PlayerInfo[playerid][pAmmo][i]);
 		}
 	}
 	else
@@ -1844,7 +1885,6 @@ public OnPlayerDeath(playerid, killerid, reason)
         PlayerInfo[playerid][pHOSPITAL] = 0;
         KillTimer(hospital_timer[playerid]);
     }
-	
     if(killerid == INVALID_PLAYER_ID)
     {
 		SCM(playerid, red, "Вы совершили самоубийство! Зачем?");
@@ -2437,7 +2477,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys == 4)
+	if(newkeys == 4 && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
 	    new carid = GetPlayerVehicleID(playerid);
 	    new engine, lights, alarm, doors, bonnet, boot, objective;
@@ -2549,6 +2589,10 @@ public OnQueryError(errorid, error[], callback[], query[], connectionHandle)
 	printf("[ERROR MYSQL] ID %d | %s | Функция: %s | Запрос: %s |", errorid, error, callback, query);
 	return true;
 }
+public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat)
+{
+	return 1;
+}
 //************* | PUBLIC | *************//
 publics UpdateSpeedometr(playerid)
 {
@@ -2652,6 +2696,7 @@ stock Converts(number)
 stock CreateMySQLConnection(host[], user[], database[], pass[])
 {
 	connects = mysql_connect(host, user, database, pass);
+	logs_connects = connects;
 	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
 	else return printf("[MYSQL]: Подключиться к базе не удалось");
 	
@@ -2673,8 +2718,8 @@ stock CreateMySQLConnection(host[], user[], database[], pass[])
 stock CreateLogsMySQLConnection(host[], user[], database[], pass[])
 {
 	logs_connects = mysql_connect(host, user, database, pass);
-	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе успешно");
-	else return printf("[MYSQL]: Подключиться к базе не удалось");
+	if(mysql_errno()==0) printf("[MYSQL]: Подключение к базе логов успешно");
+	else return printf("[MYSQL]: Подключиться к базе логов не удалось");
 	
 	mysql_set_charset("cp1251");
 	return 1;
@@ -3147,7 +3192,47 @@ stock ClearAccount(playerid)
 	IsPlayerInGreenZone[playerid] = false;
 	isCanIznas[playerid] = true;
 	
+	for(new i = 0; i < CUSTOM_MAX_WEAPON_TYPES; i++)
+	{
+	    AccessedWeapons[playerid][i] = 0;
+	}
+	
+	#if defined SLIPPYGUARD
 
+	PG_DATA[playerid][pGunEst] =
+	PG_DATA[playerid][pCarEntTime] =
+	PG_DATA[playerid][pCarSpeed] =
+
+	PG_DATA[playerid][pCarTolkKol] =
+	PG_DATA[playerid][pCarTolkTick] =
+
+	PG_DATA[playerid][Pizdorvanka] =
+	PG_DATA[playerid][Kill_Time] =
+
+	PG_DATA[playerid][FLOOD_CMD] =
+	PG_DATA[playerid][FLOOD_TXT] =
+	PG_DATA[playerid][FLOOD_TICK] =
+	PG_DATA[playerid][warning_kick] =
+	PG_DATA[playerid][P_SET_POS_TICK] = 0;
+
+	PG_DATA[playerid][P_POS_X] =
+	PG_DATA[playerid][P_POS_Y] =
+	PG_DATA[playerid][P_POS_Z] =
+	PG_DATA[playerid][P_SET_POS_X] =
+	PG_DATA[playerid][P_SET_POS_Y] =
+	PG_DATA[playerid][P_SET_POS_Z] = 0.0;
+
+	PG_DATA[playerid][PG_ObhodAvt] =
+	PG_DATA[playerid][USE_CRASHER] = false;
+
+	PG_DATA[playerid][pCarAC] = -1;
+
+	for(new i; i < 3; i++) PG_DATA[playerid][pCarTolkKord][i] = 0.0;
+	for(new i; i < 47; i++) PG_DATA[playerid][pGuns][i] = 0;
+	PG_DATA[playerid][pCarTolkVeh] = INVALID_VEHICLE_ID;
+
+
+	#endif
 
 
 
@@ -3922,47 +4007,82 @@ publics split(const strsrc[], strdest[][], delimiter)
 
 stock FixCommand(input[])
 {
-	
-	for(new i = 0; i < strlen(input); i++)
+	new command[144];
+	new params[144] = " ";
+	new split_command[24][144]; 
+	split(input, split_command, ' ');
+
+	format(command, sizeof(command), "%s", split_command[0]);
+
+	for(new i = 1; i < sizeof(split_command); i++)
 	{
-		switch(input[i])
+		strcat(params, split_command[i]);
+		strcat(params, " ");
+	}
+	for(new i = 0; i < strlen(command); i++)
+	{
+		switch(command[i])
 		{
 			case EOS: break;
-			case 'А', 'а': input[i] = 'f';
-			case 'Б', 'б': input[i] = ',';
-			case 'В', 'в': input[i] = 'd';
-			case 'Г', 'г': input[i] = 'u';
-			case 'Д', 'д': input[i] = 'l';
-			case 'Е', 'е': input[i] = 't';
-			case 'Ё', 'ё': input[i] = '`';
-			case 'Ж', 'ж': input[i] = ';';
-			case 'З', 'з': input[i] = 'p';
-			case 'И', 'и': input[i] = 'b';
-			case 'Й', 'й': input[i] = 'q';
-			case 'К', 'к': input[i] = 'r';
-			case 'Л', 'л': input[i] = 'k';
-			case 'М', 'м': input[i] = 'v';
-			case 'Н', 'н': input[i] = 'y';
-			case 'О', 'о': input[i] = 'j';
-			case 'П', 'п': input[i] = 'g';
-			case 'Р', 'р': input[i] = 'h';
-			case 'С', 'с': input[i] = 'c';
-			case 'Т', 'т': input[i] = 'n';
-			case 'У', 'у': input[i] = 'e';
-			case 'Ф', 'ф': input[i] = 'a';
-			case 'Х', 'х': input[i] = '[';
-			case 'Ц', 'ц': input[i] = 'w';
-			case 'Ч', 'ч': input[i] = 'x';
-			case 'Ш', 'ш': input[i] = 'i';
-			case 'Щ', 'щ': input[i] = 'o';
-			case 'Ъ', 'ъ': input[i] = ']';
-			case 'Ы', 'ы': input[i] = 's';
-			case 'Ь', 'ь': input[i] = 'm';
-			case 'Э', 'э': input[i] = '\'';
-			case 'Ю', 'ю': input[i] = '.';
-			case 'Я', 'я': input[i] = 'z';
+			case 'А', 'а': command[i] = 'f';
+			case 'Б', 'б': command[i] = ',';
+			case 'В', 'в': command[i] = 'd';
+			case 'Г', 'г': command[i] = 'u';
+			case 'Д', 'д': command[i] = 'l';
+			case 'Е', 'е': command[i] = 't';
+			case 'Ё', 'ё': command[i] = '`';
+			case 'Ж', 'ж': command[i] = ';';
+			case 'З', 'з': command[i] = 'p';
+			case 'И', 'и': command[i] = 'b';
+			case 'Й', 'й': command[i] = 'q';
+			case 'К', 'к': command[i] = 'r';
+			case 'Л', 'л': command[i] = 'k';
+			case 'М', 'м': command[i] = 'v';
+			case 'Н', 'н': command[i] = 'y';
+			case 'О', 'о': command[i] = 'j';
+			case 'П', 'п': command[i] = 'g';
+			case 'Р', 'р': command[i] = 'h';
+			case 'С', 'с': command[i] = 'c';
+			case 'Т', 'т': command[i] = 'n';
+			case 'У', 'у': command[i] = 'e';
+			case 'Ф', 'ф': command[i] = 'a';
+			case 'Х', 'х': command[i] = '[';
+			case 'Ц', 'ц': command[i] = 'w';
+			case 'Ч', 'ч': command[i] = 'x';
+			case 'Ш', 'ш': command[i] = 'i';
+			case 'Щ', 'щ': command[i] = 'o';
+			case 'Ъ', 'ъ': command[i] = ']';
+			case 'Ы', 'ы': command[i] = 's';
+			case 'Ь', 'ь': command[i] = 'm';
+			case 'Э', 'э': command[i] = '\'';
+			case 'Ю', 'ю': command[i] = '.';
+			case 'Я', 'я': command[i] = 'z';
 		}
 	}
+	RemoveSpaces(params);
+	format(input, 144, "%s %s", command, params);
+	return 1;
+}
+
+stock RemoveSpaces(text[]) 
+{
+    new i = strlen(text), spaces;
+    while (--i != -1) // проверяем каждый символ в строке 
+    {
+        switch (text[i]) 
+		{
+            case ' ': // если находим пробел.. 
+            {
+                spaces++; // для проверки на первый пробел 
+                if (spaces > 1) // первый пробел не удаляется, а если это уже второй подряд тогда.. 
+                {
+                    spaces--;
+                    strdel(text, i, i + 1); // удаляем пробел по координатам, где он был обнаружен. 
+                }
+            }
+            default: spaces = 0; // если найден символ, но не пробел, тогда счётчик обнуляем и ищем снова первый пробел. 
+        }
+    }
 	return 1;
 }
 
@@ -4012,6 +4132,18 @@ stock GetAccesMaxOwnableCar(playerid)
 	return PlayerInfo[playerid][pVIP] > 0 ? 3 : 2;
 }
 
+stock emptyMessage(string[])
+{
+	for(new i; string[i] != 0x0; i++)
+	{
+		switch(string[i])
+		{
+		case 0x20: continue;
+		default: return 0;
+		}
+	}
+	return 1;
+}
 
 #if defined DEBUG
 CMD:zalupa_pizdy_ebalnika(playerid)
@@ -4042,5 +4174,9 @@ CMD:getpcarid(playerid)
 	new string[144];
 	format(string, sizeof(string), "%d", PlayerInfo[playerid][pCarID]);
 	return SCM(playerid, white, string);
+}
+CMD:getunacweapon(playerid)
+{
+	return GivePlayerWeapon(playerid, 24, 10);
 }
 #endif

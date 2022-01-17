@@ -299,8 +299,8 @@ publics PublicTimerTaxi(playerid)
 			}
 			else
 			{
-				GiveMoney(playerid, floatround(-taxi_price[i]/2, floatround_round), "Проезд в такси");
-				GiveMoney(i, floatround(taxi_price[i], floatround_round), "Работа таксиста");	
+				GiveMoney(playerid, floatround(-taxi_price[i]/2), "Проезд в такси");
+				GiveMoney(i, floatround(taxi_price[i]/2), "Работа таксиста");	
 			}
 		}
 	}

@@ -14,10 +14,10 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 		return 1;
 	#endif
 }
-#if	defined	_ALS_OnPlayerCommandPerforme
-	#undef	OnPlayerCommandPerforme
+#if	defined	_ALS_OnPlayerCommandPerformed
+	#undef	OnPlayerCommandPerformed
 #else
-	#define	_ALS_OnPlayerCommandPerforme
+	#define	_ALS_OnPlayerCommandPerformed
 #endif
 
 #define	OnPlayerCommandPerformed logsys__OnPlayerCommandPerforme

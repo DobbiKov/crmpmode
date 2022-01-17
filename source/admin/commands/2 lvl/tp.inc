@@ -120,14 +120,14 @@ stock ShowTeleportList(playerid)
 	}
 
 
-	return
-		ShowPlayerDialog
-		(
-			playerid, D_TELEPORT_LIST, DIALOG_STYLE_LIST,
-			"{"cblue"}Телепорт лист",
-			list_text,
-			"Выбрать", "Отмена"
-		);
+	ShowPlayerDialog
+	(
+		playerid, D_TELEPORT_LIST, DIALOG_STYLE_LIST,
+		"{"cblue"}Телепорт лист",
+		list_text,
+		"Выбрать", "Отмена"
+	);
+	return 1;
 }
 // - [ TP ] -
 CMD:up(playerid, params[])

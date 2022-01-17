@@ -148,9 +148,9 @@ publics ShowCarFromCarListMySQL(playerid, listitem)
         strcat(string, temp_string);
         format(temp_string, sizeof(temp_string), "{ffffff}Цвет{"cblue"}: \t\t\t\t %s\n", color);
         strcat(string, temp_string);
-        format(temp_string, sizeof(temp_string), "{ffffff}Пробег{"cblue"}: \t\t\t %d КМ\n", floatround(mileage, floatround_round));
+        format(temp_string, sizeof(temp_string), "{ffffff}Пробег{"cblue"}: \t\t\t %d КМ\n", floatround(mileage));
         strcat(string, temp_string);
-        format(temp_string, sizeof(temp_string), "{ffffff}Топливо{"cblue"}: \t\t\t %d л.", floatround(fuel, floatround_round));
+        format(temp_string, sizeof(temp_string), "{ffffff}Топливо{"cblue"}: \t\t\t %d л.", floatround(fuel));
         strcat(string, temp_string);
 
 

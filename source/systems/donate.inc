@@ -413,12 +413,6 @@ stock DonateChangeName(playerid, playerName[])
 
 	format(stringer, 512, "UPDATE `referals` SET `login_invited` = '%s' WHERE `login_invited` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
-
-	format(stringer, 512, "UPDATE `nakazania` SET `AdminName` = '%s' WHERE `AdminName` = '%s'", playerName,PlayerInfo[playerid][pName]);
-	mysql_tquery(connects, stringer, "", "");
-
-	format(stringer, 512, "UPDATE `nakazania` SET `Name` = '%s' WHERE `Name` = '%s'", playerName,PlayerInfo[playerid][pName]);
-	mysql_tquery(connects, stringer, "", "");
 	
 	format(stringer, 512, "UPDATE `kvart` SET `kvart_Owner` = '%s' WHERE `kvart_Owner` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
@@ -436,6 +430,12 @@ stock DonateChangeName(playerid, playerName[])
 	mysql_tquery(connects, stringer, "", "");
 	
 	format(stringer, 512, "UPDATE `bans` SET `AdminNick` = '%s' WHERE `AdminNick` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+	
+	format(stringer, 512, "UPDATE `radars` SET `radar_set` = '%s' WHERE `radar_set` = '%s'", playerName,PlayerInfo[playerid][pName]);
+	mysql_tquery(connects, stringer, "", "");
+
+	format(stringer, 512, "UPDATE `unwarn` SET `Nick` = '%s' WHERE `Nick` = '%s'", playerName,PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, stringer, "", "");
 
 	if(PlayerInfo[playerid][pBizID] != -1){
@@ -467,10 +467,16 @@ stock DonateChangeName(playerid, playerName[])
 	}
 
  	stringer[0] = EOS;
-	new year, month, day, strstre[30];
- 	getdate(year, month, day);
- 	format(strstre,sizeof(strstre),"%d/%d/%d",day,month,year);
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`) VALUES ('%s', '%s', '%s')", PlayerInfo[playerid][pName], playerName, strstre);
+	new strstre[30];
+	new day, month, year, hour, minute, second;
+	getdate(day, month, year);
+	gettime(hour, minute, second);
+	format(strstre, sizeof(strstre), "%d/%d/%d - %d:%d:%d", day, month, year, hour, minute, second);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `name_log` (`nOldName`, `nNewName`, `nDate`, `nAccountId`) VALUES ('%s', '%s', '%s', '%d')", 
+	PlayerInfo[playerid][pName], 
+	playerName, 
+	strstre,
+	PlayerInfo[playerid][pID]);
 	mysql_tquery(connects, stringer);
 
 	format(stringer,100, "Игрок %s сменил имя на %s [Через донат]",PlayerInfo[playerid][pName],playerName);
@@ -479,7 +485,7 @@ stock DonateChangeName(playerid, playerName[])
 	SetPlayerName(playerid, playerName);
 	strmid(PlayerInfo[playerid][pName], playerName, 0, strlen(playerName), 31);
 
- 	SCM(playerid, white, "{"cgreen"}• [Успешно]{"cwhite"}: Пропишите новый ник в окне CR-MP");
+ 	SCM(playerid, blue, "[Внимание]{"cwhite"}: Пропишите новый ник в окне CR-MP");
 
 	DeletePVar(playerid,"WantNickChange");
 	return 1;
