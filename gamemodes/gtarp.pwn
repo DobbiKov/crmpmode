@@ -4059,7 +4059,30 @@ stock FixCommand(input[])
 			case 'Я', 'я': command[i] = 'z';
 		}
 	}
+	RemoveSpaces(params);
 	format(input, 144, "%s %s", command, params);
+	return 1;
+}
+
+stock RemoveSpaces(text[]) 
+{
+    new i = strlen(text), spaces;
+    while (--i != -1) // проверяем каждый символ в строке 
+    {
+        switch (text[i]) 
+		{
+            case ' ': // если находим пробел.. 
+            {
+                spaces++; // для проверки на первый пробел 
+                if (spaces > 1) // первый пробел не удаляется, а если это уже второй подряд тогда.. 
+                {
+                    spaces--;
+                    strdel(text, i, i + 1); // удаляем пробел по координатам, где он был обнаружен. 
+                }
+            }
+            default: spaces = 0; // если найден символ, но не пробел, тогда счётчик обнуляем и ищем снова первый пробел. 
+        }
+    }
 	return 1;
 }
 
