@@ -189,7 +189,7 @@ public OnPlayerEnterCheckpoint(playerid)
     {
 	    case CP_GET_MESH:
 	    {
-  			ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+  			ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,1,1,1,1,1);
 			SetPlayerAttachedObject(playerid, 1 ,3052, 1,0.11,0.36,0.0,0.0,90.0);
 			SetPVarInt(playerid, "gruz_load", 1);
 			

@@ -1,4 +1,4 @@
-new ac_names[12][30] = 
+new ac_names[13][30] = 
 {
 	".", 
 	"Оружие", 
@@ -11,7 +11,8 @@ new ac_names[12][30] =
 	"Здоровье", 
 	"Телепорт в транспорт", 
 	"AirBreak", 
-	"BulletHitType"
+	"BulletHitType",
+	"Флуд машинами"
 };
 
 #define MAX_ANTICHEATS 6
@@ -56,6 +57,7 @@ stock ResultCheat(p, r)
 		case 10: result = "#010"; // - AIRBREAK
 		case 11: result = "#011"; // - ANTI ONFOOT CRASH
 		case 12: result = "#012"; // - ANTI BULLET HIT TYPE
+		case 13: result = "#013"; // - ANTI FLOOD CARS
     }
 
 	new Year, Month, Day;
@@ -116,6 +118,7 @@ stock ResultMessageCheat(p, r)
 		case 10: result = "#010"; // - AIRBREAK
 		case 11: result = "#011"; // - ANTI ONFOOT CRASH
 		case 12: result = "#012"; // - ANTI BULLET HIT TYPE
+		case 13: result = "#013"; // - ANTI FLOOD CARS
 		// default:{
 		// 	format(result, sizeof(result), "%d", r);
 

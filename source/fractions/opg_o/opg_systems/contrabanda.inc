@@ -101,7 +101,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
         {
             return SCM(playerid, red, "Вы уже подняли мешок!");
         }
-        ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+        ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,1,1,1,1,1);
         SetPlayerAttachedObject(playerid, 1 ,1279, 1,0.11,0.36,0.0,0.0,90.0);
         SetPVarInt(playerid, "contraband_meshok_load", 1);
         SCM(playerid, blue, "Вы взяли мешок с контрабандой, отнесите его в фургон!");
@@ -328,7 +328,7 @@ stock GetDrugsBagsFromVehicle(playerid, vehicleid)
         return SCM(playerid, red, !"В фургоне нет мешков с контрабандой!");
     }
     vehicle_trunk[vehicleid][trunk_drugs_bags] -= 1;
-    ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,0,1,1,1,1);
+    ApplyAnimation(playerid,"CARRY","crry_prtial",4.1,1,1,1,1,1);
     SetPlayerAttachedObject(playerid, 1 ,1279, 1,0.11,0.36,0.0,0.0,90.0);
     SetPVarInt(playerid, "contraband_meshok_load", 1);
     SCM(playerid, blue, "Вы взяли мешок с контрабандой, отнесите его на склад!");

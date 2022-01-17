@@ -83,14 +83,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
+						if(GetPlayerWeaponAmmo(playerid, 23) >= 10)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 1:
                     {
+						if(GetPlayerWeaponAmmo(playerid, 30) >= 240)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 30, 120);
                     }
                     case 2:
                     {
+						if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
+                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 3, 1);
                     }
                     case 3:

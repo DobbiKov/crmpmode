@@ -67,6 +67,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/mwarn [id игрока] [причина] - Выдать выговор игроку\n"\
 		"/removeaccess [id игрока] - Забрать пропуск в здание ФСБ\n"\
 		"/infiltrate - Внедриться в организацию\n"\
+		"/location - Узнать местоположение игрока\n"\
 		"/readsms - Прослушка сообщений\n"\
 		"/switchskin [ID скина] - Сменить одежду\n"\
 		"/switchfskin - Сменить фракционную одежду\n"\
@@ -90,6 +91,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 	},
 	{
 		"\n{ffffff}Команды организации: {ffcc00}Организованные Преступные Группировки (ОПГ){ffffff}\n\n"\
+		"/close - открыть/закрыть склад\n"\
 		"/bizwar - начать войну за бизнесс\n"\
 		"/makegun - создать оружие\n"\
 		"/tie [id игрока] - связать игрока\n"\
@@ -126,7 +128,10 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 	}
 };
 
-ALTX:menu("/mn", "/mm");
+CMD:mm(playerid)
+    return cmd::menu(playerid);
+CMD:mn(playerid)
+    return cmd::menu(playerid);
 CMD:menu(playerid)
 {
     ShowMenu(playerid);

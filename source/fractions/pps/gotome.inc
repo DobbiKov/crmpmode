@@ -227,6 +227,7 @@ public OnPlayerSpawn(playerid)
 {
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     DeletePVar(playerid, "cuffed");
+	DeletePVar(playerid, "tied");
 	if(gc_cuffed_playerid[playerid] != INVALID_PLAYER_ID)
 	{
 		gc_suspect_status{gc_cuffed_playerid[playerid]} =

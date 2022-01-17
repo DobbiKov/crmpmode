@@ -61,7 +61,7 @@ publics Off_commandlogs_check(playerid, account_id, cmd_name[], to_player[])
             _date = cache_get_field_content_int(i, "date");
             cache_get_field_content(i, "cmd_name", _cmd_name, logs_connects, MAX_PLAYER_NAME);
             cache_get_field_content(i, "cmd_text", cmd_text, logs_connects, MAX_PLAYER_NAME);
-            format(temp_string, sizeof(temp_string), "{ffffff}%s %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date-(14*3600)), cmd_text);
+            format(temp_string, sizeof(temp_string), "{ffffff}%s %s\n", date("%dd.%mm.%yyyy, %hh:%ii:%ss",_date), cmd_text);
             strcat(string, temp_string);
         }
 

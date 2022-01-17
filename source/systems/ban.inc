@@ -72,14 +72,33 @@ publics CheckBan(playerid)
 	}
 	return 1;
 }
-publics on_player_unban(playerid, to_player[])
+publics on_player_unban_check_acc(playerid, to_player[])
+{
+	new rows, fields;
+	cache_get_data(rows, fields);
+	if(rows)
+	{
+		new acc_id;
+		acc_id = cache_get_field_content_int(0, "pID");
+	    
+		new query[256];
+		format(query, sizeof(query), "SELECT * FROM `bans` WHERE `Nick` = '%s'", to_player);
+		mysql_tquery(connects, query, "on_player_unban", "isi", playerid, to_player, acc_id);
+	}
+	else
+	{
+	    SCM(playerid, red, "Такого игрока нет.");
+	}
+	return 1;
+}
+publics on_player_unban(playerid, to_player[], acc_id)
 {
 	new rows, fields;
 	cache_get_data(rows, fields);
 	if(rows)
 	{
 		new string[256], data[64], year, month, day, hour, minute, second;
-
+		// acc_id = cache_get_field_content_int(0, "pID");
 	    gettime(hour, minute, second);
 	    getdate(year, month, day);
 	    format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
@@ -87,7 +106,13 @@ publics on_player_unban(playerid, to_player[])
         format(string, sizeof(string), "DELETE FROM `bans` WHERE `Nick` = '%s' LIMIT 1", to_player);
         mysql_tquery(connects, string, "","");
 
-		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unban', 'unban')", PlayerInfo[playerid][pName], to_player, data);
+		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', 'unban', 'unban')", 
+			PlayerInfo[playerid][pName], 
+			to_player, 
+			PlayerInfo[playerid][pID], 
+			acc_id,
+			data, 
+			0);
 		mysql_tquery(connects, string, "", "");
 
 		format(string, sizeof(string), "[A] %s[%d] разбанил игрока %s", PlayerInfo[playerid][pName], playerid, to_player);
@@ -98,7 +123,7 @@ publics on_player_unban(playerid, to_player[])
 	}
 	else
 	{
-	    SCM(playerid, red, "Такого игрока нет.");
+	    SCM(playerid, red, "Данный игрок не забанен!");
 	}
 	return 1;
 }
@@ -157,7 +182,14 @@ publics on_player_offbans(playerid, to_player[], time, reason[],lastip[], regip[
 	    format(string, sizeof(string), "[ Account ID: %d | Last IP: %s | Reg IP: %s ]", accid, lastip, regip);
 	    SCMTA(red, string);
 
-		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'offban')", PlayerInfo[playerid][pName], to_player, data, time, reason);
+		mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'offban')", 
+			PlayerInfo[playerid][pName], 
+			to_player, 
+			PlayerInfo[playerid][pID], 
+			accid,
+			data, 
+			time,
+			reason);
 		mysql_tquery(connects, string, "", "");
 
 		PlayerInfo[playerid][bOffBan]++;
@@ -184,7 +216,7 @@ CMD:ban(playerid, params[])
 	if(time > 365)
 		return SCM(playerid, red, "От 1, до 30-ти дней.");
 
-	new string[256], unbandate, data[64], year, month, day, hour, minute, second;
+	new string[512], unbandate, data[64], year, month, day, hour, minute, second;
  	foreach(new i:Player)
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))
@@ -210,7 +242,14 @@ CMD:ban(playerid, params[])
 		    format(string, sizeof(string), "[IP: %s | Last IP: %s | Reg IP: %s]", PlayerInfo[playerid][pNewIp], PlayerInfo[playerid][pLastIP], PlayerInfo[i][pRegIP]);
 		    SCMTA(red, string);
 
-			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '%d', '%s', 'ban')", PlayerInfo[playerid][pName], PlayerInfo[i][pName], data, time, reason);
+			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'ban')", 
+				PlayerInfo[playerid][pName], 
+				PlayerInfo[i][pName], 
+				PlayerInfo[playerid][pID], 
+				PlayerInfo[i][pID],
+				data, 
+				time,
+				reason);
 			mysql_tquery(connects, string, "", "");
 
 			PlayerInfo[i][bAdmin] = 0;
@@ -248,7 +287,7 @@ CMD:unban(playerid, params[])
 	extract params -> new string: to_player[24]; else return SCM(playerid, blue, "• [Подсказка]: {FFFFFF}Используйте /unabn [NickName игрока]");
 
 	new query[256];
-	format(query, sizeof(query), "SELECT * FROM `bans` WHERE `Nick` = '%s'", to_player);
-	mysql_tquery(connects, query, "on_player_unban", "is", playerid, to_player);
+	format(query, sizeof(query), "SELECT * FROM `accounts` WHERE `pName` = '%s'", to_player);
+	mysql_tquery(connects, query, "on_player_unban_check_acc", "is", playerid, to_player);
 	return 1;
 }

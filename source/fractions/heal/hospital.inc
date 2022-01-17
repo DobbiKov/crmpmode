@@ -34,7 +34,7 @@ public OnPlayerSpawn(playerid)
 
 publics HospitalTimer(playerid)
 {
-    if(PlayerInfo[playerid][pHOSPITAL] > 0)
+    if(PlayerInfo[playerid][pHOSPITAL] > 0 && IsPlayerInRangeOfPoint(playerid, 40.0, -811.8497,1894.7438,702.0200))
     {
         PlayerInfo[playerid][pHP] += 1.0;
         SetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);

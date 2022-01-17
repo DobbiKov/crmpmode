@@ -5,7 +5,7 @@ CMD:me(playerid, params[])
     new string[128];
 	format(string, sizeof(string), "%s %s", PlayerName(playerid), params[0]);
 	ProxDetector(30.0, playerid, string, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF);
-	return 1;
+	return SetPlayerChatBubble(playerid, string, 0xDD90FFFF, 30.0, 5000);
 }
 CMD:do(playerid, params[])
 {
@@ -14,7 +14,7 @@ CMD:do(playerid, params[])
     new string[128];
 	format(string, sizeof(string), "%s (( %s ))", params[0], PlayerName(playerid));
 	ProxDetector(30.0, playerid, string, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF, 0xDD90FFFF);
-	return 1;
+	return SetPlayerChatBubble(playerid, string, 0xDD90FFFF, 30.0, 5000);
 }
 CMD:todo(playerid,params[])
 {

@@ -16,7 +16,14 @@ CMD:unjail(playerid, params[])
     gettime(hour, minute, second);
     getdate(year, month, day);
     format(data, sizeof(data), "%d/%d/%d -- %d:%d:%d", year, month, day, hour, minute, second);
-	mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%s', '0', 'unjail', 'unjail')", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], data);
+
+	mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', 'unjail', 'unjail')", 
+		PlayerInfo[playerid][pName], 
+		PlayerInfo[to_player][pName], 
+		PlayerInfo[playerid][pID], 
+		PlayerInfo[to_player][pID], 
+		data, 
+		0);
 	mysql_tquery(connects, string, "", "");
 
 	new fmt_query[256];

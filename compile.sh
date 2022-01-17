@@ -1,0 +1,1 @@
+./pawn/pawncc -v2-d3-\;+ -\(+ -i./include gamemodes/gtarp.pwn

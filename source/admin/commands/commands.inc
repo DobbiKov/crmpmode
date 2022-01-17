@@ -50,13 +50,14 @@ new Command2LVL[30][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[35][] = 
+new Command3LVL[36][] = 
 {
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
     {"{"cblue"}/getip{ffffff}- Узнать IP-Address игрока\n"},
     {"{"cblue"}/offgetip {ffffff}- Узнать IP-Address игрока в оффлайне\n"},
     {"{"cblue"}/cc {ffffff}- Очистить чат\n"},
+    {"{"cblue"}/punishments {ffffff}- Посмотреть историю наказаний игрока\n"},
     {"{"cblue"}/unjail {ffffff}- Выпустить игрока из деморгана\n"},
     {"{"cblue"}/unmute {ffffff}- Снять мут с игрока\n"},
     {"{"cblue"}/fixveh {ffffff}- Починить авто\n"},
@@ -139,11 +140,13 @@ new Command6LVL[17][] =
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
-new Command7LVL[16][] = 
+new Command7LVL[18][] = 
 {
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
     {"{"cblue"}/setstat {ffffff}- Редактировать статистику игрока\n"},
+    {"{"cblue"}/deactivate {ffffff}- Деактивировать аккаунт игрока\n"},
+    {"{"cblue"}/activate {ffffff}- Активировать аккаунт игрока\n"},
     {"{"cblue"}/loadfs {ffffff}- Загрузить скрипт\n"},
     {"{"cblue"}/unloadfs {ffffff}- Отключить скрипт\n"},
     {"{"cblue"}/resetmoney {ffffff}- Обнулить деньги игроку\n"},

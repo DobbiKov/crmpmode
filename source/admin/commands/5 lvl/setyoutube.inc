@@ -2,7 +2,7 @@ CMD:setyoutube(playerid, params[])
 {
 	if(PlayerInfo[playerid][bAdmin] < 5) return ShowCommandNotFound(playerid);
 
-	extract params -> new string: to_player[24], level; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /setyoutube [Ник игрока] [0 - снять | 1 - поставить]");
+	extract params -> new string: to_player[24], level; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /setyoutube [Ник игрока] [0 - снять | 1 - поставить]");
 	
 	if(level != 1 && level != 0) return SCM(playerid, red, "Только 0, или 1!");
 

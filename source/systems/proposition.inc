@@ -320,7 +320,8 @@ CMD:yes(playerid)
 
 				if(PlayerInfo[proposition][pJob] != Job_Car || player_job_vehicle_arend[proposition] == -1) return SCM(playerid, 0xCECECEFF, "Авмеханик не в рабочем транспорте");
 				
-				new fillPrice = value_1 * mech_fuel_price[playerid];
+				new fillPrice = value_1 * mech_fuel_price[proposition];
+
 
 				if(PlayerInfo[playerid][pCash] < fillPrice)
 					return SCM(playerid, red, "У Вас недостаточно денег");
@@ -328,9 +329,11 @@ CMD:yes(playerid)
 				if(GetPlayerVehicleID(proposition) != player_job_vehicle_arend[proposition]) return SCM(playerid, red, "Игрок не в транспорте!");
 
 				GiveMoney(playerid, -fillPrice, "Заправка транспорта");
-				GiveMoney(proposition, fillPrice, "Заправка транспорта");
+				GiveMoney(proposition, fillPrice / 2, "Заправка транспорта");
 
-				vehicle[vehicleid][veh_fuel] += value_1;
+				GiveBusinessMoney(mech_fuel_bizid[proposition], fillPrice / 2, playerid);
+
+				vehicle[vehicleid][veh_fuel] += float(value_1);
 				SetPlayerChatBubble(playerid, "Refill", 0x3399FFFF, 10.0, 2000);
 
 				new fmt_msg[65];

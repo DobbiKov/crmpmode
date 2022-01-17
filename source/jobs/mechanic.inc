@@ -267,7 +267,7 @@ CMD:refill(playerid, params[])
 	if(vehicle[toPlayerVehId][veh_fuel] + litrs > 100.0)
 	{
 		new string[144];
-		format(string, sizeof(string), "В бензобак клиента не поместиться столько бензина. Вы можете заправить его на %d л.", 100 - vehicle[toPlayerVehId][veh_fuel]);
+		format(string, sizeof(string), "В бензобак клиента не поместиться столько бензина. Вы можете заправить его на %d л.", 100 - floatround(vehicle[toPlayerVehId][veh_fuel]) );
 		return SCM(playerid, white, string);
 	} 
 	if(PlayerInfo[to_player][pCash] < litrs * mech_fuel_price[playerid]) return SCM(playerid, red, "У игрока нет столько денег!");
