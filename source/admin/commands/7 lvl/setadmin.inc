@@ -11,6 +11,13 @@ CMD:setadmin(playerid, params[])
 	}
 	if(level < 0 || level > 7) return SCM(playerid, red, "Уровень администратора не больше 7 и не меньше 0!");
 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
+
  	foreach(new i:Player)
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))

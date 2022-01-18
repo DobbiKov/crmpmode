@@ -205,16 +205,23 @@ CMD:ban(playerid, params[])
 
 	extract params -> new string: to_player[24], time, string: reason[30]; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /ban [Ник игрока] [Дни(1-30)] [Причина]");
 
-	if(PlayerInfo[playerid][bAdmin] >= 5 && time == -1)
-	{
-		time = 2555;
-	}
+	// if(PlayerInfo[playerid][bAdmin] >= 5 && time == 0)
+	// {
+	// 	time = 2555;
+	// }
 	if(time < 1)
 	    return SCM(playerid, red, "От 1, до 30-ти дней.");
 	if(time > 30 && time < 365)
 		return SCM(playerid, red, "От 1, до 30-ти дней.");
 	if(time > 365)
 		return SCM(playerid, red, "От 1, до 30-ти дней.");
+
+	if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }	
 
 	new string[512], unbandate, data[64], year, month, day, hour, minute, second;
  	foreach(new i:Player)

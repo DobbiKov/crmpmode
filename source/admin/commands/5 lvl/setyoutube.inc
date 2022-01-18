@@ -6,6 +6,13 @@ CMD:setyoutube(playerid, params[])
 	
 	if(level != 1 && level != 0) return SCM(playerid, red, "Только 0, или 1!");
 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
+
  	foreach(new i:Player)
  	{
  		if(!strcmp(PlayerInfo[i][pName], to_player, true))

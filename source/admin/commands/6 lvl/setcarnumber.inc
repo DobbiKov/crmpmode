@@ -4,6 +4,14 @@ CMD:setcarnumber(playerid, params[])
 
     extract params -> new string: to_player[32], string: number[32]; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /setcarnumber [NickName игрока] [номер]");
     if(strlen(number) < 0 || strlen(number) > 32) return SCM(playerid, red, "Длина номера не менее 0 и не более 32.");
+ 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
+
     foreach(new i : Player)
     {
         if(!strcmp(PlayerInfo[i][pName], to_player, false))

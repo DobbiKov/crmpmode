@@ -5,6 +5,12 @@ CMD:setownablecar(playerid, params[])
     extract params -> new string: to_player[32], model_id, cost_oc_car; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /setownablecar [NickName игрока] [Модель авто] [Стоимость авто]");
     if(model_id < 400 || model_id > 611) return SCM(playerid, red, "Модель авто не менее 400 и не более 611.");
 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
     // foreach(new i : Player)
     // {
     //     if(!strcmp(PlayerInfo[i][pName], to_player, false))
