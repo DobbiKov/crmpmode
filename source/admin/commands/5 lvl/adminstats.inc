@@ -4,6 +4,13 @@ CMD:adminstats(playerid, params[])
 
     extract params -> new string: to_player[24]; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /adminstats [ник админа]");
 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
+
     new query[144];
     format(query, sizeof(query), "SELECT * FROM `accounts` WHERE `pName` = '%s'", to_player);
     mysql_tquery(connects, query, "Off_adminstats", "ds", playerid, to_player);

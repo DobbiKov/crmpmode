@@ -140,7 +140,7 @@ new Command6LVL[17][] =
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
-new Command7LVL[18][] = 
+new Command7LVL[19][] = 
 {
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
@@ -159,5 +159,6 @@ new Command7LVL[18][] =
     {"{"cblue"}/addpod {ffffff}- Создать подъезд\n"},
     {"{"cblue"}/setpodcarpos {ffffff}- Установить подъезду место спавна авто\n"},
     {"{"cblue"}/addtoilet {ffffff}- Создать туалет\n"},
+    {"{"cblue"}/delete {ffffff}- Удалить дом/бизнесс/туалет и другие динамические системы\n"},
     {"{"cblue"}/changepassword {ffffff}- Сменить пароль игроку\n"}
 };
