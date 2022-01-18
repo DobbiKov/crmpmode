@@ -26,7 +26,7 @@ publics LoadBusiness()
             BusinessInfo[idx][bExitZ] = cache_get_field_content_float(i, "bExitZ");
             cache_get_field_content(i, "bOwner", BusinessInfo[idx][bOwner], connects, MAX_PLAYER_NAME);
 
-            CreateDynamicMapIcon(BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], business_params[ BusinessInfo[idx][bType] ][icon], -1, -1, -1, -1, 200.0);
+            BusinessInfo[idx][bIcon] = CreateDynamicMapIcon(BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], business_params[ BusinessInfo[idx][bType] ][icon], -1, -1, -1, -1, 200.0);
 
             BusinessInfo[idx][bLabel] = CreateDynamic3DTextLabel("__", 0xFFFFFFFF, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
             BusinessInfo[idx][bEnterPickup] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][pickup], 23, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ]);

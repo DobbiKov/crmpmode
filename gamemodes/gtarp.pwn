@@ -662,6 +662,7 @@ enum e_DIALOG_IDs
 	D_SMI_BANK,
 	D_SMI_PUT_MONEY,
 	D_SMI_GET_MONEY,
+	D_ASK_DEL_MOBJ,
 };
 
 /* CHEAT */
@@ -1019,6 +1020,7 @@ enum
 #include "../source/admin/commands/7 lvl/addatm.inc"
 #include "../source/admin/commands/7 lvl/deactivate.inc"
 #include "../source/admin/commands/7 lvl/activate.inc"
+#include "../source/admin/commands/7 lvl/delete.inc"
 
 // ------- [ JOBS ] ---------------
 #include "../source/jobs/jobs.inc"

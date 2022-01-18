@@ -49,6 +49,7 @@ enum E_BIZ_INFO
     bPrice,
     bCash,
     bProfit,
+    bIcon,
     Float:bExitX,
     Float:bExitY,
     Float:bExitZ,
