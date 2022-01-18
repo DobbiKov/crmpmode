@@ -36,7 +36,7 @@ CMD:donate(playerid)
 	strcat(string, str);
 	format(str, sizeof(str), "{ffffff}Номер вашего аккаунта:\t\t{"cblue"}%d\n", PlayerInfo[playerid][pID]);
 	strcat(string, str);
-	format(str, sizeof(str), "{ffffff}Количество ваших кредитов:\t{"cblue"}%d", PlayerInfo[playerid][pDonate]);
+	format(str, sizeof(str), "{ffffff}Количество ваших кредитов:\t\t{"cblue"}%d", PlayerInfo[playerid][pDonate]);
 	strcat(string, str);
 	SPD(playerid, D_DONATE, DIALOG_STYLE_MSGBOX, "{"cblue"}Дополнительные средства", string, "Далее", "Отмена");
 	return 1;
