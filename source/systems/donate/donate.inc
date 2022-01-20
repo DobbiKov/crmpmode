@@ -5,7 +5,7 @@ enum
 };
 
 new const
-	donate_list[9][E_DONATE_DATE] =
+	donate_list[11][E_DONATE_DATE] =
 {
 	{"Перевести кредиты в рубли (1 кр. = 500 рублей)"},
 	{"Сменить имя (50. кр.)"},
@@ -15,8 +15,12 @@ new const
 	{"+1 EXP (10 кр.)"},
 	{"+1 LvL (100 кр.)"},
 	{"Навыки оружия (50 кр. = 1 шт. | 200 кр. = все)"},
-	{"VIP аккаунт"}
+	{"VIP аккаунт"},
+	{"Приобрести номера на авто"},
+	{"Приобрести уникальную симкарту"}
 };
+
+#include "../source/systems/donate/change_car_number.inc"
 
 CMD:donate(playerid)
 {
@@ -44,7 +48,7 @@ CMD:donate(playerid)
 
 stock ShowDonateListDialog(playerid){
 	new fmt_dialog[528], string[128];
-	for(new i = 0; i < 9; i++)
+	for(new i = 0; i < sizeof(donate_list); i++)
 	{
 		format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i+1, donate_list[i][donate_name]);
 		strcat(fmt_dialog, string);
