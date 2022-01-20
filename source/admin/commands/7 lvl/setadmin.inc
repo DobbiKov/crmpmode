@@ -1,10 +1,12 @@
 CMD:setadmin(playerid, params[])
 {
-	if(PlayerInfo[playerid][bAdmin] < 7) return ShowCommandNotFound(playerid);
+	if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
 
-	extract params -> new string: to_player[24], level; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /setadmin [Ник игрока] [LVL Админки]");
+	extract params -> new string: to_player[24], level; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /setadmin [Ник игрока] [LVL Админки]");
 
-	if(PlayerInfo[playerid][bAdmin] == 6)
+	if(PlayerInfo[playerid][bAdmin] == 6 && level != 1) return SCM(playerid, red, !"Вы можете поставить игрока исключительно на 1 уровень администратора.");
+
+	if(PlayerInfo[playerid][bAdmin] <= level)
 	{
 		if(level < 0 || level > 5)
 		    return SCM(playerid, red, "Уровень администратора не больше 5 и не меньше 0!");

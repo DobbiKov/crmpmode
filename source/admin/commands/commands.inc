@@ -119,9 +119,12 @@ new Command5LVL[12][] =
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
-new Command6LVL[17][] = 
+new Command6LVL[19][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
+    {"{"cblue"}/setadmin {ffffff}- Поставить игрока на пост администратора\n"},
+    {"{"cblue"}/aup {ffffff}- Повысить уровень администратора\n"},
+    {"{"cblue"}/adown {ffffff}- Понизить уровень администора\n"},
     {"{"cblue"}/givemoney {ffffff}- Выдать игроку денег\n"},
     {"{"cblue"}/setleader {ffffff}- Поставить игрока на пост лидера\n"},
     {"{"cblue"}/unlwarn {ffffff}- Снять выговор лидеру организации\n"},
@@ -130,7 +133,6 @@ new Command6LVL[17][] =
     {"{"cblue"}/offawarn {ffffff}- Выдать выговор администратору в оффлайне\n"},
     {"{"cblue"}/unawarn {ffffff}- Снять выговор администратору\n"},
     {"{"cblue"}/agivevoen {ffffff}- выдать военный билет игроку\n"},
-    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/setcarnumber {ffffff}- Установить номера на автомобиль игрока\n"},
     {"{"cblue"}/setownablecar {ffffff}- Установить игроку личное авто\n"},
     {"{"cblue"}/settempnick {ffffff}- Установить игроку временный ник\n"},
@@ -140,7 +142,7 @@ new Command6LVL[17][] =
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
-new Command7LVL[19][] = 
+new Command7LVL[17][] = 
 {
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
@@ -150,9 +152,6 @@ new Command7LVL[19][] =
     {"{"cblue"}/loadfs {ffffff}- Загрузить скрипт\n"},
     {"{"cblue"}/unloadfs {ffffff}- Отключить скрипт\n"},
     {"{"cblue"}/resetmoney {ffffff}- Обнулить деньги игроку\n"},
-    {"{"cblue"}/setadmin {ffffff}- Поставить игрока на пост администратора\n"},
-    {"{"cblue"}/aup {ffffff}- Повысить уровень администратора\n"},
-    {"{"cblue"}/adown {ffffff}- Понизить уровень администора\n"},
     {"{"cblue"}/addbusiness {ffffff}- Создать бизнес\n"},
     {"{"cblue"}/addhouse {ffffff}- Создать дом\n"},
     {"{"cblue"}/sethousecarpos {ffffff}- Установить дому место спавна авто\n"},
@@ -160,5 +159,6 @@ new Command7LVL[19][] =
     {"{"cblue"}/setpodcarpos {ffffff}- Установить подъезду место спавна авто\n"},
     {"{"cblue"}/addtoilet {ffffff}- Создать туалет\n"},
     {"{"cblue"}/delete {ffffff}- Удалить дом/бизнесс/туалет и другие динамические системы\n"},
+    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/changepassword {ffffff}- Сменить пароль игроку\n"}
 };

@@ -1397,6 +1397,8 @@ publics LoginCallback(playerid, password[])
 }
 stock SaveAccounts(playerid)
 {
+	if(PlayerInfo[playerid][pLogin] != true)
+		return 0;
 	new sql_str[528];
  	format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pBizID` = '%d', `pCarID` = '%d', `pHomeID` = '%d', `pPodID` = '%d', `pKvartID` = '%d' WHERE `pName` = '%s' LIMIT 1",PlayerInfo[playerid][pBizID],PlayerInfo[playerid][pCarID], PlayerInfo[playerid][pHomeID], PlayerInfo[playerid][pPodID], PlayerInfo[playerid][pKvartID],PlayerInfo[playerid][pName]);
 	mysql_tquery(connects, sql_str, "", "");
