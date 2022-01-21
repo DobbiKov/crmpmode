@@ -21,6 +21,7 @@ new const
 };
 
 #include "../source/systems/donate/change_car_number.inc"
+#include "../source/systems/donate/change_phone_number.inc"
 
 CMD:donate(playerid)
 {
@@ -47,7 +48,7 @@ CMD:donate(playerid)
 }
 
 stock ShowDonateListDialog(playerid){
-	new fmt_dialog[528], string[128];
+	new fmt_dialog[1024], string[144];
 	for(new i = 0; i < sizeof(donate_list); i++)
 	{
 		format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i+1, donate_list[i][donate_name]);
@@ -128,6 +129,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 9:{
 						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
 						return ShowDonateCarNumberDialog(playerid);
+					}
+					case 10:{
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						return ShowDonatePhoneNumberDialog(playerid);
 					}
 				}
 			}

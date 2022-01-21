@@ -84,40 +84,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new query[144];
             format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `number` = '%s'", inputtext);
-            mysql_tquery(connects, query, "DonateCarNumberCheckAbility", "is", playerid, inputtext);
+            mysql_tquery(connects, query, "DonateCarNumberCheckAbility", "isi", playerid, inputtext, 0);
         }
         case D_DONATE_CAR_NUMBER_SURE:
         {
-            if(!response) return ShowDonateCarNumberInputDialog(playerid);
-
-            if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
-            if(!IsPlayerInAnyVehicle(playerid)
-                || PlayerInfo[playerid][pCarID] == -1
-                || GetPlayerVehicleID(playerid) != player_ownable_car[playerid]
-            )
-                return SCM(playerid, red, !"Вы должны находится в личном транспорте!");
-
-            if(strcmp(ownable_car[ player_ownable_car[playerid] ][oc_number], "None"))
-                return SCM(playerid, red, "На вашем транспорте уже имеются номера."); 
-            
-            PlayerInfo[playerid][pDonate] -= 500;
-
-            new model = GetVehicleModel(player_ownable_car[playerid]);
-            new number[6];
-            GetPVarString(playerid, "donate_buy_car_number", number, 6);
+            new number[24];
+            GetPVarString(playerid, "donate_buy_car_number", number, 24);
             DeletePVar(playerid, "donate_buy_car_number");
-
-            ownable_car[player_ownable_car[playerid]][oc_number] = EOS;
-            strcat(ownable_car[player_ownable_car[playerid]][oc_number], number);
-
-            new string[144];
-            format(string, sizeof(string), "Вы приобрели номерной знак {"cwhite"}[%s] {"cblue"}на свой транспорт {"cwhite"}%s", ownable_car[ player_ownable_car[playerid] ][oc_number], GetCarName(model));
-            SCM(playerid, blue, string);
-
-            format(string, sizeof(string), "UPDATE `ownable_cars` SET `number` = '%s' WHERE `id` = '%d'", ownable_car[player_ownable_car[playerid]][oc_number], ownable_car[player_ownable_car[playerid]][oc_id]);
-            mysql_tquery(connects, string, "", "");
-
-            return UpdateDynamic3DTextLabelText(ownable_car_label[player_ownable_car[playerid]], 0xFFFFFFFF, ownable_car[player_ownable_car[playerid]][oc_number]); 
+            if(!response) return ShowDonateCarNumberInputDialog(playerid);
+            
+            new query[144];
+            format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `number` = '%s'", number);
+            mysql_tquery(connects, query, "DonateCarNumberCheckAbility", "isi", playerid, number, 1);
         }
 	}
 	#if	defined	donate_ccn__OnDialogResponse
@@ -137,18 +115,50 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	forward donate_ccn__OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 #endif
 
-publics DonateCarNumberCheckAbility(playerid, newNumber[])
+publics DonateCarNumberCheckAbility(playerid, newNumber[], times)
 {
     new rows, fields;
     cache_get_data(rows, fields);
     if(rows)
         return ShowDonateCarNumberInputDialog(playerid, 2);
+    
+    if(times == 0)
+    {
+        new model = GetVehicleModel(player_ownable_car[playerid]);
+        new string[144];
+        format(string, sizeof(string), "{ffffff}Вы желаете приобрести номерной знак {"cblue"}[%s] {ffffff} на свой автомобиль {"cblue"}%s{ffffff}?", newNumber, GetCarName(model));
+        ShowPlayerDialog(playerid, D_DONATE_CAR_NUMBER_SURE, DIALOG_STYLE_MSGBOX, !"Донат номер", string, !"Далее", !"Назад");
+        return SetPVarString(playerid, "donate_buy_car_number", newNumber);
+    }
+
+    new number[24] = "";
+    strcat(number, newNumber);
+
+    if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+    if(!IsPlayerInAnyVehicle(playerid)
+        || PlayerInfo[playerid][pCarID] == -1
+        || GetPlayerVehicleID(playerid) != player_ownable_car[playerid]
+    )
+        return SCM(playerid, red, !"Вы должны находится в личном транспорте!");
+
+    if(strcmp(ownable_car[ player_ownable_car[playerid] ][oc_number], "None"))
+        return SCM(playerid, red, "На вашем транспорте уже имеются номера."); 
+    
+    PlayerInfo[playerid][pDonate] -= 500;
 
     new model = GetVehicleModel(player_ownable_car[playerid]);
+
+    ownable_car[player_ownable_car[playerid]][oc_number] = EOS;
+    strcat(ownable_car[player_ownable_car[playerid]][oc_number], number);
+
     new string[144];
-    format(string, sizeof(string), "{ffffff}Вы желаете приобрести номерной знак {"cblue"}[%s] {ffffff} на свой автомобиль {"cblue"}%s{ffffff}?", newNumber, GetCarName(model));
-    ShowPlayerDialog(playerid, D_DONATE_CAR_NUMBER_SURE, DIALOG_STYLE_MSGBOX, !"Донат номер", string, !"Далее", !"Назад");
-    return SetPVarString(playerid, "donate_buy_car_number", newNumber);
+    format(string, sizeof(string), "Вы приобрели номерной знак {"cwhite"}[%s] {"cblue"}на свой транспорт {"cwhite"}%s", ownable_car[ player_ownable_car[playerid] ][oc_number], GetCarName(model));
+    SCM(playerid, blue, string);
+
+    format(string, sizeof(string), "UPDATE `ownable_cars` SET `number` = '%s' WHERE `id` = '%d'", ownable_car[player_ownable_car[playerid]][oc_number], ownable_car[player_ownable_car[playerid]][oc_id]);
+    mysql_tquery(connects, string, "", "");
+
+    return UpdateDynamic3DTextLabelText(ownable_car_label[player_ownable_car[playerid]], 0xFFFFFFFF, ownable_car[player_ownable_car[playerid]][oc_number]);    
 }
 
 stock DonateSymbolIsLiter(symbol)
