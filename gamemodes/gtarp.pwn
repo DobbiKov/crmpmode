@@ -990,6 +990,7 @@ enum
 #include "../source/admin/commands/7 lvl/deactivate.inc"
 #include "../source/admin/commands/7 lvl/activate.inc"
 #include "../source/admin/commands/7 lvl/delete.inc"
+#include "../source/admin/commands/7 lvl/givedaccess.inc"
 
 // ------- [ JOBS ] ---------------
 #include "../source/jobs/jobs.inc"
