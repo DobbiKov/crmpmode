@@ -63,7 +63,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 GiveSmiMoney(GetPVarInt(playerid, "ad_price"));
 
                 new string[144];
-                format(string, sizeof(string), "Вы отправили объявление! Номер вашего объявления: %d", i);
+                format(string, sizeof(string), "Вы отправили объявление! Номер вашего объявления: %d", i+1);
                 SCM(playerid, blue, string);
 
                 format(string, sizeof(string), "[R][Для утверждения]: Пришло новое объявление! Используйте: /edit");
