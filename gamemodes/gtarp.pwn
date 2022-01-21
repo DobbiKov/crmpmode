@@ -1860,7 +1860,6 @@ public OnPlayerDeath(playerid, killerid, reason)
     }
     if(killerid == INVALID_PLAYER_ID)
     {
-		SCM(playerid, red, "Вы совершили самоубийство! Зачем?");
 		PlayerInfo[playerid][pHOSPITAL] = 1;
 		SCM(playerid, white, "Вы были сильно ранены и попали в больницу!");
 		GiveMoney(playerid, -200, "Попал в больницу");
