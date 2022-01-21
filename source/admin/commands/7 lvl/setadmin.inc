@@ -8,8 +8,12 @@ CMD:setadmin(playerid, params[])
 
 	if(PlayerInfo[playerid][bAdmin] <= level)
 	{
+		return SCM(playerid, red, !"Вы не можете поставити администратора уровнем выше себя!");
+	}
+	if(PlayerInfo[playerid][bAdmin] < 7)
+	{
 		if(level < 0 || level > 5)
-		    return SCM(playerid, red, "Уровень администратора не больше 5 и не меньше 0!");
+			return SCM(playerid, red, "Уровень администратора не больше 5 и не меньше 0!");
 	}
 	if(level < 0 || level > 7) return SCM(playerid, red, "Уровень администратора не больше 7 и не меньше 0!");
 

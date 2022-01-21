@@ -2,7 +2,7 @@ CMD:aup(playerid, params[])
 {
 	if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
 
-	extract params -> new string: to_player[24]; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /aup [Ник игрока]");
+	extract params -> new string: to_player[24]; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /aup [Ник игрока]");
 
     if(IsNumeric(to_player))
     {
