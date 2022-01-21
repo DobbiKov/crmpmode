@@ -16,8 +16,8 @@ new const
 	{"+1 LvL (100 кр.)"},
 	{"Навыки оружия (50 кр. = 1 шт. | 200 кр. = все)"},
 	{"VIP аккаунт"},
-	{"Приобрести номера на авто"},
-	{"Приобрести уникальную симкарту"}
+	{"Приобрести номера на авто (500 кр.)"},
+	{"Приобрести VIP номер телефона (500 кр.)"}
 };
 
 #include "../source/systems/donate/change_car_number.inc"
@@ -124,6 +124,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{"cblue"}2. {ffffff}30 дней {"cblue"}(200 кр.)\n\
 						{"cblue"}3. {ffffff}365 дней {"cblue"}(600 кр.)\
 						", !"Купить", !"Назад");
+					}
+					case 9:{
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						return ShowDonateCarNumberDialog(playerid);
 					}
 				}
 			}
