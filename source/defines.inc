@@ -91,7 +91,7 @@ native 		IsValidVehicle(vehicleid);
     const SPECIAL_ACTION_PISSING = 68;
 #endif
 
-new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Anton_Panikaxi", "Lewis_Clifford", "Roman_Dobbikov"};
+new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Robert_Chaze", "Lewis_Clifford", "Roman_Dobbikov"};
 
 // native GameTextForAll(const string[],time,style);
 // native GameTextForPlayer(playerid,const string[],time,style);
