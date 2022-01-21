@@ -127,16 +127,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						", !"Купить", !"Назад");
 					}
 					case 9:{
-						if(GetPVarInt(playerid, "donate_access") != 1)
-							return SCM(playerid, red, !"Донат будет доступен после открытия и укомплектации названия автомобилей!");
-							
 						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
 						return ShowDonateCarNumberDialog(playerid);
 					}
 					case 10:{
-						if(GetPVarInt(playerid, "donate_access") != 1)
-							return SCM(playerid, red, !"Донат будет доступен после открытия и укомплектации названия автомобилей!");
-
 						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
 						return ShowDonatePhoneNumberDialog(playerid);
 					}
