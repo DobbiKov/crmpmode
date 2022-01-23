@@ -3922,7 +3922,7 @@ stock GetCarName(vehicleid)
         case 538: name = "Поезд";
         case 539: name = "Картинг Пончик";
 		case 540: name = "ГАЗ 3111";
-		case 541: name = "Bullet";
+		case 541: name = "Lamborghini Aventador";
 		case 542: name = "ВАЗ Нива";
 		case 543: name = "Москвич Грузовой";
 		case 544: name = "ЗИЛ Пожарный";
