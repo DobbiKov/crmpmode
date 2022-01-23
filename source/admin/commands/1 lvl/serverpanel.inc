@@ -65,6 +65,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							return ClearAds();
 						}
 					}
+					case 9:
+					{
+						if(PlayerInfo[playerid][bAdmin] < 6) 
+							return ShowApanel(playerid);
+						else
+							return ShowAPVotePanel(playerid);
+					}
 		        }
 		    }
 		}
@@ -824,7 +831,8 @@ stock ShowApanel(playerid)
 	{"cblue"}6. {"cwhite"}Телепорт\n\
 	{"cblue"}7. {"cwhite"}Установить наказания\n\
 	{"cblue"}8. {"cwhite"}Склады организаций\n\
-	{"cblue"}9. {"cwhite"}Очистить волну объявлений", !"Далее", !"Отмена");
+	{"cblue"}9. {"cwhite"}Очистить волну объявлений\n\
+	{"cblue"}10. {"cwhite"}Голосование АП", !"Далее", !"Отмена");
 	return 1;
 }
 stock ShowLogs(playerid)
