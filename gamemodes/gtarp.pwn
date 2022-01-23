@@ -671,6 +671,19 @@ enum e_DIALOG_IDs
 	D_DONATE_PHONE_NUMBER,
 	D_DONATE_INPUT_PHONE_NUMBER,
 	D_DONATE_PHONE_NUMBER_SURE,
+
+	D_APVOTES_SETTINGS,
+	D_APVOTES_CHANGE_COORDS,
+	D_APVOTES_CHANGE_NAME,
+	D_APVOTES_CHANGE_LVL_ACCESS,
+	D_APVOTES_VARS,
+	D_APVOTES_CREATE_VAR,
+	D_APVOTES_VAR_INFO,
+	D_APVOTES_CHANGE_VAR_NAME,
+	D_APVOTES_DELETE_VAR,
+	D_APVOTES_PLAYER_VOTE,
+	D_APVOTES_SURE_PLAYER_VOTE,
+	D_APVOTES_CLEAR_PLAYER_VOTES,
 };
 
 /* CHEAT */
@@ -1106,6 +1119,7 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `atms`", "LoadAtm", "");
 	mysql_tquery(connects, "SELECT * FROM `toilets`", "LoadToilets", "");
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
+	mysql_tquery(connects, "SELECT * FROM `apvote`", "LoadAPVotes", "");
 	
     LoadGreenZones();
     
