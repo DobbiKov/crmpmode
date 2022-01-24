@@ -952,6 +952,7 @@ enum
 #include "../source/admin/commands/4 lvl/delveh.inc"
 #include "../source/admin/commands/4 lvl/alldelveh.inc"
 #include "../source/admin/commands/4 lvl/getacc.inc"
+#include "../source/admin/commands/4 lvl/connlogs.inc"
 
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
@@ -1312,6 +1313,17 @@ publics LoginCallback(playerid, password[])
 	PlayerInfo[playerid][pBeer] = cache_get_field_content_int(0, "pBeer");
 	PlayerInfo[playerid][pLighter] = cache_get_field_content_int(0, "pLighter");
 	PlayerInfo[playerid][pChips] = cache_get_field_content_int(0, "pChips");
+
+	new query[256];
+	format(
+		query, 
+		sizeof(query), 
+		"SELECT `id` FROM `connects` WHERE `nick` = '%s' AND `type` = '%d' ORDER BY id DESC LIMIT 1", 
+		PlayerInfo[playerid][pName],
+		CONN_TYPE_CONNECT
+	);
+	mysql_tquery(connects, query, "ConnectsChangeAccountID", "i", playerid);
+
 	new l_cb_needs[32];
     cache_get_field_content(0, "pNeeds", l_cb_needs, connects, sizeof(l_cb_needs));
     sscanf(l_cb_needs, "p<,>dddd", PlayerInfo[playerid][pNeedToilet], PlayerInfo[playerid][pNeedEat], PlayerInfo[playerid][pNeedDrink], PlayerInfo[playerid][pNeedWash]);
