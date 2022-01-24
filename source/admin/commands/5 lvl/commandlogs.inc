@@ -56,13 +56,13 @@ publics Off_commandlogs_check(playerid, account_id, cmd_name[], to_player[])
     cache_get_data(rows[0], rows[1]);
     if(rows[0])
     {  
-        new string[2096] = "";
+        new string[2056] = "";
         for(new i = 0; i < rows[0]; i++)
         {
-            new temp_string[1024] = "";
+            new temp_string[256] = "";
             new _date;
             new _cmd_name[64] = "";
-            new cmd_text[256] = "";
+            new cmd_text[144] = "";
             _date = cache_get_field_content_int(i, "date");
             cache_get_field_content(i, "cmd_name", _cmd_name, logs_connects, MAX_PLAYER_NAME);
             cache_get_field_content(i, "cmd_text", cmd_text, logs_connects, MAX_PLAYER_NAME);
