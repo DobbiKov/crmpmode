@@ -74,7 +74,7 @@ publics Off_GetConns(playerid, to_player[])
     cache_get_data(rows, fields);
     if(!rows)
         return SCM(playerid, red, !"Логов по данному игроку нет!");
-    new string[2056] = "{"cblue"}Дата\t\t\tНикнейм\t\tТип\t\tIP Адресс\n\n";
+    new string[4012] = "{"cblue"}Дата\t\t\tНикнейм\t\tТип\t\tIP Адресс\n\n";
     new title_string[64];
     format(title_string, sizeof(title_string), "{"cgrey"}%s", to_player);
 
