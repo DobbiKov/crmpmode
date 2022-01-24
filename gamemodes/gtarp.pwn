@@ -951,6 +951,7 @@ enum
 #include "../source/admin/commands/4 lvl/veh.inc"
 #include "../source/admin/commands/4 lvl/delveh.inc"
 #include "../source/admin/commands/4 lvl/alldelveh.inc"
+#include "../source/admin/commands/4 lvl/getacc.inc"
 
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
@@ -1171,9 +1172,9 @@ publics LoginCallback(playerid, password[])
 	cache_get_data(rows[0], rows[1]);
 	if(!rows[0])
 	{
-	    if(GetPVarInt(playerid, "wrongPass") == 2) return SCM(playerid,grey,"Вы ввели 3 раза неверный пароль, поэтому были кикнуты сервером."), NewKick(playerid);
+	    if(GetPVarInt(playerid, "wrongPass") == 3) return SCM(playerid,grey,"Вы ввели 3 раза неверный пароль, поэтому были кикнуты сервером."), NewKick(playerid);
 		SetPVarInt(playerid, "wrongPass", GetPVarInt(playerid, "wrongPass")+1);
-	    format(stringer, 170, "{"cwhite"}Добро пожаловать на {"cblue"}"name_serv"{"cwhite"}\n\nИмя персонажа {"cblue"}%s{"cwhite"}\nВведите пароль:\n\nОсталось попыток: {"cred"}%d", PlayerInfo[playerid][pName], 3 - GetPVarInt(playerid, "wrongPass"));
+	    format(stringer, 170, "{"cwhite"}Добро пожаловать на {"cblue"}"name_serv"{"cwhite"}\n\nИмя персонажа {"cblue"}%s{"cwhite"}\nВведите пароль:\n\nОсталось попыток: {"cred"}%d", PlayerInfo[playerid][pName], 4 - GetPVarInt(playerid, "wrongPass"));
 	    SPD(playerid, 7, DIALOG_STYLE_PASSWORD, "{"cblue"}Авторизация", stringer, "Войти", "Выйти");
 	    return true;
 	}
@@ -1762,7 +1763,7 @@ public OnPlayerDisconnect(playerid, reason)
 	new hour, minute, second, year, month, day, data[64];
 	gettime(hour, minute, second);
 	getdate(year, month, day);
-	format(data, sizeof(data), "%0d.%02d.%d -- %d:%02d:%02d", day, month, year, hour, minute, second);
+	format(data, sizeof(data), "%0d.%02d.%d %02d:%02d:%02d", day, month, year, hour, minute, second);
 	strdel(PlayerInfo[playerid][pLastConnect], 0, 50);
 	strmid(PlayerInfo[playerid][pLastConnect], data, 0, 50);
 

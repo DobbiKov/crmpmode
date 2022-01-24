@@ -221,9 +221,10 @@ stock ShowServerPassDialog(playerid)
 
 stock RegStock(playerid)
 {
-	new Year, Month, Day, data[12], string[340], ip[18];
+	new Year, Month, Day, data[12], string[340], ip[18], hour, minute, second;
 	getdate(Year, Month, Day);
-	format(data,sizeof(data),"%d/%d/%d", Year, Month, Day);
+	gettime(hour, minute, second);
+	format(data,sizeof(data),"%0d.%02d.%d %02d:%02d:%02d", Year, Month, Day, hour, minute, second);
 	PlayerInfo[playerid][pLogin] = true;
 	GetPlayerIp(playerid, ip, sizeof(ip));
     PlayerInfo[playerid][pLVL] = 1;

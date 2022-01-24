@@ -90,7 +90,7 @@ new Command3LVL[36][] =
     {"{"cblue"}/mpsay {ffffff}- Сказать что-то участникам мероприятия\n"}
 };
 
-new Command4LVL[9][] = 
+new Command4LVL[10][] = 
 {
     {"{"cblue"}/veh {ffffff}- Созать автомобиль\n"},
     {"{"cblue"}/delveh {ffffff}- Удалить автомобиль\n"},
@@ -100,6 +100,7 @@ new Command4LVL[9][] =
     {"{"cblue"}/jetpack {ffffff}- Выдать себе JetPack\n"},
     {"{"cblue"}/tpcoord {ffffff}- Телепорт по координатам\n"},
     {"{"cblue"}/fstats {ffffff}- Статистика работ/организаций\n"},
+    {"{"cblue"}/getacc {ffffff}- Техническая информация об аккаунте\n"},
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
