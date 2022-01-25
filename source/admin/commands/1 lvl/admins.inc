@@ -17,7 +17,10 @@ stock ShowAdminsOnline(playerid)
 	{
         if(PlayerInfo[i][bAdmin] == 0) continue;
         {
-			if(1 <= PlayerInfo[i][bAdmin] <= 5)
+			if(
+				(PlayerInfo[playerid][bAdmin] < 7 && 1 <= PlayerInfo[i][bAdmin] <= 5)
+				|| (PlayerInfo[playerid][bAdmin] >= 7 && PlayerInfo[i][bAdmin] >= 1)
+			)
 			{
 				format(fmt_msg, sizeof fmt_msg, "%s[%d] (%d lvl)", PlayerInfo[i][pName], i, PlayerInfo[i][bAdmin]);
 
