@@ -16,15 +16,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 switch(listitem)
                 {
-                    case 0:
+                    case 0: return ShowAdminsOnline(playerid);
+                    case 1:
                     {
                         ChangeStreamerMode(playerid);
+                        ShowAdminPanel(playerid);
                     }
-                    case 1:
+                    case 2:
                     {
                         cmd::tipster(playerid, "");
                     }
-                    case 2:
+                    case 3:
+					{ 
+						if(PlayerInfo[playerid][bAdmin] >= 2) return ShowTeleportList(playerid);
+						return ShowApanel(playerid);
+					}                    
+                    case 4:
                     {
                         if(PlayerInfo[playerid][bAdmin] < 7)
                         {
@@ -62,9 +69,11 @@ stock ShowAdminPanel(playerid)
     developerMode = (PlayerInfo[playerid][bDeveloper] == 1 ? "{"cgreen"}включен" : "{"cred"}выключен");
     streamerMode = (PlayerInfo[playerid][bStreamerMode] == 1 ? "{"cgreen"}включен" : "{"cred"}выключен");
     format(string, sizeof(string), 
-        "{"cblue"}1. {FFFFFF}Режим контент-мэйкера {ffffff}[%s{ffffff}]\n\
-        {"cblue"}2. {FFFFFF}Прослушка\n\
-        {"cblue"}3. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
+        "{"cblue"}1. {"cwhite"}Все администраторы [Онлайн]\n\
+        {"cblue"}2. {FFFFFF}Режим контент-мэйкера {ffffff}[%s{ffffff}]\n\
+        {"cblue"}3. {FFFFFF}Прослушка\n\
+        {"cblue"}4. {ffffff}Телепорт\n\
+        {"cblue"}5. {FFFFFF}Режим разработчика {ffffff}[%s{ffffff}]",
         streamerMode,
         developerMode);
     return ShowPlayerDialog(playerid, D_ADMIN_PANEL, DIALOG_STYLE_LIST, !"{"cblue"}Админ Панель", string, !"Далее", !"Отмена");
