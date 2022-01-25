@@ -1,4 +1,4 @@
-new Command1LVL[14][] =
+new Command1LVL[15][] =
 {
     {"{"cblue"}/admins {ffffff}- Администраторы онлайн\n"},
     {"{"cblue"}/weap {ffffff}- Оружие игрока\n"},
@@ -11,7 +11,8 @@ new Command1LVL[14][] =
     {"{"cblue"}/yhelp {ffffff}- Команды ютуберов\n"},
     {"{"cblue"}/a {ffffff}- Админский чат\n"},
     {"{"cblue"}/ahelp {ffffff}- Команды администраторов\n"},
-    {"{"cblue"}/spawnplayer {ffffff}- Заспавнить игрока\n"},
+    {"{"cblue"}/spa(wnplayer) {ffffff}- Заспавнить игрока\n"},
+    {"{"cblue"}/kills {ffffff}- Включить/выключить список убийств\n"},
     {"{"cblue"}/sp {ffffff}- Слежка за игроком\n"},
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };

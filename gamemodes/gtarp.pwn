@@ -712,7 +712,7 @@ enum PInfo
 	R_9MM, R_USP, R_DEAGLE, R_TEK9, R_USI, R_MP5, R_SHOTGUN, R_SAWED_OF, R_FIGHT_SHOTGUN, R_AK47, R_M4, R_COUNTRY_RIFLE, R_SNIPER_RIFLE, R_SMOKE, R_GRENADE, R_MOLOTOV, // рецепты
 	SKILL_SD_PISTOL, SKILL_AK_47, SKILL_M4, SKILL_MP5, SKILL_DEAGLE, SKILL_SHOTGUN, //скиллы 
 	pMember, pRang, pFSkin, pModel, pWarnF, pVIP, Float: pHP, Float: pARM, pHOSPITAL, pIsFSB, pFSBRank, // Система фракций
-	pReadsms, pReadR,
+	pReadsms, pReadR, bool:isKillList,
 	pWarnA, pWarn, bAdmin, pJob, pReferal[26],	pDateReg[20], pSupport, bJail, bMute, bBan, bWarn, bOffJail, bOffMute, bOffBan, bOffWarn, bUnBan, bUnWarn, bAns, bYoutube, bDeveloper, bStreamerMode,
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
@@ -868,6 +868,7 @@ enum
 // ------- [ ADMINS ] ------------
 #include "../source/admin/commands/commands.inc"
 #include "../source/admin/commands/fulldostup.inc"
+#include "../source/admin/systems/killlist.inc"
 // #include "../source/admin/systems/tp_map.inc"
 
 #include "../source/admin/commands/1 lvl/admins.inc"
@@ -886,6 +887,7 @@ enum
 #include "../source/admin/commands/1 lvl/ahelp.inc"
 #include "../source/admin/commands/1 lvl/spawnplayer.inc"
 #include "../source/admin/commands/1 lvl/info.inc"
+#include "../source/admin/commands/1 lvl/kills.inc"
 
 #include "../source/admin/commands/2 lvl/get_player_by_mysql.inc"
 #include "../source/admin/commands/2 lvl/tp.inc"
@@ -1873,7 +1875,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	if(reason < 60 && killerid != INVALID_PLAYER_ID)
 	{
 	    format(string, sizeof(string), "{%s}[K] %s[%d] убил %s %s[%d] (%s)", PlayerInfo[playerid][pLVL] <= 3 ? "F81414" : "C3C3C3", PlayerInfo[killerid][pName], killerid, PlayerInfo[playerid][pLVL] <= 3 ? "новичка" : "игрока", PlayerInfo[playerid][pName], playerid, gun_name[reason]);
-		SCMA(grey, string);
+		SendKillList(grey, string);
 	}
 	if(reason >= 10 && reason <= 13)
 	{
@@ -1893,8 +1895,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GiveMoney(playerid, -200, "Попал в больницу");
 		PlayerInfo[playerid][pHP] = 5.0;
 		
-		format(string, sizeof(string), "[K] игрок %s[%d] совершил самоубийство", PlayerInfo[playerid][pName], playerid);
-		SCMA(grey, string);
+		format(string, sizeof(string), "[K] %s[%d] совершил самоубийство", PlayerInfo[playerid][pName], playerid);
+		SendKillList(grey, string);
     }
     if(killerid != INVALID_PLAYER_ID)
     {
@@ -3105,6 +3107,8 @@ stock ClearAccount(playerid)
  	PlayerInfo[playerid][pFines] = 0;
  	PlayerInfo[playerid][pSumFines] = 0;
  	
+
+ 	PlayerInfo[playerid][isKillList] = false;
  	PlayerInfo[playerid][pReadsms] = 0;
     PlayerInfo[playerid][pJobTipster] = 0;
 	PlayerInfo[playerid][pIsFSB] = 0;
