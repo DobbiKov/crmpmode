@@ -809,8 +809,6 @@ CMD:buybusiness(playerid)
     return 1;
 }
 
-CMD:biz(playerid)
-    return cmd::business(playerid);
 CMD:business(playerid)
 {
     if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
