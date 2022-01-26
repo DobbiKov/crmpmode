@@ -782,6 +782,8 @@ CMD:buybiz(playerid)
     return cmd::buybusiness(playerid);
 CMD:buybusiness(playerid)
 {
+    if(PlayerInfo[playerid][pLicBiz] != 1)
+        return SCM(playerid, red, !"У Вас нет лицензии на бизнесс!");
     foreach(new i : Allbusiness)
     {
         if(IsPlayerInRangeOfPoint(playerid, 2.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]))
@@ -1084,6 +1086,8 @@ CMD:sellmybusiness(playerid, params[])
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][pBizID] != -1) return SCM(playerid, red, "У игрока уже имеется бизнесс.");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока нет столько денег.");
+    if(PlayerInfo[to_player][pLicBiz] != 1)
+        return SCM(playerid, red, !"У игрока нет лицензии на бизнесс!");
     if(price < 0) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmybusiness [ID игрока] [цена]");
     foreach(new i : Allbusiness) if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]) 
     {
