@@ -922,6 +922,7 @@ enum
 #include "../source/admin/commands/2 lvl/offtop.inc"
 #include "../source/admin/commands/2 lvl/resetgun.inc"
 #include "../source/admin/commands/2 lvl/getbizid.inc"
+#include "../source/admin/commands/2 lvl/flip.inc"
 
 #include "../source/admin/commands/3 lvl/setvw.inc"
 #include "../source/admin/commands/3 lvl/atakelic.inc"

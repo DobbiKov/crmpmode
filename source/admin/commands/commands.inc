@@ -17,7 +17,7 @@ new Command1LVL[15][] =
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[30][] = 
+new Command2LVL[31][] = 
 {
     {"{"cblue"}/get_player_by_mysql {ffffff}- узнать никнейм игрока по ID аккунта\n"},
     {"{"cblue"}/alock {ffffff}- Открыть/закрыть транспорт\n"},
@@ -38,6 +38,7 @@ new Command2LVL[30][] =
     {"{"cblue"}/resetgun {ffffff}- Забрать оружие у игрока\n"},
     {"{"cblue"}/getbizid {ffffff}- Узнать ID бизнесса\n"},
     {"{"cblue"}/tipster {ffffff}- Прослушка раций\n"},
+    {"{"cblue"}/flip {ffffff}- Перевернуть транспорт\n"},
     {"\n"},
     {"{"cblue"}Быстрые наказания:\n"},
     {"{"cblue"}/mg {ffffff}- Выдать мут за MG\n"},
