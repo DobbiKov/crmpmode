@@ -51,8 +51,9 @@ new Command2LVL[30][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[36][] = 
+new Command3LVL[37][] = 
 {
+    {"{"cblue"}/atakelic {ffffff}- Забрать лицензии у игрока\n"},
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
     {"{"cblue"}/getip{ffffff}- Узнать IP-Address игрока\n"},
