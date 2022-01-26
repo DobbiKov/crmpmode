@@ -6,12 +6,14 @@ CMD:ahome(playerid, params[])
 	new text[380] = "{FFFFFF}";
 	new fmt_str[50], class[32];
 	
-	new h;
-    foreach(new i : Allhouses) if(PlayerInfo[playerid][pHomeID] == id) 
+	new h = -1;
+    foreach(new i : Allhouses) if(HouseInfo[i][hID] == id) 
     {
         h = i; 
         break;
     }
+	if(h == -1)
+		return SCM(playerid, red, !"Такого дома нет!");
     switch(HouseInfo[h][hType])
     {
         case 1: class = "Низкий";
@@ -33,7 +35,7 @@ CMD:ahome(playerid, params[])
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплачено:\t\t{"cblue"}%d/30\n", HouseInfo[h][hDays]);
 	strcat(text, fmt_str);
 	
-	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
+	format(fmt_str, sizeof fmt_str, "\t{ffffff}Оплата в день:\t\t{"cblue"}%d рублей\n", house_params[ HouseInfo[h][hType] ][hrent]);
 	strcat(text, fmt_str);
 	
 	format(fmt_str, sizeof fmt_str, "\t{ffffff}Патроны:\t\t{"cblue"}%d\n", HouseInfo[h][hPatron]);
