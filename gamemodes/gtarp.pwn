@@ -922,6 +922,7 @@ enum
 #include "../source/admin/commands/2 lvl/getbizid.inc"
 
 #include "../source/admin/commands/3 lvl/setvw.inc"
+#include "../source/admin/commands/3 lvl/atakelic.inc"
 #include "../source/admin/commands/3 lvl/setint.inc"
 #include "../source/admin/commands/3 lvl/getip.inc"
 #include "../source/admin/commands/3 lvl/offgetip.inc"
