@@ -92,13 +92,15 @@ new Command3LVL[37][] =
     {"{"cblue"}/mpsay {ffffff}- Сказать что-то участникам мероприятия\n"}
 };
 
-new Command4LVL[12][] = 
+new Command4LVL[14][] = 
 {
     {"{"cblue"}/veh {ffffff}- Созать автомобиль\n"},
     {"{"cblue"}/delveh {ffffff}- Удалить автомобиль\n"},
     {"{"cblue"}/alldelveh {ffffff}- Удалить весь транспорт созданный администраторами\n"},
     {"{"cblue"}/offmute {ffffff}- Выдать игроку блокировку чата в оффлайне\n"},
     {"{"cblue"}/offjail {ffffff}- Посадить игрока в деморган в оффлайне\n"},
+    {"{"cblue"}/biz {ffffff}- Телепортироваться к бизнессу по ID\n"},
+    {"{"cblue"}/house {ffffff}- Телепортироваться к дому по ID\n"},
     {"{"cblue"}/jetpack {ffffff}- Выдать себе JetPack\n"},
     {"{"cblue"}/tpcoord {ffffff}- Телепорт по координатам\n"},
     {"{"cblue"}/fstats {ffffff}- Статистика работ/организаций\n"},

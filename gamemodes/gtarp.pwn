@@ -958,6 +958,8 @@ enum
 #include "../source/admin/commands/4 lvl/alldelveh.inc"
 #include "../source/admin/commands/4 lvl/getacc.inc"
 #include "../source/admin/commands/4 lvl/connlogs.inc"
+#include "../source/admin/commands/4 lvl/house.inc"
+#include "../source/admin/commands/4 lvl/biz.inc"
 
 #include "../source/admin/commands/5 lvl/setweather.inc"
 #include "../source/admin/commands/5 lvl/settime.inc"
