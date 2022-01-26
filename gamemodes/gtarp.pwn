@@ -684,6 +684,7 @@ enum e_DIALOG_IDs
 	D_APVOTES_PLAYER_VOTE,
 	D_APVOTES_SURE_PLAYER_VOTE,
 	D_APVOTES_CLEAR_PLAYER_VOTES,
+	D_SURE_DELACC,
 };
 
 /* CHEAT */
@@ -1009,6 +1010,7 @@ enum
 #include "../source/admin/commands/7 lvl/activate.inc"
 #include "../source/admin/commands/7 lvl/delete.inc"
 #include "../source/admin/commands/7 lvl/givedaccess.inc"
+#include "../source/admin/commands/7 lvl/delacc.inc"
 
 // ------- [ JOBS ] ---------------
 #include "../source/jobs/jobs.inc"
