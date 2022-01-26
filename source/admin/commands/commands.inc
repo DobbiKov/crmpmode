@@ -147,11 +147,12 @@ new Command6LVL[19][] =
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
 
-new Command7LVL[17][] = 
+new Command7LVL[18][] = 
 {
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
     {"{"cblue"}/setstat {ffffff}- Редактировать статистику игрока\n"},
+    {"{"cblue"}/delacc {ffffff}- Удалить аккаунт игрока\n"},
     {"{"cblue"}/deactivate {ffffff}- Деактивировать аккаунт игрока\n"},
     {"{"cblue"}/activate {ffffff}- Активировать аккаунт игрока\n"},
     {"{"cblue"}/loadfs {ffffff}- Загрузить скрипт\n"},
