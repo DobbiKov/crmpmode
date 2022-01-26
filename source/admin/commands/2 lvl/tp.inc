@@ -78,8 +78,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    new vehid = GetPlayerVehicleID(playerid);
 					new player_state = GetPlayerVehicleSeat(playerid);
 				    SetVehiclePos(vehid, teleport_list[listitem][t_pos_x], teleport_list[listitem][t_pos_y], teleport_list[listitem][t_pos_z]);
-				    PutPlayerInVehicle(playerid, vehid, player_state);
 					FreezePlayer(playerid, 3000);
+				    PutPlayerInVehicle(playerid, vehid, player_state);
 				}
 				else
 				{
