@@ -6,6 +6,8 @@
 
 stock ShowAPVotePanel(playerid)
 {
+    if(GetPVarInt(playerid, "donate_access") == 1) return SCM(playerid, red, !"Диалога ID 127 не обнаружено!");
+
     new open_close[64] = "{"cgreen"}открыто";
     if(VoteInfo[AP_VOTE_ID][voteIsOpen] == 0)
         format(open_close, sizeof(open_close), "{"cred"}закрыто");

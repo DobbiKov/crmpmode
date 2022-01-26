@@ -26,6 +26,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     IsPlayerInRangeOfPoint(playerid, 2.0, VoteInfo[AP_VOTE_ID][vote_X], VoteInfo[AP_VOTE_ID][vote_Y], VoteInfo[AP_VOTE_ID][vote_Z])
     )
     {
+        if(GetPVarInt(playerid, "donate_access") == 1) return SCM(playerid, red, !"Диалога ID 126 не обнаружено!");
         if(VoteInfo[AP_VOTE_ID][voteIsOpen] == 0)
             return SCM(playerid, red, !"Голосование в данный момент закрыто!");
 
