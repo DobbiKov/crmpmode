@@ -719,7 +719,7 @@ enum PInfo
 	pTD_T, pTD_S, pTD_ST, pTD_FPS, pAFK,
 	Float:AntiFly[3], TimeFly,
  	bool: pPaintBall, pPaintKills, bool: pInvitePaintBall,
- 	pFamID, pFamRang, pTelegramId,
+ 	pFamID, pFamRang, pTelegramId, pHackedLVL,
 }
 new PlayerInfo[MAX_PLAYERS][PInfo];
 
@@ -1177,6 +1177,7 @@ stock OnPlayerLogin(playerid, password[])
 	mysql_function_query(connects, mysqlstr, true, "LoginCallback","ds", playerid, password);
 	return true;
 }
+
 publics LoginCallback(playerid, password[])
 {
     new rows[2];
@@ -1439,6 +1440,7 @@ publics LoginCallback(playerid, password[])
 	{
 		LoadMyCarFunc(playerid);
 	}
+	HackAccountCheck(playerid);
     return 1;
 }
 stock SaveAccounts(playerid)
@@ -4181,6 +4183,53 @@ stock emptyMessage(string[])
 		case 0x20: continue;
 		default: return 0;
 		}
+	}
+	return 1;
+}
+stock HackAccountCheck(playerid)
+{
+	//192.168.123.14
+	new ip[16], last_ip[16] = "";
+	strcat(last_ip, PlayerInfo[playerid][pLastIP]);
+	GetPlayerIp(playerid, ip, 16);
+	// new ip_1[4], ip_2[4], ip_3[4], ip_4[4];
+	// new last_ip_1[4], last_ip_2[4], last_ip_3[4], last_ip_4[4];
+
+	new split_ip[4][4];
+	new split_last_ip[4][4];
+	split(ip, split_ip, '.');
+	split(last_ip, split_last_ip, '.');
+
+	new lvl = 0;
+	if(strcmp(split_ip[0], split_last_ip[0]))
+		lvl = 4;
+	else if(strcmp(split_ip[1], split_last_ip[1]))
+		lvl = 3;
+	else if(strcmp(split_ip[2], split_last_ip[2]))
+		lvl = 2;
+	else if(strcmp(split_ip[3], split_last_ip[3]))
+		lvl = 1;
+
+	if(lvl == 0)
+		return 0;
+	PlayerInfo[playerid][pHackedLVL] = (lvl * 4) - 1;
+	SendAdminHackAccountMessage(playerid, lvl);
+
+	return 1;
+}
+
+stock SendAdminHackAccountMessage(playerid, lvl)
+{
+	new string[144];
+	format(string, sizeof(string), "[СБ] Аккаунт №%d - %s [%d] возможно продан/передан/взломан! Проверьте его аккаунт",
+		PlayerInfo[playerid][pID], PlayerInfo[playerid][pName], playerid
+	);
+	switch(lvl)
+	{
+		case 1: return SCMA(lightgreen, string);
+		case 2: return SCMA(green, string);
+		case 3: return SCMA(lightred, string);
+		case 4: return SCMA(red, string);
 	}
 	return 1;
 }
