@@ -60,6 +60,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 HouseInfo[h][hDays] = 3;
                 HouseInfo[h][hOwner] = EOS;
                 strcat(HouseInfo[h][hOwner], "None");
+                SaveHouse(h);
                 BuyHouse(h);
 
                 if(nullPlayer == 1)
@@ -115,7 +116,7 @@ publics SletHouseASellHouse(i, playerid)
         new houseoffmess[144];
         format(houseoffmess, sizeof(houseoffmess), "Ваш дом был продан государству администратором %s.", PlayerInfo[playerid][pName]);
 
-        new sql[144];
+        new sql[512];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pHomeID` = '-1', `pHouseOffMess` = '%s' WHERE `pID` = '%d'", houseoffmess, player_id);
         mysql_tquery(connects, sql, "", "");
     }
