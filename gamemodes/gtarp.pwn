@@ -685,6 +685,7 @@ enum e_DIALOG_IDs
 	D_APVOTES_SURE_PLAYER_VOTE,
 	D_APVOTES_CLEAR_PLAYER_VOTES,
 	D_SURE_DELACC,
+	D_SURE_ASELLCAR,
 };
 
 /* CHEAT */
@@ -985,6 +986,7 @@ enum
 #include "../source/admin/commands/6 lvl/setownablecar.inc"
 #include "../source/admin/commands/6 lvl/givedonate.inc"
 #include "../source/admin/commands/6 lvl/setmoney.inc"
+#include "../source/admin/commands/6 lvl/asellcar.inc"
 #include "../source/admin/commands/6 lvl/asellbiz.inc"
 #include "../source/admin/commands/6 lvl/asellhome.inc"
 #include "../source/admin/commands/6 lvl/settempnick.inc"
