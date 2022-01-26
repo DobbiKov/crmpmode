@@ -1,7 +1,7 @@
 CMD:takelic(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 3 && !IsAPolice(playerid)) return YouCannotUseThisFunc(playerid);
-
+    if(PlayerInfo[playerid][bAdmin] < 3 && IsAPolice(playerid) && PlayerInfo[playerid][pRang] < 5) return YouCannotUseThisFunc(playerid);
     extract params -> new to_player, id; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /takelic [ID игрока] [категория 1 - A, 2 - B, 3 - C, 4 - D]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][bAdmin] >= 3 || IsAPolice(to_player)) return SCM(playerid, red, "Вы не можете отобрать лицензии у данного игрока!");
