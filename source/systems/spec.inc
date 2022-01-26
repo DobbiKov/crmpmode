@@ -53,6 +53,9 @@ CMD:sp(playerid, params[])
 	    SetPlayerInterior(playerid, GetPlayerInterior(to_player));
 	    SetPlayerVirtualWorld(playerid, GetPlayerVirtualWorld(to_player));
 	}
+	new string[144];
+	format(string, sizeof(string), "Вы начали следить за %s [%d]", PlayerInfo[to_player][pName], to_player);
+	SCM(playerid, yellow, string);
 	for(new i = 0; i < 48; i++){ PlayerTextDrawShow(playerid, spec_menu_TD_PTD[playerid][i]); }
  	SelectTextDraw(playerid,0xFFFFFFFF);
  	KillTimer(SpecTimer[playerid]);
