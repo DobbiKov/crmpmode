@@ -23,7 +23,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 		        switch(listitem)
 				{
-			        case 0: return ShowAdminsOffline(playerid);
+			        case 0: 
+					{
+						if(PlayerInfo[playerid][bAdmin] < 5) return ShowApanel(playerid);
+						return ShowAdminsOffline(playerid);
+					}
 			        case 1:
 			        {
 			            if(PlayerInfo[playerid][bAdmin] >= 5) return ShowAntiCheat(playerid);
