@@ -51,6 +51,11 @@ publics off_uninvite(playerid, to_player[], reason[])
 
         format(string, sizeof(string), "UPDATE `accounts` SET `pOffUninviteMess` = '%s' WHERE `pName` = '%s'", data, to_player);
         mysql_tquery(connects, string, "", "");
+
+        format(data, sizeof(data), "[A] %s[%d] уволил %s оффлайн (%s). Причина: %s",
+            PlayerInfo[playerid][pName], playerid, to_player, GetMember[ PlayerInfo[playerid][pMember] ], reason
+        );
+        SCMA(grey, data);
     }
     else
     {

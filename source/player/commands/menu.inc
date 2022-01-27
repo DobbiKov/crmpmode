@@ -326,13 +326,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							/business - управление бизнесом\n\
 							/sellmybusiness [id игрока] [цена] - продать бизнес игроку\n\
 							/sellhome - продать дом государству\n\
-							/sellmyhome [id игрока] [цена] - продать дом игроку\n\
-							/hlock - закрыть дом\n\
-							/hopen - открыть дом\n\
+							/sellmyhouse [id игрока] [цена] - продать дом игроку\n\
+							/hopen - открыть/закрыть дом\n\
 							/home - меню дома\n\
-							/use - управление шкафом дома\n\
-							/rlock - закрыть/открыть номер в отеле\n\
-							/klock - закрыть/открыть квартиру",
+							/use - управление шкафом дома",
 							"Закрыть", ""
 						);
 					}

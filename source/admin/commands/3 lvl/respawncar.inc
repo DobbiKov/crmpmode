@@ -1,3 +1,5 @@
+CMD:rscar(playerid, params[])
+	return cmd::respawncar(playerid, params);
 CMD:respawncar(playerid, params[])
 {
 	if(PlayerInfo[playerid][bAdmin] < 3) return ShowCommandNotFound(playerid);

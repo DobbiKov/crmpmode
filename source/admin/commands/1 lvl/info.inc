@@ -10,6 +10,6 @@ CMD:info(playerid, params[])
 
     new string[256];
     format(string, sizeof(string), "{FFFFFF}Ник: {"cblue"}%s[%d]\n{FFFFFF}Количество HP: {"cblue"}%f\n{FFFFFF}Количество брони: {"cblue"}%f", PlayerInfo[to_player][pName], to_player, PlayerInfo[to_player][pHP], arm);
-    SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Инвормация о игроке", string, "Закрыть", "");
+    SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Информация об игроке", string, "Закрыть", "");
     return 1;
 }

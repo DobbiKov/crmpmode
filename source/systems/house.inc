@@ -218,11 +218,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     format
                     (
                         fmt_dialog, sizeof(fmt_dialog), 
-                        "{ffffff}Дом:\t\t{"cblue"}№ %d\n\
+                        "{ffffff}Дом:\t\t\t{"cblue"}№ %d\n\
                         {ffffff}Владелец:\t\t{"cblue"}%s\n\
                         {ffffff}Класс:\t\t\t{"cblue"}%s\n\
                         {ffffff}Стоимость: \t\t{"cblue"}%d рублей\n\
-                        {ffffff}Оплата в день:\t{"cblue"}%d рублей",
+                        {ffffff}Оплата в день:\t\t{"cblue"}%d рублей",
                         HouseInfo[i][hID], HouseInfo[i][hOwner], class, HouseInfo[i][hPrice], house_params[ HouseInfo[i][hType] ][hrent]                
                     );
                     SPD

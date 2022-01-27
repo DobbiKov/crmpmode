@@ -12,8 +12,10 @@ CMD:veh(playerid,params[])
 	}
 	new Float:X,Float:Y,Float:Z;
 	GetPlayerPos(playerid, X,Y,Z);
+	new Float: face_angle;
+	GetPlayerFacingAngle(playerid, face_angle);
 
-	AVehicle[TotalAdminVehicles] = CreateVehicle(params[0], X+5,Y+5,Z, 0.0, params[1], params[2], -1);
+	AVehicle[TotalAdminVehicles] = CreateVehicle(params[0], X+1,Y+1,Z, face_angle, params[1], params[2], -1);
 
 	LinkVehicleToInterior(AVehicle[TotalAdminVehicles], GetPlayerInterior(playerid));
 	SetVehicleVirtualWorld(AVehicle[TotalAdminVehicles],GetPlayerVirtualWorld(playerid));

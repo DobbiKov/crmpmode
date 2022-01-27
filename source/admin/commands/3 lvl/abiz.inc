@@ -1,6 +1,6 @@
 CMD:abiz(playerid, params[])
 {
-    if(PlayerInfo[playerid][bAdmin] < 3 && PlayerInfo[playerid][bYoutube] == 0) return ShowCommandNotFound(playerid);
+    if(PlayerInfo[playerid][bAdmin] < 3) return ShowCommandNotFound(playerid);
     extract params -> new id; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /abiz [ID бизнесса]");
 
     new b = -1;

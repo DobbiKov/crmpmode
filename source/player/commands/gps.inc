@@ -196,8 +196,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) //ф
                 y = GetPVarFloat(playerid, "GPS_TP_Y");
                 z = GetPVarFloat(playerid, "GPS_TP_Z");
 
-                SCM(playerid, blue, !"Вы телепортировались в выбранную локацию!");
-
 				if(IsPlayerInAnyVehicle(playerid))
 				{
 				    new vehid = GetPlayerVehicleID(playerid);
@@ -256,7 +254,7 @@ public OnPlayerEnterCheckpoint(playerid) //функция которая автоматически вызывае
         case CP_GPS: 
         {
             DisablePlayerCheckpoint(playerid); //убираем чекпоинт
-            SCM(playerid, blue, "Вы прибыли на место назначения"); //сообщение в чат
+            SCM(playerid, blue, "Вы прибыли в место назначения"); //сообщение в чат
         }
     }
     #if defined gps__OnPlayerEnterCheckpoint

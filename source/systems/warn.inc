@@ -205,6 +205,13 @@ CMD:warn(playerid, params[])
 
 	extract params -> new string: to_player[24], string: reason[30]; else return SCM(playerid, 0xFFCC00AA, "•[Подсказка] {ffffff}Введите: /warn [Ник игрока] [Причина]");
 
+    if(IsNumeric(to_player))
+    {
+        new to_playerid = strval(to_player);
+        if(!PlayerInfo[to_playerid][pLogin] || !IsPlayerConnected(to_playerid)) return PlayerOffLine(playerid);
+        format(to_player, sizeof(to_player), "%s", PlayerInfo[to_playerid][pName]);
+    }
+
 	new string[528], data[64], year, month, day, hour, minute, second;
  	foreach(new i:Player)
  	{

@@ -23,39 +23,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 		        switch(listitem)
 				{
-			        case 0: return ShowAdminsOnline(playerid);
-			        case 1: return ShowAdminsOffline(playerid);
-			        case 2:
+			        case 0: 
+					{
+						if(PlayerInfo[playerid][bAdmin] < 5) return ShowApanel(playerid);
+						return ShowAdminsOffline(playerid);
+					}
+			        case 1:
 			        {
 			            if(PlayerInfo[playerid][bAdmin] >= 5) return ShowAntiCheat(playerid);
 			            else return ShowApanel(playerid);
 			        }
-			        case 3:
+			        case 2:
 			        {
 			            if(PlayerInfo[playerid][bAdmin] >= 7) return ShowSetZp(playerid);
 			            else return ShowApanel(playerid);
 			        }
-			        case 4:
+			        case 3:
 			        {
 			            if(PlayerInfo[playerid][bAdmin] >= 6) return ShowServerSettings(playerid);
 			            else return ShowApanel(playerid);
 			        }
-			        case 5:
-					{ 
-						if(PlayerInfo[playerid][bAdmin] >= 2) return ShowTeleportList(playerid);
-						return ShowApanel(playerid);
-					}
-					case 6:
+					case 4:
 					{
 						if(PlayerInfo[playerid][bAdmin] >= 7) return ShowSetNakazania(playerid);
 						return ShowApanel(playerid); 
 					}
-					case 7:
+					case 5:
 					{
 						if(PlayerInfo[playerid][bAdmin] >= 6) return ShowOrgRepositories(playerid); 
 						return ShowApanel(playerid);
 					}
-					case 8:
+					case 6:
 					{
 						if(PlayerInfo[playerid][bAdmin] < 3) return ShowApanel(playerid);
 						else
@@ -64,6 +62,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ShowApanel(playerid);
 							return ClearAds();
 						}
+					}
+					case 7:
+					{
+						if(PlayerInfo[playerid][bAdmin] < 6) 
+							return ShowApanel(playerid);
+						else
+							return ShowAPVotePanel(playerid);
 					}
 		        }
 		    }
@@ -816,15 +821,14 @@ stock ShowServerSettings(playerid)
 stock ShowApanel(playerid)
 {
 	SPD(playerid, D_APANEL, DIALOG_STYLE_LIST, !"{"cblue"}UNIGVA | APANEL", !"\
-	{"cblue"}1. {"cwhite"}Все администраторы [Онлайн]\n\
-	{"cblue"}2. {"cwhite"}Все администраторы [Оффлайн]\n\
-	{"cblue"}3. {"cwhite"}Античит\n\
-	{"cblue"}4. {"cwhite"}Установить зарплаты\n\
-	{"cblue"}5. {"cwhite"}Настройки сервера\n\
-	{"cblue"}6. {"cwhite"}Телепорт\n\
-	{"cblue"}7. {"cwhite"}Установить наказания\n\
-	{"cblue"}8. {"cwhite"}Склады организаций\n\
-	{"cblue"}9. {"cwhite"}Очистить волну объявлений", !"Далее", !"Отмена");
+	{"cblue"}1. {"cwhite"}Все администраторы [Оффлайн]\n\
+	{"cblue"}2. {"cwhite"}Античит\n\
+	{"cblue"}3. {"cwhite"}Установить зарплаты\n\
+	{"cblue"}4. {"cwhite"}Настройки сервера\n\
+	{"cblue"}5. {"cwhite"}Установить наказания\n\
+	{"cblue"}6. {"cwhite"}Склады организаций\n\
+	{"cblue"}7. {"cwhite"}Очистить волну объявлений\n\
+	{"cblue"}8. {"cwhite"}Голосование АП", !"Далее", !"Отмена");
 	return 1;
 }
 stock ShowLogs(playerid)

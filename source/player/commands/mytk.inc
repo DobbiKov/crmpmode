@@ -1,5 +1,7 @@
 CMD:mytk(playerid, params[])
 {
+    if(GetPVarInt(playerid, "donate_access") == 1) return ShowCommandNotFound(playerid);
+    
     if(!strlen(params))
     {
         SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /mytk [ID игрока]");
