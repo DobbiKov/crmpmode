@@ -1755,7 +1755,7 @@ public OnPlayerConnect(playerid)
 	PlayerTimer[playerid][@_10000] = SetTimerEx("@_10000mc_PlayerTimer", 10000, true, "d", playerid);*/
 
 	
-	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i], true)) return 1;
+	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i])) return 1;
 
 	format(string, sizeof(string), "[A] Игрок %s[%d] зашел на сервер (IP: %s)", PlayerInfo[playerid][pName], playerid, ip);
 	SCMA(grey, string);

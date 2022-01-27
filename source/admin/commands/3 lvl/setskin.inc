@@ -7,6 +7,9 @@ CMD:setskin(playerid, params[])
     if(!PlayerInfo[to_player][pLogin] && !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][bAdmin] > PlayerInfo[playerid][bAdmin]) return 1;
 
+    if(skin < 1 || skin > 299)
+        return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setskin [id игрока] [ID скина]");
+
     SetPlayerSkin(to_player, skin);
 
     new string[128];

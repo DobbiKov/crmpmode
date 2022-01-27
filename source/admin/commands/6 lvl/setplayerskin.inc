@@ -2,9 +2,12 @@ CMD:setplayerskin(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
 
-    extract params -> new to_player, skin; else return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setskin [id игрока] [ID скина]");
+    extract params -> new to_player, skin; else return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setplayerskin [id игрока] [ID скина]");
 
     if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+
+    if(skin < 1 || skin > 299)
+        return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setplayerskin [id игрока] [ID скина]");
 
 	PlayerInfo[to_player][pChar] = skin;
     SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
