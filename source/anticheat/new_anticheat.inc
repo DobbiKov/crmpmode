@@ -23,7 +23,7 @@ stock ResultCheat(p, r)
 		"Код: {"cblue"}%s\n"\
 		"{FFFFFF}Дата: {"cblue"}%d-%02d-%02d %d:%02d\n"\
 		"{FFFFFF}Ваш пинг: {"cblue"}%d\n\n"\
-		"{FFFFFF}Форум: {"cblue"}https://vk.com/unigvafre\n"\
+		"{FFFFFF}Форум: {"cblue"}forum.unigva-rp.ru\n"\
 		"{FFFFFF}Предложения по улучшению античита можно оставить на форуме.",
         result, Day, Month, Year, Hour, Minute, GetPlayerPing(p)
 	);
