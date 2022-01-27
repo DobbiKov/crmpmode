@@ -86,17 +86,17 @@ publics OnCheatDetected(playerid, ip_address[], type, code)
                 AntiCheatGetPos(playerid, x, y, z);
                 return SetPlayerPos(playerid, x, y, z);
             }
-            case 40: // Sandbox
-            {
-                SendClientMessage(playerid, -1, MAX_CONNECTS_MSG);
-                return AntiCheatKickWithDesync(playerid, code);
-            }
+            // case 40: // Sandbox
+            // {
+            //     SendClientMessage(playerid, -1, MAX_CONNECTS_MSG);
+            //     return AntiCheatKickWithDesync(playerid, code);
+            // }
             case 41: // Invalid Version
             {
                 SendClientMessage(playerid, -1, UNKNOWN_CLIENT_MSG);
                 return AntiCheatKickWithDesync(playerid, code);
             }
-            case 43..47: //Крашеры
+            case 43,45,46,47: //Крашеры
             {
                 Kick(playerid); //КРАЙНЕ рекомендуется кикать без задержки, иначе ОНО успеет крашнуть игроков
                 return 1;

@@ -219,6 +219,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		for(new id = SpID[playerid]; id > 0; id--)
 		{
+			if(id == SpID[playerid])
+				continue;
 			if(id < 0) continue;
 			if(PlayerInfo[id][pLogin] == false) continue;
 			// switch(GetPlayerState(id))
@@ -240,6 +242,8 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		for(new id = SpID[playerid]; id < MAX_PLAYERS; id++)
 		{
+			if(id == SpID[playerid])
+				continue;
 			if(id > MAX_PLAYERS) continue;
 
 			if(PlayerInfo[id][pLogin] == false) continue;
