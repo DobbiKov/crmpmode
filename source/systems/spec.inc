@@ -221,11 +221,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		{
 			if(id < 0) continue;
 			if(PlayerInfo[id][pLogin] == false) continue;
-			switch(GetPlayerState(id))
-			{
-				case 1..3: {}
-				default: continue;
-			}
+			// switch(GetPlayerState(id))
+			// {
+			// 	case 1..3: {}
+			// 	default: continue;
+			// }
 
 			if(SpID[playerid] != INVALID_PLAYER_ID)
 				SpID[playerid] = INVALID_PLAYER_ID;
@@ -243,11 +243,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			if(id > MAX_PLAYERS) continue;
 
 			if(PlayerInfo[id][pLogin] == false) continue;
-			switch(GetPlayerState(id))
-			{
-				case 1..3: {}
-				default: continue;
-			}
+			// switch(GetPlayerState(id))
+			// {
+			// 	case 1..3: {}
+			// 	default: continue;
+			// }
 
 			if(SpID[playerid] != INVALID_PLAYER_ID)
 				SpID[playerid] = INVALID_PLAYER_ID;

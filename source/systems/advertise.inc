@@ -4,12 +4,13 @@ publics minuteupdate()
         new hour, minute, second;
         gettime(hour, minute, second);
 
-        if(minute % 10 == 0)
+        if(minute == 10 || minute == 30 || minute == 50)
         {
-            if(minute % 2 == 0) 
-                AdvertiseOne();
-            else 
-                AdvertiseTwo();
+            AdvertiseOne();
+        }
+        if(minute == 3 || minute == 20 || minute == 40 || minute == 58)
+        {
+            AdvertiseTwo();
         }
     }
     #if defined advert__minuteupdate
@@ -38,13 +39,15 @@ stock AdvertiseOne()
     SendClientMessageToAll(-1,"{99CC00}При возникновении вопросов/жалоб, введите: /menu, далее выберите: \"Вопросы/жалобы на игроков\"");
     SendClientMessageToAll(-1,"{99CC00}Всю полезную информацию Вы можете найти в /gps, /menu");
     SendClientMessageToAll(lightgreen,"__________________________________________________________________________________________________________");
+    SendClientMessageToAll(lightgreen,"                                                                                                          ");
 }
 
 stock AdvertiseTwo()
 {
 	SendClientMessageToAll(lightblue,"__________________________________________________________________________________________________________");
 	SendClientMessageToAll(lightblue,"                                                                                                          ");
-    SendClientMessageToAll(blue,"Подписывайтесь на группу проекта: vk.com/unigvafre");
+    SendClientMessageToAll(blue,"Подписывайтесь на группу проекта: vk.com/unigva_crmp");
     SendClientMessageToAll(blue,"Новости, мероприятия и конкурсы ожидают вас там");
     SendClientMessageToAll(lightblue,"__________________________________________________________________________________________________________");
+	SendClientMessageToAll(lightblue,"                                                                                                          ");
 }
