@@ -50,7 +50,9 @@ stock ResultMessageCheat(p, r)
     format(result, sizeof(result), "#%s", AC_CODE[r]);
 
 	format(string, sizeof(string), "{"cgrey"}[{"cred"}Анти-чит{"cgrey"}] <%s> подозреваемый %s(ID: %d) [%s]", result, PlayerInfo[p][pName], p, AC_CODE_NAME[r]);
-	SCMA(red, string);
+	
+    if(PlayerInfo[p][bAdmin] < 3)
+        SCMA(red, string);
 
     return true;
 }
