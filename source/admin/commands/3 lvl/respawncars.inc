@@ -23,11 +23,11 @@ CMD:respawncars(playerid, params[])
 		    GetPlayerPos(playerid, x, y, z);
 		    if(IsVehicleInRangeOfPoint(i, radius, x, y, z))
 			{
-		 		if(!IsVehicleOccupied(i)) SetVehicleToRespawn(i);
+		 		if(!IsVehicleOccupied(i) && IsAbleToRespawnVehicle(i)) SetVehicleToRespawn(i);
 			}
 		}
 		new string[128];
-		format(string, sizeof(string), "[A] %s зареспавнил весь транспорт в радиусе %d м", PlayerInfo[playerid][pName], playerid, radius);
+		format(string, sizeof(string), "[A] %s[%d] зареспавнил весь транспорт в радиусе %d м", PlayerInfo[playerid][pName], playerid, radius);
 		SCMA(grey, string);
 	}
 	return 1;

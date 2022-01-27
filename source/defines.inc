@@ -22,7 +22,7 @@
 // #define 	sqldb       "unigva"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.6.9"
+#define 	gamemode    "UNIGVA - Beta 0.7.0"
 #define     hostname    "[ Unigva RolePlay | Ïåðâûé ñåðâåð ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "unigva-rp.ru"
@@ -91,7 +91,7 @@ native 		IsValidVehicle(vehicleid);
     const SPECIAL_ACTION_PISSING = 68;
 #endif
 
-new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Anton_Panikaxi", "Lewis_Clifford", "Roman_Dobbikov"};
+new stock SuperNick_S[][MAX_PLAYER_NAME] = {"Robert_Chaze", "Lewis_Clifford", "Roman_Dobbikov"};
 
 // native GameTextForAll(const string[],time,style);
 // native GameTextForPlayer(playerid,const string[],time,style);

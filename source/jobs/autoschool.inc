@@ -265,6 +265,11 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
                 return SCM(playerid, red, "У вас нет прав категории D!");
             }
         }
+        if(IsAPlane(newcar) && PlayerInfo[playerid][pLicFly] != 1)
+        {
+			ClearAnimations(playerid, true);
+			return SCM(playerid, red, "У вас нет лицензии на полёты!");
+        }
 	}
 	#if	defined	ah__OnPlayerEnterVehicle
 		return ah__OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);

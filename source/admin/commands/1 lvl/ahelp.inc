@@ -41,7 +41,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(PlayerInfo[playerid][bAdmin] < 4) return SCM(playerid, red, "Ваш уровень Администратора мал, для просмотра этих команд.");
 
-                new fmt_dialog[1024];
+                new fmt_dialog[2048];
                 for(new i = 0; i < sizeof(Command4LVL); i++) strcat(fmt_dialog, Command4LVL[i]);
                 return SPD(playerid, D_AHELP_4, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды администратора 4 уровня", fmt_dialog, "Далее", "Закрыть");
             }
@@ -53,7 +53,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(PlayerInfo[playerid][bAdmin] < 4) return SCM(playerid, red, "Ваш уровень Администратора мал, для просмотра этих команд.");
 
-                new fmt_dialog[1024];
+                new fmt_dialog[2048];
                 for(new i = 0; i < sizeof(Command5LVL); i++) strcat(fmt_dialog, Command5LVL[i]);
                 return SPD(playerid, D_AHELP_5, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды администратора 5 уровня", fmt_dialog, "Далее", "Закрыть");
             }
@@ -65,7 +65,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(PlayerInfo[playerid][bAdmin] < 6) return SCM(playerid, red, "Ваш уровень Администратора мал, для просмотра этих команд.");
 
-                new fmt_dialog[1024];
+                new fmt_dialog[2048];
                 for(new i = 0; i < sizeof(Command6LVL); i++) strcat(fmt_dialog, Command6LVL[i]);
                 return SPD(playerid, D_AHELP_6, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды администратора 6 уровня", fmt_dialog, "Далее", "Закрыть");
             }
@@ -77,7 +77,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(PlayerInfo[playerid][bAdmin] < 7) return SCM(playerid, red, "Ваш уровень Администратора мал, для просмотра этих команд.");
 
-                new fmt_dialog[1024];
+                new fmt_dialog[2048];
                 for(new i = 0; i < sizeof(Command7LVL); i++) strcat(fmt_dialog, Command7LVL[i]);
                 return SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды администратора 7 уровня", fmt_dialog, "Закрыть", "");
             }

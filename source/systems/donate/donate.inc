@@ -5,7 +5,7 @@ enum
 };
 
 new const
-	donate_list[9][E_DONATE_DATE] =
+	donate_list[11][E_DONATE_DATE] =
 {
 	{"Перевести кредиты в рубли (1 кр. = 500 рублей)"},
 	{"Сменить имя (50. кр.)"},
@@ -15,8 +15,13 @@ new const
 	{"+1 EXP (10 кр.)"},
 	{"+1 LvL (100 кр.)"},
 	{"Навыки оружия (50 кр. = 1 шт. | 200 кр. = все)"},
-	{"VIP аккаунт"}
+	{"VIP аккаунт"},
+	{"Приобрести номера на авто (500 кр.)"},
+	{"Приобрести VIP номер телефона (500 кр.)"}
 };
+
+#include "../source/systems/donate/change_car_number.inc"
+#include "../source/systems/donate/change_phone_number.inc"
 
 CMD:donate(playerid)
 {
@@ -43,8 +48,8 @@ CMD:donate(playerid)
 }
 
 stock ShowDonateListDialog(playerid){
-	new fmt_dialog[528], string[128];
-	for(new i = 0; i < 9; i++)
+	new fmt_dialog[1024], string[144];
+	for(new i = 0; i < sizeof(donate_list); i++)
 	{
 		format(string, sizeof(string), "{"cblue"}%d. {ffffff}%s\n", i+1, donate_list[i][donate_name]);
 		strcat(fmt_dialog, string);
@@ -120,6 +125,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{"cblue"}2. {ffffff}30 дней {"cblue"}(200 кр.)\n\
 						{"cblue"}3. {ffffff}365 дней {"cblue"}(600 кр.)\
 						", !"Купить", !"Назад");
+					}
+					case 9:{
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						return ShowDonateCarNumberDialog(playerid);
+					}
+					case 10:{
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						return ShowDonatePhoneNumberDialog(playerid);
 					}
 				}
 			}

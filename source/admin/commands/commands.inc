@@ -1,4 +1,4 @@
-new Command1LVL[14][] =
+new Command1LVL[15][] =
 {
     {"{"cblue"}/admins {ffffff}- Администраторы онлайн\n"},
     {"{"cblue"}/weap {ffffff}- Оружие игрока\n"},
@@ -11,12 +11,13 @@ new Command1LVL[14][] =
     {"{"cblue"}/yhelp {ffffff}- Команды ютуберов\n"},
     {"{"cblue"}/a {ffffff}- Админский чат\n"},
     {"{"cblue"}/ahelp {ffffff}- Команды администраторов\n"},
-    {"{"cblue"}/spawnplayer {ffffff}- Заспавнить игрока\n"},
+    {"{"cblue"}/spa(wnplayer) {ffffff}- Заспавнить игрока\n"},
+    {"{"cblue"}/kills {ffffff}- Включить/выключить список убийств\n"},
     {"{"cblue"}/sp {ffffff}- Слежка за игроком\n"},
     {"{"cblue"}/spoff {ffffff}- Прекратить слежку за игроком\n"}
 };
 
-new Command2LVL[30][] = 
+new Command2LVL[31][] = 
 {
     {"{"cblue"}/get_player_by_mysql {ffffff}- узнать никнейм игрока по ID аккунта\n"},
     {"{"cblue"}/alock {ffffff}- Открыть/закрыть транспорт\n"},
@@ -37,6 +38,7 @@ new Command2LVL[30][] =
     {"{"cblue"}/resetgun {ffffff}- Забрать оружие у игрока\n"},
     {"{"cblue"}/getbizid {ffffff}- Узнать ID бизнесса\n"},
     {"{"cblue"}/tipster {ffffff}- Прослушка раций\n"},
+    {"{"cblue"}/flip {ffffff}- Перевернуть транспорт\n"},
     {"\n"},
     {"{"cblue"}Быстрые наказания:\n"},
     {"{"cblue"}/mg {ffffff}- Выдать мут за MG\n"},
@@ -50,8 +52,9 @@ new Command2LVL[30][] =
     {"{"cblue"}/bh {ffffff}- Наказать за BH(Бани Хоп)\n"}
 };
 
-new Command3LVL[36][] = 
+new Command3LVL[37][] = 
 {
+    {"{"cblue"}/atakelic {ffffff}- Забрать лицензии у игрока\n"},
     {"{"cblue"}/setvw {ffffff}- Установить игроку виртуальный мир\n"},
     {"{"cblue"}/setint {ffffff}- Установить игроку интерьер\n"},
     {"{"cblue"}/getip{ffffff}- Узнать IP-Address игрока\n"},
@@ -90,16 +93,21 @@ new Command3LVL[36][] =
     {"{"cblue"}/mpsay {ffffff}- Сказать что-то участникам мероприятия\n"}
 };
 
-new Command4LVL[9][] = 
+new Command4LVL[14][] = 
 {
     {"{"cblue"}/veh {ffffff}- Созать автомобиль\n"},
     {"{"cblue"}/delveh {ffffff}- Удалить автомобиль\n"},
     {"{"cblue"}/alldelveh {ffffff}- Удалить весь транспорт созданный администраторами\n"},
     {"{"cblue"}/offmute {ffffff}- Выдать игроку блокировку чата в оффлайне\n"},
     {"{"cblue"}/offjail {ffffff}- Посадить игрока в деморган в оффлайне\n"},
+    {"{"cblue"}/biz {ffffff}- Телепортироваться к бизнессу по ID\n"},
+    {"{"cblue"}/house {ffffff}- Телепортироваться к дому по ID\n"},
     {"{"cblue"}/jetpack {ffffff}- Выдать себе JetPack\n"},
     {"{"cblue"}/tpcoord {ffffff}- Телепорт по координатам\n"},
     {"{"cblue"}/fstats {ffffff}- Статистика работ/организаций\n"},
+    {"{"cblue"}/getacc {ffffff}- Техническая информация об аккаунте\n"},
+    {"{"cblue"}/connlogs {ffffff}- Посмотреть историю входов аккаунта\n"},
+    {"{"cblue"}/conniplogs {ffffff}- Посмотреть историю входов на IP Адресс\n"},
     {"{"cblue"}/auninvite {ffffff}- Уволить игрока из организации\n"}
 };
 
@@ -119,9 +127,12 @@ new Command5LVL[12][] =
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
-new Command6LVL[17][] = 
+new Command6LVL[20][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
+    {"{"cblue"}/setadmin {ffffff}- Поставить игрока на пост администратора\n"},
+    {"{"cblue"}/aup {ffffff}- Повысить уровень администратора\n"},
+    {"{"cblue"}/adown {ffffff}- Понизить уровень администора\n"},
     {"{"cblue"}/givemoney {ffffff}- Выдать игроку денег\n"},
     {"{"cblue"}/setleader {ffffff}- Поставить игрока на пост лидера\n"},
     {"{"cblue"}/unlwarn {ffffff}- Снять выговор лидеру организации\n"},
@@ -130,12 +141,12 @@ new Command6LVL[17][] =
     {"{"cblue"}/offawarn {ffffff}- Выдать выговор администратору в оффлайне\n"},
     {"{"cblue"}/unawarn {ffffff}- Снять выговор администратору\n"},
     {"{"cblue"}/agivevoen {ffffff}- выдать военный билет игроку\n"},
-    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/setcarnumber {ffffff}- Установить номера на автомобиль игрока\n"},
     {"{"cblue"}/setownablecar {ffffff}- Установить игроку личное авто\n"},
     {"{"cblue"}/settempnick {ffffff}- Установить игроку временный ник\n"},
     {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"},
     {"{"cblue"}/setmoney {ffffff}- Установить определенное количество денег игроку\n"},
+    {"{"cblue"}/asellcar {ffffff}- Продать транспорт другого игрока.\n"},
     {"{"cblue"}/asellbiz {ffffff}- Продать бизнесс другого игрока.\n"},
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
 };
@@ -145,19 +156,19 @@ new Command7LVL[18][] =
     {"{"cblue"}/restart {ffffff}- Перезагрузить сервер\n"},
     {"{"cblue"}/x2day {ffffff}- Включить X2 день\n"},
     {"{"cblue"}/setstat {ffffff}- Редактировать статистику игрока\n"},
+    {"{"cblue"}/delacc {ffffff}- Удалить аккаунт игрока\n"},
     {"{"cblue"}/deactivate {ffffff}- Деактивировать аккаунт игрока\n"},
     {"{"cblue"}/activate {ffffff}- Активировать аккаунт игрока\n"},
     {"{"cblue"}/loadfs {ffffff}- Загрузить скрипт\n"},
     {"{"cblue"}/unloadfs {ffffff}- Отключить скрипт\n"},
     {"{"cblue"}/resetmoney {ffffff}- Обнулить деньги игроку\n"},
-    {"{"cblue"}/setadmin {ffffff}- Поставить игрока на пост администратора\n"},
-    {"{"cblue"}/aup {ffffff}- Повысить уровень администратора\n"},
-    {"{"cblue"}/adown {ffffff}- Понизить уровень администора\n"},
     {"{"cblue"}/addbusiness {ffffff}- Создать бизнес\n"},
     {"{"cblue"}/addhouse {ffffff}- Создать дом\n"},
     {"{"cblue"}/sethousecarpos {ffffff}- Установить дому место спавна авто\n"},
     {"{"cblue"}/addpod {ffffff}- Создать подъезд\n"},
     {"{"cblue"}/setpodcarpos {ffffff}- Установить подъезду место спавна авто\n"},
     {"{"cblue"}/addtoilet {ffffff}- Создать туалет\n"},
+    {"{"cblue"}/delete {ffffff}- Удалить дом/бизнесс/туалет и другие динамические системы\n"},
+    {"{"cblue"}/crashplayer {ffffff}- Крашнуть игрока\n"},
     {"{"cblue"}/changepassword {ffffff}- Сменить пароль игроку\n"}
 };

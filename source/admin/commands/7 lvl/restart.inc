@@ -19,7 +19,7 @@ publics Restart_()
 	    if(PlayerInfo[i][pLogin] != false)
 			SaveAccounts(i);
 	}
-	kick_all_players();
+	// kick_all_players();
 	KillTimer(_restart_timer);
 	SendRconCommand("gmx");
 	return GameModeExit();

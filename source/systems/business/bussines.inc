@@ -26,7 +26,7 @@ publics LoadBusiness()
             BusinessInfo[idx][bExitZ] = cache_get_field_content_float(i, "bExitZ");
             cache_get_field_content(i, "bOwner", BusinessInfo[idx][bOwner], connects, MAX_PLAYER_NAME);
 
-            CreateDynamicMapIcon(BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], business_params[ BusinessInfo[idx][bType] ][icon], -1, -1, -1, -1, 200.0);
+            BusinessInfo[idx][bIcon] = CreateDynamicMapIcon(BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], business_params[ BusinessInfo[idx][bType] ][icon], -1, -1, -1, -1, 200.0);
 
             BusinessInfo[idx][bLabel] = CreateDynamic3DTextLabel("__", 0xFFFFFFFF, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
             BusinessInfo[idx][bEnterPickup] = CreateDynamicPickup(business_params[ BusinessInfo[idx][bType] ][pickup], 23, BusinessInfo[idx][bExitX], BusinessInfo[idx][bExitY], BusinessInfo[idx][bExitZ]);
@@ -782,6 +782,8 @@ CMD:buybiz(playerid)
     return cmd::buybusiness(playerid);
 CMD:buybusiness(playerid)
 {
+    if(PlayerInfo[playerid][pLicBiz] != 1)
+        return SCM(playerid, red, !"У Вас нет лицензии на бизнесс!");
     foreach(new i : Allbusiness)
     {
         if(IsPlayerInRangeOfPoint(playerid, 2.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]))
@@ -807,8 +809,6 @@ CMD:buybusiness(playerid)
     return 1;
 }
 
-CMD:biz(playerid)
-    return cmd::business(playerid);
 CMD:business(playerid)
 {
     if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
@@ -1084,6 +1084,8 @@ CMD:sellmybusiness(playerid, params[])
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][pBizID] != -1) return SCM(playerid, red, "У игрока уже имеется бизнесс.");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока нет столько денег.");
+    if(PlayerInfo[to_player][pLicBiz] != 1)
+        return SCM(playerid, red, !"У игрока нет лицензии на бизнесс!");
     if(price < 0) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmybusiness [ID игрока] [цена]");
     foreach(new i : Allbusiness) if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]) 
     {
