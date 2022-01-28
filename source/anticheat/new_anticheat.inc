@@ -103,8 +103,6 @@ publics OnCheatDetected(playerid, ip_address[], type, code)
             }
             default:
             {
-                if(code == 1 && PlayerInfo[playerid][pLogin] == false)
-                    return 1;
                 if(gettime() - pAntiCheatLastCodeTriggerTime[playerid][code] < AC_TRIGGER_ANTIFLOOD_TIME)
                     return 1;
 

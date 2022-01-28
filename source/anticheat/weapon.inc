@@ -87,15 +87,15 @@ stock GetWeaponSlotEx(weaponid)
 
 publics PlayerSecondTimer(playerid)
 {
-    new player_weapon = GetPlayerWeapon(playerid);
+    // new player_weapon = GetPlayerWeapon(playerid);
 	// new str[60];
 	// format(str, sizeof(str), "DEBUG: %d %s", player_weapon, (AccessedWeapons[playerid][player_weapon] > 0) ? ("true") : ("false"));
 	// SCM(playerid, white, str);
-	if(player_weapon > 0 && AccessedWeapons[playerid][player_weapon] < 1)
-	{
-		ResetPlayerWeaponsAC(playerid);
-		ResultMessageCheat(playerid, 1);
-	}
+	// if(player_weapon > 0 && AccessedWeapons[playerid][player_weapon] < 1)
+	// {
+	// 	ResetPlayerWeaponsAC(playerid);
+	// 	// ResultMessageCheat(playerid, 1);
+	// }
 
     #if defined ac_weap__PlayerSecondTimer
         return ac_weap__PlayerSecondTimer(playerid);
