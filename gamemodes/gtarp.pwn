@@ -1781,14 +1781,17 @@ public OnPlayerDisconnect(playerid, reason)
     
 	ClearProposition(playerid);
 	
-    new string[256];
-    switch(reason)
-    {
-        case 0: format(string, sizeof(string), "[A] Игрок %s[%d] вылетел из игры. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-        case 1: format(string, sizeof(string), "[A] Игрок %s[%d] покинул игру. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-        case 2: format(string, sizeof(string), "[A] Игрок %s[%d] был кикнут с сервера. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-    }
-    if(PlayerInfo[playerid][bAdmin] < 6) SCMA(grey, string);
+	if(!CheckFD(playerid))
+	{
+		new string[256];
+		switch(reason)
+		{
+			case 0: format(string, sizeof(string), "[A] Игрок %s[%d] вылетел из игры. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+			case 1: format(string, sizeof(string), "[A] Игрок %s[%d] покинул игру. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+			case 2: format(string, sizeof(string), "[A] Игрок %s[%d] был кикнут с сервера. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+		}
+		if(PlayerInfo[playerid][bAdmin] < 6) SCMA(grey, string);
+	}
 
 	new hour, minute, second, year, month, day, data[64];
 	gettime(hour, minute, second);
