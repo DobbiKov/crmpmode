@@ -135,7 +135,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 		        if(PlayerInfo[playerid][pCash] < 200)
 		        {
-		            SCM(playerid, red, "У вас не достаточно денег!");
+		            SCM(playerid, red, "У Вас не достаточно денег!");
 		            return RemovePlayerFromVehicle(playerid);
 		        }
 		        GiveMoney(playerid, -200, "Аренда автобуса");
@@ -299,14 +299,14 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					GetPlayerPos(playerid, x, y, z);
 					SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
 					RemovePlayerFromVehicle(playerid);
-					if(AntiCheatInfo[TP_in_VEH_AC][acStatus] == 0) return ResultMessageCheat(playerid, 9);
-					else return ResultCheat(playerid, 9);
+					// if(AntiCheatInfo[TP_in_VEH_AC][acStatus] == 0) return ResultMessageCheat(playerid, 9);
+					// else return ResultCheat(playerid, 9);
 				}
 				ShowPlayerDialog
 				(
 					playerid, D_AREND_BUS, DIALOG_STYLE_MSGBOX,
 					"{"cblue"}Автобус | Аренда проезда",
-					"{FFFFFF}Аренда Автобуса составит {"cblue"}200 рублей{FFFFFF}.\nВы готовы арендовать транспорт в данный момент времени?",
+					"{FFFFFF}Аренда Автобуса составит {"cblue"}200 рублей{FFFFFF}.\nВы готоВы арендовать транспорт в данный момент времени?",
 					"Да", "Нет"
 				);
 			}
@@ -340,7 +340,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			{
 			    if(PlayerInfo[playerid][pCash] < bus_route_cost[i])
 			    {
-			        SCM(playerid, red, "У вас не достаточно денег!");
+			        SCM(playerid, red, "У Вас не достаточно денег!");
 			        return RemovePlayerFromVehicle(playerid);
 			    }
 			    GiveMoney(i, bus_route_cost[i], "Проезд в маршрутке");
@@ -371,13 +371,13 @@ publics EndJobEndJob(playerid)
 	
 	PlayerInfo[playerid][pBCash] += PayJob[playerid];
 	
-	if(GetPVarInt(playerid, "EndJobEndJob") == 1) SCM(playerid, red, "К сожалению, вы не успели сесть транспорт!");
+	if(GetPVarInt(playerid, "EndJobEndJob") == 1) SCM(playerid, red, "К сожалению, Вы не успели сесть транспорт!");
 
 	new string[128];
 	format(string, sizeof(string), "Ваш рабочий день завершен!");
 	SCM(playerid, blue, string);
 	
-	format(string, sizeof(string), "Заработанные вами {"cyellow"}%d рублей {"cblue"}буду переведенны на ваш банковский счет!", PayJob[playerid]);
+	format(string, sizeof(string), "Заработанные Вами {"cyellow"}%d рублей {"cblue"}буду переведенны на ваш банковский счет.", PayJob[playerid]);
 	SCM(playerid, blue, string);
 
     DisablePlayerRaceCheckpoint(playerid);
@@ -391,6 +391,8 @@ publics EndJobEndJob(playerid)
 publics NextRouteCP(playerid)
 {
 	if(PlayerInfo[playerid][pJob] != Job_Bus) return -1;
+	if(!(job_car[BUS_CAR][0] <= player_job_vehicle_arend[playerid] <= job_car[BUS_CAR][1]))
+		return 1;
 
 	new route_step = bus_route_step[playerid];
 	bus_route_step[playerid] ++;

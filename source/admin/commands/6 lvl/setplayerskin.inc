@@ -2,9 +2,12 @@ CMD:setplayerskin(playerid, params[])
 {
     if(PlayerInfo[playerid][bAdmin] < 6) return ShowCommandNotFound(playerid);
 
-    extract params -> new to_player, skin; else return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setskin [id игрока] [ID скина]");
+    extract params -> new to_player, skin; else return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setplayerskin [id игрока] [ID скина]");
 
     if(!PlayerInfo[to_player][pLogin] || !IsPlayerConnected(to_player)) return PlayerOffLine(playerid);
+
+    if(skin < 1 || skin > 299)
+        return SCM(playerid, blue, "•[Подсказка] {ffffff}Введите: /setplayerskin [id игрока] [ID скина]");
 
 	PlayerInfo[to_player][pChar] = skin;
     SetPlayerSkin(to_player, PlayerInfo[to_player][pChar]);
@@ -17,7 +20,7 @@ CMD:setplayerskin(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] поставил постоянныйй скин(%d) игроку %s[%d]", PlayerInfo[playerid][pName], playerid, skin, PlayerInfo[to_player][pName], to_player);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s поставил вам постоянный скин(%d)", PlayerInfo[playerid][pName], skin);
+    format(string, sizeof(string), "Администратор %s поставил Вам постоянный скин(%d)", PlayerInfo[playerid][pName], skin);
     SCM(to_player, white, string);
     return 1;
 }

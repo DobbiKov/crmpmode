@@ -12,7 +12,7 @@ CMD:unarrest(playerid, params[]){
     SetSpawnVokzal(to_player);
 
     new string[144];
-    format(string, sizeof(string), "Администратор %s выпустил вас досрочно из КПЗ.", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s выпустил Вас досрочно из КПЗ.", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
 
     format(string, sizeof(string), "Вы выпустили игрока %s из КПЗ досрочно.", PlayerInfo[to_player][pName]);

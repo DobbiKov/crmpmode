@@ -8,7 +8,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
 			format(string, sizeof(string), "Вы оглушили %s на 5 секунд", PlayerInfo[damagedid][pName]);
 			SCM(playerid, blue, string);
 
-			format(string, sizeof(string), "%s оглушил вас на 5 секунд", PlayerInfo[playerid][pName]);
+			format(string, sizeof(string), "%s оглушил Вас на 5 секунд", PlayerInfo[playerid][pName]);
 			SCM(damagedid, blue, string);
 			return FreezePlayer(damagedid, 5000);
 		}
@@ -18,7 +18,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
 			format(string, sizeof(string), "Вы оглушили %s электрошокером", PlayerInfo[damagedid][pName]);
 			SCM(playerid, blue, string);
 
-			format(string, sizeof(string), "%s оглушил вас электрошокером", PlayerInfo[playerid][pName]);
+			format(string, sizeof(string), "%s оглушил Вас электрошокером", PlayerInfo[playerid][pName]);
 			SCM(damagedid, blue, string);
 			return FreezePlayer(damagedid, 10000);
 		}
@@ -49,7 +49,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if(!IsAPolice(playerid))
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
             }
         }
 	}
@@ -84,19 +84,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
 						if(GetPlayerWeaponAmmo(playerid, 23) >= 10)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 23, 10);
                     }
                     case 1:
                     {
 						if(GetPlayerWeaponAmmo(playerid, 30) >= 240)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 30, 120);
                     }
                     case 2:
                     {
 						if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
                         GivePlayerWeaponAC(playerid, 3, 1);
                     }
                     case 3:

@@ -12,7 +12,7 @@ CMD:givedonate(playerid, params[])
 
         new string[144];
 
-        format(string, sizeof(string), "{ffffff}Администратор %s выдал вам %d %d кредитов.", PlayerInfo[playerid][pName], donate);
+        format(string, sizeof(string), "{ffffff}Администратор %s выдал Вам %d %d кредитов.", PlayerInfo[playerid][pName], donate);
         SCM(to_player, white, string);
 
         format(string, sizeof(string), "{ffffff}Вы выдали игроку %s %d кредитов.", PlayerInfo[to_player][pName], donate); 

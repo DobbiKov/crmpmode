@@ -142,7 +142,7 @@
 	PlayerTextDrawFont(playerid, training_td[playerid][13], 2);
 	PlayerTextDrawSetProportional(playerid, training_td[playerid][13], 1);
 
-	training_td[playerid][14] = CreatePlayerTextDraw(playerid, 241.150009, 345.350067, "ĞÅÊÎÌÅÍÄÓÅÌ ÂÀÌ ÑÄÀÒÜ ÏĞÀÂÀ");
+	training_td[playerid][14] = CreatePlayerTextDraw(playerid, 241.150009, 345.350067, "ĞÅÊÎÌÅÍÄÓÅÌ Âàì ÑÄÀÒÜ ÏĞÀÂÀ");
 	PlayerTextDrawLetterSize(playerid, training_td[playerid][14], 0.326349, 1.618812);
 	PlayerTextDrawAlignment(playerid, training_td[playerid][14], 1);
 	PlayerTextDrawColor(playerid, training_td[playerid][14], -1);
@@ -224,7 +224,7 @@
 	PlayerTextDrawFont(playerid, training_td[playerid][21], 2);
 	PlayerTextDrawSetProportional(playerid, training_td[playerid][21], 1);
 
-	training_td[playerid][22] = CreatePlayerTextDraw(playerid, 240.949996, 332.887512, "ÂÀÑ ÅÑÒÜ ÓÍÈÊÀËÜÍÀß");
+	training_td[playerid][22] = CreatePlayerTextDraw(playerid, 240.949996, 332.887512, "Âàñ ÅÑÒÜ ÓÍÈÊÀËÜÍÀß");
 	PlayerTextDrawLetterSize(playerid, training_td[playerid][22], 0.326349, 1.618812);
 	PlayerTextDrawAlignment(playerid, training_td[playerid][22], 1);
 	PlayerTextDrawColor(playerid, training_td[playerid][22], -1);
@@ -326,7 +326,7 @@
 	PlayerTextDrawFont(playerid, training_td[playerid][31], 2);
 	PlayerTextDrawSetProportional(playerid, training_td[playerid][31], 1);
 
-	training_td[playerid][32] = CreatePlayerTextDraw(playerid, 240.899948, 333.193786, "ÏÎ ÑÅĞÂÅĞÓ, ÂÀÌ ÏÎÍÀÄÎÁÈÒÑß");
+	training_td[playerid][32] = CreatePlayerTextDraw(playerid, 240.899948, 333.193786, "ÏÎ ÑÅĞÂÅĞÓ, Âàì ÏÎÍÀÄÎÁÈÒÑß");
 	PlayerTextDrawLetterSize(playerid, training_td[playerid][32], 0.326349, 1.618812);
 	PlayerTextDrawAlignment(playerid, training_td[playerid][32], 1);
 	PlayerTextDrawColor(playerid, training_td[playerid][32], -1);
@@ -336,7 +336,7 @@
 	PlayerTextDrawFont(playerid, training_td[playerid][32], 2);
 	PlayerTextDrawSetProportional(playerid, training_td[playerid][32], 1);
 
-	training_td[playerid][33] = CreatePlayerTextDraw(playerid, 240.349960, 346.268890, "ÒĞÀÍÑÏÎĞÒ. ÊÓÏÈÒÜ ÂÛ ÅÃÎ");
+	training_td[playerid][33] = CreatePlayerTextDraw(playerid, 240.349960, 346.268890, "ÒĞÀÍÑÏÎĞÒ. ÊÓÏÈÒÜ Âû ÅÃÎ");
 	PlayerTextDrawLetterSize(playerid, training_td[playerid][33], 0.326349, 1.618812);
 	PlayerTextDrawAlignment(playerid, training_td[playerid][33], 1);
 	PlayerTextDrawColor(playerid, training_td[playerid][33], -1);

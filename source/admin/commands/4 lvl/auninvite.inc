@@ -11,7 +11,7 @@ CMD:auninvite(playerid, params[])
     format(string, sizeof(string), "Вы уволили %s из организации. Причина: %s", PlayerInfo[to_player][pName], reason);
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "Администратор %s уволил вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
+    format(string, sizeof(string), "Администратор %s уволил Вас из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], GetMember[ PlayerInfo[to_player][pMember] ], reason);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "[A] %s[%d] уволил игрока %s[%d] из организации \"%s\". Причина: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[ PlayerInfo[to_player][pMember] ], reason);

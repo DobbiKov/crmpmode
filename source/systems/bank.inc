@@ -50,7 +50,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         new string[256];
-                        format(string, sizeof(string), "{FFFFFF}У вас на руках в данный момент: {"cblue"}%d рублей.\n\n{FFFFFF}Какую сумму Вы желаете положить?", PlayerInfo[playerid][pCash]);
+                        format(string, sizeof(string), "{FFFFFF}У Вас на руках в данный момент: {"cblue"}%d рублей.\n\n{FFFFFF}Какую сумму Вы желаете положить?", PlayerInfo[playerid][pCash]);
                         SPD
                         (
                             playerid, D_BANK_PUT_MONEY, DIALOG_STYLE_INPUT,
@@ -73,17 +73,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 3:
                     {
-                        if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, !"У вас нет дома.");
+                        if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, !"У Вас нет дома.");
                         ShowPayHouse(playerid);
                     }
                     case 4:
                     {
-                        if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, !"У вас нет бизнеса.");
+                        if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, !"У Вас нет бизнеса.");
                         ShowPayBiz(playerid);
                     }
                     case 5:
                     {
-                        if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, !"У вас нет бизнеса.");
+                        if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, !"У Вас нет бизнеса.");
                         ShowTakeBizMoney(playerid);
                     }
                 }
@@ -124,7 +124,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(!IsNumeric(inputtext) || PlayerInfo[playerid][pCash] < strval(inputtext) || strval(inputtext) < 0 || !strlen(inputtext))
                 {
                     new string[256];
-                    format(string, sizeof(string), "{FFFFFF}У вас на руках в данный момент: {"cblue"}%d рублей.\n\n{FFFFFF}Какую сумму Вы желаете положить?", PlayerInfo[playerid][pCash]);
+                    format(string, sizeof(string), "{FFFFFF}У Вас на руках в данный момент: {"cblue"}%d рублей.\n\n{FFFFFF}Какую сумму Вы желаете положить?", PlayerInfo[playerid][pCash]);
                     SPD
                     (
                         playerid, D_BANK_PUT_MONEY, DIALOG_STYLE_INPUT,

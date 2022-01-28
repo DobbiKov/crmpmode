@@ -11,7 +11,7 @@ CMD:spawnplayer(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] предложил заспавниться %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s предложил вам заспавниться", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s предложил Вам заспавниться", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
 
     return SpawnList(to_player);

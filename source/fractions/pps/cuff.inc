@@ -22,7 +22,7 @@ CMD:cuff(playerid, params[])
     format(string, sizeof(string), "¬ы надели наручники на %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s надел на вас наручники", PlayerName(playerid));
+    format(string, sizeof(string), "%s надел на ¬ас наручники", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "надевает наручники на %s", PlayerName(to_player));

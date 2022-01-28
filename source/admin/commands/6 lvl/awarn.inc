@@ -12,7 +12,7 @@ CMD:awarn(playerid, params[])
     format(string, sizeof(string), "Вы сделали админ. выговор %s [%d|3]. Причина: %s", PlayerInfo[to_player][pName], PlayerInfo[to_player][pWarnA], reason);
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "Администраор %s сделал вам админ. выговор [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnA], reason);
+    format(string, sizeof(string), "Администраор %s сделал Вам админ. выговор [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnA], reason);
     SCM(to_player, white, string);
 
     format(string, sizeof(string), "[A] %s[%d] сделал админ. выговор %s[%d] [%d|3]. Причина: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, PlayerInfo[to_player][pWarnA], reason);

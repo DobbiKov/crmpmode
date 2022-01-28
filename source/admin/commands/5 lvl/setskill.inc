@@ -19,7 +19,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием SD Pistol.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием SD Pistol.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием SD Pistol.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием SD Pistol", PlayerInfo[to_player][pName]);
@@ -33,7 +33,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием Desert Eagle.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием Desert Eagle.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием Desert Eagle.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием Desert Eagle", PlayerInfo[to_player][pName]);
@@ -47,7 +47,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием ShotGun.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием ShotGun.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием ShotGun.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием ShotGun", PlayerInfo[to_player][pName]);
@@ -61,7 +61,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием АК-74У.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием АК-74У.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием АК-74У.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием АК-74У", PlayerInfo[to_player][pName]);
@@ -75,7 +75,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием AK-47.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием AK-47.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием AK-47.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием AK-47", PlayerInfo[to_player][pName]);
@@ -89,7 +89,7 @@ CMD:setskill(playerid, params[]){
             format(string, sizeof(string), "[A] Администратор %s[%d] выдал игроку %s[%d] %d процентов навыков владения оружием M4.", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, skill);
             SCMA(grey, string);
 
-            format(string, sizeof(string), "Администратор %s выдал вам %d процентов навыков владения оружием M4.", PlayerInfo[playerid][pName], skill);
+            format(string, sizeof(string), "Администратор %s выдал Вам %d процентов навыков владения оружием M4.", PlayerInfo[playerid][pName], skill);
             SCM(to_player, white, string);
 
             format(string, sizeof(string), "Вы выдали игроку %s %d процентов навыков владения оружием M4", PlayerInfo[to_player][pName]);

@@ -37,7 +37,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string), "¬ы изъ€ли наркотики у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас наркотики", GetPlayerRank(playerid), PlayerName(playerid));
+                        format(string, sizeof(string), "%s %s изъ€л у ¬ас наркотики", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 1:
@@ -49,7 +49,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string), "¬ы изъ€ли металл у %s", PlayerInfo[to_player][pName]);
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас металл", GetPlayerRank(playerid), PlayerName(playerid));
+                        format(string, sizeof(string), "%s %s изъ€л у ¬ас металл", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 2:
@@ -61,7 +61,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string), "¬ы изъ€ли патроны у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас патроны", GetPlayerRank(playerid), PlayerName(playerid));
+                        format(string, sizeof(string), "%s %s изъ€л у ¬ас патроны", GetPlayerRank(playerid), PlayerName(playerid));
                         SCM(to_player, blue, string);
                     }
                     case 3:
@@ -73,7 +73,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string), "¬ы изъ€ли все оружие у %s", PlayerName(to_player));
                         SCM(playerid, blue, string);
 
-                        format(string, sizeof(string), "%s %s изъ€л у вас все оружие", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);
+                        format(string, sizeof(string), "%s %s изъ€л у ¬ас все оружие", GetPlayerRank(playerid), PlayerInfo[playerid][pName]);
                         SCM(to_player, blue, string);
                     }
                 }

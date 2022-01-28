@@ -14,13 +14,13 @@ new Iterator: ads<MAX_AD>;
 
 CMD:ad(playerid, params[])
 {
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У вас стоит блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У Вас стоит блокировка чата!");
 
     extract params -> new string: text[100]; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /ad [текст]");
 
     if(strlen(text) > 100 || strlen(text) < 1) return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /ad [текст]");
     new price = strlen(text) * 10;    
-    if(PlayerInfo[playerid][pPhoneCash] < price) return SCM(playerid, red, "У вас не достаточно денег!"); 
+    if(PlayerInfo[playerid][pPhoneCash] < price) return SCM(playerid, red, "У Вас не достаточно денег!"); 
 
     new all = 0;
     foreach(new i : ads)

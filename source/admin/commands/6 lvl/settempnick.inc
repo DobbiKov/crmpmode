@@ -11,7 +11,7 @@ CMD:settempnick(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] установил %s[%d] временный никнейм: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, name);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s установил вам временный никнейм: %s", PlayerInfo[playerid][pName], name);
+    format(string, sizeof(string), "Администратор %s установил Вам временный никнейм: %s", PlayerInfo[playerid][pName], name);
     SCM(to_player, white, string);
     SaveAccounts(to_player);
     return 1;

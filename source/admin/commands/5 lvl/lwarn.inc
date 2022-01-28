@@ -12,7 +12,7 @@ CMD:lwarn(playerid, params[])
     format(string, sizeof(string), "Вы выдал лидерский выговор %s [%d|3]. Причина: %s", PlayerInfo[to_player][pName], PlayerInfo[to_player][pWarnF], reason);
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "Администраор %s выдал вам лидерский выговор [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF], reason);
+    format(string, sizeof(string), "Администраор %s выдал Вам лидерский выговор [%d|3]. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF], reason);
     SCM(to_player, white, string);
 
     format(string, sizeof(string), "[A] %s[%d] выдал лидерский выговор %s[%d] [%d|3]. Причина: %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, PlayerInfo[to_player][pWarnF], reason);

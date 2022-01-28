@@ -9,7 +9,7 @@ CMD:resetmoney(playerid, params[])
     new string[144];
     format(string, sizeof(string), "[A] %s[%d] забрал все деньги у игрока %s[%d] (%d)", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, PlayerInfo[to_player][pCash]);
     SCMA(grey, string);
-    format(string, sizeof(string), "Администратор %s аннулировал вам деньги", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s аннулировал Вам деньги", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
     GiveMoney(to_player, -PlayerInfo[to_player][pCash], "Reset Money");
     return 1;

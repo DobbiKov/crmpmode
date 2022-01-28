@@ -33,7 +33,7 @@ enum E_AC_INFO
 }
 new AntiCheatInfo[MAX_ANTICHEATS][E_AC_INFO];
 
-stock ResultCheat(p, r)
+stock _ResultCheat(p, r)
 {
 	if(GetPVarInt(p, "Cheater") == 1) return 1;
 
@@ -94,7 +94,7 @@ stock ResultCheat(p, r)
 	}
     return true;
 }
-stock ResultMessageCheat(p, r)
+stock _ResultMessageCheat(p, r)
 {
 	if(GetPVarInt(p, "Cheater") == 1) return 1;
 	
@@ -143,10 +143,10 @@ publics AntiCheatMess(playerid)
 	return 1;
 }
 
-// public OnCheatDetected(playerid, ip_address[], type, code)
-// {
-// 	new string[144];
-// 	format(string, sizeof(string), "ac: type - %d | code - %d", type, code);
-// 	SCMTA(red, string);
-// 	return ResultMessageCheat(playerid, code);
-// }
+publics OnCheatDetected(playerid, ip_address[], type, code)
+{
+	new string[144];
+	format(string, sizeof(string), "ac: type - %d | code - %d", type, code);
+	return SCMTA(red, string);
+	// return ResultMessageCheat(playerid, code);
+}

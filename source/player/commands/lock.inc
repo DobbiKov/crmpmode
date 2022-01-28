@@ -9,7 +9,7 @@ CMD:lock(playerid, params[])
     {
         case 1:
         {
-            if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "У вас нет личного транспорта, или он не заспавнен.");
+            if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "У Вас нет личного транспорта, или он не заспавнен.");
             
             new Float:car_x, Float: car_y, Float:car_z;
             GetVehiclePos(player_ownable_car[playerid], car_x, car_y, car_z);

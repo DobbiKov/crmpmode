@@ -128,7 +128,7 @@ public OnPlayerDisconnect(playerid, reason)
     {
         if(SpID[i] == playerid)
         {
-            SCM(i, red, "Игрок, за которым вы наблюдали покинул игру!");
+            SCM(i, red, "Игрок, за которым Вы наблюдали покинул игру!");
             TogglePlayerSpectating(i, 0);
         }
     }
@@ -219,13 +219,15 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		for(new id = SpID[playerid]; id > 0; id--)
 		{
+			if(id == SpID[playerid])
+				continue;
 			if(id < 0) continue;
 			if(PlayerInfo[id][pLogin] == false) continue;
-			switch(GetPlayerState(id))
-			{
-				case 1..3: {}
-				default: continue;
-			}
+			// switch(GetPlayerState(id))
+			// {
+			// 	case 1..3: {}
+			// 	default: continue;
+			// }
 
 			if(SpID[playerid] != INVALID_PLAYER_ID)
 				SpID[playerid] = INVALID_PLAYER_ID;
@@ -240,14 +242,16 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		for(new id = SpID[playerid]; id < MAX_PLAYERS; id++)
 		{
+			if(id == SpID[playerid])
+				continue;
 			if(id > MAX_PLAYERS) continue;
 
 			if(PlayerInfo[id][pLogin] == false) continue;
-			switch(GetPlayerState(id))
-			{
-				case 1..3: {}
-				default: continue;
-			}
+			// switch(GetPlayerState(id))
+			// {
+			// 	case 1..3: {}
+			// 	default: continue;
+			// }
 
 			if(SpID[playerid] != INVALID_PLAYER_ID)
 				SpID[playerid] = INVALID_PLAYER_ID;

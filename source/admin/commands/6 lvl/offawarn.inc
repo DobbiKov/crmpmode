@@ -59,7 +59,7 @@ publics Off_AWarn(playerid, to_player[])
             mysql_tquery(connects, string, "", "");
 
             new data[144];
-            format(data, sizeof(data), "%s снял вас с поста Администратора. Причина: 3 выговора", PlayerInfo[playerid][pName]);
+            format(data, sizeof(data), "%s снял Вас с поста Администратора. Причина: 3 выговора", PlayerInfo[playerid][pName]);
 
             format(string, sizeof(string), "UPDATE `accounts` SET `pOffUninviteMess` = '%s' WHERE `pName` = '%s'", data, to_player);
             mysql_tquery(connects, string, "", "");

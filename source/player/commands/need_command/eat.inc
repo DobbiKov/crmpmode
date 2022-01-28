@@ -1,6 +1,6 @@
 CMD:eat(playerid)
 {
-    if(PlayerInfo[playerid][pChips] <= 0) return SCM(playerid, red, "У вас нет чипс!");
+    if(PlayerInfo[playerid][pChips] <= 0) return SCM(playerid, red, "У Вас нет чипс!");
     if(PlayerInfo[playerid][pNeedEat] + 6 > 100) return SCM(playerid, red, "Вы не хотите есть!"); 
 
     PlayerInfo[playerid][pChips]--;

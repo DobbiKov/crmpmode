@@ -1,6 +1,6 @@
 CMD:healme(playerid)
 {
-    if(PlayerInfo[playerid][pHeal] <= 0) return SCM(playerid, red, "У вас нет аптечки!");
+    if(PlayerInfo[playerid][pHeal] <= 0) return SCM(playerid, red, "У Вас нет аптечки!");
 
     PlayerInfo[playerid][pHeal]--;
     new Float:health;

@@ -424,7 +424,7 @@ publics AutosalonCheckOwnableCarsAmount(playerid)
 	mysql_tquery(connects, query);
 
 	SCM(playerid, blue, "Поздравляем Вас с успешной покупкой транспорта");
-	SCM(playerid, blue, "Получить номера вы можете в Полиции ({"cyellow"}/mynumber{"cblue"})");
+	SCM(playerid, blue, "Получить номера Вы можете в Полиции ({"cyellow"}/mynumber{"cblue"})");
 	SCM(playerid, blue, "Если у Вас дом, то перезайдите. Если у Вас квартира то заберите транспорт в подъезде.");
 
 	for(new i = 0; i < auto_salon_td_size; i++) PlayerTextDrawHide(playerid, auto_salon_td[playerid][i]);
@@ -473,7 +473,7 @@ publics autosalon_get_last_car(playerid)
     }
     else
     {
-        return SCM(playerid, red, !"У вас нет личного странспорта.");
+        return SCM(playerid, red, !"У Вас нет личного странспорта.");
     }
     return 1;
 }

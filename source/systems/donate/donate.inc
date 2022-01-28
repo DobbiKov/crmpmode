@@ -26,7 +26,7 @@ new const
 CMD:donate(playerid)
 {
 	new string[1024], str[128];
-	strcat(string, "{"cblue"}Донат {ffffff}- это Ваше пожертвование нашему проекту реальными деньгами\nна развитие и поддержание серверов и обновлений. За это вы получаете кредиты.\n\n");
+	strcat(string, "{"cblue"}Донат {ffffff}- это Ваше пожертвование нашему проекту реальными деньгами\nна развитие и поддержание серверов и обновлений. За это Вы получаете кредиты.\n\n");
 	strcat(string, "{"cblue"}1 российский рубль = 1 кредиту\n\n");
 	strcat(string, "{FFFFFF}За кредиты можно приобретать на игровых серверах различные услуги, ценности, возможности,\n");
 	strcat(string, "а также переводить в игровые деньги {"cblue"}(1 кредит = 500 игровых рублей)\n\n\n");
@@ -77,15 +77,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				switch(listitem){
 					case 0: {
 						new string[256];
-						format(string, sizeof(string), "{ffffff}Введите количество кредитов, которое вы хотите перевести в рубли. В данный момент у вас: %d руб.", PlayerInfo[playerid][pDonate]);
+						format(string, sizeof(string), "{ffffff}Введите количество кредитов, которое Вы хотите перевести в рубли. В данный момент у вас: %d руб.", PlayerInfo[playerid][pDonate]);
 						SPD(playerid, D_DONATE_BUY_MONEY, DIALOG_STYLE_INPUT, !"{"cblue"}Донат", string, !"Далее", "Назад");
 					}
 					case 1:{//смена имени
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
-						SPD(playerid, D_DONATE_CHANGE_NAME, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
+						SPD(playerid, D_DONATE_CHANGE_NAME, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует норматиВам RolePlay, то Вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
 					}
 					case 2:{
-						if(PlayerInfo[playerid][pWarn] < 1) return SCM(playerid, red, !"У вас нет предупреждений.");
+						if(PlayerInfo[playerid][pWarn] < 1) return SCM(playerid, red, !"У Вас нет предупреждений.");
 						ShowPlayerDialog(playerid, D_DONATE_BUY_NULL_WARN, DIALOG_STYLE_MSGBOX, !"{"cblue"}Донат", !"{FFFFFF}Вы желаете снять все предупреждения за 100 кредитов?", !"Да", !"Нет");
 					}
 					case 3:{
@@ -93,7 +93,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowPlayerDialog(playerid, D_DONATE_BUY_NULL_WANTED, DIALOG_STYLE_MSGBOX, !"Донат", !"{ffffff}Вы желаете снять розыск за 50 кредитов?", !"Да", !"Нет");
 					}
 					case 4:{
-						if(PlayerInfo[playerid][pVoen] > 0) return SendClientMessage(playerid, red, !"У вас уже есть военный билет.");
+						if(PlayerInfo[playerid][pVoen] > 0) return SendClientMessage(playerid, red, !"У Вас уже есть военный билет.");
 						ShowPlayerDialog(playerid, D_DONATE_BUY_VOEN, DIALOG_STYLE_MSGBOX, !"{"cblue"}Донат", !"{ffffff}Вы желаете приобрести военный билет за 100 кредитов?", !"Да", !"Нет");
 					}
 					case 5:{//+1 exp
@@ -127,11 +127,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						", !"Купить", !"Назад");
 					}
 					case 9:{
-						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 						return ShowDonateCarNumberDialog(playerid);
 					}
 					case 10:{
-						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 						return ShowDonatePhoneNumberDialog(playerid);
 					}
 				}
@@ -143,7 +143,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:{
 						if(PlayerInfo[playerid][SKILL_SD_PISTOL] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_SD_PISTOL] = 100;
 						SetPlayerSkills(playerid);
@@ -153,7 +153,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:{
 						if(PlayerInfo[playerid][SKILL_DEAGLE] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_DEAGLE] = 100;
 						SetPlayerSkills(playerid);
@@ -163,7 +163,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 2:{
 						if(PlayerInfo[playerid][SKILL_SHOTGUN] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_SHOTGUN] = 100;
 						SetPlayerSkills(playerid);
@@ -173,7 +173,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:{
 						if(PlayerInfo[playerid][SKILL_MP5] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_MP5] = 100;
 						SetPlayerSkills(playerid);
@@ -183,7 +183,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 4:{
 						if(PlayerInfo[playerid][SKILL_AK_47] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_AK_47] = 100;
 						SetPlayerSkills(playerid);
@@ -193,7 +193,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 5:{
 						if(PlayerInfo[playerid][SKILL_M4] >= 100) return SCM(playerid, red, !"Вы уже достаточно овладели данным видом оружия.");
-						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_M4] = 100;
 						SetPlayerSkills(playerid);
@@ -204,7 +204,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 6:{
 						if(PlayerInfo[playerid][SKILL_M4] >= 100 && PlayerInfo[playerid][SKILL_MP5] == 100 && PlayerInfo[playerid][SKILL_AK_47] == 100 && PlayerInfo[playerid][SKILL_SHOTGUN] == 100 && PlayerInfo[playerid][SKILL_SD_PISTOL] == 100 && PlayerInfo[playerid][SKILL_DEAGLE] == 10) 
 							return SCM(playerid, red, !"Вы уже достаточно овладели всеми видами оружия.");
-						if(PlayerInfo[playerid][pDonate] < 200) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 200) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						PlayerInfo[playerid][SKILL_M4] = 100;
 						PlayerInfo[playerid][SKILL_AK_47] = 100;
@@ -225,21 +225,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else{
 				switch(listitem){
 					case 0:{
-						if(PlayerInfo[playerid][pDonate] < 60) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 60) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						SCM(playerid, blue, !"Вы успешно приобрели VIP на 7 дней за 60 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 7*86400;
 						SaveAccounts(playerid);
 					}
 					case 1:{
-						if(PlayerInfo[playerid][pDonate] < 200) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 200) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						SCM(playerid, blue, !"Вы успешно приобрели VIP на один месяц за 200 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 30*86400;
 						SaveAccounts(playerid);
 					}
 					case 2:{
-						if(PlayerInfo[playerid][pDonate] < 600) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+						if(PlayerInfo[playerid][pDonate] < 600) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 						SCM(playerid, blue, !"Вы успешно приобрели VIP на один год за 600 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 365*86400;
@@ -261,7 +261,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case D_DONATE_BUY_1_LVL:{
 			if(!response) return ShowDonateListDialog(playerid); else{
-				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 				PlayerInfo[playerid][pDonate] -= 100;
 				PlayerInfo[playerid][pLVL]++;
@@ -279,7 +279,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						mysql_tquery(connects, query, "", "");
 
 						PlayerInfo[playerid][pBCash] += 50000;
-						SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому вы и ваш Реферал получили по 50.000!");
+						SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому Вы и ваш Реферал получили по 50.000!");
 
 						if(IsPlayerConnected(GetPlayerID(PlayerInfo[playerid][pReferal])))
 						{
@@ -288,7 +288,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							format(stringer,512, "UPDATE `accounts` SET `pBCash` = '%d' WHERE `pName` = '%s'", PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash], PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pName]);
 							mysql_tquery(connects, stringer, "", "");
 
-							SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и вы получили по 50000!");
+							SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и Вы получили по 50000!");
 						}
 						else
 						{
@@ -303,7 +303,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case D_DONATE_BUY_1_EXP:{
 			if(!response) return ShowDonateListDialog(playerid); else{
-				if(PlayerInfo[playerid][pDonate] < 10) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+				if(PlayerInfo[playerid][pDonate] < 10) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 				PlayerInfo[playerid][pDonate] -= 10;
 				PlayerInfo[playerid][pExp]++;
@@ -324,7 +324,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							mysql_tquery(connects, query, "", "");
 
 							PlayerInfo[playerid][pBCash] += 50000;
-							SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому вы и ваш Реферал получили по 50.000!");
+							SCM(playerid, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому Вы и ваш Реферал получили по 50.000!");
 
 							if(IsPlayerConnected(GetPlayerID(PlayerInfo[playerid][pReferal])))
 							{
@@ -333,7 +333,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								format(stringer,512, "UPDATE `accounts` SET `pBCash` = '%d' WHERE `pName` = '%s'", PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pBCash], PlayerInfo[GetPlayerID(PlayerInfo[playerid][pReferal])][pName]);
 								mysql_tquery(connects, stringer, "", "");
 
-								SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и вы получили по 50000!");
+								SCM(GetPlayerID(PlayerInfo[playerid][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и Вы получили по 50000!");
 							}
 							else
 							{
@@ -349,7 +349,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case D_DONATE_BUY_NULL_WARN:{
 			if(!response) return ShowDonateListDialog(playerid); else{
-				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 				PlayerInfo[playerid][pDonate] -= 100;
 				SCM(playerid, blue, !"Вы сняли все предупреждения с аккаунта за 100 кредитов.");
@@ -364,7 +364,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case D_DONATE_BUY_NULL_WANTED:{
 			if(!response) return ShowDonateListDialog(playerid); else{
-				if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+				if(PlayerInfo[playerid][pDonate] < 50) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
 
 				PlayerInfo[playerid][pDonate] -= 50;
 				SetPlayerWanted(playerid, 0);
@@ -374,7 +374,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case D_DONATE_BUY_VOEN:{
 			if(!response) return ShowDonateListDialog(playerid); else{
-				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У вас нет такого количества кредитов.");
+				if(PlayerInfo[playerid][pDonate] < 100) return SCM(playerid, red, !"У Вас нет такого количества кредитов.");
 
 				PlayerInfo[playerid][pVoen] = 1;
 				PlayerInfo[playerid][pDonate] -= 100;
@@ -386,7 +386,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response) return ShowDonateListDialog(playerid);
 			else{
 				if(PlayerInfo[playerid][pDonate] < strval(inputtext))
-					return SCM(playerid, red, "У вас нет такого количество кредитов.");
+					return SCM(playerid, red, "У Вас нет такого количество кредитов.");
 
 				GiveMoney(playerid, strval(inputtext)*500, "Через донат");
 				PlayerInfo[playerid][pDonate] -= strval(inputtext);

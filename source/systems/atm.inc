@@ -106,7 +106,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     (
                         playerid, D_ATM_GET, DIALOG_STYLE_INPUT,
                         !"{"cblue"}Банкомат",
-                        !"{FFFFFF}Укажите сумму, которую вы желаете снять с вашего банковского счета:",
+                        !"{FFFFFF}Укажите сумму, которую Вы желаете снять с вашего банковского счета:",
                         !"Снять", !"Назад"
                     );                    
                     return 1;
@@ -131,7 +131,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     (
                         playerid, D_ATM_PUT, DIALOG_STYLE_INPUT,
                         !"{"cblue"}Банкомат",
-                        !"{FFFFFF}Укажите сумму, которую вы желаете положить на ваш банковский счет:",
+                        !"{FFFFFF}Укажите сумму, которую Вы желаете положить на ваш банковский счет:",
                         !"Положить", !"Назад"
                     );                  
                     return 1;
@@ -163,7 +163,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         (
                             playerid, D_ATM_GET, DIALOG_STYLE_INPUT,
                             !"{"cblue"}Банкомат",
-                            !"{FFFFFF}Укажите сумму, которую вы желаете снять с вашего банковского счета:",
+                            !"{FFFFFF}Укажите сумму, которую Вы желаете снять с вашего банковского счета:",
                             !"Снять", !"Назад"
                         );
                     }
@@ -173,7 +173,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         (
                             playerid, D_ATM_PUT, DIALOG_STYLE_INPUT,
                             !"{"cblue"}Банкомат",
-                            !"{FFFFFF}Укажите сумму, которую вы желаете положить на ваш банковский счет:",
+                            !"{FFFFFF}Укажите сумму, которую Вы желаете положить на ваш банковский счет:",
                             !"Положить", !"Назад"
                         );
                     }
@@ -202,7 +202,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 4:
                     {
-                        if(PlayerInfo[playerid][pFines] < 1) return SCM(playerid, red, "У вас нет неоплаченых штрафов.");
+                        if(PlayerInfo[playerid][pFines] < 1) return SCM(playerid, red, "У Вас нет неоплаченых штрафов.");
                         new string[256];
                         format
                         (
@@ -223,12 +223,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 5:
                     {
-                        if(PlayerInfo[playerid][pPhone] <= 0 || PlayerInfo[playerid][pPhoneNumber] <= 0) return SCM(playerid, red, "У вас нет телефона, либо сим-карты. Купите их в ближайшем 24/7.");
+                        if(PlayerInfo[playerid][pPhone] <= 0 || PlayerInfo[playerid][pPhoneNumber] <= 0) return SCM(playerid, red, "У Вас нет телефона, либо сим-карты. Купите их в ближайшем 24/7.");
                         SPD
                         (
                             playerid, D_ATM_PAY_PHONE_CASH, DIALOG_STYLE_INPUT,
                             !"{"cblue"}Банкомат",
-                            !"{FFFFFF}Укажите сумму, на коотрую вы хотите пополнить баланс телефона:",
+                            !"{FFFFFF}Укажите сумму, на коотрую Вы хотите пополнить баланс телефона:",
                             !"Пополнить", !"Назад"
                         );
                     }
@@ -271,7 +271,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     (
                         playerid, D_ATM_PAY_PHONE_CASH, DIALOG_STYLE_INPUT,
                         !"{"cblue"}Банкомат",
-                        !"{FFFFFF}Укажите сумму, на коотрую вы хотите пополнить баланс телефона:",
+                        !"{FFFFFF}Укажите сумму, на коотрую Вы хотите пополнить баланс телефона:",
                         !"Пополнить", !"Назад"
                     );  
                     return 1;                  
@@ -291,7 +291,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) ShowAtmDialog(playerid);
             else
             {
-                if(PlayerInfo[playerid][pCash] < PlayerInfo[playerid][pSumFines]) return SCM(playerid, red, !"У вас недостаточно средств.");
+                if(PlayerInfo[playerid][pCash] < PlayerInfo[playerid][pSumFines]) return SCM(playerid, red, !"У Вас недостаточно средств.");
 
                 GiveMoney(playerid, -PlayerInfo[playerid][pSumFines], "Оплата всех штрафов");
                 PlayerInfo[playerid][pFines] = 0;
@@ -328,7 +328,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new fine_id = GetPVarInt(playerid, "fine_id");
                 new fine = GetPVarInt(playerid, "fine"); 
 
-                if(PlayerInfo[playerid][pCash] < fine) return SCM(playerid, red, !"У вас недостаточно средств.");
+                if(PlayerInfo[playerid][pCash] < fine) return SCM(playerid, red, !"У Вас недостаточно средств.");
 
                 GiveMoney(playerid, -fine, "Оплата штрафа");
                 PlayerInfo[playerid][pFines]--;

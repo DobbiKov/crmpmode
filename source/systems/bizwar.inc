@@ -80,7 +80,7 @@ stock EndBizWar(){
             }
         }
 
-        format(string, sizeof(string), "[R] Вы проиграли, бизнесс %s [№%d] вам не пренадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
+        format(string, sizeof(string), "[R] Вы проиграли, бизнесс %s [№%d] Вам не пренадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
         SCMR(attackOpg, green, string);
 
         format(string, sizeof(string), "[R] Вы выиграли. Бизнесс %s [№%d] остается под крышей вашей ОПГ.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
@@ -100,7 +100,7 @@ stock EndBizWar(){
         format(string, sizeof(string), "[R] Вы одержали победу и теперь бизнесс %s [№%d] принадлежит вам.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
         SCMR(attackOpg, green, string);
 
-        format(string, sizeof(string), "[R] Вы проиграли. Бизнесс %s [№%d] более вам не принадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
+        format(string, sizeof(string), "[R] Вы проиграли. Бизнесс %s [№%d] более Вам не принадлежит.", business_params[ BusinessInfo[BizId][bType] ][bname], BusinessInfo[BizId][bID]);
         SCMR(protectOpg, green, string);     
     }
 

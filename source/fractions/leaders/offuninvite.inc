@@ -27,7 +27,7 @@ publics off_uninvite(playerid, to_player[], reason[])
         rang = cache_get_field_content_int(0, "pRang");
 
         if(PlayerInfo[playerid][pMember] != member) return SCM(playerid, red, "Игрок не состоит в вашей организации!");
-        if(rang >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Вы не можете уволить игрока выше вас по рангу!");
+        if(rang >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Вы не можете уволить игрока выше Вас по рангу!");
 
         format(string, sizeof(string), "Вы уволили игрока %s из организации. Причина: %s", to_player, reason);
         SCM(playerid, blue, string);
@@ -47,7 +47,7 @@ publics off_uninvite(playerid, to_player[], reason[])
         mysql_tquery(connects, string, "", "");
 
         new data[144];
-        format(data, sizeof(data), "%s %s уволил вас из организации %s offline. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], GetMember[ PlayerInfo[playerid][pMember] ], reason);
+        format(data, sizeof(data), "%s %s уволил Вас из организации %s offline. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], GetMember[ PlayerInfo[playerid][pMember] ], reason);
 
         format(string, sizeof(string), "UPDATE `accounts` SET `pOffUninviteMess` = '%s' WHERE `pName` = '%s'", data, to_player);
         mysql_tquery(connects, string, "", "");

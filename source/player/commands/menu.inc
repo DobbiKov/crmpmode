@@ -35,7 +35,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/gotome [id игрока] - конвоировать игрока\n"\
 		"/ungotome [id игрока] - перестать конвоировать игрока\n"\
 		"/box [id игрока] - одеть мешок на голову игрока\n"\
-		"/unbox [id игрока] - снять мешок с головы игрока\n"\
+		"/unbox [id игрока] - снять мешок с голоВы игрока\n"\
 		"/search [id игрока] - обыскать игрока\n"\
 		"/take [id игрока] - изьять предметы у игрока"
 	},
@@ -57,7 +57,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/gotome [id игрока] - конвоировать игрока\n"\
 		"/ungotome [id игрока] - перестать конвоировать игрока\n"\
 		"/box [id игрока] - одеть мешок на голову игрока\n"\
-		"/unbox [id игрока] - снять мешок с головы игрока\n"\
+		"/unbox [id игрока] - снять мешок с голоВы игрока\n"\
 		"/search [id игрока] - обыскать игрока\n"\
 		"/take [id игрока] - изьять предметы у игрока\n"\
 		"\n"\
@@ -97,7 +97,7 @@ new help_cmds_org_list[9][E_CMDS_ORG_STRUCT] =
 		"/tie [id игрока] - связать игрока\n"\
 		"/untie [id игрока] - развязать игрока\n"\
 		"/box [id игрока] - одеть мешок на голову игрока\n"\
-		"/unbox [id игрока] - снять мешок с головы игрока\n"\
+		"/unbox [id игрока] - снять мешок с голоВы игрока\n"\
 		"/sellgun [id игрока] [кол-во патронов] [цена] - продать оружие игроку\n"\
 		"/selldrugs [id игрока] [кол-во грам] [цена] - продать наркотики игроку\n"\
 		"/call 777 - заказать партию контрабанды\n"\
@@ -139,11 +139,11 @@ CMD:menu(playerid)
 }
 CMD:ask(playerid)
 {
-	return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если вы не нашли ответ на ваш вопрос, то вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация вам ответит в ближайшее время!", !"Далее", !"Назад");
+	return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
 }
 CMD:report(playerid)
 {
-	return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если вы заметили нарушителя, то здесь вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у вас есть доказательства, что он нарушил правила, \nто вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+	return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
 }
 
 stock ShowMenu(playerid)
@@ -174,7 +174,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1: SPD(playerid, 11, DIALOG_STYLE_LIST, "{"cblue"}Команды сервера", "{"cblue"}1. {FFFFFF}Команды организаций\n{"cblue"}2. {FFFFFF}Команды работ\n{"cblue"}3. {FFFFFF}Команды недвижимости\n{"cblue"}4. {FFFFFF}Команды общения\n{"cblue"}5. {FFFFFF}Команды остальные", "Далее", "Отмена");
 					case 2: SPD(playerid, 13, DIALOG_STYLE_LIST, "{"cblue"}Безопасность аккаунта", "{"cblue"}1. {FFFFFF}Смена пароля", "Далее", "Назад");
 					case 3: SPD(playerid, D_MENU_ASK_REP, DIALOG_STYLE_LIST, !"{"cblue"}Вопросы / жалобы на игроков", !"{"cblue"}1. {FFFFFF}Задать вопрос\n{"cblue"}2. {FFFFFF}Жалоба на игрока", !"Далее", !"Назад");
-					case 4: SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
+					case 4: SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует норматиВам RolePlay, то Вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
 					case 5:
 					{
 						stringer[0] = EOS;
@@ -186,7 +186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SPD(playerid, 10, DIALOG_STYLE_LIST, "{"cblue"}Персональные настройки", stringer, "Далее", "Назад");
 					}
 					case 6: cmd::donate(playerid);
-					//case 6: SPD(playerid, 12, DIALOG_STYLE_INPUT, "{"cblue"}Пожертвование денег", "{"cwhite"}Введите сумму, которую вы готовы пожертвовать на развитие области!", "Далее", "Назад");
+					//case 6: SPD(playerid, 12, DIALOG_STYLE_INPUT, "{"cblue"}Пожертвование денег", "{"cwhite"}Введите сумму, которую Вы готоВы пожертвовать на развитие области!", "Далее", "Назад");
 				}
 			}
 		}
@@ -194,9 +194,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				if(!strlen(inputtext)) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
-				if(IsTextInvalid(inputtext)) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
-				if(strlen(inputtext) < 6 || strlen(inputtext) > 24) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует нормативам RolePlay, то вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
+				if(!strlen(inputtext)) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует норматиВам RolePlay, то Вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
+				if(IsTextInvalid(inputtext)) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует норматиВам RolePlay, то Вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
+				if(strlen(inputtext) < 6 || strlen(inputtext) > 24) return SPD(playerid, 9, DIALOG_STYLE_INPUT, "{"cblue"}Смена ника", "{"cwhite"}Если ваш ник-нейм не соотвестует норматиВам RolePlay, то Вы можете его сменить.\n\nФормат: {"cblue"}Andrey_Sergeev, Ekaterina_Petrova", "Далее", "Отмена");
 				stringer[0] = EOS;
 				SetPVarString(playerid,"WantNickChange", inputtext);
 				format(stringer,128, "SELECT `pName` FROM `accounts` WHERE `pName` = '%s' LIMIT 1", inputtext);
@@ -240,9 +240,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if(response){
 							SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
 							{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
-							Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+							Узнать свой телеграм ID Вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
 							Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
-							{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+							{"cblue"}Примечание: {ffffff}Если Вы укажите неправильно telegramid, Вы не сможете воспользоватся функциями нашего бота.\
 							", !"Указать", !"Закрыть");
 						} else return 1;
 					}
@@ -254,18 +254,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(!strlen(inputtext)){
 					SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
 					{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
-					Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+					Узнать свой телеграм ID Вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
 					Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
-					{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+					{"cblue"}Примечание: {ffffff}Если Вы укажите неправильно telegramid, Вы не сможете воспользоватся функциями нашего бота.\
 					", !"Указать", !"Закрыть");
 					return 1;
 				}
 				if(!IsNumeric(inputtext)){
 					SPD(playerid, D_MENU_SET_TELEGRAM_ID, DIALOG_STYLE_INPUT, !"{"cblue"}Меня | Telegram", !"\
 					{ffffff}Укажите ваш телеграм ID, дабы потом воспользоватся функциями нашего бота.\n\
-					Узнать свой телеграм ID вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
+					Узнать свой телеграм ID Вы можете так же в нашем боте, воспользовавшись командой /get_my_id\n\
 					Ссылка на наш telegram bot: {"cblue"}t.me/unigva_rp_bot{ffffff}\n\n\
-					{"cblue"}Примечание: {ffffff}Если вы укажите неправильно telegramid, вы не сможете воспользоватся функциями нашего бота.\
+					{"cblue"}Примечание: {ffffff}Если Вы укажите неправильно telegramid, Вы не сможете воспользоватся функциями нашего бота.\
 					", !"Указать", !"Закрыть");
 					return 1;					
 				}
@@ -424,8 +424,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(response)
 			{
-				if(!strval(inputtext)) return SPD(playerid, 12, DIALOG_STYLE_INPUT, "{"cblue"}Пожертвование денег", "{"cwhite"}Введите сумму, которую вы готовы пожертвоать на развитие области!", "Далее", "Назад");
-				if(PlayerInfo[playerid][pCash] < 0 || strval(inputtext) > PlayerInfo[playerid][pCash]) return SCM(playerid, red, "У вас не достаточно денег.");
+				if(!strval(inputtext)) return SPD(playerid, 12, DIALOG_STYLE_INPUT, "{"cblue"}Пожертвование денег", "{"cwhite"}Введите сумму, которую Вы готоВы пожертвоать на развитие области!", "Далее", "Назад");
+				if(PlayerInfo[playerid][pCash] < 0 || strval(inputtext) > PlayerInfo[playerid][pCash]) return SCM(playerid, red, "У Вас не достаточно денег.");
 				PlayerInfo[playerid][pCash] -= strval(inputtext);
 			}
 		}
@@ -485,7 +485,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(string, sizeof(string), "UPDATE `accounts` SET `pKey` = MD5('%s') WHERE `pName` = '%s' LIMIT 1", PlayerInfo[playerid][pKey], PlayerInfo[playerid][pName]);
 				mysql_tquery(connects, string, "", "");
 
-				format(string, sizeof(string), "{"cblue"}Ваш новый пароль: {"cyellow"}%s{"cblue"}. Постарайтесь его не забыть! Если вы его забудете, то вы не сможете зайти на аккаунт!", PlayerInfo[playerid][pKey]);
+				format(string, sizeof(string), "{"cblue"}Ваш новый пароль: {"cyellow"}%s{"cblue"}. Постарайтесь его не забыть! Если Вы его забудете, то Вы не сможете зайти на аккаунт!", PlayerInfo[playerid][pKey]);
 				SCM(playerid, blue, string);
 			}
 		}
@@ -496,8 +496,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 		        switch(listitem)
 		        {
-		            case 0: SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если вы не нашли ответ на ваш вопрос, то вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация вам ответит в ближайшее время!", !"Далее", !"Назад");
-					case 1: SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если вы заметили нарушителя, то здесь вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у вас есть доказательства, что он нарушил правила, \nто вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+		            case 0: SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
+					case 1: SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
 				}
 		    }
 		}
@@ -517,7 +517,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    else
 			    {
 			        SCM(playerid, red, !"Слишком длинное сообщение");
-			        return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если вы не нашли ответ на ваш вопрос, то вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация вам ответит в ближайшее время!", !"Далее", !"Назад");
+			        return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
 			    }
 			}
 		}
@@ -537,7 +537,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    else
 			    {
 			        SCM(playerid, red, !"Слишком длинное сообщение");
-					return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если вы заметили нарушителя, то здесь вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у вас есть доказательства, что он нарушил правила, \nто вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+					return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
 			    }
 			}
 		}

@@ -262,9 +262,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 new h = GetPVarInt(playerid, "house_id");
-                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У Вас уже имеется жилье.");
                 if(HouseInfo[h][hOwned] == 1) return SCM(playerid, red, "Данным домом уже кто-то владеет.");
-                if(PlayerInfo[playerid][pCash] < HouseInfo[h][hPrice]) return SCM(playerid, red, "У вас недостаточно денег.");
+                if(PlayerInfo[playerid][pCash] < HouseInfo[h][hPrice]) return SCM(playerid, red, "У Вас недостаточно денег.");
 
                 GiveMoney(playerid, -HouseInfo[h][hPrice], "Покупка дома");
                 PlayerInfo[playerid][pHomeID] = HouseInfo[h][hID];
@@ -276,7 +276,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SPD
                 (
                     playerid, D_NULL, DIALOG_STYLE_MSGBOX,
-                    "{"cblue"}Покупка дома", "{ffffff}Поздравляем вас с успешной покупкой дома!", "Закрыть", ""
+                    "{"cblue"}Покупка дома", "{ffffff}Поздравляем Вас с успешной покупкой дома!", "Закрыть", ""
                 );
 
                 SaveHouse(h);
@@ -454,7 +454,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new h = GetPVarInt(playerid, "my_house_id");
                 new patr = strval(inputtext);  
 
-                if(PlayerInfo[playerid][pPatr] < patr) return SCM(playerid, red, "У вас нет столько пт.");
+                if(PlayerInfo[playerid][pPatr] < patr) return SCM(playerid, red, "У Вас нет столько пт.");
                 if(HouseInfo[h][hPatron] + patr > 3000) return SCM(playerid, red, "В шкаф дома не поместится столько пт.");    
 
                 HouseInfo[h][hPatron] += patr;
@@ -476,7 +476,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new h = GetPVarInt(playerid, "my_house_id");
                 new metall = strval(inputtext);  
 
-                if(PlayerInfo[playerid][pMetall] < metall) return SCM(playerid, red, "У вас нет столько металла");
+                if(PlayerInfo[playerid][pMetall] < metall) return SCM(playerid, red, "У Вас нет столько металла");
                 if(HouseInfo[h][hMetall] + metall > 1000) return SCM(playerid, red, "В шкаф дома не поместится столько металла");    
 
                 HouseInfo[h][hMetall] += metall;
@@ -498,7 +498,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new h = GetPVarInt(playerid, "my_house_id");
                 new drugs = strval(inputtext);  
 
-                if(PlayerInfo[playerid][pDrugs] < drugs) return SCM(playerid, red, "У вас нет столько наркотиков");
+                if(PlayerInfo[playerid][pDrugs] < drugs) return SCM(playerid, red, "У Вас нет столько наркотиков");
                 if(HouseInfo[h][hDrugs] + drugs > 1500) return SCM(playerid, red, "В шкаф дома не поместится столько наркотиков");    
 
                 HouseInfo[h][hDrugs] += drugs;
@@ -531,7 +531,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 CMD:home(playerid)
 {
-    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У вас нет дома.");
+    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У Вас нет дома.");
 
 	new text[380] = "{FFFFFF}";
 	new fmt_str[50], class[32];
@@ -654,7 +654,7 @@ CMD:sellhome(playerid)
 }
 CMD:sellmyhouse(playerid, params[])
 {
-    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У вас нет дома.");
+    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У Вас нет дома.");
     extract params -> new to_player, cash; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmyhouse [ID игрока] [цена]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
 
@@ -676,7 +676,7 @@ CMD:sellmyhouse(playerid, params[])
 
 CMD:use(playerid)
 {
-    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У вас нет дома.");
+    if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, "У Вас нет дома.");
 
     new h;
     foreach(new i : Allhouses) if(HouseInfo[i][hID] == PlayerInfo[playerid][pHomeID])

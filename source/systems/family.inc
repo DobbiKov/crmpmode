@@ -194,7 +194,7 @@ CMD:funinvite(playerid, params[])
     format(string, sizeof(string), "Вы исключили %s из семьи. Причина: %s", PlayerInfo[to_player][pName], reason);
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s %s исключил вас из семьи. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], reason);
+    format(string, sizeof(string), "%s %s исключил Вас из семьи. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], reason);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "[F] %s %s[%d] исключил %s[%d] из семьи. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, reason);
@@ -340,7 +340,7 @@ publics funinviteOFF(playerid, to_player[], reason[])
         format(string, sizeof(string), "[F] %s %s[%d] исключил %s из семьи оффлайн. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], playerid, to_player, reason);
         SCMF(PlayerInfo[playerid][pFamID], string);
 
-        format(string, sizeof(string), "%s %s исключил вас из семьи оффлайн. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], reason);
+        format(string, sizeof(string), "%s %s исключил Вас из семьи оффлайн. Причина: %s", fam_rang[ PlayerInfo[playerid][pFamRang] ], PlayerInfo[playerid][pName], reason);
 
         new query[528];
         format(query, sizeof(query), "UPDATE `accounts` SET `pFamID` = '-1', `pFamRang` = '0', `pFAMoffuninvite` = '%s' WHERE `pName` = '%s'", string, to_player);

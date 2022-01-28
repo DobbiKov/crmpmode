@@ -7,7 +7,7 @@ CMD:sellgun(playerid, params[])
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] == false) return PlayerOffLine(playerid);
 	if(!GetPlayerWeapon(playerid)) return SCM(playerid, red, "Возьмите в руку оружие, которое хотите продать!");
 	new ammo = GetPlayerAmmo(playerid);
-	if(ammo < patrons) return SCM(playerid, red, "У вас нет столько патронов!");
+	if(ammo < patrons) return SCM(playerid, red, "У Вас нет столько патронов!");
     if(PlayerInfo[to_player][pCash] < price) return SCM(playerid, red, "У игрока не достаточно денег!");
 
 	SetPVarInt(playerid, "weapon_id", GetPlayerWeapon(playerid));

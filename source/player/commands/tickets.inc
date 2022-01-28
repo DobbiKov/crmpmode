@@ -29,6 +29,6 @@ publics ShowFines(playerid)
 		SCM(playerid, red, "");
 		SCM(playerid, red, "Показаны 10 последних штрафов");
 	}
-	else SCM(playerid, red, "У вас нет неоплаченных штрафов");
+	else SCM(playerid, red, "У Вас нет неоплаченных штрафов");
 	return 1;
 }

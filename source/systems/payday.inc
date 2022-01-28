@@ -130,7 +130,7 @@ stock PayDayForPlayer(i)
 			mysql_tquery(connects, query, "", "");
 
 			PlayerInfo[i][pBCash] += 50000;
-			SCM(i, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому вы и ваш Реферал получили по 50.000!");
+			SCM(i, blue, !"Поздравляем! Вы достигли 5 уровня, поэтому Вы и ваш Реферал получили по 50.000!");
 
 			if(IsPlayerConnected(GetPlayerID(PlayerInfo[i][pReferal])))
 			{
@@ -139,7 +139,7 @@ stock PayDayForPlayer(i)
 				format(stringer,512, "UPDATE `accounts` SET `pBCash` = '%d' WHERE `pName` = '%s'", PlayerInfo[GetPlayerID(PlayerInfo[i][pReferal])][pBCash], PlayerInfo[GetPlayerID(PlayerInfo[i][pReferal])][pName]);
 				mysql_tquery(connects, stringer, "", "");
 
-				SCM(GetPlayerID(PlayerInfo[i][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и вы получили по 50000!");
+				SCM(GetPlayerID(PlayerInfo[i][pReferal]), blue, !"Поздравляем! Ваш реферал достиг 5 уровня и он и Вы получили по 50000!");
 			}
 			else
 			{

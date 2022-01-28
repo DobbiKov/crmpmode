@@ -186,7 +186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 1:
                     {
-                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У вас уже имеется жилье.");
+                        if(PlayerInfo[playerid][pHomeID] != -1 || PlayerInfo[playerid][pKvartID] != -1) return SCM(playerid, red, "У Вас уже имеется жилье.");
                         foreach(new i : Allkvart)
                         {
                             if(KvartInfo[i][kvart_pod_id] == player_in_podezd[playerid])
@@ -199,7 +199,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                     else if(KvartInfo[i][kvart_type] >= 3 && KvartInfo[i][kvart_type] <= 4) floor = 2;
                                     else if(KvartInfo[i][kvart_type] >= 5 && KvartInfo[i][kvart_type] <= 7) floor = 3;
 
-                                    format(string, sizeof(string), "{FFFFFF}Мы вам предлагаем арендовать квартиру №%d на %d этаже.\nСтоимоть аренды 2000 рублей.", KvartInfo[i][kvart_type]+1, floor);
+                                    format(string, sizeof(string), "{FFFFFF}Мы Вам предлагаем арендовать квартиру №%d на %d этаже.\nСтоимоть аренды 2000 рублей.", KvartInfo[i][kvart_type]+1, floor);
                                     SPD
                                     (
                                         playerid, D_BUY_KVART, DIALOG_STYLE_MSGBOX,
@@ -253,7 +253,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
 
                     new string[256];
-                    format(string, sizeof(string), "{FFFFFF}Ваша квартира оплачена на: %d/30 дней.\n\nНа какое количество дней вы хотите оплатить квартиру?", KvartInfo[h][kvart_days]);
+                    format(string, sizeof(string), "{FFFFFF}Ваша квартира оплачена на: %d/30 дней.\n\nНа какое количество дней Вы хотите оплатить квартиру?", KvartInfo[h][kvart_days]);
                     SPD
                     (
                         playerid, D_PAY_KVART, DIALOG_STYLE_INPUT,
@@ -288,7 +288,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         foreach(new h : Allkvart) if(KvartInfo[h][kvart_id] == PlayerInfo[playerid][pKvartID]) i = h;
 
                         new string[256];
-                        format(string, sizeof(string), "{FFFFFF}Ваша квартира оплачена на: %d/30 дней.\n\nНа какое количество дней вы хотите оплатить квартиру?", KvartInfo[i][kvart_days]);
+                        format(string, sizeof(string), "{FFFFFF}Ваша квартира оплачена на: %d/30 дней.\n\nНа какое количество дней Вы хотите оплатить квартиру?", KvartInfo[i][kvart_days]);
                         SPD
                         (
                             playerid, D_PAY_KVART, DIALOG_STYLE_INPUT,
@@ -340,7 +340,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 new i = GetPVarInt(playerid, "buy_kvart_id");
                 DeletePVar(playerid, "buy_kvart_id");
-                if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У вас недостаточно денег.");
+                if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У Вас недостаточно денег.");
                 if(KvartInfo[i][kvart_Owned] == 1) return SCM(playerid, red, !"Данной квартирой уже кто-то владеет.");
 
                 GiveMoney(playerid, -2000, "Аренда квартиры");
@@ -367,7 +367,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 (
                     playerid, D_NULL, DIALOG_STYLE_MSGBOX,
                     "{"cblue"}Покупка квартиры",
-                    "{FFFFFF}Поздравляем вас с успешной покупкой квартиры. Оплатить квартиру вы можете в подъезде у выхода.",
+                    "{FFFFFF}Поздравляем Вас с успешной покупкой квартиры. Оплатить квартиру Вы можете в подъезде у выхода.",
                     "Закрыть", ""
                 );
 

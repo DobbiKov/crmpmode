@@ -11,7 +11,7 @@ CMD:unlwarn(playerid, params[])
     new string[144];
     format(string, sizeof(string), "[A] %s[%d] снял 1 лидерский выговор у %s[%d] [%d|3]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, PlayerInfo[to_player][pWarnF]);
     SCMA(grey, string);
-    format(string, sizeof(string), "%s %s снял у вас 1 выговор. Теперь у вас %d выговоров!", GetRangAdmin[ PlayerInfo[playerid][bAdmin] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF]);
+    format(string, sizeof(string), "%s %s снял у Вас 1 выговор. Теперь у Вас %d выговоров!", GetRangAdmin[ PlayerInfo[playerid][bAdmin] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF]);
     SCM(to_player, white, string);
     
     return SaveAccounts(to_player);

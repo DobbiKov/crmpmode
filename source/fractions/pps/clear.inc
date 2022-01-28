@@ -14,7 +14,7 @@ CMD:clear(playerid, params[])
     format(string, sizeof(string), "%s %s[%d] сн€л 1 уровень розыска(%d) у %s[%d].", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), playerid, PlayerInfo[to_player][pWANTED], PlayerName(to_player), to_player);
     SCMPolice(blue, string);
 
-    format(string, sizeof(string), "%s %s[%d] сн€л с вас 1 уровень розыска", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), playerid);
+    format(string, sizeof(string), "%s %s[%d] сн€л с ¬ас 1 уровень розыска", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid), playerid);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "“еперь ваш уровень розыска: %d", PlayerInfo[to_player][pWANTED]);

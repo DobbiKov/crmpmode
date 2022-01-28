@@ -44,7 +44,7 @@ publics on_player_offjail(playerid, to_player[], time, reason[])
 		format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pJail` = '%d' WHERE `pName` = '%s' LIMIT 1", time*60, to_player);
 		mysql_tquery(connects, sql_str, "", "");
 
-		format(string, sizeof(string), "Администратор %s посадил вас оффлайн в деморган на %d минут. Прчина: %s", PlayerInfo[playerid][pName], time, reason);
+		format(string, sizeof(string), "Администратор %s посадил Вас оффлайн в деморган на %d минут. Прчина: %s", PlayerInfo[playerid][pName], time, reason);
 
 		format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pJailOffMess` = '%s' WHERE `pName` = '%s'", string, to_player);
 		mysql_tquery(connects, sql_str, "", "");

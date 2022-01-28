@@ -15,7 +15,7 @@ CMD:setint(playerid, params[])
     format(string, sizeof(string), "Вы изменили интерьер игроку %s", PlayerInfo[to_player][pName]);
     SCM(playerid, white, string);
 
-    format(string, sizeof(string), "Администратор %s изменил вам интерьер.", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s изменил Вам интерьер.", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
 
 

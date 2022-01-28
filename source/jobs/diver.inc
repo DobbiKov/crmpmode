@@ -178,7 +178,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			kolvo_job[playerid] += 2;
 			
 			SCM(playerid, yellow, "Вы подняли груз из затонувшего здания.");
-			SCM(playerid, yellow, "Теперь вы можете поднять еще груз, либо завершить работу.");
+			SCM(playerid, yellow, "Теперь Вы можете поднять еще груз, либо завершить работу.");
 			new string[128];
 			format(string, sizeof(string), "Всего ящиков перенесено: {"cyellow"}%d", kolvo_job[playerid]);
 			SCM(playerid, blue, string);

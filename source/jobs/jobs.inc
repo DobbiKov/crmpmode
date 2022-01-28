@@ -48,7 +48,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		                PlayerInfo[playerid][pJob] = Job_Bus;
 						SaveAccounts(playerid);
 		                SCM(playerid, blue, "Вы успешно устроились Водителем автобуса!");
-		                SCM(playerid, blue, "Узнать дополнительную информацию вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
+		                SCM(playerid, blue, "Узнать дополнительную информацию Вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
 		            }
 		            case 1:
 		            {
@@ -57,7 +57,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		                PlayerInfo[playerid][pJob] = Job_Taxi;
 		                SaveAccounts(playerid);
 		                SCM(playerid, blue, "Вы успешно устроились Водителем такси!");
-		                SCM(playerid, blue, "Узнать дополнительную информацию вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
+		                SCM(playerid, blue, "Узнать дополнительную информацию Вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
 		            }
 		            case 2:
 		            {
@@ -66,7 +66,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		                PlayerInfo[playerid][pJob] = Job_Car;
               			SaveAccounts(playerid);
 		                SCM(playerid, blue, "Вы успешно устроились Автомехаником!");
-		                SCM(playerid, blue, "Узнать дополнительную информацию вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
+		                SCM(playerid, blue, "Узнать дополнительную информацию Вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
 		            }
 		            case 3:
 		            {
@@ -75,7 +75,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		                PlayerInfo[playerid][pJob] = Job_Truck;
 	                	SaveAccounts(playerid);
 		                SCM(playerid, blue, "Вы успешно устроились Дальнобойщиком!");
-		                SCM(playerid, blue, "Узнать дополнительную информацию вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
+		                SCM(playerid, blue, "Узнать дополнительную информацию Вы сможете введя команды: {"cyellow"}/mm{"cblue"}, {"cyellow"}/help{"cblue"}");
           			}
 		        }
 		    }

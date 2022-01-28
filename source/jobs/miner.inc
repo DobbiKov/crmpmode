@@ -51,7 +51,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         }
 		if(IsPlayerInRangeOfPoint(playerid, 2.0, 2355.9548,2025.2953,15.9900))
 		{
-			SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое вы желаете приобрести:", "Далее", "Закрыть");
+			SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое Вы желаете приобрести:", "Далее", "Закрыть");
 		}
     }
 	#if	defined	miner__OnPlayerKeyStateChange
@@ -131,17 +131,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response) return 1;
 			else
 			{
-				if(!strlen(inputtext)) return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое вы желаете приобрести:", "Далее", "Закрыть");
-				if(!IsNumeric(inputtext)) return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое вы желаете приобрести:", "Далее", "Закрыть");
+				if(!strlen(inputtext)) return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое Вы желаете приобрести:", "Далее", "Закрыть");
+				if(!IsNumeric(inputtext)) return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое Вы желаете приобрести:", "Далее", "Закрыть");
 				if(PlayerInfo[playerid][pMetall] + strval(inputtext) > 100)
 				{
 					SCM(playerid, red, "Вы не сможете унести столько металла!");
-					return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое вы желаете приобрести:", "Далее", "Закрыть");
+					return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое Вы желаете приобрести:", "Далее", "Закрыть");
 				} 
 				if(PlayerInfo[playerid][pCash] < strval(inputtext) * 20)
 				{
-					SCM(playerid, red, "У вас нет столько денег!");
-					return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое вы желаете приобрести:", "Далее", "Закрыть");
+					SCM(playerid, red, "У Вас нет столько денег!");
+					return SPD(playerid, D_BUY_METALL, DIALOG_STYLE_INPUT, "{"cblue"}Покупка металла", "{FFFFFF}1 кг. металла стоит 20 рублей.\nУкажите количество металла, которое Вы желаете приобрести:", "Далее", "Закрыть");
 				}
 
 				PlayerInfo[playerid][pMetall] += strval(inputtext);
