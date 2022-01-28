@@ -16,7 +16,7 @@ CMD:givemoney(playerid, params[])
 
         new string[144];
 
-        format(string, sizeof(string), "{ffffff}Администратор %s выдал вам %d %d руб.", PlayerInfo[playerid][pName], count);
+        format(string, sizeof(string), "{ffffff}Администратор %s выдал Вам %d %d руб.", PlayerInfo[playerid][pName], count);
         SCM(to_player, white, string);
 
         format(string, sizeof(string), "{ffffff}Вы выдали игроку %s %d руб.", PlayerInfo[to_player][pName], count); 

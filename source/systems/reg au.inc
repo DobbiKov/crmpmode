@@ -42,7 +42,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(temp, sizeof(temp), "%s", inputtext);
 			    if(!strcmp(inputtext, PlayerInfo[playerid][pName], true))
 				{
-					 SCM(playerid, white, "Нельзя указывать собственный ник. Если вы не знаете других игроков нажмите кнопку 'Пропустить'");
+					 SCM(playerid, white, "Нельзя указывать собственный ник. Если Вы не знаете других игроков нажмите кнопку 'Пропустить'");
 					 return SPD(playerid,4,DIALOG_STYLE_INPUT,"{"cblue"}Приглашение от игрока", "{"cwhite"}Введите ник игрока, пригласившего Вас на сервер\nТак-же Вы можете ввести промокод, если таковой имеется", "Далее", "Пропустить");
 				}
 			    new string[65];
@@ -182,7 +182,7 @@ publics OnPlayerRegCheck(playerid)
 	{
 		for(new i = 0; i < 3; i++) TextDrawShowForPlayer(playerid, logotype_td[i]);
 	    SPD(playerid,D_REGISTER,DIALOG_STYLE_MSGBOX,"{"cblue"}Регистрация", "{"cwhite"}Добро пожаловать на {"cblue"}Unigva RolePlay{"cwhite"}\n\nВы впервые зашли на этот сервер и для начала игры,\
-		вам нужно пройти регистрацию.\nПроцесс регистрации не займет много времени.", "Далее", "Выйти");
+		Вам нужно пройти регистрацию.\nПроцесс регистрации не займет много времени.", "Далее", "Выйти");
 	}
 	return 1;
 }
@@ -207,7 +207,7 @@ publics CheckReferal(playerid, temp)
 	}
 	else
 	{
-	    SCM(playerid, white, "Такого игрока не существует. Если вы не знаете других игроков нажмите кнопку 'Пропустить'");
+	    SCM(playerid, white, "Такого игрока не существует. Если Вы не знаете других игроков нажмите кнопку 'Пропустить'");
 		return SPD(playerid,4,DIALOG_STYLE_INPUT,"{"cblue"}Приглашение от игрока", "{"cwhite"}Введите ник игрока, пригласившего Вас на сервер\nТак-же Вы можете ввести промокод, если таковой имеется", "Далее", "Пропустить");
 	}
 	return 1;
@@ -215,7 +215,7 @@ publics CheckReferal(playerid, temp)
 
 stock ShowServerPassDialog(playerid)
 {
-	SPD(playerid, D_SERVER_PASS, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Пароль от сервера", "{FFFFFF}Сервер запаролен.\nЕсли вы знаете пароль, то вы можете его ввести и зайти на сервер.\nВ противном случае, в данный момент на сервер вы зайти не можете!", "Далее", "Отмена");
+	SPD(playerid, D_SERVER_PASS, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Пароль от сервера", "{FFFFFF}Сервер запаролен.\nЕсли Вы знаете пароль, то Вы можете его ввести и зайти на сервер.\nВ противном случае, в данный момент на сервер Вы зайти не можете!", "Далее", "Отмена");
 	return 1;
 }
 
@@ -261,7 +261,7 @@ publics GetPlayerId_Register(playerid){
 stock RegStok(playerid)
 {
     SpawnPlayer(playerid);
-	SPD(playerid, D_GO_REG_TRAINING, DIALOG_STYLE_MSGBOX, "{"cblue"}Обучение", "{FFFFFF}Если вы на сервере впервые, то вы можете пройти обучение.\nВы желаете пройти обучение?", "Пройти", "Отмена");
+	SPD(playerid, D_GO_REG_TRAINING, DIALOG_STYLE_MSGBOX, "{"cblue"}Обучение", "{FFFFFF}Если Вы на сервере впервые, то Вы можете пройти обучение.\nВы желаете пройти обучение?", "Пройти", "Отмена");
 	return SetSpawnVokzal(playerid);
 }
 

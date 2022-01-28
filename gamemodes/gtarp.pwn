@@ -227,7 +227,7 @@ new player_second_timer[MAX_PLAYERS];
 new _restart_timer;
 
 
-//************ | МАССИВЫ | ************//
+//************ | МАССИВы | ************//
 
 //*********** | GOTOME CUFF ARREST | **********
 enum
@@ -1960,7 +1960,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    
   			SetPlayerWanted(playerid, 0);
 
-		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как вы были в розыске.");
+		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как Вы были в розыске.");
 		    SCM(playerid, red, string);
 		}
 		else
@@ -1980,7 +1980,7 @@ stock KillToHospital(&playerid, &killerid){
 	PlayerInfo[playerid][pHP] = 5.0;
 	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
 	{
-		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
+		GameTextForPlayer(killerid, "~r~Вы совершили убийство и были объявлены в розыск", 5000, 5);
 		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, ++PlayerInfo[killerid][pWANTED]);
 
 		format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
@@ -2024,7 +2024,7 @@ public OnPlayerText(playerid, text[])
 
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
-	    SCM(playerid, green, !"В данный момент у вас имеется блокировка чата. Время до сняти: /time");
+	    SCM(playerid, green, !"В данный момент у Вас имеется блокировка чата. Время до сняти: /time");
 	    SetPlayerChatBubble(playerid, "Пытается что-то сказать", red, 30.0, 5000);
 		return 0;
 	}
@@ -2086,7 +2086,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     time_zcar = gettime();
 	if( GetPVarInt(playerid, "key_anti_flood") > gettime())
 	{
- 		return SCM(playerid, red, "Не флудите. Иначе вы будете кикнуты.");
+ 		return SCM(playerid, red, "Не флудите. Иначе Вы будете кикнуты.");
 	}
 	SetPVarInt(playerid, "key_anti_flood", gettime()+1);
 	
@@ -2266,7 +2266,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	}
 	if(pickupid == HOSPITAL_PICK_EXIT)
 	{
-	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готовы вас выписать из больницы!");
+	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готоВы Вас выписать из больницы!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1973.9240,1603.3750,15.7700);
 	    SetPlayerFacingAngle(playerid, 274.2161);
@@ -2377,7 +2377,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	
 	if(pickupid == BATH_PICK_ENTER)
 	{
-	    if(GetPVarInt(playerid, "bath_buy") != 1) return SCM(playerid, red, "У вас нет абонемента в баню.");
+	    if(GetPVarInt(playerid, "bath_buy") != 1) return SCM(playerid, red, "У Вас нет абонемента в баню.");
 	    
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 636.8881,2309.2146,1504.3500);
@@ -2437,7 +2437,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_STREET_PICK)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1237.8195,1535.9994,2516.6799);
 	    SetPlayerFacingAngle(playerid, 175.8488);
@@ -2446,7 +2446,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_OFFICE_PICK)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 2413.3867,-1844.7305,21.8547);
 	    SetPlayerFacingAngle(playerid, 183.6358);
@@ -2455,7 +2455,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_GARAGE_PICK || pickupid == FSB_ROOF_PICK || pickupid == FSB_OFFICE_PICK_2)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 		ShowEnterDialog(playerid);
 	}
 	return 1;
@@ -3430,7 +3430,7 @@ publics PlayerSecondTimer(playerid)
 	        if(PlayerInfo[playerid][pMute] < 1)
 	        {
 	            PlayerInfo[playerid][pMute] = -1;
-	            SCM(playerid, green, !"Поздравляем! С вас снята затычка, больше не нарушайте правил сервера.");
+	            SCM(playerid, green, !"Поздравляем! С Вас снята затычка, больше не нарушайте правил сервера.");
 				SaveAccounts(playerid);
 	        }
 	    }
@@ -3547,7 +3547,7 @@ CMD:en(playerid)
 	if(GetPlayerVehicleID(playerid) == INVALID_VEHICLE_ID) return 1;
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return 1;
 	if(IsAVel(GetPlayerVehicleID(playerid))) return 1;
-	if(GetPVarInt(playerid, "TIME_ZAVEL") > gettime()) return SCM(playerid,  red, "Не флудите, или вы будете кикнуты.");
+	if(GetPVarInt(playerid, "TIME_ZAVEL") > gettime()) return SCM(playerid,  red, "Не флудите, или Вы будете кикнуты.");
 	if(vehicle[ GetPlayerVehicleID(playerid) ][veh_fuel] < 1.0) return SCM(playerid, grey, "В вашем транспорте нет бензина! Вызовите механика, или купите канистру на Заправочной Станции.");
 	new Float:veh_health;
 	GetVehicleHealth(GetPlayerVehicleID(playerid), veh_health);

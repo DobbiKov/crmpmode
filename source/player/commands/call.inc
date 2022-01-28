@@ -75,14 +75,14 @@ publics PlayerSecondTimer(playerid)
 CMD:call(playerid, params[])
 {
     if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
-        return SCM(playerid, red, !"В данный момент вы связаны!");
-    if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона, или сим-карты.");
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У вас стоит блокировка чата!");
+        return SCM(playerid, red, !"В данный момент Вы связаны!");
+    if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У Вас нет телефона, или сим-карты.");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У Вас стоит блокировка чата!");
     if(!strlen(params)) return Call(playerid);
     else
     {
         extract params -> new number; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /call [номер абонента]");
-        if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У вас нет телефона, или сим-карты.");
+        if(PlayerInfo[playerid][pPhoneNumber] < 1) return SCM(playerid, red, "У Вас нет телефона, или сим-карты.");
         if(PlayerInfo[playerid][pPhoneCash] < 10) return SCM(playerid, red, "На балансе телефона недостаточно средств.");
         if(PlayerInfo[playerid][pPhoneStatus] == 1) return SCM(playerid, red, "Ваш телефон выключен.");
         if(number == PlayerInfo[playerid][pPhoneNumber]) return SCM(playerid, red, "Вы ввели свой номер телефона.");
@@ -127,7 +127,7 @@ CMD:call(playerid, params[])
 CMD:togphone(playerid)
 {
     if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
-        return SCM(playerid, red, !"В данный момент вы связаны!");
+        return SCM(playerid, red, !"В данный момент Вы связаны!");
     if(PlayerInfo[playerid][pVIP] == 0) return SCM(playerid, red, "Данная функция доступна только VIP игрокам.");
     switch(PlayerInfo[playerid][pPhoneStatus])
     {
@@ -147,7 +147,7 @@ CMD:togphone(playerid)
 CMD:p(playerid)
 {
     if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
-        return SCM(playerid, red, !"В данный момент вы связаны!");
+        return SCM(playerid, red, !"В данный момент Вы связаны!");
     if(GetPVarInt(playerid, "me_called") == 1) return SCM(playerid, red, "Вы уже звоните кому-то.");
     if(prop_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
@@ -165,7 +165,7 @@ CMD:p(playerid)
 CMD:h(playerid)
 {
     if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
-        return SCM(playerid, red, !"В данный момент вы связаны!");
+        return SCM(playerid, red, !"В данный момент Вы связаны!");
     if(prop_called[playerid] == -1 && call_called[playerid] == -1) return SCM(playerid, red, "Вам никто не звонит.");
 
     new i;
@@ -227,7 +227,7 @@ public OnPlayerDisconnect(playerid, reason)
 CMD:calling(playerid)
 {
     if(GetPVarInt(playerid, "tied") == 1 || GetPVarInt(playerid, "cuffed") == 1)
-        return SCM(playerid, red, !"В данный момент вы связаны!");
+        return SCM(playerid, red, !"В данный момент Вы связаны!");
     new index;
     if(PlayerInfo[playerid][pJob] == Job_Car) index = 1;
     else if(PlayerInfo[playerid][pJob] == Job_Taxi) index = 2;
@@ -477,19 +477,19 @@ stock Call(playerid)
 }
 stock CallMech(playerid)
 {
-    return SPD(playerid, D_CALL_MECH, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать Механика", "{FFFFFF}Опишите место где вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
+    return SPD(playerid, D_CALL_MECH, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать Механика", "{FFFFFF}Опишите место где Вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
 }
 stock CallTaxi(playerid)
 {
-    return SPD(playerid, D_CALL_TAXI, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать такси", "{FFFFFF}Опишите место где вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
+    return SPD(playerid, D_CALL_TAXI, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать такси", "{FFFFFF}Опишите место где Вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
 }
 stock CallHeal(playerid)
 {
-    return SPD(playerid, D_CALL_HEAL, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать скорую помощь", "{FFFFFF}Опишите место где вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
+    return SPD(playerid, D_CALL_HEAL, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать скорую помощь", "{FFFFFF}Опишите место где Вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
 }
 stock CallPolice(playerid)
 {
-    return SPD(playerid, D_CALL_PPS, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать полицию", "{FFFFFF}Опишите место где вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
+    return SPD(playerid, D_CALL_PPS, DIALOG_STYLE_INPUT, "{"cblue"}Вызвать полицию", "{FFFFFF}Опишите место где Вы находитесь\n{AFAFAF}Сообщение должно состоять из 6 до 20 символов!", "Выызвать", "Назад");
 }
 stock ClearCalling(index, ind)
 {

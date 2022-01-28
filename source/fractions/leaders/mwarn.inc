@@ -11,7 +11,7 @@ CMD:mwarn(playerid, params[])
         return SCM(playerid, red, "Игрок не состоит в вашей организации!");
     if(!IsAFSB(playerid) && IsAFSB(to_player))
         return SCM(playerid, red, "Вы не можете выдать выговор данному игроку!");
-    if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше вас по рангу!");
+    if(PlayerInfo[to_player][pRang] > PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Игрок выше Вас по рангу!");
     if(PlayerInfo[to_player][pRang] == 10) 
         return SCM(playerid, red, "Вы не можете выдать выговор лидеру!");
     if(PlayerInfo[to_player][pMember] <= 0)
@@ -23,7 +23,7 @@ CMD:mwarn(playerid, params[])
     format(string, sizeof(string), "Вы сделали выговор %s [%d|3]. Причина: %s", PlayerInfo[to_player][pName], PlayerInfo[to_player][pWarnF], reason);
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s %s сделал вам выговор [%d|3]. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF], reason);
+    format(string, sizeof(string), "%s %s сделал Вам выговор [%d|3]. Причина: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pWarnF], reason);
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "%d", to_player);

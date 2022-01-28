@@ -63,7 +63,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if(!IsAFSB(playerid) && PlayerInfo[playerid][pMember] != TEAM_HEAL)
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
             }
         }
 	}

@@ -27,7 +27,7 @@ publics off_mwarn(playerid, to_player[])
         acc_id = cache_get_field_content_int(0, "pID");
 
         if(PlayerInfo[playerid][pMember] != member) return SCM(playerid, red, "Игрок не состоит в вашей организации!");
-        if(rang >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Вы не можете выать выговор игроку выше вас по рангу!");
+        if(rang >= PlayerInfo[playerid][pRang]) return SCM(playerid, red, "Вы не можете выать выговор игроку выше Вас по рангу!");
 
         OffMWarnMyTK(acc_id, member, "выговор оффлайн");
 
@@ -51,7 +51,7 @@ publics off_mwarn(playerid, to_player[])
             mysql_tquery(connects, string, "", "");
 
             new data[144];
-            format(data, sizeof(data), "%s %s уволил вас из организации %s offline. Причина: 3 Выговора", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], GetMember[ PlayerInfo[playerid][pMember] ]);
+            format(data, sizeof(data), "%s %s уволил Вас из организации %s offline. Причина: 3 Выговора", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], GetMember[ PlayerInfo[playerid][pMember] ]);
 
             format(string, sizeof(string), "UPDATE `accounts` SET `pOffUninviteMess` = '%s' WHERE `pName` = '%s'", data, to_player);
             mysql_tquery(connects, string, "", "");

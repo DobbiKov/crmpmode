@@ -23,7 +23,7 @@ CMD:bizwar(playerid){
         return 1;
     }
     new string[144];
-    format(string, sizeof(string), "{ffffff}Данный бизнесс принадлежит %s, вы желаете его захватить?", FractionInfo[BusinessInfo[bizId][bControl]]);
+    format(string, sizeof(string), "{ffffff}Данный бизнесс принадлежит %s, Вы желаете его захватить?", FractionInfo[BusinessInfo[bizId][bControl]]);
     ShowPlayerDialog
     (
         playerid, D_BIZ_WAR, DIALOG_STYLE_MSGBOX, !"{"cblue"}Захват бизнесса", string, !"Да", !"Нет"

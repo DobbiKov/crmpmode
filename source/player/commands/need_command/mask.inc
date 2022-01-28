@@ -2,8 +2,8 @@ new TMask[MAX_PLAYERS];
 
 CMD:mask(playerid)
 {
-    if(PlayerInfo[playerid][pMask] <= 0) return SCM(playerid, red, "У вас нет маски!");
-    if(GetPVarInt(playerid, "pMask") == 1) return SCM(playerid, red, "На вас уже надета маска!");
+    if(PlayerInfo[playerid][pMask] <= 0) return SCM(playerid, red, "У Вас нет маски!");
+    if(GetPVarInt(playerid, "pMask") == 1) return SCM(playerid, red, "На Вас уже надета маска!");
 
     PlayerInfo[playerid][pMask]--;
     SetPlayerColor(playerid, 0xFFFFFF00);
@@ -22,7 +22,7 @@ CMD:mask(playerid)
 
 // publics PlayerMask(playerid)
 // {
-//     SCM(playerid, blue, "10 минут прошло, с вас была снята маска.");
+//     SCM(playerid, blue, "10 минут прошло, с Вас была снята маска.");
 //     return TakeOffMask(playerid);
 // }
 

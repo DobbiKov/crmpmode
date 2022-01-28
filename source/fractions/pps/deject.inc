@@ -16,7 +16,7 @@ CMD:deject(playerid, params[])
     format(string, sizeof(string), "¬ы вытащили %s из авто", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s вытащил вас из авто", PlayerName(playerid));
+    format(string, sizeof(string), "%s вытащил ¬ас из авто", PlayerName(playerid));
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "выломал дверь автомобил€");

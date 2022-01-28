@@ -18,7 +18,7 @@ CMD:takelic(playerid, params[])
             format(string, sizeof(string), "¬ы отобрали права категории A у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории A", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
+            format(string, sizeof(string), "%s %s отобрал у ¬ас права категории A", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -31,7 +31,7 @@ CMD:takelic(playerid, params[])
             format(string, sizeof(string), "¬ы отобрали права категории B у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории B", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
+            format(string, sizeof(string), "%s %s отобрал у ¬ас права категории B", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -44,7 +44,7 @@ CMD:takelic(playerid, params[])
             format(string, sizeof(string), "¬ы отобрали права категории C у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории C", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
+            format(string, sizeof(string), "%s %s отобрал у ¬ас права категории C", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);
@@ -57,7 +57,7 @@ CMD:takelic(playerid, params[])
             format(string, sizeof(string), "¬ы отобрали права категории D у %s", PlayerName(to_player));
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "%s %s отобрал у вас права категории D", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
+            format(string, sizeof(string), "%s %s отобрал у ¬ас права категории D", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerName(playerid));
             SCM(to_player, blue, string);
 
             SaveAccounts(to_player);

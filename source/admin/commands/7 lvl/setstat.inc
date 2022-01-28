@@ -23,7 +23,7 @@ CMD:setstat(playerid, params[])
 			format(string, sizeof(string), "Вы установили %d денег игроку %s[%d]", count, PlayerInfo[to_player][pName], to_player);
 			SCM(playerid, white, string);
 			
-			format(string, sizeof(string), "Администратор %s[%d] установил вам %d рублей", PlayerInfo[playerid][pName], playerid, count);
+			format(string, sizeof(string), "Администратор %s[%d] установил Вам %d рублей", PlayerInfo[playerid][pName], playerid, count);
 			SCM(to_player, white, string);
 		}
 		case 2:
@@ -33,7 +33,7 @@ CMD:setstat(playerid, params[])
 			format(string, sizeof(string), "Вы установили %d денег в банке игроку %s[%d]", count, PlayerInfo[to_player][pName], to_player);
 			SCM(playerid, white, string);
 
-			format(string, sizeof(string), "Администратор %s[%d] установил вам %d рублей в банке", PlayerInfo[playerid][pName], playerid, count);
+			format(string, sizeof(string), "Администратор %s[%d] установил Вам %d рублей в банке", PlayerInfo[playerid][pName], playerid, count);
 			SCM(to_player, white, string);
 		}
 		case 3:
@@ -43,7 +43,7 @@ CMD:setstat(playerid, params[])
 			format(string, sizeof(string), "Вы установили %d LVL дальнобойщика игроку %s[%d]", count, PlayerInfo[to_player][pName], to_player);
 			SCM(playerid, white, string);
 
-			format(string, sizeof(string), "Администратор %s[%d] установил вам %d уровень дальнобойщика", PlayerInfo[playerid][pName], playerid, count);
+			format(string, sizeof(string), "Администратор %s[%d] установил Вам %d уровень дальнобойщика", PlayerInfo[playerid][pName], playerid, count);
 			SCM(to_player, white, string);
 		}
 		case 4:
@@ -53,7 +53,7 @@ CMD:setstat(playerid, params[])
 			format(string, sizeof(string), "Вы установили %d LVL игроку %s[%d]", count, PlayerInfo[to_player][pName], to_player);
 			SCM(playerid, white, string);
 
-			format(string, sizeof(string), "Администратор %s[%d] установил вам %d уровень", PlayerInfo[playerid][pName], playerid, count);
+			format(string, sizeof(string), "Администратор %s[%d] установил Вам %d уровень", PlayerInfo[playerid][pName], playerid, count);
 			SCM(to_player, white, string);
 		}
 		default:

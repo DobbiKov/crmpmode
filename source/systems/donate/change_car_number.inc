@@ -134,7 +134,7 @@ publics DonateCarNumberCheckAbility(playerid, newNumber[], times)
     new number[24] = "";
     strcat(number, newNumber);
 
-    if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+    if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
     if(!IsPlayerInAnyVehicle(playerid)
         || PlayerInfo[playerid][pCarID] == -1
         || GetPlayerVehicleID(playerid) != player_ownable_car[playerid]

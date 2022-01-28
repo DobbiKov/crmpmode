@@ -35,7 +35,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pCash] < 200)
 		        {
 		            RemovePlayerFromVehicle(playerid);
-		            return SCM(playerid, red, "У вас недостаточно денег!");
+		            return SCM(playerid, red, "У Вас недостаточно денег!");
 		        }
 
 		        GiveMoney(playerid, -200, "Аренда машины таксиста");
@@ -153,7 +153,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
                 (
                     playerid, D_AREND_TAXI_CAR, DIALOG_STYLE_MSGBOX,
                     "{"cblue"}Таксист | Аренда транспорта",
-                    "{FFFFFF}Аренда автомобиля составит {"cblue"}200 рублей{FFFFFF}.\nВы готовы арендовать транспорт в данный момент времени?",
+                    "{FFFFFF}Аренда автомобиля составит {"cblue"}200 рублей{FFFFFF}.\nВы готоВы арендовать транспорт в данный момент времени?",
                     "Да", "Нет"
                 );
             }
@@ -196,7 +196,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					if(PlayerInfo[playerid][pCash] < taxi_price[i])
 					{
 						RemovePlayerFromVehicle(playerid);
-						return SCM(playerid, red, "У вас недостаточно денег!");
+						return SCM(playerid, red, "У Вас недостаточно денег!");
 					}
 					else 
 					{
@@ -284,7 +284,7 @@ publics PublicTimerTaxi(playerid)
 				format(string, sizeof(string), "У вашего клиента закончились деньги!");
 				SCM(i, blue, string);
 
-				format(string, sizeof(string), "У вас закончились деньги!");
+				format(string, sizeof(string), "У Вас закончились деньги!");
 				SCM(playerid, blue, string);
 				return RemovePlayerFromVehicle(playerid);
 			}

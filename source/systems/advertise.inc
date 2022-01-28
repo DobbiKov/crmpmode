@@ -47,7 +47,7 @@ stock AdvertiseTwo()
 	SendClientMessageToAll(lightblue,"__________________________________________________________________________________________________________");
 	SendClientMessageToAll(lightblue,"                                                                                                          ");
     SendClientMessageToAll(blue,"Подписывайтесь на группу проекта: vk.com/unigva_crmp");
-    SendClientMessageToAll(blue,"Новости, мероприятия и конкурсы ожидают вас там");
+    SendClientMessageToAll(blue,"Новости, мероприятия и конкурсы ожидают Вас там");
     SendClientMessageToAll(lightblue,"__________________________________________________________________________________________________________");
 	SendClientMessageToAll(lightblue,"                                                                                                          ");
 }

@@ -8,7 +8,7 @@ CMD:resetgun(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] забрал всё оружие у игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s забрал у вас всё оружие", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s забрал у Вас всё оружие", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
     return 1;
 }

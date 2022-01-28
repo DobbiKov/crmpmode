@@ -74,7 +74,7 @@ stock ShowSmiGetMoneyDialog(playerid)
         string, 
         sizeof(string), 
         "{ffffff}В данный момент в банке СМИ лежит {"cblue"}%d {ffffff}руб.\n\
-        {ffffff}Сколько денег вы желаете снять?", smiMoney);
+        {ffffff}Сколько денег Вы желаете снять?", smiMoney);
     ShowPlayerDialog(
                     playerid, 
                     D_SMI_GET_MONEY, 
@@ -92,7 +92,7 @@ stock ShowSmiPutMoneyDialog(playerid)
         string, 
         sizeof(string), 
         "{ffffff}В данный момент в банке СМИ лежит {"cblue"}%d {ffffff}руб.\n\
-        {ffffff}Сколько денег вы желаете положить?", smiMoney);
+        {ffffff}Сколько денег Вы желаете положить?", smiMoney);
     ShowPlayerDialog(
                     playerid, 
                     D_SMI_PUT_MONEY, 
@@ -162,7 +162,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             new _money = strval(inputtext);
             if(_money > PlayerInfo[playerid][pCash])
             {
-                SCM(playerid, red, !"У вас нет столько денег!");
+                SCM(playerid, red, !"У Вас нет столько денег!");
                 return ShowSmiPutMoneyDialog(playerid);
             }
             GiveMoney(playerid, -_money, "Положил деньги на банк СМИ");
@@ -213,7 +213,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if(PlayerInfo[playerid][pMember] != TEAM_SMI && !IsAFSB(playerid))
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
             }
         }
 	}

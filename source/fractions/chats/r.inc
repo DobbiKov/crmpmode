@@ -1,7 +1,7 @@
 CMD:r(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pJob] == Job_None) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /r [Текст]");
 
@@ -20,7 +20,7 @@ CMD:r(playerid, params[])
 CMD:rb(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] < 1 && PlayerInfo[playerid][pJob] == Job_None) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rb [Текст]");
 
@@ -39,7 +39,7 @@ CMD:rfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
     if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /r");
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rfsb [Текст]");
 
@@ -56,7 +56,7 @@ CMD:rbfsb(playerid, params[])
 {
     if(!IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
     if(PlayerInfo[playerid][pMember] == TEAM_FSB) return SCM(playerid, red, "Вы не внедрились ни в одну из организаций, используйте обычный чат: /rb");
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rbfsb [Текст]");
 
@@ -72,7 +72,7 @@ CMD:d(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] < 1 || PlayerInfo[playerid][pRang] < 2) return YouCannotUseThisFunc(playerid);
     if(IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /d [Текст]");
 
@@ -89,7 +89,7 @@ CMD:db(playerid, params[])
 {
     if(PlayerInfo[playerid][pMember] < 1 || PlayerInfo[playerid][pRang] < 2) return YouCannotUseThisFunc(playerid);
     if(IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у вас блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /db [Текст]");
 

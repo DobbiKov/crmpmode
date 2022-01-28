@@ -12,7 +12,7 @@ CMD:nick(playerid, params[])
         format(string, sizeof(string), "Администратор %s кикнул игрока %s. Причина: NonRP ник-нейм", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName]);
         SCMTA(0xFF4530FF, string);
         
-        format(string, sizeof(string), "{FFFFFF}Вы были кикнуты с сервера, так как у вас NonRP ник-нейм!\n{FFFFFF}Поменяйте его и снова зайдите на сервер.\n{FFFFFF}Формат NickName'a: {"cblue"}Name_Surname\n{FFFFFF}Пример: {"cblue"}Eduard_Dobbikov{FFFFFF}, {"cblue"}Tatiana_Pilipiuk\n\n{FFFFFF}Что б выйти с сервера, пропишие команду {"cblue"}/q");
+        format(string, sizeof(string), "{FFFFFF}Вы были кикнуты с сервера, так как у Вас NonRP ник-нейм!\n{FFFFFF}Поменяйте его и снова зайдите на сервер.\n{FFFFFF}Формат NickName'a: {"cblue"}Name_Surname\n{FFFFFF}Пример: {"cblue"}Eduard_Dobbikov{FFFFFF}, {"cblue"}Tatiana_Pilipiuk\n\n{FFFFFF}Что б выйти с сервера, пропишие команду {"cblue"}/q");
         SPD(to_player, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}UNIGVA | Kick", string, "Закрыть", "");
     }
     else
@@ -20,7 +20,7 @@ CMD:nick(playerid, params[])
         format(string, sizeof(string), "[A] %s[%d] попросил игрока %s[%d] сменить NickName", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
         SCMA(grey, string);
 
-        format(string, sizeof(string), "Администратор %s попросил вас сменить NonRP NickName!");
+        format(string, sizeof(string), "Администратор %s попросил Вас сменить NonRP NickName!");
         SCM(to_player, white, string);
 
         format(string, sizeof(string), "{FFFFFF}Вам следует сменить NonRP ник-нейм!\n{FFFFFF}Что б сменить никнейм - введите команду /menu, затем выберете пункт 'Сменить NickName'.\n{FFFFFF}Формат NickName'a: {"cblue"}Name_Surname\n{FFFFFF}Пример: {"cblue"}Eduard_Dobbikov{FFFFFF}, {"cblue"}Tatiana_Pilipiuk\n\n{FFFFFF}Что б выйти с сервера, пропишие команду {"cblue"}/q");

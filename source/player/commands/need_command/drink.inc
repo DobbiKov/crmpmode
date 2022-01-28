@@ -1,6 +1,6 @@
 CMD:drink(playerid)
 {
-    if(PlayerInfo[playerid][pBeer] <= 0) return SCM(playerid, red, "У вас нет пива!");
+    if(PlayerInfo[playerid][pBeer] <= 0) return SCM(playerid, red, "У Вас нет пива!");
     if(PlayerInfo[playerid][pNeedDrink] + 10 > 100) return SCM(playerid, red, "Вы не хотите пить!");
 
     PlayerInfo[playerid][pBeer]--;

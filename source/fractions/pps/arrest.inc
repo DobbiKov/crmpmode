@@ -23,7 +23,7 @@ CMD:arrest(playerid, params[])
     format(string, sizeof(string), "%s %s посадил %s в тюрьму. И получил премию в размере %d рублей.", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], PlayerInfo[to_player][pName], PlayerInfo[to_player][pWANTED]*500);
     SCMPolice(blue, string);
 
-    format(string, sizeof(string), "%s посадил вас в тюрьму, так как вы были в розыске. Посмотреть время до выхода - /time", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "%s посадил Вас в тюрьму, так как Вы были в розыске. Посмотреть время до выхода - /time", PlayerInfo[playerid][pName]);
     SCM(to_player, blue, string);
 
     GiveMoney(playerid, PlayerInfo[to_player][pWANTED]*500, "Посадил преступника");

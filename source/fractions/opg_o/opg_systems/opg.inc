@@ -7,7 +7,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if(PlayerInfo[playerid][pMember] != TEAM_OREX && !IsAFSB(playerid))
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
             }
         }
         if(job_car[TEAM_SUN_CAR][0] <= vehicleid <= job_car[TEAM_SUN_CAR][1])
@@ -15,7 +15,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if(PlayerInfo[playerid][pMember] != TEAM_SUN && !IsAFSB(playerid))
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
             }
         }
 	}
@@ -58,7 +58,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if(IsPlayerInRangeOfPoint(playerid, 2.0, 2927.5752,994.5273,3.8847))
         {
             if(!IsAOpg(playerid)) return YouCannotUseThisFunc(playerid);
-            SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков вы хотите купить?", "Далее", "Отмена");
+            SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков Вы хотите купить?", "Далее", "Отмена");
         }
 
         if(IsPlayerInRangeOfPoint(playerid, 3.0,  1706.90, 1330.35, 12.72)){ // дверь опг солнце
@@ -122,10 +122,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return 1;
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков вы хотите купить?", "Далее", "Отмена");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков Вы хотите купить?", "Далее", "Отмена");
                 if(ALL_NARKO < strval(inputtext)) return SCM(playerid, red, "В порту нет столько наркотиков!");
-                if(PlayerInfo[playerid][pCash] < strval(inputtext)*500) return SCM(playerid, red, "У вас нет столько денег!");
-                if(strval(inputtext) < 1) return SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков вы хотите купить?", "Далее", "Отмена");
+                if(PlayerInfo[playerid][pCash] < strval(inputtext)*500) return SCM(playerid, red, "У Вас нет столько денег!");
+                if(strval(inputtext) < 1) return SPD(playerid, D_BUY_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Покупка наркотиков", "{"cblue"}1 гр. {FFFFFF}наркотиков стоит {"cblue"}500 рублей{FFFFFF}.\nКакое количество наркотиков Вы хотите купить?", "Далее", "Отмена");
                 
                 if(!CanPlayerGetAmountDrugs(playerid, strval(inputtext)))
                     return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
@@ -147,18 +147,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 switch(listitem)
                 {
-                    case 0: return SPD(playerid, D_SKLAD_OPG_TAKE_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое вы хотите взять:", "Далее", "Назад");
-                    case 1: return SPD(playerid, D_SKLAD_OPG_PUT_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое вы хотите положить:", "Далее", "Назад");
-                    case 2: return SPD(playerid, D_SKLAD_OPG_TAKE_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Металл", "{FFFFFF}Введите количество патронов, какое вы хотите взять:", "Далее", "Назад");
-                    case 3: return SPD(playerid, D_SKLAD_OPG_PUT_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Металл", "{FFFFFF}Введите количество патронов, какое вы хотите положить:", "Далее", "Назад");
-                    case 4: return SPD(playerid, D_SKLAD_OPG_TAKE_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Наркотики", "{FFFFFF}Введите количество патронов, какое вы хотите взять:", "Далее", "Назад");
-                    case 5: return SPD(playerid, D_SKLAD_OPG_PUT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Наркотики", "{FFFFFF}Введите количество патронов, какое вы хотите положить:", "Далее", "Назад");
+                    case 0: return SPD(playerid, D_SKLAD_OPG_TAKE_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое Вы хотите взять:", "Далее", "Назад");
+                    case 1: return SPD(playerid, D_SKLAD_OPG_PUT_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое Вы хотите положить:", "Далее", "Назад");
+                    case 2: return SPD(playerid, D_SKLAD_OPG_TAKE_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Металл", "{FFFFFF}Введите количество патронов, какое Вы хотите взять:", "Далее", "Назад");
+                    case 3: return SPD(playerid, D_SKLAD_OPG_PUT_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Металл", "{FFFFFF}Введите количество патронов, какое Вы хотите положить:", "Далее", "Назад");
+                    case 4: return SPD(playerid, D_SKLAD_OPG_TAKE_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Наркотики", "{FFFFFF}Введите количество патронов, какое Вы хотите взять:", "Далее", "Назад");
+                    case 5: return SPD(playerid, D_SKLAD_OPG_PUT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Наркотики", "{FFFFFF}Введите количество патронов, какое Вы хотите положить:", "Далее", "Назад");
                     case 6: 
                     {
                         if(PlayerInfo[playerid][pRang] < 10) return YouCannotUseThisFunc(playerid);
-                        return SPD(playerid, D_SKLAD_OPG_TAKE_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Деньги", "{FFFFFF}Введите количество денег, какое вы хотите взять:", "Далее", "Назад");
+                        return SPD(playerid, D_SKLAD_OPG_TAKE_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Деньги", "{FFFFFF}Введите количество денег, какое Вы хотите взять:", "Далее", "Назад");
                     }
-                    case 7: return SPD(playerid, D_SKLAD_OPG_PUT_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Деньги", "{FFFFFF}Введите количество денег, какое вы хотите положить:", "Далее", "Назад");
+                    case 7: return SPD(playerid, D_SKLAD_OPG_PUT_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Деньги", "{FFFFFF}Введите количество денег, какое Вы хотите положить:", "Далее", "Назад");
                 }
             }
         }
@@ -167,7 +167,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое вы хотите взять:", "Далее", "Назад");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое Вы хотите взять:", "Далее", "Назад");
                 if((PlayerInfo[playerid][pPatr] + strval(inputtext)) > 600) return SCM(playerid, red, "Вы не унесете столько патронов!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX)
@@ -195,7 +195,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество металла, какое вы хотите взять:", "Далее", "Назад");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество металла, какое Вы хотите взять:", "Далее", "Назад");
                 if((PlayerInfo[playerid][pMetall] + strval(inputtext)) > 100) return SCM(playerid, red, "Вы не унесете столько металла!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX)
@@ -223,7 +223,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество наркотиков, какое вы хотите взять:", "Далее", "Назад");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество наркотиков, какое Вы хотите взять:", "Далее", "Назад");
 
                 if(!CanPlayerGetAmountDrugs(playerid, strval(inputtext)))
                     return SCM(playerid, red, !"Вы не можете унести столько наркотиков!");
@@ -253,7 +253,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество денег, какое вы хотите взять:", "Далее", "Назад");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_TAKE_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество денег, какое Вы хотите взять:", "Далее", "Назад");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX)
                 {
@@ -280,8 +280,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое вы хотите положить:", "Далее", "Назад");
-                if(PlayerInfo[playerid][pPatr] < strval(inputtext)) return SCM(playerid, red, "У вас нет столько патронов!");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество патронов, какое Вы хотите положить:", "Далее", "Назад");
+                if(PlayerInfo[playerid][pPatr] < strval(inputtext)) return SCM(playerid, red, "У Вас нет столько патронов!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX) OPG_O_PATRON += strval(inputtext);
                 else if(PlayerInfo[playerid][pMember] == TEAM_SUN) OPG_S_PATRON += strval(inputtext);
@@ -298,8 +298,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество металла, какое вы хотите положить:", "Далее", "Назад");
-                if(PlayerInfo[playerid][pMetall] < strval(inputtext)) return SCM(playerid, red, "У вас нет столько металла!");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество металла, какое Вы хотите положить:", "Далее", "Назад");
+                if(PlayerInfo[playerid][pMetall] < strval(inputtext)) return SCM(playerid, red, "У Вас нет столько металла!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX) OPG_O_METALL += strval(inputtext);
                 else if(PlayerInfo[playerid][pMember] == TEAM_SUN) OPG_S_METALL += strval(inputtext);
@@ -316,8 +316,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество наркотиков, какое вы хотите положить:", "Далее", "Назад");
-                if(PlayerInfo[playerid][pDrugs] < strval(inputtext)) return SCM(playerid, red, "У вас нет столько наркотиков!");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество наркотиков, какое Вы хотите положить:", "Далее", "Назад");
+                if(PlayerInfo[playerid][pDrugs] < strval(inputtext)) return SCM(playerid, red, "У Вас нет столько наркотиков!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX) OPG_O_DRUGS += strval(inputtext);
                 else if(PlayerInfo[playerid][pMember] == TEAM_SUN) OPG_S_DRUGS += strval(inputtext);
@@ -334,8 +334,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return ShowSkladOpg(playerid);
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество денег, какое вы хотите положить:", "Далее", "Назад");
-                if(PlayerInfo[playerid][pCash] < strval(inputtext)) return SCM(playerid, red, "У вас нет столько денег!");
+                if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_SKLAD_OPG_PUT_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад | Патроны", "{FFFFFF}Введите количество денег, какое Вы хотите положить:", "Далее", "Назад");
+                if(PlayerInfo[playerid][pCash] < strval(inputtext)) return SCM(playerid, red, "У Вас нет столько денег!");
 
                 if(PlayerInfo[playerid][pMember] == TEAM_OREX) OPG_O_MONEY += strval(inputtext);
                 else if(PlayerInfo[playerid][pMember] == TEAM_SUN) OPG_S_MONEY += strval(inputtext);

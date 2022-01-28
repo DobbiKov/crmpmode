@@ -30,7 +30,7 @@ CMD:unmute(playerid, params[])
 	format(fmt_query, sizeof fmt_query, "Администратор %s снял затычку с игрока %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName]);
 	SCMTA(0xFF4530FF, fmt_query);
 
-	format(fmt_query, sizeof fmt_query, "Администратор %s снял с вас затычку", PlayerInfo[playerid][pName]);
+	format(fmt_query, sizeof fmt_query, "Администратор %s снял с Вас затычку", PlayerInfo[playerid][pName]);
 	SCM(to_player, green, fmt_query);
 
 	SaveAccounts(playerid);

@@ -604,7 +604,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 2:
 		            {
-		                SPD(playerid, D_SET_XDAY, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | XDAY", "{FFFFFF}Здесь вы можете установить XДень! Если вы ничего не введете, то XДень станет 1!", "Далее", "Назад");
+		                SPD(playerid, D_SET_XDAY, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | XDAY", "{FFFFFF}Здесь Вы можете установить XДень! Если Вы ничего не введете, то XДень станет 1!", "Далее", "Назад");
 		            }
 		            case 3:
 		            {
@@ -612,7 +612,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 4:
 		            {
-		                SPD(playerid, D_SET_SERVER_NAME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Название сервера", "{FFFFFF}Здесь вы можете установить название сервера.", "Далее", "Назад");
+		                SPD(playerid, D_SET_SERVER_NAME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Название сервера", "{FFFFFF}Здесь Вы можете установить название сервера.", "Далее", "Назад");
 		            }
 		            case 5:
 		            {
@@ -980,7 +980,7 @@ publics all_admins(playerid)
 }
 stock ShowSetServerPass(playerid)
 {
-	return SPD(playerid, D_SET_SERVER_PASS, DIALOG_STYLE_INPUT, !"{"cblue"}UNIGVA | Установить пароль на сервер", "{FFFFFF}Здесь вы можете установить пароль на сервер,\nесли вы хотите убрать пароль сервера, то просто оствьте строку пустой!", "Далее", "Назад");
+	return SPD(playerid, D_SET_SERVER_PASS, DIALOG_STYLE_INPUT, !"{"cblue"}UNIGVA | Установить пароль на сервер", "{FFFFFF}Здесь Вы можете установить пароль на сервер,\nесли Вы хотите убрать пароль сервера, то просто оствьте строку пустой!", "Далее", "Назад");
 }
 stock ShowSetNakazania(playerid)
 {
@@ -1064,13 +1064,13 @@ stock ShowOrgRepositories(playerid)
 stock ShowSetArmyMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металла вы хотите установить Армии? Сейчас на складе армии %d кг. металла.", REPOSITORY_ARMY_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металла Вы хотите установить Армии? Сейчас на складе армии %d кг. металла.", REPOSITORY_ARMY_METALL);
 	return SPD(playerid, D_SET_ARMY_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад Армии | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetArmyPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить Армии? Сейчас на складе армии %d патронов.", REPOSITORY_ARMY_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить Армии? Сейчас на складе армии %d патронов.", REPOSITORY_ARMY_PATRON);
 	return SPD(playerid, D_SET_ARMY_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад Армии | Патроны", string, "Далее", "Закрыть");
 }
 
@@ -1078,56 +1078,56 @@ stock ShowSetArmyPatr(playerid)
 stock ShowSetOpgOMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металл вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d кг металла.", OPG_O_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металл Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d кг металла.", OPG_O_METALL);
 	return SPD(playerid, D_SET_OPG_O_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgOPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d патронов.", OPG_O_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d патронов.", OPG_O_PATRON);
 	return SPD(playerid, D_SET_OPG_O_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Патроны", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgODrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d гр. наркотиков.", OPG_O_DRUGS);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d гр. наркотиков.", OPG_O_DRUGS);
 	return SPD(playerid, D_SET_OPG_O_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Наркотики", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgOMoney(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество денег вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d руб..", OPG_O_MONEY);
+	format(string, sizeof(string), "{FFFFFF}Какое количество денег Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d руб..", OPG_O_MONEY);
 	return SPD(playerid, D_SET_OPG_O_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Деньги", string, "Далее", "Закрыть");
 }
 
 stock ShowSetOpgSMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металл вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d кг. металла.", OPG_S_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металл Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d кг. металла.", OPG_S_METALL);
 	return SPD(playerid, D_SET_OPG_S_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d патронов.", OPG_S_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d патронов.", OPG_S_PATRON);
 	return SPD(playerid, D_SET_OPG_S_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Патроны", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSDrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d гр. наркотиков.", OPG_S_DRUGS);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d гр. наркотиков.", OPG_S_DRUGS);
 	return SPD(playerid, D_SET_OPG_S_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Наркотики", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSMoney(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество денег вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d руб..", OPG_S_MONEY);
+	format(string, sizeof(string), "{FFFFFF}Какое количество денег Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d руб..", OPG_S_MONEY);
 	return SPD(playerid, D_SET_OPG_S_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Денег", string, "Далее", "Закрыть");
 }
 stock ShowSetPortDrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить в порту Сейчас в порту %d гр. наркотиков.", ALL_NARKO);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить в порту Сейчас в порту %d гр. наркотиков.", ALL_NARKO);
 	return SPD(playerid, D_SET_PORT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Порт | Наркотики", string, "Далее", "Закрыть");
 }
 

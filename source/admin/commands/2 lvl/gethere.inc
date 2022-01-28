@@ -19,7 +19,7 @@ CMD:gethere(playerid, params[])
     format(string, sizeof(string), "{"cgrey"}[A] %s[%d] телепортировал к себе игрока %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "{FFFFFF}Администратор %s телепортировал вас к себе", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "{FFFFFF}Администратор %s телепортировал Вас к себе", PlayerInfo[playerid][pName]);
 	SCM(to_player, grey, string);
 	return 1;
 }

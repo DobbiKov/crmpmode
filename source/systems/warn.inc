@@ -11,7 +11,7 @@ publics CheckWarn(playerid)
 		    format(string, sizeof(string), "DELETE FROM `unwarn` WHERE `Nick` = '%s'", PlayerInfo[playerid][pName]);
 		    mysql_tquery(connects, string, "", "");
 
-		    SCM(playerid, green, "Поздравляем! С вас было снято одно предупреждение.");
+		    SCM(playerid, green, "Поздравляем! С Вас было снято одно предупреждение.");
 
 		    PlayerInfo[playerid][pWarn]--;
 		    if(PlayerInfo[playerid][pWarn] > 0)
@@ -27,7 +27,7 @@ publics CheckWarn(playerid)
 			{
 			    format(string, sizeof(string), "\
 				{FFFFFF}В данный моментна вашем аккаунте имееться предупреждение!\n\n\
-				Это значит, что вы не можете вступать в организации, покупать/продавать дома/бизнессы.\n\n\
+				Это значит, что Вы не можете вступать в организации, покупать/продавать дома/бизнессы.\n\n\
 				Дата снятия предупреждения: {"cblue"}%s", date("%dd/%mm/%yyyy {FFFFFF}Время: {"cblue"}%hh:%ii:%ss", unwarndate));
 				SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Предупреждение", string, "Закрыть", "");
 			}
@@ -281,8 +281,8 @@ CMD:warn(playerid, params[])
 			{FFFFFF}Ник Администратора:\t\t{"cblue"}%s\n\
 			{FFFFFF}Причина:\t\t\t{"cblue"}%s\n\
 			{FFFFFF}Дата выдачи:\t\t\t{"cblue"}%s\n\n\
-			{FFFFFF}Если вы не согласны с наказанием,\n\
-		 	вы можете написать жалобу на наш форум!\n\n\
+			{FFFFFF}Если Вы не согласны с наказанием,\n\
+		 	Вы можете написать жалобу на наш форум!\n\n\
 		 	Введите {"cblue"}/q {FFFFFF}что б выйти.", PlayerInfo[i][pName], PlayerInfo[playerid][pName], reason, data);
 			SPD(i, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Предупреждение", string, "Закрыть", "");
             return NewKick(i);
@@ -300,7 +300,7 @@ CMD:unwarn(playerid, params[])
     new string[256];
 	if(PlayerInfo[playerid][bAdmin] < 4)
 	{
-	    if(PlayerInfo[playerid][pWarn] == 0) return SCM(playerid, red, "У вас нет предупреждений.");
+	    if(PlayerInfo[playerid][pWarn] == 0) return SCM(playerid, red, "У Вас нет предупреждений.");
 
 	    SetPVarInt(playerid, "cmd_unwarn", 1);
  		format(string, sizeof(string), "SELECT * FROM `unwarn` WHERE `Nick` = '%s'", PlayerInfo[playerid][pName]);

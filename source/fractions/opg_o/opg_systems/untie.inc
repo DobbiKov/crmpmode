@@ -19,7 +19,7 @@ CMD:untie(playerid, params[])
     format(string, sizeof(string), "Вы развязали руки %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s развязал вам руки", PlayerName(playerid));
+    format(string, sizeof(string), "%s развязал Вам руки", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "развязывает руки %s", PlayerName(to_player));

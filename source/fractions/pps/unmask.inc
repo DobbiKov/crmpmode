@@ -3,7 +3,7 @@ CMD:unmask(playerid, params[])
     if(!strlen(params))
     {
         if(GetPVarInt(playerid, "pMask") != 1)
-            return SCM(playerid, red, !"На вас не надета маска!");
+            return SCM(playerid, red, !"На Вас не надета маска!");
         new string[128];
         SCM(playerid, blue, "Вы сняли с себя маску");
         
@@ -31,7 +31,7 @@ CMD:unmask(playerid, params[])
     format(string, sizeof(string), "Вы сняли маску с %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s снял с вас маску", PlayerName(playerid));
+    format(string, sizeof(string), "%s снял с Вас маску", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "снял маску с %s", PlayerName(to_player));

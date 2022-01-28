@@ -128,7 +128,7 @@ public OnPlayerDisconnect(playerid, reason)
     {
         if(SpID[i] == playerid)
         {
-            SCM(i, red, "Игрок, за которым вы наблюдали покинул игру!");
+            SCM(i, red, "Игрок, за которым Вы наблюдали покинул игру!");
             TogglePlayerSpectating(i, 0);
         }
     }

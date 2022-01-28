@@ -3,7 +3,7 @@ CMD:b(playerid, params[])
 CMD:n(playerid, params[])
 {
     if(sscanf(params, "s[100]", params[0])) return SCM(playerid, white, "{"cblue"}• [Подсказка]{"cwhite"}: Используйте /b [текст]");
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, green, !"В данный момент у вас мут. Время до сняти мута: /time");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, green, !"В данный момент у Вас мут. Время до сняти мута: /time");
 	new string[128];
 	format(string, sizeof(string), "(( %s[%d]: %s ))", PlayerName(playerid), playerid, params[0]);
 	ProxDetector(30.0, playerid, string, 0xCCCC99FF, 0xCCCC99FF, 0xCCCC99FF, 0xCCCC99FF, 0xCCCC99FF);

@@ -26,7 +26,7 @@ CMD:box(playerid, params[])
     format(string, sizeof(string), "Вы одели мешок на голову %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s одел вам мешок на голову", PlayerName(playerid));
+    format(string, sizeof(string), "%s одел Вам мешок на голову", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "одевает мешок на голову %s", PlayerName(to_player));
@@ -59,13 +59,13 @@ CMD:unbox(playerid, params[])
 
   
     new string[128];
-    format(string, sizeof(string), "Вы сняли мешок с головы %s", PlayerName(to_player));
+    format(string, sizeof(string), "Вы сняли мешок с голоВы %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
     format(string, sizeof(string), "%s снял мешок с вашей головы", PlayerName(playerid));
     SCM(to_player, blue, string);
     
-    format(string, sizeof(string), "снимает мешок с головы %s", PlayerName(to_player));
+    format(string, sizeof(string), "снимает мешок с голоВы %s", PlayerName(to_player));
     cmd::me(playerid, string);
 
     for(new i = 0; i <= 4; i++)

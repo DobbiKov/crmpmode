@@ -22,7 +22,7 @@ CMD:tie(playerid, params[])
     format(string, sizeof(string), "Вы связали руки %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s связал вам руки", PlayerName(playerid));
+    format(string, sizeof(string), "%s связал Вам руки", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "связывает руки %s", PlayerName(to_player));

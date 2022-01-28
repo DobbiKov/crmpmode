@@ -1,7 +1,7 @@
 CMD:leave(playerid)
 {
     if(PlayerInfo[playerid][pVIP] <= 0) 
-        return SCM(playerid, red, !"У вас нет VIP статуса!");
+        return SCM(playerid, red, !"У Вас нет VIP статуса!");
     if(PlayerInfo[playerid][pMember] <= 0)
         return SCM(playerid, red, !"Вы не состоите в организации!");
     if(PlayerInfo[playerid][pRang] >= 10)

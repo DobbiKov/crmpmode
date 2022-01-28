@@ -97,10 +97,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    {
 						if(arend_truck == 1) return SCM(playerid, red, "Парковка занята! Подождите немного пожалуйста.");
 				        if(PlayerInfo[playerid][pTruckLVL] < 0) return SCM(playerid, red, "Ваш навык дальнобойщика мал!");
-				        if(PlayerInfo[playerid][pCash] < 800) return SCM(playerid, red, "У вас не достаточно денег!");
+				        if(PlayerInfo[playerid][pCash] < 800) return SCM(playerid, red, "У Вас не достаточно денег!");
 				        
 						SCM(playerid, green, "Вы успешно арендовали фургон!");
-						SCM(playerid, green, "У вас есть 45 секунд, что б сесть в транспорт!");
+						SCM(playerid, green, "У Вас есть 45 секунд, что б сесть в транспорт!");
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
 						TruckTimer[playerid] = 45;
@@ -116,10 +116,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    {
 						if(arend_truck == 1) return SCM(playerid, red, "Парковка занята! Подождите немного пожалуйста.");
         				if(PlayerInfo[playerid][pTruckLVL] < 5) return SCM(playerid, red, "Ваш навык дальнобойщика мал!");
-				        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У вас не достаточно денег!");
+				        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У Вас не достаточно денег!");
 				        
 						SCM(playerid, green, "Вы успешно арендовали фуру!");
-						SCM(playerid, green, "У вас есть 45 секунд, что б сесть в транспорт!");
+						SCM(playerid, green, "У Вас есть 45 секунд, что б сесть в транспорт!");
 						TruckTimer[playerid] = 45;
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
@@ -134,10 +134,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    {
 						if(arend_truck == 1) return SCM(playerid, red, "Парковка занята! Подождите немного пожалуйста.");
         				if(PlayerInfo[playerid][pTruckLVL] < 10) return SCM(playerid, red, "Ваш навык дальнобойщика мал!");
-				        if(PlayerInfo[playerid][pCash] < 4500) return SCM(playerid, red, "У вас не достаточно денег!");
+				        if(PlayerInfo[playerid][pCash] < 4500) return SCM(playerid, red, "У Вас не достаточно денег!");
 				        
 						SCM(playerid, green, "Вы успешно арендовали фуру!");
-						SCM(playerid, green, "У вас есть 45 секунд, что б сесть в транспорт!");
+						SCM(playerid, green, "У Вас есть 45 секунд, что б сесть в транспорт!");
 						TruckTimer[playerid] = 45;
 						SetPlayerRaceCheckpoint(playerid, 0, 1782.5551,2298.8601,16.4054, 1782.5551,2298.8601,16.4054, 10.0);
 						pCheckpoint[playerid] = CP_SIT_IN_TRUCK;
@@ -240,7 +240,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[i] && GetPlayerVehicleID(playerid) != player_job_vehicle_created[playerid])
 			{
 				RemovePlayerFromVehicle(playerid);
-				return SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+				return SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
 			}
 		}
 		if(GetPlayerVehicleID(playerid) == player_job_vehicle_created[playerid] && PlayerInfo[playerid][pJob] == Job_Truck)
@@ -384,7 +384,7 @@ publics PlayerSecondTimer(playerid)
 
 publics EndJobTrucker(playerid)
 {
-	SCM(playerid, red, "К сожалению, вы не успели сесть в грузовикк!");
+	SCM(playerid, red, "К сожалению, Вы не успели сесть в грузовикк!");
 	if(player_job_vehicle_created[playerid] != -1)
 		DestroyVehicle(player_job_vehicle_created[playerid]);
 	if(player_job_vehicle_created_2[playerid] != -1)

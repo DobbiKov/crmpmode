@@ -12,7 +12,7 @@ CMD:fill(playerid)
         SetPVarInt(playerid, "fill_biz_id", b);
 
         new fmt_dialog[256];
-        format(fmt_dialog, sizeof(fmt_dialog), "{ffffff}Введите количество литров, которым вы хотите заправить авто.\nСтоимость {"cblue"}1 л. {ffffff}бензина составляет {"cblue"}%d рублей{ffffff}.", BusinessInfo[b][bFillPrice]);
+        format(fmt_dialog, sizeof(fmt_dialog), "{ffffff}Введите количество литров, которым Вы хотите заправить авто.\nСтоимость {"cblue"}1 л. {ffffff}бензина составляет {"cblue"}%d рублей{ffffff}.", BusinessInfo[b][bFillPrice]);
 
         return SPD(playerid, D_FILL, DIALOG_STYLE_INPUT, "{"cblue"}Заправка авто", fmt_dialog, "Далее", "Отмена");
     }
@@ -29,9 +29,9 @@ CMD:buyk(playerid)
         b = i;
         SetPVarInt(playerid, "fill_biz_id", b);
 
-        if(PlayerInfo[playerid][pCash] < BusinessInfo[b][bFillPrice]*20) return SCM(playerid, red, "У вас не достаточно денег!");
+        if(PlayerInfo[playerid][pCash] < BusinessInfo[b][bFillPrice]*20) return SCM(playerid, red, "У Вас не достаточно денег!");
         if(GetPVarInt(playerid, "have_jerrican") > 0)
-            return SCM(playerid, red, !"У вас уже есть канистра!");
+            return SCM(playerid, red, !"У Вас уже есть канистра!");
 
         GiveMoney(playerid, -BusinessInfo[b][bFillPrice]*20, "Покупка канисты");
 
@@ -60,7 +60,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new vehicleid = GetPlayerVehicleID(playerid);
                 if( vehicle[vehicleid][veh_fuel] + strval(inputtext) > 100.0) return SCM(playerid, red, "В бензобак вашего автомобиля не поместится столько бензина.");
 
-                if(PlayerInfo[playerid][pCash] < strval(inputtext)*BusinessInfo[b][bFillPrice]) return SCM(playerid, red, "У вас не достаточно денег!");
+                if(PlayerInfo[playerid][pCash] < strval(inputtext)*BusinessInfo[b][bFillPrice]) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                 vehicle[vehicleid][veh_fuel] = vehicle[vehicleid][veh_fuel] + strval(inputtext);
                 GiveMoney(playerid, -(strval(inputtext)*BusinessInfo[b][bFillPrice]), "Покупка бензина");

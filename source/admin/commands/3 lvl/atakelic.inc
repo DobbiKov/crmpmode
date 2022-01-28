@@ -18,7 +18,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали права категории A у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас права категории A", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас права категории A", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал права категории A у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -34,7 +34,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали права категории B у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас права категории B", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас права категории B", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал права категории B у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -50,7 +50,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали права категории C у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас права категории C", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас права категории C", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал права категории C у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -66,7 +66,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали права категории D у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас права категории D", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас права категории D", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал права категории D у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -82,7 +82,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали лицензию на бизнесс у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас лицензию на бизнесс", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас лицензию на бизнесс", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал лицензию на бизнесс у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -98,7 +98,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали лицензию на полёты у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас лицензию на полёты", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас лицензию на полёты", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал лицензию на полёты у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);
@@ -114,7 +114,7 @@ CMD:atakelic(playerid, params[])
             format(string, sizeof(string), "Вы отобрали лицензию на оружие у %s", PlayerInfo[to_player][pName]);
             SCM(playerid, blue, string);
 
-            format(string, sizeof(string), "Администратор %s отобрал у вас лицензию на оружие", PlayerInfo[playerid][pName]);
+            format(string, sizeof(string), "Администратор %s отобрал у Вас лицензию на оружие", PlayerInfo[playerid][pName]);
             SCM(to_player, blue, string);
 
             format(string, sizeof(string), "[A] %s[%d] отобрал лицензию на оружие у %s[%d]", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player);

@@ -44,7 +44,7 @@ publics on_player_offmute(playerid, to_player[], time, reason[])
 		format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pMute` = '%d' WHERE `pName` = '%s' LIMIT 1", time*60, to_player);
 		mysql_tquery(connects, sql_str, "", "");
 
-		format(string, sizeof(string), "Администратор %s поставил вам затычку оффлайн на %d минут. Прчина: %s", PlayerInfo[playerid][pName], time, reason);
+		format(string, sizeof(string), "Администратор %s поставил Вам затычку оффлайн на %d минут. Прчина: %s", PlayerInfo[playerid][pName], time, reason);
 
 		format(sql_str, sizeof(sql_str), "UPDATE `accounts` SET `pMuteOffMess` = '%s' WHERE `pName` = '%s'", string, to_player);
 		mysql_tquery(connects, sql_str, "", "");

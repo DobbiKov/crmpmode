@@ -12,7 +12,7 @@ CMD:agivevoen(playerid, params[])
     format(string, sizeof(string), "Вы выдали военный билет игроку %s", PlayerInfo[to_player][pName]);
     SCM(playerid, white, string);
 
-    format(string, sizeof(string), "Администратор %s выдал вам военный билет.", PlayerInfo[playerid][pName]);
+    format(string, sizeof(string), "Администратор %s выдал Вам военный билет.", PlayerInfo[playerid][pName]);
     SCM(to_player, white, string);
 
     return PlayerInfo[to_player][pVoen] = 1;

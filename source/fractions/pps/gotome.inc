@@ -76,7 +76,7 @@ CMD:gotome(playerid, params[])
     format(string, sizeof(string), "Вы начали конвоировать %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s начал вас конвоировать", PlayerName(playerid));
+    format(string, sizeof(string), "%s начал Вас конвоировать", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "начал конвоировать %s", PlayerName(to_player));
@@ -109,7 +109,7 @@ CMD:ungotome(playerid, params[])
     format(string, sizeof(string), "Вы перестали конвоировать %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s перестал вас конвоировать", PlayerName(playerid));
+    format(string, sizeof(string), "%s перестал Вас конвоировать", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "перестал конвоировать %s", PlayerName(to_player));

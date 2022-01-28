@@ -20,7 +20,7 @@ CMD:setplayerskin(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] поставил постоянныйй скин(%d) игроку %s[%d]", PlayerInfo[playerid][pName], playerid, skin, PlayerInfo[to_player][pName], to_player);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s поставил вам постоянный скин(%d)", PlayerInfo[playerid][pName], skin);
+    format(string, sizeof(string), "Администратор %s поставил Вам постоянный скин(%d)", PlayerInfo[playerid][pName], skin);
     SCM(to_player, white, string);
     return 1;
 }

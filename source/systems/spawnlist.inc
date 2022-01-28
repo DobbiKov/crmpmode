@@ -21,7 +21,7 @@ stock SetSpawnAtHome(playerid)
 {
 	if(PlayerInfo[playerid][pHomeID] == -1)
 	{
-		SCM(playerid, red, "У вас нет дома.");
+		SCM(playerid, red, "У Вас нет дома.");
 		return SpawnList(playerid);
 	}
 	new h;
@@ -42,7 +42,7 @@ stock SetSpawnAtKvartira(playerid)
 {
 	if(PlayerInfo[playerid][pKvartID] == -1)
 	{
-		SCM(playerid, red, "У вас нет квартиры.");
+		SCM(playerid, red, "У Вас нет квартиры.");
 		return SpawnList(playerid);
 	}
     SpawnPlayer(playerid);
