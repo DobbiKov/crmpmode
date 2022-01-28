@@ -132,6 +132,7 @@ CMD:mm(playerid)
     return cmd::menu(playerid);
 CMD:mn(playerid)
     return cmd::menu(playerid);
+
 CMD:menu(playerid)
 {
     ShowMenu(playerid);
@@ -139,11 +140,11 @@ CMD:menu(playerid)
 }
 CMD:ask(playerid)
 {
-	return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
+	return ShowAskDialog(playerid);
 }
 CMD:report(playerid)
 {
-	return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+	return ShowReportDialog(playerid);
 }
 
 stock ShowMenu(playerid)
@@ -496,8 +497,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 		        switch(listitem)
 		        {
-		            case 0: SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
-					case 1: SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+		            case 0: ShowAskDialog(playerid);
+					case 1: ShowReportDialog(playerid);
 				}
 		    }
 		}
@@ -517,7 +518,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    else
 			    {
 			        SCM(playerid, red, !"Слишком длинное сообщение");
-			        return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Задать вопрос", !"{FFFFFF}На большинство ваших вопросов есть ответы, напшите - {"cblue"}/help {"cwhite"}и почитайте, если Вы не нашли ответ на ваш вопрос, то Вы можете его тут задать!\n\nПожалуйста, напишите всё кратко и четко и администрация Вам ответит в ближайшее время!", !"Далее", !"Назад");
+			        return ShowAskDialog(playerid);
 			    }
 			}
 		}
@@ -537,7 +538,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    else
 			    {
 			        SCM(playerid, red, !"Слишком длинное сообщение");
-					return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Подать жалобу", !"{FFFFFF}Если Вы заметили нарушителя, то здесь Вы можете на него подать жалобу!\n\nПожалуйста напишите ID нарушителя и кртако опишите его нарушение.\nВ случае, если нарушитель {"cred"}оффлайн {FFFFFF}, но у Вас есть доказательства, что он нарушил правила, \nто Вы можете подать жалобу на нашем форуме.", !"Далее", !"Назад");
+					return ShowReportDialog(playerid);
 			    }
 			}
 		}
@@ -558,3 +559,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 #if	defined	menu__OnDialogResponse
 	forward menu__OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 #endif
+
+stock ShowAskDialog(playerid)
+{
+	return SPD(playerid, D_MENU_ASK, DIALOG_STYLE_INPUT, !"{"cblue"}Вопрос", !"{FFFFFF}Введите свой вопрос для агентов поддержки сервера\nОн должен быть кратким и ясным", !"Далее", !"Назад");
+}
+
+stock ShowReportDialog(playerid)
+{
+	return SPD(playerid, D_MENU_REP, DIALOG_STYLE_INPUT, !"{"cblue"}Жалоба", !"{FFFFFF}Введите свою жалобу для администрации сервера.\nОна должна быть краткой и ясной,\nобязательно укажите {"cblue"}ID нарушителя {ffffff}и {"cblue"}причину жалобы{ffffff}.", !"Далее", !"Назад");
+}
