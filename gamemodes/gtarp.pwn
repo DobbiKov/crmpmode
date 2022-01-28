@@ -2671,6 +2671,9 @@ publics UpdateSpeedometr(playerid)
 
 		format(info,sizeof(info), "%d L.", floatround(vehicle[GetPlayerVehicleID(playerid)][veh_fuel], floatround_round));
 		PlayerTextDrawSetString(playerid,speed_td[playerid][4],info);
+
+		if(SpeedVehicle(playerid) > 3)
+			CheckArendCarEN(playerid);
 		
         if(vehicle[GetPlayerVehicleID(playerid)][veh_limit] > 0.0)
         {
@@ -3567,6 +3570,7 @@ CMD:en(playerid)
 	if(GetPlayerVehicleID(playerid) == INVALID_VEHICLE_ID) return 1;
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return 1;
 	if(IsAVel(GetPlayerVehicleID(playerid))) return 1;
+	CheckArendCarEN(playerid);
 	if(GetPVarInt(playerid, "TIME_ZAVEL") > gettime()) return SCM(playerid,  red, "Не флудите, или Вы будете кикнуты.");
 	if(vehicle[ GetPlayerVehicleID(playerid) ][veh_fuel] < 1.0) return SCM(playerid, grey, "В вашем транспорте нет бензина! Вызовите механика, или купите канистру на Заправочной Станции.");
 	new Float:veh_health;
@@ -3585,6 +3589,42 @@ CMD:en(playerid)
 	if(engine) Engines{GetPlayerVehicleID(playerid)} = true;
 	else Engines{GetPlayerVehicleID(playerid)} = false;
 	SetPVarInt(playerid, "TIME_ZAVEL", gettime()+2);
+	return 1;
+}
+
+stock CheckArendCarEN(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	if(job_car[BUS_CAR][0] <= vehicleid <= job_car[BUS_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
+	if(job_car[MECHANIC_CAR][0] <= vehicleid <= job_car[MECHANIC_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
+	if(job_car[TAXI_CAR][0] <= vehicleid <= job_car[TAXI_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
 	return 1;
 }
 
