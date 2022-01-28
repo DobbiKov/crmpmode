@@ -52,7 +52,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case D_DONATE_PHONE_NUMBER:
 		{
 			if(!response) return ShowDonateListDialog(playerid);
-            if(PlayerInfo[playerid][pPhone] == 0) return SCM(playerid, red, "У вас нет телефона!"); 
+            if(PlayerInfo[playerid][pPhone] == 0) return SCM(playerid, red, "У Вас нет телефона!"); 
 			return ShowDonatPhoneNumberInputDialog(playerid);
 		}
         case D_DONATE_INPUT_PHONE_NUMBER:
@@ -113,7 +113,7 @@ publics DonatePhoneNumberCheckAbility(playerid, newNumber, times)
 
     new number = newNumber;
 
-    if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У вас недостаточно кредитов.");
+    if(PlayerInfo[playerid][pDonate] < 500) return SCM(playerid, red, !"У Вас недостаточно кредитов.");
     
     PlayerInfo[playerid][pDonate] -= 500;
 

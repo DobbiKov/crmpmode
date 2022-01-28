@@ -42,7 +42,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(PlayerInfo[playerid][pWANTED] < 1)
                 return SCM(playerid, red, !"Вы не находитесь в розыске!");
             if(PlayerInfo[playerid][pCash] < 100000)
-                return SCM(playerid, red, !"У вас недостаточно средств!");
+                return SCM(playerid, red, !"У Вас недостаточно средств!");
 
             GiveMoney(playerid, -100000, "Снятие розыска на ЮжХиме");
             new rand = random(11);
@@ -50,7 +50,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 PlayerInfo[playerid][pWANTED] = 0;
                 SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWANTED]);
-                SCM(playerid, green, !"Сделка прошла успешно! С вас был снят розыск.");
+                SCM(playerid, green, !"Сделка прошла успешно! С Вас был снят розыск.");
                 return SaveAccounts(playerid);
             }
             SCM(playerid, red, !"Ничего не вышло!");

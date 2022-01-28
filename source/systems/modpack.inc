@@ -32,7 +32,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
 	    else
 	    {
 	        ModPack[playerid] = false;
-	        SCM(playerid, red, "У вас не установлен пакет модификаций!");
+	        SCM(playerid, red, "У Вас не установлен пакет модификаций!");
 	    }
     	return true;
 	}

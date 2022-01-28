@@ -13,7 +13,7 @@ CMD:tazer(playerid, params[])
     format(string, sizeof(string), "Вы ударили %s электрошокером", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s ударил вас электрошокером", PlayerName(playerid));
+    format(string, sizeof(string), "%s ударил Вас электрошокером", PlayerName(playerid));
     SCM(to_player, blue, string);
     return FreezePlayer(to_player, 5000);
 }

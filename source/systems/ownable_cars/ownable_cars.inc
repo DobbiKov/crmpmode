@@ -135,7 +135,7 @@ publics LoadMyCar(playerid)
     }
     else
     {
-        if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, !"У вас нет личного странспорта.");
+        if(PlayerInfo[playerid][pHomeID] == -1) return SCM(playerid, red, !"У Вас нет личного странспорта.");
     }
     return 1;
 }
@@ -279,7 +279,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 CMD:sellcar(playerid)
 {
-    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У вас нет личного транспорта.");
+    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У Вас нет личного транспорта.");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "Ваш личный транспорт не создан.");
 
     new fmt_dialog[528];
@@ -291,7 +291,7 @@ CMD:sellcar(playerid)
         Стоимость:\t%d\n\n\
         Вы уверенны, что хотите продать ваш транспорт?\n\
         На ваш банковский счет будет начислено %d рублей.\n\n\
-        Если вы хотите продать транспорт другому игроку,\n\
+        Если Вы хотите продать транспорт другому игроку,\n\
         используйте команду /sellmycar",
         GetCarName(GetVehicleModel(player_ownable_car[playerid])),
         GetVehicleModel(player_ownable_car[playerid]),
@@ -309,7 +309,7 @@ CMD:sellcar(playerid)
 }
 CMD:sellmycar(playerid, params[])
 {
-    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У вас нет автомобиля!");
+    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У Вас нет автомобиля!");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "Ваш личный транспорт не создан.");
 
     extract params -> new to_player, price; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmycar [ID игрока] [цена]");
@@ -325,7 +325,7 @@ CMD:sellmycar(playerid, params[])
 }
 CMD:old_car(playerid)
 {
-    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У вас нет личного транспорта.");
+    if(PlayerInfo[playerid][pCarID] == -1) return SCM(playerid, red, "У Вас нет личного транспорта.");
     if(player_ownable_car[playerid] == -1) return SCM(playerid, red, "Ваш личный транспорт не создан.");
 
     new fmt_dialog[528], number[32];

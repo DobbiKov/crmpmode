@@ -1,7 +1,7 @@
 CMD:edit(playerid)
 {
     if(PlayerInfo[playerid][pMember] != TEAM_SMI) return YouCannotUseThisFunc(playerid);
-    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У вас стоит блокировка чата!");
+    if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "У Вас стоит блокировка чата!");
 
     new sttr[20*MAX_PLAYER_NAME+100], string[MAX_PLAYER_NAME+5+30], count, status[40];
     foreach(new i : ads)

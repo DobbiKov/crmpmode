@@ -28,7 +28,7 @@ CMD:adown(playerid, params[])
 
 			if(PlayerInfo[i][bAdmin] == 0)
 			{
-			    format(string, sizeof(string), "Администратор %s[%d] снял с вас админку.", PlayerInfo[playerid][pName], playerid);
+			    format(string, sizeof(string), "Администратор %s[%d] снял с Вас админку.", PlayerInfo[playerid][pName], playerid);
 			}
 			SaveAccounts(playerid);
 			return SaveAccounts(i);

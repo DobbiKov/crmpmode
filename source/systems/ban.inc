@@ -43,8 +43,8 @@ publics CheckBan(playerid)
 			{FFFFFF}Причина:\t\t\t{"cblue"}%s\n\
 			{FFFFFF}Дата блокировки:\t\t{"cblue"}%s\n\
 			{FFFFFF}Дата разблокировки:\t\t{"cblue"}%s\n\n\
-			{FFFFFF}Если вы не согласны с наказанием,\n\
-		 	вы можете написать жалобу на наш форум!\n\n\
+			{FFFFFF}Если Вы не согласны с наказанием,\n\
+		 	Вы можете написать жалобу на наш форум!\n\n\
 	 		Введите {"cblue"}/q {FFFFFF}что б выйти.", PlayerInfo[playerid][pName], AdminName, reason, data, date("%dd/%mm/%yyyy Время: %hh:%ii:%ss", unbandate));
 			SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Блокировка аккаунта", string, "Закрыть", "");
 			NewKick(playerid);
@@ -272,8 +272,8 @@ CMD:ban(playerid, params[])
 			{FFFFFF}Причина:\t\t{"cblue"}%s\n\
 			{FFFFFF}Дата блокировки:\t{"cblue"}%s\n\
 			{FFFFFF}Дата разблокировки:\t{"cblue"}%s\n\n\
-			{FFFFFF}Если вы не согласны с наказанием,\n\
-		 	вы можете написать жалобу на наш форум!\n\n\
+			{FFFFFF}Если Вы не согласны с наказанием,\n\
+		 	Вы можете написать жалобу на наш форум!\n\n\
 		 	Введите {"cblue"}/q {FFFFFF}что б выйти.", PlayerInfo[i][pName], PlayerInfo[playerid][pName], reason, data, date("%dd/%mm/%yyyy Время: %hh:%ii:%ss", unbandate));
 			SPD(i, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Блокировка аккаунта", string, "Закрыть", "");
             return NewKick(i);

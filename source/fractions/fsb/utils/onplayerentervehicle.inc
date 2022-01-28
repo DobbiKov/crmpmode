@@ -6,7 +6,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(!IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);    
                 return ClearAnimations(playerid, true);
             }

@@ -47,7 +47,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 	{
 		case PROPOSITION_TYPE_SKILL:
 		{
-			format(fmt_msg, sizeof fmt_msg, "%s предлагает вам просмотреть его навыки владения оружием.", PlayerInfo[incoming_proposition[to_player]][pName]);
+			format(fmt_msg, sizeof fmt_msg, "%s предлагает Вам просмотреть его навыки владения оружием.", PlayerInfo[incoming_proposition[to_player]][pName]);
 			SCM(to_player, 0x3399FFFF, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы согласиться или {FF6600}N {FFFFFF}для отказа");
@@ -67,7 +67,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_REFILL_CAR:
 		{
-			format(fmt_msg, sizeof fmt_msg, "%s предлагает вам заправить Ваш транспорт на %d л. за %d руб", PlayerInfo[ incoming_proposition[to_player] ][pName], value_1, value_1 * mech_fuel_price[playerid]);
+			format(fmt_msg, sizeof fmt_msg, "%s предлагает Вам заправить Ваш транспорт на %d л. за %d руб", PlayerInfo[ incoming_proposition[to_player] ][pName], value_1, value_1 * mech_fuel_price[playerid]);
 			SCM(to_player, 0x3399FFFF, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы согласиться или {FF6600}N {FFFFFF}для отказа");
@@ -100,7 +100,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_FREE:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам выйти из КПЗ за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам выйти из КПЗ за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -110,7 +110,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_HEAL:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам пройти платный курс лечения за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам пройти платный курс лечения за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -120,7 +120,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_SELLLIC:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам приобрести лицензию на %s %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], lic_names[value_1], lic_price[value_1]);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам приобрести лицензию на %s %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], lic_names[value_1], lic_price[value_1]);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -130,7 +130,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_SELLGUN:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам купить %s с %d пт. за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], gun_name[GetPVarInt(incoming_proposition[to_player], "weapon_id")], value_1, value_2);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам купить %s с %d пт. за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], gun_name[GetPVarInt(incoming_proposition[to_player], "weapon_id")], value_1, value_2);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -140,7 +140,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_SELLDRUGS:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам купить %d гр. за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1, value_2);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам купить %d гр. за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1, value_2);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -151,7 +151,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		case PROPOSITION_TYPE_SELLBIZ:
 		{
 			new i = GetPVarInt(playerid, "my_biz_id");
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам купить его бизнес %s за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], business_params[ BusinessInfo[i][bType] ][bname], value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам купить его бизнес %s за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], business_params[ BusinessInfo[i][bType] ][bname], value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -162,7 +162,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 
 		case PROPOSITION_TYPE_SELLCAR:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам купить его транспорт %s за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], GetCarName(GetVehicleModel(player_ownable_car[ incoming_proposition[to_player] ])), value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам купить его транспорт %s за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], GetCarName(GetVehicleModel(player_ownable_car[ incoming_proposition[to_player] ])), value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -173,7 +173,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		case PROPOSITION_TYPE_SELLHOUSE:
 		{
 			new h = value_2;
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам купить его дом № %d за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], HouseInfo[h][hID], value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам купить его дом № %d за %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], HouseInfo[h][hID], value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -183,7 +183,7 @@ stock SendProposition(playerid, to_player, type, value_1 = 0, value_2 = 0)
 		}
 		case PROPOSITION_TYPE_DICE:
 		{
-			format(fmt_msg, sizeof(fmt_msg), "%s предлгает вам кинуть кости на %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
+			format(fmt_msg, sizeof(fmt_msg), "%s предлгает Вам кинуть кости на %d рублей", PlayerInfo[incoming_proposition[to_player]][pName], value_1);
 			SCM(to_player, blue, fmt_msg);
 
 			SCM(to_player, -1, "Нажмите {00CC00}Y {FFFFFF}чтобы принять предложение или {FF6600}N {FFFFFF}для отказа");
@@ -595,13 +595,13 @@ CMD:yes(playerid)
 			{
 				if(PlayerInfo[playerid][pCash] < value_1)
 				{
-					SCM(playerid, red, "У вас недостаточно денег.");
+					SCM(playerid, red, "У Вас недостаточно денег.");
 					SCM(proposition, red, "У игрока недостаточно денег.");
 					return 1;
 				}
 				if(PlayerInfo[playerid][pHomeID] != -1)
 				{
-					SCM(playerid, red, "У вас уже есть дом.");
+					SCM(playerid, red, "У Вас уже есть дом.");
 					SCM(proposition, red, "У игрока уже есть дом.");
 					return 1;
 				}
@@ -677,7 +677,7 @@ publics propos_check_own_cars(playerid, proposition, value_1, value_2)
 
 	if(PlayerInfo[proposition][pCarID] != value_2)
 	{
-		SCM(proposition, red, !"У вас нет автомобиля, который вы предлагали к покупке!");
+		SCM(proposition, red, !"У Вас нет автомобиля, который Вы предлагали к покупке!");
 		return SCM(playerid, red, !"У игрока нет этого автомобиля в данные момент.");
 	}
 

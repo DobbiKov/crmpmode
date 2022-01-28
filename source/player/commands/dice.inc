@@ -24,7 +24,7 @@ CMD:dice(playerid, params[])
             if(cash < 500 || cash > 10000000) return SCM(playerid, red, "Ставка должна быть не менее 500 рублей и не более 10 миллионов рублей.");
             if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
             if(!IsPlayerInRangeOfPoint(to_player, 3.0, DiceInfo[i][diceX], DiceInfo[i][diceY], DiceInfo[i][diceZ])) return SCM(playerid, red, "Игрок далеко от вас.");
-            if(PlayerInfo[playerid][pCash] < cash) return SCM(playerid, red, "У вас нет столько денег.");
+            if(PlayerInfo[playerid][pCash] < cash) return SCM(playerid, red, "У Вас нет столько денег.");
             if(PlayerInfo[to_player][pCash] < cash) return SCM(playerid, red, "У игрока нет столько денег.");
             return SendProposition(playerid, to_player, PROPOSITION_TYPE_DICE, cash);
         }

@@ -133,12 +133,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response) return 1;
 			else
 			{
-			    if(PlayerInfo[playerid][pCash] < 200) return SCM(playerid, red, "У вас не достаточно денег!");
+			    if(PlayerInfo[playerid][pCash] < 200) return SCM(playerid, red, "У Вас не достаточно денег!");
 			    
 				PlayerInfo[playerid][pJob] = Job_None;
 			    GiveMoney(playerid, -200, "Аренда уборочной машины!");
 				SCM(playerid, blue, "Вы успешно арендовали уборочную машину!");
-				SCM(playerid, blue, "У вас есть {"cyellow"}45 секунд{"cblue"}, что б сесть в транспорт!");
+				SCM(playerid, blue, "У Вас есть {"cyellow"}45 секунд{"cblue"}, что б сесть в транспорт!");
 			    player_job_vehicle_created[playerid] = CreateVehicle(574,1821.0057,2257.3115,14.9980,180.1769,1,0, -1);
 				vehicle[player_job_vehicle_created[playerid]][veh_fuel] = 80.0;
 				SetPlayerCheckpoint(playerid, 1821.0057,2257.3115,14.9980, 3.0);
@@ -336,7 +336,7 @@ public OnPlayerEnterCheckpoint(playerid)
 
 publics EndJobCleaner(playerid)
 {
-	if(GetPVarInt(playerid, "EndJobCleaner") == 1) SCM(playerid, red, "К сожалению, вы не успели сесть в уборочную машину!");
+	if(GetPVarInt(playerid, "EndJobCleaner") == 1) SCM(playerid, red, "К сожалению, Вы не успели сесть в уборочную машину!");
 	new string[128];
 	
 	SCM(playerid, blue, "Вы успешно завершили рабочий день!");

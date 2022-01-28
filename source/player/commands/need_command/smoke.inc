@@ -1,7 +1,7 @@
 CMD:smoke(playerid)
 {
-    if(PlayerInfo[playerid][pLighter] <= 0) return SCM(playerid, red, "У вас нет зажигалки!");
-    if(PlayerInfo[playerid][pSmoke] <= 0) return SCM(playerid, red, "У вас нет сигарет!");
+    if(PlayerInfo[playerid][pLighter] <= 0) return SCM(playerid, red, "У Вас нет зажигалки!");
+    if(PlayerInfo[playerid][pSmoke] <= 0) return SCM(playerid, red, "У Вас нет сигарет!");
     
     GetPlayerHealth(playerid, PlayerInfo[playerid][pHP]);
     

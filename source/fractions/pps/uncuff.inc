@@ -20,7 +20,7 @@ CMD:uncuff(playerid, params[])
     format(string, sizeof(string), "¬ы сн€ли наручники с %s", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s сн€л с вас наручники", PlayerName(playerid));
+    format(string, sizeof(string), "%s сн€л с ¬ас наручники", PlayerName(playerid));
     SCM(to_player, blue, string);
     
     format(string, sizeof(string), "снимает наручники с %s", PlayerName(to_player));

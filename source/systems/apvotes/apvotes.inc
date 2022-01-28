@@ -92,7 +92,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(vote_totalvotevars[AP_VOTE_ID] >= 10)
                 {
-                    SCM(playerid, red, !"У вас уже имеется 10 вариантов ответов для голосвания!");
+                    SCM(playerid, red, !"У Вас уже имеется 10 вариантов ответов для голосвания!");
                     return ShowAPVoteVars(playerid);
                 }
                 return ShowAPVoteCreateVar(playerid);
@@ -206,7 +206,7 @@ stock ShowAPVoteChangeCoords(playerid)
         D_APVOTES_CHANGE_COORDS, 
         DIALOG_STYLE_MSGBOX, 
         !"{"cblue"}Смена координат голосования", 
-        !"{ffffff}Вы желаете изменить координаты голосвания, на те, в которых вы находитесь в данный момент?", 
+        !"{ffffff}Вы желаете изменить координаты голосвания, на те, в которых Вы находитесь в данный момент?", 
         !"Да", 
         !"Нет"
     );
@@ -254,7 +254,7 @@ stock ShowAPVoteVars(playerid)
     new string[1024] = "{"cgreen"}Создать новый вариант\n";
 
     if(vote_totalvotevars[AP_VOTE_ID] >= 10)
-        format(string, sizeof(string), "{"cred"}У вас уже имеется 10 вариантов\n");
+        format(string, sizeof(string), "{"cred"}У Вас уже имеется 10 вариантов\n");
     
     for(new i = 0; i < MAX_APVOTEVARS; i++)
     {

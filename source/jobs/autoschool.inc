@@ -40,7 +40,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
         if(IsPlayerInRangeOfPoint(playerid, 2.0, 131.3660,1368.7767,1002.9600))
         {
-			if(PlayerInfo[playerid][pFines] >= 1) return SCM(playerid, red, "У вас есть неоплаченые штрафы. Оплатите их в ближайшем банкомате.");
+			if(PlayerInfo[playerid][pFines] >= 1) return SCM(playerid, red, "У Вас есть неоплаченые штрафы. Оплатите их в ближайшем банкомате.");
 			SPD(playerid, D_EXAM_DRIVING, DIALOG_STYLE_LIST, "{"cblue"}Сдача экзамена", "\
 			{FFFFFF}Категория A\t\t\t{"cblue"}4000 рублей\n\
 			{FFFFFF}Категория B\t\t\t{"cblue"}5000 рублей\n\
@@ -69,28 +69,28 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	if(GetPVarInt(playerid, "lesson") == 1)
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 2)
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 3)
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 4)
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
@@ -125,9 +125,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        {
 		            case 0:
 		            {
-						if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У вас недостаточно денег!");
-						if(PlayerInfo[playerid][pLicA] == 1) return SCM(playerid, red, "У вас есть права категории А!");
-						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент вы сдаете какой-то экзамен!");
+						if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У Вас недостаточно денег!");
+						if(PlayerInfo[playerid][pLicA] == 1) return SCM(playerid, red, "У Вас есть права категории А!");
+						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент Вы сдаете какой-то экзамен!");
 						
 						GiveMoney(playerid, -4000, "Сдача экзамена");
       					SCM(playerid, green, "Вы начали практическую часть сдачи экзамена на вождение.");
@@ -137,9 +137,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 1:
 		            {
-                        if(PlayerInfo[playerid][pCash] < 5000) return SCM(playerid, red, "У вас недостаточно денег!");
-                        if(PlayerInfo[playerid][pLicB] == 1) return SCM(playerid, red, "У вас есть права категории B!");
-						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент вы сдаете какой-то экзамен!");
+                        if(PlayerInfo[playerid][pCash] < 5000) return SCM(playerid, red, "У Вас недостаточно денег!");
+                        if(PlayerInfo[playerid][pLicB] == 1) return SCM(playerid, red, "У Вас есть права категории B!");
+						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент Вы сдаете какой-то экзамен!");
 
 						GiveMoney(playerid, -5000, "Сдача экзамена");
                         SCM(playerid, green, "Вы начали практическую часть сдачи экзамена на вождение.");
@@ -149,9 +149,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 2:
 		            {
-		                if(PlayerInfo[playerid][pCash] < 5500) return SCM(playerid, red, "У вас недостаточно денег!");
-		                if(PlayerInfo[playerid][pLicC] == 1) return SCM(playerid, red, "У вас есть права категории C!");
-						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент вы сдаете какой-то экзамен!");
+		                if(PlayerInfo[playerid][pCash] < 5500) return SCM(playerid, red, "У Вас недостаточно денег!");
+		                if(PlayerInfo[playerid][pLicC] == 1) return SCM(playerid, red, "У Вас есть права категории C!");
+						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент Вы сдаете какой-то экзамен!");
 
 						GiveMoney(playerid, -5500, "Сдача экзамена");
 		                SCM(playerid, green, "Вы начали практическую часть сдачи экзамена на вождение.");
@@ -161,9 +161,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 3:
 		            {
-		                if(PlayerInfo[playerid][pCash] < 6500) return SCM(playerid, red, "У вас недостаточно денег!");
-		                if(PlayerInfo[playerid][pLicD] == 1) return SCM(playerid, red, "У вас есть права категории D!");
-						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент вы сдаете какой-то экзамен!");
+		                if(PlayerInfo[playerid][pCash] < 6500) return SCM(playerid, red, "У Вас недостаточно денег!");
+		                if(PlayerInfo[playerid][pLicD] == 1) return SCM(playerid, red, "У Вас есть права категории D!");
+						if(GetPVarInt(playerid, "lesson") != 0) return SCM(playerid, red, "В данный момент Вы сдаете какой-то экзамен!");
 
 						GiveMoney(playerid, -6500, "Сдача экзамена");
 		                SCM(playerid, green, "Вы начали практическую часть сдачи экзамена на вождение.");
@@ -235,7 +235,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             else
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет прав категории A!");
+                return SCM(playerid, red, "У Вас нет прав категории A!");
             }
         }
         if(IsACar(newcar) && PlayerInfo[playerid][pLicB] != 1)
@@ -244,7 +244,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             else
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет прав категории B!");
+                return SCM(playerid, red, "У Вас нет прав категории B!");
             }
         }
         if(IsATruck(newcar) && PlayerInfo[playerid][pLicC] != 1)
@@ -253,7 +253,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             else
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет прав категории C!");
+                return SCM(playerid, red, "У Вас нет прав категории C!");
             }
         }
         if(IsABus(newcar) && PlayerInfo[playerid][pLicD] != 1)
@@ -262,13 +262,13 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             else
             {
                 ClearAnimations(playerid, true);
-                return SCM(playerid, red, "У вас нет прав категории D!");
+                return SCM(playerid, red, "У Вас нет прав категории D!");
             }
         }
         if(IsAPlane(newcar) && PlayerInfo[playerid][pLicFly] != 1)
         {
 			ClearAnimations(playerid, true);
-			return SCM(playerid, red, "У вас нет лицензии на полёты!");
+			return SCM(playerid, red, "У Вас нет лицензии на полёты!");
         }
 	}
 	#if	defined	ah__OnPlayerEnterVehicle
@@ -294,28 +294,28 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 	if(GetPVarInt(playerid, "lesson") == 1 && job_car[CATEG_A_CAR][0] <= newcar <= job_car[CATEG_A_CAR][1])
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 2 && job_car[CATEG_B_CAR][0] <= newcar <= job_car[CATEG_B_CAR][1])
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 3 && job_car[CATEG_C_CAR][0] <= newcar <= job_car[CATEG_C_CAR][1])
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 4 && newcar == job_car[CATEG_D_CAR][0])
 	{
-		SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
 		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
@@ -349,7 +349,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
-			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен вам даётся {"cyellow"}10 минут{"cblue"}!");
+			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
 			pCheckpoint[playerid] = CP_EXAM_DRIVING;
@@ -364,7 +364,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
-			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен вам даётся {"cyellow"}10 минут{"cblue"}!");
+			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
 			pCheckpoint[playerid] = CP_EXAM_DRIVING;
@@ -379,7 +379,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
-			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен вам даётся {"cyellow"}10 минут{"cblue"}!");
+			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
 			pCheckpoint[playerid] = CP_EXAM_DRIVING;
@@ -394,7 +394,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
-			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен вам даётся {"cyellow"}10 минут{"cblue"}!");
+			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
 			pCheckpoint[playerid] = CP_EXAM_DRIVING;
@@ -412,28 +412,28 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     {
 		if(GetPVarInt(playerid, "lesson") == 1 && job_car[CATEG_A_CAR][0] <= newcar <= job_car[CATEG_A_CAR][1])
 		{
-		    SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		    DisablePlayerRaceCheckpoint(playerid);
 	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 			DeletePVar(playerid, "lesson");
 		}
 		if(GetPVarInt(playerid, "lesson") == 2 && job_car[CATEG_B_CAR][0] <= newcar <= job_car[CATEG_B_CAR][1])
 		{
-		    SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		    DisablePlayerRaceCheckpoint(playerid);
 	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 			DeletePVar(playerid, "lesson");
 		}
 		if(GetPVarInt(playerid, "lesson") == 3 && job_car[CATEG_C_CAR][0] <= newcar <= job_car[CATEG_C_CAR][1])
 		{
-		    SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		    DisablePlayerRaceCheckpoint(playerid);
 	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 			DeletePVar(playerid, "lesson");
 		}
 		if(GetPVarInt(playerid, "lesson") == 4 && newcar == job_car[CATEG_D_CAR][0])
 		{
-		    SCM(playerid, red, "К сожалению, вы провалили экзамен на вождение.");
+		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		    DisablePlayerRaceCheckpoint(playerid);
 	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 			DeletePVar(playerid, "lesson");
@@ -503,7 +503,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 				}
 				else
 				{
-				    SCM(playerid, red, "К сожалению вы провалили экзамен на вождение!");
+				    SCM(playerid, red, "К сожалению Вы провалили экзамен на вождение!");
 				}
 				SaveAccounts(playerid);
                 SetVehicleToRespawn(GetPlayerVehicleID(playerid));

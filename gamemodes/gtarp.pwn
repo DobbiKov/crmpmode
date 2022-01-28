@@ -53,12 +53,13 @@ L1:
 //#endif
 
 #include    <a_mysql>
+#include    <a_http>
 #include    <dc_cmd>
 #include    <streamer>
 #include	<float>
 #include	<sscanf2>
 #include    <foreach>
-//#include    <nex-ac>
+#include    <nex-ac>
 #include    <mxdate>
 #include    <regex>
 #include 	<crp>
@@ -227,7 +228,7 @@ new player_second_timer[MAX_PLAYERS];
 new _restart_timer;
 
 
-//************ | МАССИВЫ | ************//
+//************ | МАССИВы | ************//
 
 //*********** | GOTOME CUFF ARREST | **********
 enum
@@ -686,6 +687,8 @@ enum e_DIALOG_IDs
 	D_APVOTES_CLEAR_PLAYER_VOTES,
 	D_SURE_DELACC,
 	D_SURE_ASELLCAR,
+	DIALOG_ANTICHEAT_SETTINGS,
+	DIALOG_ANTICHEAT_EDIT_CODE,
 };
 
 /* CHEAT */
@@ -829,6 +832,7 @@ enum
 //------------[ ANTICHEAT] ---------------
 //#include "../source/anticheat/sleepy_ac.h"
 //#include "../source/anticheat/sleepy_ac.inc"
+#include "../source/anticheat/new_anticheat.h"
 
 // --------- [ ПЕРЕМЕННЫЕ ] --------------
 #include "../source/systems/mytk/mytk.h"
@@ -852,7 +856,9 @@ enum
 
 //------------[ ANTICHEAT] ---------------
 
-#include "../source/anticheat/anticheat.inc"
+#include "../source/anticheat/new_anticheat.inc"
+#include "../source/anticheat/antiadvert.inc"
+// #include "../source/anticheat/anticheat.inc"
 //#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
 //#include "../source/anticheat/ac_flood_veh.inc"
@@ -1094,7 +1100,6 @@ enum
 //OPG
 #include "../source/fractions/opg_o/opg.inc"
 
-
 public OnGameModeInit()
 {
 	AddPlayerClass(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0);
@@ -1132,6 +1137,7 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `toilets`", "LoadToilets", "");
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	mysql_tquery(connects, "SELECT * FROM `apvote`", "LoadAPVotes", "");
+	UploadAntiCheatSettings();
 	
     LoadGreenZones();
     
@@ -1751,7 +1757,7 @@ public OnPlayerConnect(playerid)
 	PlayerTimer[playerid][@_10000] = SetTimerEx("@_10000mc_PlayerTimer", 10000, true, "d", playerid);*/
 
 	
-	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i], true)) return 1;
+	for(new i = 0; i < sizeof(SuperNick_S); i++) if(!strcmp(PlayerInfo[playerid][pName], SuperNick_S[i])) return 1;
 
 	format(string, sizeof(string), "[A] Игрок %s[%d] зашел на сервер (IP: %s)", PlayerInfo[playerid][pName], playerid, ip);
 	SCMA(grey, string);
@@ -1775,14 +1781,17 @@ public OnPlayerDisconnect(playerid, reason)
     
 	ClearProposition(playerid);
 	
-    new string[256];
-    switch(reason)
-    {
-        case 0: format(string, sizeof(string), "[A] Игрок %s[%d] вылетел из игры. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-        case 1: format(string, sizeof(string), "[A] Игрок %s[%d] покинул игру. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-        case 2: format(string, sizeof(string), "[A] Игрок %s[%d] был кикнут с сервера. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
-    }
-    if(PlayerInfo[playerid][bAdmin] < 6) SCMA(grey, string);
+	if(!CheckFD(playerid))
+	{
+		new string[256];
+		switch(reason)
+		{
+			case 0: format(string, sizeof(string), "[A] Игрок %s[%d] вылетел из игры. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+			case 1: format(string, sizeof(string), "[A] Игрок %s[%d] покинул игру. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+			case 2: format(string, sizeof(string), "[A] Игрок %s[%d] был кикнут с сервера. (IP: %s)", PlayerInfo[playerid][pName], playerid, PlayerInfo[playerid][pNewIp]);
+		}
+		if(PlayerInfo[playerid][bAdmin] < 6) SCMA(grey, string);
+	}
 
 	new hour, minute, second, year, month, day, data[64];
 	gettime(hour, minute, second);
@@ -1956,7 +1965,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		    
   			SetPlayerWanted(playerid, 0);
 
-		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как вы были в розыске.");
+		    format(string, sizeof(string), "Вы были посажены в тюрьму, так как Вы были в розыске.");
 		    SCM(playerid, red, string);
 		}
 		else
@@ -1976,7 +1985,7 @@ stock KillToHospital(&playerid, &killerid){
 	PlayerInfo[playerid][pHP] = 5.0;
 	if(!IsAPolice(killerid) && PlayerInfo[killerid][pMember] != TEAM_VDV && killerid != playerid && killerid != INVALID_PLAYER_ID)
 	{
-		GameTextForPlayer(killerid, "~r~вы совершили убийство и были объявлены в розыск", 5000, 5);
+		GameTextForPlayer(killerid, "~r~Вы совершили убийство и были объявлены в розыск", 5000, 5);
 		if(PlayerInfo[playerid][pWANTED] < 6) SetPlayerWanted(killerid, ++PlayerInfo[killerid][pWANTED]);
 
 		format(string, sizeof(string), "[Внимание] %s совершил убийство в отношении %s и был объявлен в розыск.", PlayerInfo[killerid][pName], PlayerInfo[playerid][pName]);
@@ -2008,6 +2017,12 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
     if(!PlayerInfo[playerid][pLogin]) return 0;
+
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
     
     if(text[0] == '.')
 	{
@@ -2017,30 +2032,42 @@ public OnPlayerText(playerid, text[])
 		return 0;
 	}
 
+	if(GetPVarInt(playerid, "antiflood") > gettime())
+    {
+        SCM(playerid, red, "Не флудите!");
+		SetPVarInt(playerid, "antiflood", gettime()+1);
+        return 0;
+    }
+	SetPVarInt(playerid, "antiflood", gettime()+1);
 
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
-	    SCM(playerid, green, !"В данный момент у вас имеется блокировка чата. Время до сняти: /time");
+	    SCM(playerid, green, !"В данный момент у Вас имеется блокировка чата. Время до сняти: /time");
 	    SetPlayerChatBubble(playerid, "Пытается что-то сказать", red, 30.0, 5000);
-		return 0;
 	}
-	else if(GetPVarInt(playerid, "antiflood") > gettime())
-    {
-        SCM(playerid, red, "Не флудите!");
-        SetPVarInt(playerid, "antiflood", gettime()+1);
-        return 0;
-    }
-    else if(strcmp(text, ")", true) == 0 || strcmp(text, "))", true) == 0)
+    else if(strcmp(text, ")", true) == 0)
 	{
 		cmd::me(playerid, "улыбается");
-		SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
 	}
-	else if(strcmp(text, "(", true) == 0 || strcmp(text, "((", true) == 0)
+    else if(strcmp(text, "xD", true) == 0 || strcmp(text, "xd", true) == 0 || strcmp(text, "чВ", true) == 0 || strcmp(text, "чв", true) == 0 || strcmp(text, "))", true) == 0)
+	{
+		cmd::me(playerid, "смеётся");
+	}
+	else if(strcmp(text, "(", true) == 0)
 	{
 		cmd::me(playerid, "грустит");
-		SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
+	}
+	else if(strcmp(text, "((", true) == 0)
+	{
+		cmd::me(playerid, "расстроился");
+	}
+	else if(strcmp(text, "+", true) == 0)
+	{
+		cmd::me(playerid, "согласен");
+	}
+	else if(strcmp(text, "-", true) == 0)
+	{
+		cmd::me(playerid, "не согласен");
 	}
 	else if(call_called[playerid] != -1)
 	{
@@ -2055,8 +2082,6 @@ public OnPlayerText(playerid, text[])
 	    new string[144];
 	    format(string, sizeof(string), "[Радиоцентр] %s %s: %s", GetPlayerRank(playerid), PlayerInfo[playerid][pName], text);
 	    SCMTA(0x66cc00AA, string);
-	    SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
 	}
 	else
 	{
@@ -2067,7 +2092,6 @@ public OnPlayerText(playerid, text[])
 		ProxDetector(30.0, playerid, stringer, 0xFFFFFFFF, 0xFFFFFFFF, 0xF5F5F5FF, 0xE6E6E6FF,0xB8B8B8FF);
 		ApplyAnimation(playerid, "PED", "IDLE_chat", 4.1, 0, 1, 1, 1, 1);
 		SetPlayerChatBubble(playerid, text, white, 30.0, 5000);
-		SetPVarInt(playerid, "antiflood", gettime()+1);
 	}
 	return 0;
 }
@@ -2082,7 +2106,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     time_zcar = gettime();
 	if( GetPVarInt(playerid, "key_anti_flood") > gettime())
 	{
- 		return SCM(playerid, red, "Не флудите. Иначе вы будете кикнуты.");
+ 		return SCM(playerid, red, "Не флудите. Иначе Вы будете кикнуты.");
 	}
 	SetPVarInt(playerid, "key_anti_flood", gettime()+1);
 	
@@ -2262,7 +2286,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	}
 	if(pickupid == HOSPITAL_PICK_EXIT)
 	{
-	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готовы вас выписать из больницы!");
+	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готоВы Вас выписать из больницы!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1973.9240,1603.3750,15.7700);
 	    SetPlayerFacingAngle(playerid, 274.2161);
@@ -2373,7 +2397,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	
 	if(pickupid == BATH_PICK_ENTER)
 	{
-	    if(GetPVarInt(playerid, "bath_buy") != 1) return SCM(playerid, red, "У вас нет абонемента в баню.");
+	    if(GetPVarInt(playerid, "bath_buy") != 1) return SCM(playerid, red, "У Вас нет абонемента в баню.");
 	    
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 636.8881,2309.2146,1504.3500);
@@ -2433,7 +2457,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_STREET_PICK)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1237.8195,1535.9994,2516.6799);
 	    SetPlayerFacingAngle(playerid, 175.8488);
@@ -2442,7 +2466,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_OFFICE_PICK)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 2413.3867,-1844.7305,21.8547);
 	    SetPlayerFacingAngle(playerid, 183.6358);
@@ -2451,7 +2475,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	if(pickupid == FSB_GARAGE_PICK || pickupid == FSB_ROOF_PICK || pickupid == FSB_OFFICE_PICK_2)
 	{
 		if(!IsAFSB(playerid) && PlayerInfo[playerid][pFSBaccess] == 0)
-            return SCM(playerid, red, !"У вас нет пропуска!");
+            return SCM(playerid, red, !"У Вас нет пропуска!");
 		ShowEnterDialog(playerid);
 	}
 	return 1;
@@ -2507,7 +2531,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			Light{carid} = false;
 		}
 	}
-	if(newkeys == KEY_ACTION) cmd::en(playerid);
+	if(newkeys == KEY_ACTION) 
+	{
+		if(!IsAPlane(GetPlayerVehicleID(playerid)))
+			cmd::en(playerid);
+	}
 	return 1;
 }
 
@@ -2647,6 +2675,9 @@ publics UpdateSpeedometr(playerid)
 
 		format(info,sizeof(info), "%d L.", floatround(vehicle[GetPlayerVehicleID(playerid)][veh_fuel], floatround_round));
 		PlayerTextDrawSetString(playerid,speed_td[playerid][4],info);
+
+		if(SpeedVehicle(playerid) > 3)
+			CheckArendCarEN(playerid);
 		
         if(vehicle[GetPlayerVehicleID(playerid)][veh_limit] > 0.0)
         {
@@ -3278,10 +3309,10 @@ publics LoadAntiCheats()
 	{
 	    for(new i = 0; i < rows; i++)
 	    {
-	        AntiCheatInfo[i][acID] = cache_get_field_content_int(i, "acID");
-	        cache_get_field_content(i, "acName", AntiCheatInfo[i][acName], connects, 32);
-	        AntiCheatInfo[i][acStatus] = cache_get_field_content_int(i, "acStatus");
-	        Iter_Add(AllAntiCheats, i);
+	        // AntiCheatInfo[i][acID] = cache_get_field_content_int(i, "acID");
+	        // cache_get_field_content(i, "acName", AntiCheatInfo[i][acName], connects, 32);
+	        // AntiCheatInfo[i][acStatus] = cache_get_field_content_int(i, "acStatus");
+	        // Iter_Add(AllAntiCheats, i);
 	    }
         print("[UNIGVA] Античт загружен!");
 	}
@@ -3426,7 +3457,7 @@ publics PlayerSecondTimer(playerid)
 	        if(PlayerInfo[playerid][pMute] < 1)
 	        {
 	            PlayerInfo[playerid][pMute] = -1;
-	            SCM(playerid, green, !"Поздравляем! С вас снята затычка, больше не нарушайте правил сервера.");
+	            SCM(playerid, green, !"Поздравляем! С Вас снята затычка, больше не нарушайте правил сервера.");
 				SaveAccounts(playerid);
 	        }
 	    }
@@ -3522,13 +3553,13 @@ CMD:end(playerid)
 	{
 		if(player_job_vehicle_arend[playerid] != -1)
 		{
-			format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d рублей{FFFFFF}!", PayJob[playerid]);
+			format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d руб.", PayJob[playerid]);
 			SPD(playerid, D_CMD_END_BUS, DIALOG_STYLE_MSGBOX, "{"cblue"}Автобус | Закончить работу", string, "Да", "Нет");
 		}
 	}
 	if(GetPVarInt(playerid, "cleaner_job") == 1)
 	{
-		format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d рублей{FFFFFF}!", PayJob[playerid]);
+		format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d руб.", PayJob[playerid]);
 		SPD(playerid, D_CMD_END_CLEANER, DIALOG_STYLE_MSGBOX, "{"cblue"}Автобус | Закончить работу", string, "Да", "Нет");
 	}
 	return 1;
@@ -3543,7 +3574,8 @@ CMD:en(playerid)
 	if(GetPlayerVehicleID(playerid) == INVALID_VEHICLE_ID) return 1;
 	if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return 1;
 	if(IsAVel(GetPlayerVehicleID(playerid))) return 1;
-	if(GetPVarInt(playerid, "TIME_ZAVEL") > gettime()) return SCM(playerid,  red, "Не флудите, или вы будете кикнуты.");
+	CheckArendCarEN(playerid);
+	if(GetPVarInt(playerid, "TIME_ZAVEL") > gettime()) return SCM(playerid,  red, "Не флудите, или Вы будете кикнуты.");
 	if(vehicle[ GetPlayerVehicleID(playerid) ][veh_fuel] < 1.0) return SCM(playerid, grey, "В вашем транспорте нет бензина! Вызовите механика, или купите канистру на Заправочной Станции.");
 	new Float:veh_health;
 	GetVehicleHealth(GetPlayerVehicleID(playerid), veh_health);
@@ -3561,6 +3593,42 @@ CMD:en(playerid)
 	if(engine) Engines{GetPlayerVehicleID(playerid)} = true;
 	else Engines{GetPlayerVehicleID(playerid)} = false;
 	SetPVarInt(playerid, "TIME_ZAVEL", gettime()+2);
+	return 1;
+}
+
+stock CheckArendCarEN(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	if(job_car[BUS_CAR][0] <= vehicleid <= job_car[BUS_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
+	if(job_car[MECHANIC_CAR][0] <= vehicleid <= job_car[MECHANIC_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
+	if(job_car[TAXI_CAR][0] <= vehicleid <= job_car[TAXI_CAR][1])
+	{
+		if(vehicleid != player_job_vehicle_arend[playerid])
+		{
+			RemovePlayerFromVehicle(playerid);
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z);
+			SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
+		}
+	}
 	return 1;
 }
 

@@ -161,14 +161,14 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
     if(clickedid == BuyClothes_TD[6]) //buy
     { 
         new skin_price = ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice];
-        if(PlayerInfo[playerid][pCash] < skin_price) return SCM(playerid, red, !"У вас недостаточно средств.");
+        if(PlayerInfo[playerid][pCash] < skin_price) return SCM(playerid, red, !"У Вас недостаточно средств.");
         PlayerInfo[playerid][pChar] = ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesSkinId];
 
         new string[144];
         format(string, sizeof(string), "Вы успешно приобрели скин за %d рублей.", ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice]);
         SCM(playerid, blue, string);
         GiveMoney(playerid, -ClothesParametersbySex(playerid)[ClothesShopState[playerid]][clothesPrice], !"Покупка скина");
-        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как вы состоите в организации, у вас будет фракционый скин.");
+        if(PlayerInfo[playerid][pMember] > 0) SCM(playerid, blue, !"Примечание! Так как Вы состоите в организации, у Вас будет фракционый скин.");
         ExitBuyClothes(playerid);
         SaveAccounts(playerid);
     }

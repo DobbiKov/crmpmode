@@ -32,7 +32,7 @@ CMD:setleader(playerid, params[])
     format(string, sizeof(string), "[A] %s[%d] назначил %s[%d] лидером организации %s", PlayerInfo[playerid][pName], playerid, PlayerInfo[to_player][pName], to_player, GetMember[id]);
     SCMA(grey, string);
 
-    format(string, sizeof(string), "Администратор %s назначил вас лидером организации %s", PlayerInfo[playerid][pName], GetMember[id]);
+    format(string, sizeof(string), "Администратор %s назначил Вас лидером организации %s", PlayerInfo[playerid][pName], GetMember[id]);
     SCM(to_player, white, string);
     SaveAccounts(to_player);
     return 1;

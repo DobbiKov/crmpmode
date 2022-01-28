@@ -42,7 +42,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return 1;
             else
             {
-                if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас недостаточно денег!");
+                if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У Вас недостаточно денег!");
 
                 SCM(playerid, blue, "Вы купили абонемент, пройдите в баню.");
                 SetPVarInt(playerid, "bath_buy", 1); 

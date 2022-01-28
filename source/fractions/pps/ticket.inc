@@ -39,7 +39,7 @@ CMD:ticket(playerid, params[])
         mysql_tquery(connects, query, "", "");
 
         new string[144];
-        format(string, sizeof(string), "%s %s выписал вам штраф на сумму %d руб. Причина: %s", GetPlayerRank(playerid), PlayerName(playerid), fine, reason);
+        format(string, sizeof(string), "%s %s выписал Вам штраф на сумму %d руб. Причина: %s", GetPlayerRank(playerid), PlayerName(playerid), fine, reason);
         SCM(to_player, blue, string);
 
         format(string, sizeof(string), "Вы выписали штраф %s на сумму %d руб. Причина: %s", PlayerName(to_player), fine, reason);

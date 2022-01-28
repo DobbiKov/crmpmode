@@ -52,7 +52,7 @@ publics Off_LWarn(playerid, to_player[])
             mysql_tquery(connects, string, "", "");
 
             new data[144];
-            format(data, sizeof(data), "%s уволил вас из организации %s offline. Причина: 3 лидерских Выговора", PlayerInfo[playerid][pName], GetMember[ member ]);
+            format(data, sizeof(data), "%s уволил Вас из организации %s offline. Причина: 3 лидерских Выговора", PlayerInfo[playerid][pName], GetMember[ member ]);
 
             format(string, sizeof(string), "UPDATE `accounts` SET `pOffUninviteMess` = '%s' WHERE `pName` = '%s'", data, to_player);
             mysql_tquery(connects, string, "", "");

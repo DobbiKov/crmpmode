@@ -130,12 +130,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_9MM] == 1)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 20000)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -20000, "Покупка рецепта на оружие");
@@ -147,12 +147,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_USP] == 1)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 40000)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -40000, "Покупка рецепта на оружие");
@@ -164,12 +164,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_DEAGLE] == 1)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 100000)
                         {
                             ShowDialogBuyRecipeGuns(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -100000, "Покупка рецепта на оружие");
@@ -192,12 +192,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_TEK9] == 1)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 50000)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -50000, "Покупка рецепта на оружие");
@@ -209,12 +209,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_USI] == 1)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 75000)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -75000, "Покупка рецепта на оружие");
@@ -226,12 +226,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_MP5] == 1)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 120000)
                         {
                             ShowDialogBuyRecipeGuns_2(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -120000, "Покупка рецепта на оружие");
@@ -254,12 +254,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_SHOTGUN] == 1)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 120000)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -120000, "Покупка рецепта на оружие");
@@ -271,12 +271,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_SAWED_OF] == 1)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 150000)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -150000, "Покупка рецепта на оружие");
@@ -288,12 +288,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_FIGHT_SHOTGUN] == 1)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 200000)
                         {
                             ShowDialogBuyRecipeGuns_3(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -200000, "Покупка рецепта на оружие");
@@ -315,12 +315,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_AK47] == 1)
                         {
                             ShowDialogBuyRecipeGuns_4(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 200000)
                         {
                             ShowDialogBuyRecipeGuns_4(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -200000, "Покупка рецепта на оружие");
@@ -332,12 +332,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_M4] == 1)
                         {
                             ShowDialogBuyRecipeGuns_4(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 300000)
                         {
                             ShowDialogBuyRecipeGuns_4(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -300000, "Покупка рецепта на оружие");
@@ -359,12 +359,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_COUNTRY_RIFLE] == 1)
                         {
                             ShowDialogBuyRecipeGuns_5(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 150000)
                         {
                             ShowDialogBuyRecipeGuns_5(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -150000, "Покупка рецепта на оружие");
@@ -376,12 +376,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_SNIPER_RIFLE] == 1)
                         {
                             ShowDialogBuyRecipeGuns_5(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 300000)
                         {
                             ShowDialogBuyRecipeGuns_5(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -300000, "Покупка рецепта на оружие");
@@ -403,12 +403,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_SMOKE] == 1)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 150000)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -150000, "Покупка рецепта на оружие");
@@ -420,12 +420,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_MOLOTOV] == 1)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 300000)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -300000, "Покупка рецепта на оружие");
@@ -437,12 +437,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(PlayerInfo[playerid][R_GRENADE] == 1)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас уже есть данный рецепт!");
+                            return SCM(playerid, red, "У Вас уже есть данный рецепт!");
                         }                       
                         if(PlayerInfo[playerid][pCash] < 600000)
                         {
                             ShowDialogBuyRecipeGuns_6(playerid);
-                            return SCM(playerid, red, "У вас не достаточно денег!");
+                            return SCM(playerid, red, "У Вас не достаточно денег!");
                         }
 
                         GiveMoney(playerid, -600000, "Покупка рецепта на оружие");

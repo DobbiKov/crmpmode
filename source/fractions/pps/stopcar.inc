@@ -1,7 +1,7 @@
 CMD:stopcar(playerid)
 {
     if(PlayerInfo[playerid][pMember] != TEAM_PPS) return YouCannotUseThisFunc(playerid);
-    if(GetPVarInt(playerid, "zhezl") != 1) return SCM(playerid, red, "У вас нет жезла!");
+    if(GetPVarInt(playerid, "zhezl") != 1) return SCM(playerid, red, "У Вас нет жезла!");
 
     if(GetPVarInt(playerid, "status_zhezl") != 1)
     {

@@ -47,7 +47,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return cmd::tune(playerid);
             else
             {
-                if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У вас не достаточно денег.");
+                if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У Вас не достаточно денег.");
 
                 ownable_car[GetPlayerVehicleID(playerid)][tun_weels] = disk_tune[listitem][diskID];
                 AddVehicleComponent(GetPlayerVehicleID(playerid),ownable_car[GetPlayerVehicleID(playerid)][tun_weels]);
@@ -80,7 +80,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				
 				if(player_ownable_car[playerid] != vehicleid) return SCM(playerid, red, "Вы должны находиться в своём личном авто.");
 						
-				if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно денег.");
+				if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У Вас не достаточно денег.");
 				
 				
 				if(!(0 <= color[0] <= 255) || !(0 <= color[1] <= 255))
@@ -118,7 +118,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(GetPlayerVehicleID(playerid) != player_ownable_car[playerid]) return SCM(playerid, red, "Вы должны находится в личном транспорте.");
-                        if(PlayerInfo[playerid][pCash] < 5000) return SCM(playerid, red, "У вас не достаточно денег.");
+                        if(PlayerInfo[playerid][pCash] < 5000) return SCM(playerid, red, "У Вас не достаточно денег.");
 
                         GiveMoney(playerid, -5000, "Покупка услуги СТО");
                         GiveBusinessMoney(player_in_business[playerid], 5000, playerid);
@@ -162,7 +162,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 3: 
                     {
                         if(GetPlayerVehicleID(playerid) != player_ownable_car[playerid]) return SCM(playerid, red, "Вы должны находится в личном транспорте.");
-                        if(PlayerInfo[playerid][pCash] < 1500) return SCM(playerid, red, "У вас не достаточно денег.");
+                        if(PlayerInfo[playerid][pCash] < 1500) return SCM(playerid, red, "У Вас не достаточно денег.");
 
                         GiveMoney(playerid, -1500, "Покупка услуги СТО");
                         GiveBusinessMoney(player_in_business[playerid], 1500, playerid);
@@ -177,7 +177,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 4:
                     {
                         if(!IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, "Вы должны находится в авто.");
-                        if(PlayerInfo[playerid][pCash] < BusinessInfo[ player_in_business[playerid] ][bRepairPrice]) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < BusinessInfo[ player_in_business[playerid] ][bRepairPrice]) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         GiveMoney(playerid, -BusinessInfo[ player_in_business[playerid] ][bRepairPrice], "Ремонт авто в СТО!");
                         GiveBusinessMoney(player_in_business[playerid], BusinessInfo[ player_in_business[playerid] ][bRepairPrice], playerid);

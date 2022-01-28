@@ -67,7 +67,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 if(!strlen(inputtext) || !IsNumeric(inputtext)) return SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, !"{"cblue"}Создание оружия | Патроны", !"{FFFFFF}Введите количество патронов, которое хотите поместить в оружие:", !"Далее", !"Назад");
-                if(PlayerInfo[playerid][pPatr] < strval(inputtext)) return SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, !"{"cblue"}Создание оружия | Патроны", !"{"cred"}У вас нет такого количество патронов!\n\n{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", !"Далее", !"Назад");
+                if(PlayerInfo[playerid][pPatr] < strval(inputtext)) return SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, !"{"cblue"}Создание оружия | Патроны", !"{"cred"}У Вас нет такого количество патронов!\n\n{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", !"Далее", !"Назад");
             
                 new i = dialog_listitem[playerid];
                 new string[144];
@@ -87,104 +87,104 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     case 0:
                     {
-                        if(PlayerInfo[playerid][R_9MM] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_9MM] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 1:
                     {
-                        if(PlayerInfo[playerid][R_USP] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_USP] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 2:
                     {
-                        if(PlayerInfo[playerid][R_DEAGLE] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_DEAGLE] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 3:
                     {
-                        if(PlayerInfo[playerid][R_TEK9] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_TEK9] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 4:
                     {
-                        if(PlayerInfo[playerid][R_USI] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_USI] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 5:
                     {
-                        if(PlayerInfo[playerid][R_MP5] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_MP5] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 6:
                     {
-                        if(PlayerInfo[playerid][R_SHOTGUN] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_SHOTGUN] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 7:
                     {
-                        if(PlayerInfo[playerid][R_SAWED_OF] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_SAWED_OF] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 8:
                     {
-                        if(PlayerInfo[playerid][R_FIGHT_SHOTGUN] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_FIGHT_SHOTGUN] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 9:
                     {
-                        if(PlayerInfo[playerid][R_AK47] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_AK47] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 10:
                     {
-                        if(PlayerInfo[playerid][R_M4] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_M4] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 11:
                     {
-                        if(PlayerInfo[playerid][R_COUNTRY_RIFLE] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_COUNTRY_RIFLE] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");
                     }
                     case 12:
                     {
-                        if(PlayerInfo[playerid][R_SNIPER_RIFLE] < 1) return SCM(playerid, red, "У вас нет рецепта на данное оружие!");
-                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У вас недостаточно металла!");
+                        if(PlayerInfo[playerid][R_SNIPER_RIFLE] < 1) return SCM(playerid, red, "У Вас нет рецепта на данное оружие!");
+                        if(PlayerInfo[playerid][pMetall] < gunlist[listitem][gun_metal]) return SCM(playerid, red, "У Вас недостаточно металла!");
 
                         dialog_listitem[playerid] = listitem;
                         SPD(playerid, D_MAKEGUN_PATRONS, DIALOG_STYLE_INPUT, "{"cblue"}Создание оружия | Патроны", "{FFFFFF}Введите количество патронов, которое хотите поместить в оружие!", "Далее", "Назад");

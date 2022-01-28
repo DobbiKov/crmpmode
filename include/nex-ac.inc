@@ -119,7 +119,7 @@
 #endif
 
 #if !defined AC_MAX_CONNECTS_FROM_IP
-	#define AC_MAX_CONNECTS_FROM_IP			1
+	#define AC_MAX_CONNECTS_FROM_IP			5
 #endif
 
 #if !defined AC_MAX_RCON_LOGIN_ATTEMPT

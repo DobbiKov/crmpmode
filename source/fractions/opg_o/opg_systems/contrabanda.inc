@@ -7,7 +7,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return SCM(playerid, blue, !"Вы отказались от заказа контрабанды!");
             if(!IsAOpg(playerid) || PlayerInfo[playerid][pRang] < 10) return SCM(playerid, red, !"Вам недоступна данная функция!");
             new _contraband_price = CONTRABANDA_VALUE * CONTRABANDA_GRAM_IN_BAG * CONTRABANDA_PRICE;
-            if(PlayerInfo[playerid][pBCash] < _contraband_price) return SCM(playerid, red, !"У вас недостаточно денег на банковском счету!");
+            if(PlayerInfo[playerid][pBCash] < _contraband_price) return SCM(playerid, red, !"У Вас недостаточно денег на банковском счету!");
 
 
             SCM(playerid, blue, "Вы успешно заказали контрабанду, ее местоположение отмечено на карте. Вы можете ее забрать только в течении 10 минут!");
@@ -295,7 +295,7 @@ stock ClearContrabandaBagsFromTrunks()
 CMD:loaddrugs(playerid)
 {
     if(!IsAOpg(playerid) && !IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
-    if(GetPVarInt(playerid, "contraband_meshok_load") != 1) return SCM(playerid, red, !"У вас нет мешка с контрабандой!");
+    if(GetPVarInt(playerid, "contraband_meshok_load") != 1) return SCM(playerid, red, !"У Вас нет мешка с контрабандой!");
     if(IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, !"Вы должны быть вне транспорта!");
 
     new near_ctrbnd_car = IsPlayerNearContrabandaCar(playerid);
@@ -383,7 +383,7 @@ stock IsPlayerNearContrabandaCar(playerid)
 CMD:unloaddrugs(playerid)
 {
     if(!IsAOpg(playerid) && !IsAFSB(playerid)) return YouCannotUseThisFunc(playerid);
-    if(GetPVarInt(playerid, "contraband_meshok_load") > 0) return SCM(playerid, red, !"У вас уже есть мешок с контрабандой!");
+    if(GetPVarInt(playerid, "contraband_meshok_load") > 0) return SCM(playerid, red, !"У Вас уже есть мешок с контрабандой!");
     if(IsPlayerInAnyVehicle(playerid)) return SCM(playerid, red, !"Вы должны быть вне транспорта!");
     
     new near_ctrbnd_car = IsPlayerNearContrabandaCar(playerid);

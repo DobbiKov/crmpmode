@@ -31,7 +31,7 @@ CMD:unjail(playerid, params[])
 	format(fmt_query, sizeof fmt_query, "Администратор %s вытащил из деморгана %s", PlayerInfo[playerid][pName], PlayerInfo[to_player][pName]);
 	SCMTA(0xFF4530FF, fmt_query);
 
-	format(fmt_query, sizeof fmt_query, "Администратор %s вытащил вас из деморгана", PlayerInfo[playerid][pName]);
+	format(fmt_query, sizeof fmt_query, "Администратор %s вытащил Вас из деморгана", PlayerInfo[playerid][pName]);
 	SCM(to_player, green, fmt_query);
 
 	SaveAccounts(playerid);

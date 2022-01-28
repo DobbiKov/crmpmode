@@ -5,7 +5,7 @@ CMD:putmet(playerid, params[])
 
     extract params -> new metall; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}/putmet [кг металла]");
 
-    if(PlayerInfo[playerid][pMetall] < metall) return SCM(playerid, red, "У вас нет столько металла!");
+    if(PlayerInfo[playerid][pMetall] < metall) return SCM(playerid, red, "У Вас нет столько металла!");
 
     new string[144];
     format(string, sizeof(string), "Вы положили на склад армии %d кг. металла", metall);

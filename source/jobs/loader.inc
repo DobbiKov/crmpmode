@@ -285,7 +285,7 @@ public OnPlayerUpdate(playerid)
 	    		RemovePlayerAttachedObject(playerid, 1);
 
 			DisablePlayerCheckpoint(playerid);
-			SCM(playerid, red, "Вы ушли слишком далеко от места работы, поэтому вы были уволены!");
+			SCM(playerid, red, "Вы ушли слишком далеко от места работы, поэтому Вы были уволены!");
 	    }
 	}
 	#if defined loader__OnPlayerUpdate

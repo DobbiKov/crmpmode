@@ -1,7 +1,7 @@
 CMD:drugs(playerid, params[])
 {
     extract params -> new how; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /drugs (1-2)");
-    if(PlayerInfo[playerid][pDrugs] < how) return SCM(playerid, red, "У вас нет столько наркотиков!");
+    if(PlayerInfo[playerid][pDrugs] < how) return SCM(playerid, red, "У Вас нет столько наркотиков!");
     if(GetPVarInt(playerid, "use_drugs") == 1) return SCM(playerid, red, "Наркотики можно использовать раз в минуту!");
 
     switch(how)

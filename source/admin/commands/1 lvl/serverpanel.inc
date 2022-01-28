@@ -533,8 +533,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if(!response) return ShowApanel(playerid);
 		    else
 		    {
-				AntiCheatInfo[listitem][acStatus] = (AntiCheatInfo[listitem][acStatus] == 0) ? (1) : (0);
-				return ShowAntiCheat(playerid);
+				// AntiCheatInfo[listitem][acStatus] = (AntiCheatInfo[listitem][acStatus] == 0) ? (1) : (0);
+				// return ShowAntiCheat(playerid);
 
 		        // switch(listitem)
 		        // {
@@ -604,7 +604,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 2:
 		            {
-		                SPD(playerid, D_SET_XDAY, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | XDAY", "{FFFFFF}Здесь вы можете установить XДень! Если вы ничего не введете, то XДень станет 1!", "Далее", "Назад");
+		                SPD(playerid, D_SET_XDAY, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | XDAY", "{FFFFFF}Здесь Вы можете установить XДень! Если Вы ничего не введете, то XДень станет 1!", "Далее", "Назад");
 		            }
 		            case 3:
 		            {
@@ -612,7 +612,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            }
 		            case 4:
 		            {
-		                SPD(playerid, D_SET_SERVER_NAME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Название сервера", "{FFFFFF}Здесь вы можете установить название сервера.", "Далее", "Назад");
+		                SPD(playerid, D_SET_SERVER_NAME, DIALOG_STYLE_INPUT, "{"cblue"}UNIGVA | Название сервера", "{FFFFFF}Здесь Вы можете установить название сервера.", "Далее", "Назад");
 		            }
 		            case 5:
 		            {
@@ -756,6 +756,59 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+	 	case DIALOG_ANTICHEAT_SETTINGS: // Главное меню настроект анти-чита
+        {
+            if(!response) // Если игрок закрыл диалог
+            {
+                pAntiCheatSettingsPage{playerid} = 0; // Присваиваем значение 0 переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+                return 1; // Закрываем диалог
+            }
+
+            if(!strcmp(inputtext, AC_DIALOG_NEXT_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на следующую страницу
+            {
+                pAntiCheatSettingsPage{playerid}++; // Инкрементируем (прибавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+            }
+            else if(!strcmp(inputtext, AC_DIALOG_PREVIOUS_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на предыдущую страницу
+            {
+                pAntiCheatSettingsPage{playerid}--; // Декрементируем (убавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+            }
+            else // Если игрко выбрал какой-либо из кодов анти-чита
+            {
+                pAntiCheatSettingsEditCodeId[playerid] = pAntiCheatSettingsMenuListData[playerid][listitem]; // Присваиваем переменной, хранящей номер кода анти-чита, который редактирует игрок, номер кода, который он выбрал
+                return ShowPlayer_AntiCheatEditCode(playerid, pAntiCheatSettingsEditCodeId[playerid]); // Показываем игроку диалог настройки кода анти-чита
+            }
+            return ShowPlayer_AntiCheatSettings(playerid); // Относится к выбору следующей и предыдущей страницы. Заново показываем игроку главное меню настройки анти-чита.
+        }
+        case DIALOG_ANTICHEAT_EDIT_CODE: // Меню настройки определённого кода анти-чита
+        {
+            if(!response) // Если игрок закрыл диалог
+            {
+                pAntiCheatSettingsEditCodeId[playerid] = -1; // Присваиваем переменной, хранящей идентификатор (ID) кода анти-чита, который редактирует игрок, занчение -1
+                return ShowPlayer_AntiCheatSettings(playerid); // Показываем игроку главное меню настроек анти-чита
+            }
+
+            new
+                item = pAntiCheatSettingsEditCodeId[playerid]; // Создаём локальную переменную item, которая примет значение кода анти-чита, который редактирует игрок
+
+            if(AC_CODE_TRIGGER_TYPE[item] == listitem) // Если игрок пытается присвоить коду уже присвоенный ему тип срабатывания
+                return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
+
+            if(AC_CODE_TRIGGER_TYPE[item] == AC_CODE_TRIGGER_TYPE_DISABLED && listitem != AC_CODE_TRIGGER_TYPE_DISABLED)
+                EnableAntiCheat(item, 1);
+
+            AC_CODE_TRIGGER_TYPE[item] = listitem; // Если же игрок выбрал другой тип срабатывания - присваиваем его переменной
+
+            new
+                sql_query[101 - 4 + 1 + 2];
+
+            // Форматируем запрос об обновлении данных указаного кода анти-чита в базу данных
+            format(sql_query, sizeof(sql_query), "UPDATE "AC_TABLE_SETTINGS" SET `"AC_TABLE_FIELD_TRIGGER"` = '%d' WHERE `"AC_TABLE_FIELD_CODE"` = '%d'",
+                listitem,
+                item);
+
+            mysql_tquery(connects, sql_query); // Отправляем запрос в базу данных
+            return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
+        }
 	}
 	#if	defined	apanel__OnDialogResponse
 		return apanel__OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
@@ -783,18 +836,72 @@ stock ShowAdminsOffline(playerid)
 }
 stock ShowAntiCheat(playerid)
 {
-	new fmt_dialog[528], string[128];
-	foreach(new i : AllAntiCheats)
-	{
-		format
-		(
-			string, sizeof(string), "{"cblue"}%d. {FFFFFF}%s ({"cblue"}%s{FFFFFF})\n", i+1, AntiCheatInfo[i][acName], (AntiCheatInfo[i][acStatus] == 1) ? ("Кик") : ("Сообщение")
-		);
-		strcat(fmt_dialog, string);
-	}
-	SPD(playerid, D_APANEL_ANTI_CHEAT, DIALOG_STYLE_LIST, "{"cblue"}UNIGVA | UN-AC", fmt_dialog, "Далее", "Назад");
-	return 1;
+	pAntiCheatSettingsPage{playerid} = 1; // Присваиваем переменной, хранящей номер страницы, на который находится игрок, значение 1 (т.е, теперь игрок на 1-ой странице) 
+	return ShowPlayer_AntiCheatSettings(playerid);
+
 }
+stock ShowPlayer_AntiCheatSettings(playerid)
+{
+    static
+        dialog_string[42 + 19 - 8 + (AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH + AC_MAX_TRIGGER_TYPE_NAME_LENGTH + 10)*AC_MAX_CODES_ON_PAGE] = EOS;
+
+    new
+        triggeredCount = 0,
+        page = pAntiCheatSettingsPage{playerid},
+        next = 0,
+        index = 0;
+
+    dialog_string = "";
+
+    for(new i = 0; i < AC_MAX_CODES; i++)
+    {
+        if(i >= (page * AC_MAX_CODES_ON_PAGE) && i < (page * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
+            next++;
+
+        if(i >= (page - 1) * AC_MAX_CODES_ON_PAGE && i < ((page - 1) * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
+        {
+            triggeredCount = AC_CODE_TRIGGERED_COUNT[i];
+
+            format(dialog_string, sizeof(dialog_string), "%s[#%s] %s {"cblue"}%s {ffffff}%d\n",
+                dialog_string,
+                AC_CODE[i],
+                AC_CODE_NAME[i],
+                AC_TRIGGER_TYPE_NAME[AC_CODE_TRIGGER_TYPE[i]],
+                triggeredCount);
+
+            pAntiCheatSettingsMenuListData[playerid][index++] = i;
+        }
+    }
+
+    if(next)
+        strcat(dialog_string, ""AC_DIALOG_NEXT_PAGE_TEXT"\n");
+
+    if(page > 1)
+        strcat(dialog_string, AC_DIALOG_PREVIOUS_PAGE_TEXT);
+
+    return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_SETTINGS, DIALOG_STYLE_LIST, !"Настройки анти-чита", dialog_string, !"Выбрать", !"Отмена");
+}
+
+// Функция показа меню редактирования типа срабатывания определённого кода в анти-чите
+stock ShowPlayer_AntiCheatEditCode(playerid, code)
+{
+    new
+        dialog_header[22 - 4 + AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH],
+        dialog_string[AC_MAX_TRIGGER_TYPE_NAME_LENGTH*AC_MAX_TRIGGER_TYPES];
+
+    format(dialog_header, sizeof(dialog_header), "Код: %s | Название: %s", AC_CODE[code], AC_CODE_NAME[code]);
+
+    for(new i = 0; i < AC_MAX_TRIGGER_TYPES; i++)
+    {
+        strcat(dialog_string, AC_TRIGGER_TYPE_NAME[i]);
+
+        if(i + 1 != AC_MAX_TRIGGER_TYPES)
+            strcat(dialog_string, "\n");
+    }
+
+    return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_EDIT_CODE, DIALOG_STYLE_LIST, dialog_header, dialog_string, !"Выбрать", !"Назад");
+}
+
 stock ShowSetZp(playerid)
 {
 	new string[240];
@@ -873,7 +980,7 @@ publics all_admins(playerid)
 }
 stock ShowSetServerPass(playerid)
 {
-	return SPD(playerid, D_SET_SERVER_PASS, DIALOG_STYLE_INPUT, !"{"cblue"}UNIGVA | Установить пароль на сервер", "{FFFFFF}Здесь вы можете установить пароль на сервер,\nесли вы хотите убрать пароль сервера, то просто оствьте строку пустой!", "Далее", "Назад");
+	return SPD(playerid, D_SET_SERVER_PASS, DIALOG_STYLE_INPUT, !"{"cblue"}UNIGVA | Установить пароль на сервер", "{FFFFFF}Здесь Вы можете установить пароль на сервер,\nесли Вы хотите убрать пароль сервера, то просто оствьте строку пустой!", "Далее", "Назад");
 }
 stock ShowSetNakazania(playerid)
 {
@@ -957,13 +1064,13 @@ stock ShowOrgRepositories(playerid)
 stock ShowSetArmyMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металла вы хотите установить Армии? Сейчас на складе армии %d кг. металла.", REPOSITORY_ARMY_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металла Вы хотите установить Армии? Сейчас на складе армии %d кг. металла.", REPOSITORY_ARMY_METALL);
 	return SPD(playerid, D_SET_ARMY_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад Армии | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetArmyPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить Армии? Сейчас на складе армии %d патронов.", REPOSITORY_ARMY_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить Армии? Сейчас на складе армии %d патронов.", REPOSITORY_ARMY_PATRON);
 	return SPD(playerid, D_SET_ARMY_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад Армии | Патроны", string, "Далее", "Закрыть");
 }
 
@@ -971,56 +1078,56 @@ stock ShowSetArmyPatr(playerid)
 stock ShowSetOpgOMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металл вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d кг металла.", OPG_O_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металл Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d кг металла.", OPG_O_METALL);
 	return SPD(playerid, D_SET_OPG_O_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgOPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d патронов.", OPG_O_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d патронов.", OPG_O_PATRON);
 	return SPD(playerid, D_SET_OPG_O_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Патроны", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgODrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d гр. наркотиков.", OPG_O_DRUGS);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d гр. наркотиков.", OPG_O_DRUGS);
 	return SPD(playerid, D_SET_OPG_O_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Наркотики", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgOMoney(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество денег вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d руб..", OPG_O_MONEY);
+	format(string, sizeof(string), "{FFFFFF}Какое количество денег Вы хотите установить ОПГ - О? Сейчас на складе ОПГ - О %d руб..", OPG_O_MONEY);
 	return SPD(playerid, D_SET_OPG_O_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - О | Деньги", string, "Далее", "Закрыть");
 }
 
 stock ShowSetOpgSMet(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество металл вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d кг. металла.", OPG_S_METALL);
+	format(string, sizeof(string), "{FFFFFF}Какое количество металл Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d кг. металла.", OPG_S_METALL);
 	return SPD(playerid, D_SET_OPG_S_MET, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Металл", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSPatr(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество патронов вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d патронов.", OPG_S_PATRON);
+	format(string, sizeof(string), "{FFFFFF}Какое количество патронов Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d патронов.", OPG_S_PATRON);
 	return SPD(playerid, D_SET_OPG_S_PATR, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Патроны", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSDrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d гр. наркотиков.", OPG_S_DRUGS);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d гр. наркотиков.", OPG_S_DRUGS);
 	return SPD(playerid, D_SET_OPG_S_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Наркотики", string, "Далее", "Закрыть");
 }
 stock ShowSetOpgSMoney(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество денег вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d руб..", OPG_S_MONEY);
+	format(string, sizeof(string), "{FFFFFF}Какое количество денег Вы хотите установить ОПГ - С? Сейчас на складе ОПГ - С %d руб..", OPG_S_MONEY);
 	return SPD(playerid, D_SET_OPG_S_MONEY, DIALOG_STYLE_INPUT, "{"cblue"}Склад ОПГ - С | Денег", string, "Далее", "Закрыть");
 }
 stock ShowSetPortDrugs(playerid)
 {
 	new string[128];
-	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков вы хотите установить в порту Сейчас в порту %d гр. наркотиков.", ALL_NARKO);
+	format(string, sizeof(string), "{FFFFFF}Какое количество наркотиков Вы хотите установить в порту Сейчас в порту %d гр. наркотиков.", ALL_NARKO);
 	return SPD(playerid, D_SET_PORT_DRUGS, DIALOG_STYLE_INPUT, "{"cblue"}Порт | Наркотики", string, "Далее", "Закрыть");
 }
 

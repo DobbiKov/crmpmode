@@ -28,7 +28,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы выдали игроку %s все лицензии", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s выдал вам все лицензии", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s выдал Вам все лицензии", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 			else
@@ -36,7 +36,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s все лицензии", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас все лицензии", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас все лицензии", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}           
         }
@@ -50,7 +50,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы выдали игроку %s права категории A", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s выдал вам права категории A", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s выдал Вам права категории A", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 			else
@@ -58,7 +58,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s права категории A", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас права категории A", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас права категории A", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 		}
@@ -72,7 +72,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы выдали игроку %s права категории B", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s выдал вам права категории B", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s выдал Вам права категории B", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 			else
@@ -80,7 +80,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s права категории B", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас права категории B", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас права категории B", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 		}
@@ -94,7 +94,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы выдали игроку %s права категории C", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s выдал вам права категории C", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s выдал Вам права категории C", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 			else
@@ -102,7 +102,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s права категории C", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас права категории C", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас права категории C", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 		}
@@ -116,7 +116,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы выдали игроку %s права категории D", PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s выдал вам права категории D", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s выдал Вам права категории D", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 			else
@@ -124,7 +124,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s права категории D", count, PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас права категории D", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас права категории D", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
 		}
@@ -146,7 +146,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s лицензию на бизнесс", count, PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас лицензию на бизнесс", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас лицензию на бизнесс", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
         }
@@ -168,7 +168,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s лицензию на полёты", count, PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас лицензию на полёты", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас лицензию на полёты", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
         }
@@ -190,7 +190,7 @@ CMD:agl(playerid, params[])
 				format(string, sizeof(string), "Вы забрали у игрока %s лицензию на оружие", count, PlayerInfo[to_player][pName]);
 				SCM(playerid, white, string);
 
-				format(string, sizeof(string), "Администратор %s забрал у вас лицензию на оружие", PlayerInfo[playerid][pName]);
+				format(string, sizeof(string), "Администратор %s забрал у Вас лицензию на оружие", PlayerInfo[playerid][pName]);
 				SCM(to_player, white, string);
 			}
         }

@@ -87,7 +87,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 }
                 if(IsPlayerInRangeOfPoint(playerid, 10.0, 1425.2693,1672.7239,15.4692))
                 {
-                    if(vehicle[vehicleid][veh_metall] < 1) return SCM(playerid, red, "У вас нет металла в грузовике!");
+                    if(vehicle[vehicleid][veh_metall] < 1) return SCM(playerid, red, "У Вас нет металла в грузовике!");
 
                     DestroyDynamic3DTextLabel(vehicle[vehicleid][veh_label]);
                     SCM(playerid, green, "Вы разгрузили 500 кг. металла на склад Армии");
@@ -147,7 +147,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);    
                 return ClearAnimations(playerid, true);
             }
@@ -156,7 +156,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);   
                 return ClearAnimations(playerid, true); 
             }
@@ -165,7 +165,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);
                 return ClearAnimations(playerid, true);    
             }
@@ -174,7 +174,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);   
                 return ClearAnimations(playerid, true);
             }
@@ -184,7 +184,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             if( (PlayerInfo[playerid][pMember] != TEAM_VDV && !IsAFSB(playerid)) 
             || (PlayerInfo[playerid][pMember] == TEAM_VDV && PlayerInfo[playerid][pRang] < 8) )
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 RemovePlayerFromVehicle(playerid);   
                 return ClearAnimations(playerid, true);
             }
@@ -255,7 +255,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_METALL < 50) return SCM(playerid, red, "На складе недостаточно металла!");
 
                         if(GetPlayerWeaponAmmo(playerid, 22) >= 100)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
 
                         GivePlayerWeaponAC(playerid, 22, 50);
 
@@ -269,7 +269,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_METALL < 60) return SCM(playerid, red, "На складе недостаточно металла!");
 
                         if(GetPlayerWeaponAmmo(playerid, 30) >= 240)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
 
                         GivePlayerWeaponAC(playerid, 30, 120);
 
@@ -283,7 +283,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if(REPOSITORY_ARMY_METALL < 1) return SCM(playerid, red, "На складе недостаточно металла!");
                         
                         if(GetPlayerWeaponAmmo(playerid, 3) >= 1)
-                            return SCM(playerid, red, !"У вас уже максимальное количество патрон для данного вида оружия.");
+                            return SCM(playerid, red, !"У Вас уже максимальное количество патрон для данного вида оружия.");
 
                         GivePlayerWeaponAC(playerid, 3, 1);
 
@@ -299,7 +299,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return 1;
             else
             {
-                if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У вас недостаточно денег!");
+                if(PlayerInfo[playerid][pCash] < 4000) return SCM(playerid, red, "У Вас недостаточно денег!");
 
                 new vehicleid = GetPlayerVehicleID(playerid);
                 vehicle[vehicleid][veh_metall] = 500;

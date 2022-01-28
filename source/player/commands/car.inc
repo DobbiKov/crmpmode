@@ -1,7 +1,7 @@
 CMD:car(playerid)
 {
     if(PlayerInfo[playerid][pCarID] == -1)
-        return SCM(playerid, red, !"У вас нет личного транспорта!");
+        return SCM(playerid, red, !"У Вас нет личного транспорта!");
     new query[256];
     format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
     mysql_tquery(connects, query, "ShowCarListMySQL", "i", playerid);

@@ -255,7 +255,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 new i = GetPVarInt(playerid, "biz_id_enter");
 
-                if(PlayerInfo[playerid][pCash] < BusinessInfo[i][bEnterPrice]) return SCM(playerid, red, "У вас нет столько денег!");
+                if(PlayerInfo[playerid][pCash] < BusinessInfo[i][bEnterPrice]) return SCM(playerid, red, "У Вас нет столько денег!");
 
                 GiveMoney(playerid, -BusinessInfo[i][bEnterPrice], "Вход в бизнесс");
                 GiveBusinessMoney(i, BusinessInfo[i][bEnterPrice], playerid);
@@ -389,7 +389,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(PlayerInfo[playerid][pBeer] >= 5) return SCM(playerid, red, "Вы не можете унести с собой столько пива!");
-                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pBeer]++;
                         GiveMoney(playerid, -50, "Покупка пива");
@@ -400,7 +400,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         if(PlayerInfo[playerid][pSmoke] >= 5) return SCM(playerid, red, "Вы не можете унести с собой столько пачек сигарет!");
-                        if(PlayerInfo[playerid][pCash] < 30) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 30) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pSmoke]++;
                         GiveMoney(playerid, -30, "Покупка сигарет");
@@ -412,7 +412,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 2:
                     {
                         if(PlayerInfo[playerid][pChips] >= 5) return SCM(playerid, red, "Вы не можете унести с собой столько пачек чипсов!");
-                        if(PlayerInfo[playerid][pCash] < 40) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 40) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pChips]++;
                         GiveMoney(playerid, -40, "Покупка чипс");
@@ -423,7 +423,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 3:
                     {
                         if(PlayerInfo[playerid][pLighter] >= 5) return SCM(playerid, red, "Вы не можете унести с собой столько зажигалок!");
-                        if(PlayerInfo[playerid][pCash] < 10) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 10) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pLighter]++;
                         GiveMoney(playerid, -10, "Покупка зажигалки");
@@ -433,7 +433,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 4:
                     {
-                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         GiveMoney(playerid, -500, "Покупка дров");
                         GiveBusinessMoney(b, 500, playerid);
@@ -442,19 +442,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 5:
                     {
-                        if(PlayerInfo[playerid][pPhone] >= 1) return SCM(playerid, red, "У вас уже есть телефон!"); 
-                        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pPhone] >= 1) return SCM(playerid, red, "У Вас уже есть телефон!"); 
+                        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pPhone] = 1;
                         GiveMoney(playerid, -2000, "Покупка телефона");
                         GiveBusinessMoney(b, 2000, playerid);
-                        SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Покупка телефона", "{FFFFFF}Вы купили себе телефон\nТеперь вам необходимо купить сим-карту", "Закрыть", "");
+                        SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Покупка телефона", "{FFFFFF}Вы купили себе телефон\nТеперь Вам необходимо купить сим-карту", "Закрыть", "");
                         SaveAccounts(playerid);
                     }
                     case 6:
                     {
-                        if(PlayerInfo[playerid][pPhone] == 0) return SCM(playerid, red, "У вас нет телефона!"); 
-                        if(PlayerInfo[playerid][pCash] < 100) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pPhone] == 0) return SCM(playerid, red, "У Вас нет телефона!"); 
+                        if(PlayerInfo[playerid][pCash] < 100) return SCM(playerid, red, "У Вас нет столько денег!");
 
 						SPD
 						(
@@ -470,8 +470,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 7:
                     {
-                        if(PlayerInfo[playerid][pBackPack] >= 1) return SCM(playerid, red, "У вас уже есть рюкзак!"); 
-                        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pBackPack] >= 1) return SCM(playerid, red, "У Вас уже есть рюкзак!"); 
+                        if(PlayerInfo[playerid][pCash] < 2000) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pBackPack] = 1;
                         GiveMoney(playerid, -2000, "Покупка рюкзака");
@@ -483,7 +483,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 8:
                     {
                         if(PlayerInfo[playerid][pPepsi] >= 5) return SCM(playerid, red, "Вы не можете унести столько пепси!"); 
-                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         PlayerInfo[playerid][pPepsi]++;
                         GiveMoney(playerid, -50, "Покупка пепси");
@@ -493,7 +493,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     case 9:
                     {
-                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас нет столько денег!");
+                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У Вас нет столько денег!");
 
                         GiveMoney(playerid, -500, "Покупка фотоапарата");
                         GiveBusinessMoney(b, 500, playerid);
@@ -541,7 +541,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(PlayerInfo[playerid][pHeal] >= 2) return SCM(playerid, red, "Вы не можете унести столько аптечек");
-                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < 1000) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         PlayerInfo[playerid][pHeal]++;
                         GiveMoney(playerid, -1000, "Покупка аптечки в аптеке");
@@ -552,7 +552,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         if(PlayerInfo[playerid][pMask] >= 1) return SCM(playerid, red, "Вы не можете унести столько масок");
-                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < 500) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         PlayerInfo[playerid][pMask]++;
                         GiveMoney(playerid, -500, "Покупка маски в аптеке");
@@ -574,7 +574,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 0:
                     {
                         if(PlayerInfo[playerid][pNeedEat] + 20 > 100) return SCM(playerid, red, "Вы сыты!");
-                        if(PlayerInfo[playerid][pCash] < 200) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < 200) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         PlayerInfo[playerid][pNeedEat] += 20;
                         PlayerInfo[playerid][pNeedDrink] -= 2;
@@ -587,7 +587,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 1:
                     {
                         if(PlayerInfo[playerid][pNeedEat] + 10 > 100) return SCM(playerid, red, "Вы сыты!");
-                        if(PlayerInfo[playerid][pCash] < 100) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < 100) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         PlayerInfo[playerid][pNeedEat] += 10;
                         PlayerInfo[playerid][pNeedDrink] -= 2;
@@ -600,7 +600,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case 2:
                     {
                         if(PlayerInfo[playerid][pNeedDrink] + 15 > 100) return SCM(playerid, red, "Вы не хотите пить!");
-                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У вас не достаточно денег!");
+                        if(PlayerInfo[playerid][pCash] < 50) return SCM(playerid, red, "У Вас не достаточно денег!");
 
                         PlayerInfo[playerid][pNeedDrink] += 15;
                         PlayerInfo[playerid][pNeedToilet] -= 5;
@@ -789,8 +789,8 @@ CMD:buybusiness(playerid)
         if(IsPlayerInRangeOfPoint(playerid, 2.0, BusinessInfo[i][bExitX], BusinessInfo[i][bExitY], BusinessInfo[i][bExitZ]))
         {
             if(BusinessInfo[i][bOwned] != 0) return SCM(playerid, red, "Данным бизнесом уже кто-то владеет!");
-            if(PlayerInfo[playerid][pCash] < BusinessInfo[i][bPrice]) return SCM(playerid, red, "У вас не достаточно денег!");
-            if(PlayerInfo[playerid][pBizID] != -1) return SCM(playerid, red, "У вас уже есть бизнесс!");
+            if(PlayerInfo[playerid][pCash] < BusinessInfo[i][bPrice]) return SCM(playerid, red, "У Вас не достаточно денег!");
+            if(PlayerInfo[playerid][pBizID] != -1) return SCM(playerid, red, "У Вас уже есть бизнесс!");
 
             new string[286];
             format(string, sizeof(string), "\
@@ -811,7 +811,7 @@ CMD:buybusiness(playerid)
 
 CMD:business(playerid)
 {
-    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
+    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У Вас нет бизнеса!");
     new b;
     foreach(new i : Allbusiness) 
     {
@@ -870,7 +870,7 @@ CMD:sellbiz(playerid)
     return cmd::sellbusiness(playerid);
 CMD:sellbusiness(playerid)
 {
-    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
+    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У Вас нет бизнеса!");
     new b;
     foreach(new i : Allbusiness) if(BusinessInfo[i][bID] == PlayerInfo[playerid][pBizID]) b = i;
     new fmt_dialog[256];
@@ -1079,7 +1079,7 @@ publics buy_sim_card(playerid, number)
 
 CMD:sellmybusiness(playerid, params[])
 {
-    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У вас нет бизнеса!");
+    if(PlayerInfo[playerid][pBizID] == -1) return SCM(playerid, red, "У Вас нет бизнеса!");
     extract params -> new to_player, price; else return SCM(playerid, blue, "[Подсказка]: {FFFFFF}Используйте /sellmybusiness [ID игрока] [цена]");
     if(!IsPlayerConnected(to_player) || PlayerInfo[to_player][pLogin] != true) return PlayerOffLine(playerid);
     if(PlayerInfo[to_player][pBizID] != -1) return SCM(playerid, red, "У игрока уже имеется бизнесс.");

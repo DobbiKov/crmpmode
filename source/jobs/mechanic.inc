@@ -30,7 +30,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pCash] < 200)
 		        {
 		            RemovePlayerFromVehicle(playerid);
-		            return SCM(playerid, red, "У вас недостаточно денег!");
+		            return SCM(playerid, red, "У Вас недостаточно денег!");
 		        }
 
 		        GiveMoney(playerid, -200, "Аренда машина автомеханика");
@@ -52,7 +52,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				SCM(playerid, blue, "Вы успешно арендовали транспорт!");
 				new string[128];
-				format(string, sizeof(string), "За ремонт одного автомобиля, вы будете получать {"cyellow"}%d рублей{"cblue"}!", mech_repair_price[playerid]);
+				format(string, sizeof(string), "За ремонт одного автомобиля, Вы будете получать {"cyellow"}%d рублей{"cblue"}!", mech_repair_price[playerid]);
 				SCM(playerid, blue, string);
 				SendClientMessage(playerid, white, "{"cblue"}/repair {FFFFFF}- отремонтировать игрока.");
 				SendClientMessage(playerid, white, "{"cblue"}/join {FFFFFF}- заключить контракт с АЗС.");
@@ -160,14 +160,14 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					GetPlayerPos(playerid, x, y, z);
 					SetPlayerPos(playerid, x + 2.0, y + 2.0, z);
 					RemovePlayerFromVehicle(playerid);
-					if(AntiCheatInfo[TP_in_VEH_AC][acStatus] == 0) return ResultMessageCheat(playerid, 9);
-					else return ResultCheat(playerid, 9);
+					// if(AntiCheatInfo[TP_in_VEH_AC][acStatus] == 0) return ResultMessageCheat(playerid, 9);
+					// else return ResultCheat(playerid, 9);
 				}
                 ShowPlayerDialog
                 (
                     playerid, D_AREND_MECHANIC_CAR, DIALOG_STYLE_MSGBOX,
                     "{"cblue"}Автомеханик | Аренда транспорта",
-                    "{FFFFFF}Аренда автомобиля автомеханика составит {"cblue"}200 рублей{FFFFFF}.\nВы готовы арендовать транспорт в данный момент времени?",
+                    "{FFFFFF}Аренда автомобиля автомеханика составит {"cblue"}200 рублей{FFFFFF}.\nВы готоВы арендовать транспорт в данный момент времени?",
                     "Да", "Нет"
                 );
             }

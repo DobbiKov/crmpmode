@@ -19,7 +19,7 @@ CMD:incar(playerid, params[])
     format(string, sizeof(string), "¬ы затащили %s в машину!", PlayerName(to_player));
     SCM(playerid, blue, string);
 
-    format(string, sizeof(string), "%s затащил вас в машину!", PlayerName(playerid));
+    format(string, sizeof(string), "%s затащил ¬ас в машину!", PlayerName(playerid));
     SCM(to_player, blue, string);
 
     format(string, sizeof(string), "затащил в машину %s", PlayerName(to_player));

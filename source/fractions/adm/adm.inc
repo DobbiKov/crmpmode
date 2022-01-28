@@ -42,7 +42,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         {
             if(PlayerInfo[playerid][pMember] != TEAM_ADM && !IsAFSB(playerid))
             {
-                SCM(playerid, red, "У вас нет ключей от этого транспорта!");
+                SCM(playerid, red, "У Вас нет ключей от этого транспорта!");
                 return ClearAnimations(playerid, true);
             }
         }

@@ -2,7 +2,7 @@ CMD:viphelp(playerid)
 {
     new string[2048] = "";
 
-    new temp_string[144] = "{"cred"}У вас нет VIP!\n\n";
+    new temp_string[144] = "{"cred"}У Вас нет VIP!\n\n";
     if(PlayerInfo[playerid][pVIP] <= 0)
         strcat(string, temp_string);
 
