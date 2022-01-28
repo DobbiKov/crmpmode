@@ -2531,7 +2531,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			Light{carid} = false;
 		}
 	}
-	if(newkeys == KEY_ACTION) cmd::en(playerid);
+	if(newkeys == KEY_ACTION) 
+	{
+		if(!IsAPlane(GetPlayerVehicleID(playerid)))
+			cmd::en(playerid);
+	}
 	return 1;
 }
 
