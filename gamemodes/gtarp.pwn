@@ -2522,7 +2522,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			GetVehicleParamsEx(carid,engine,lights,alarm,doors,bonnet,boot,objective);
 			SetVehicleParamsEx(carid,engine,true,alarm,doors,bonnet,boot,objective);
-			Light{carid} = true;
+			Light{carid} = true; 
 		}
 		else
 		{
