@@ -9,6 +9,12 @@ CMD:sms(playerid, params[])
     if(PlayerInfo[playerid][pPhoneStatus] == 1) return SCM(playerid, red, "Ваш телефон выключен.");
     if(number == PlayerInfo[playerid][pPhoneNumber]) return SCM(playerid, red, "Вы ввели свой номер телефона.");
 
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
+
     foreach(new i : Player)
     {
         if(IsPlayerConnected(i) && PlayerInfo[i][pLogin] != false)

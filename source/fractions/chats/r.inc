@@ -5,6 +5,12 @@ CMD:r(playerid, params[])
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /r [Текст]");
 
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
+
     new string[144];
     format(string, sizeof(string), "[R] %s %s[%d]: %s", (PlayerInfo[playerid][pMember] > 0) ? (PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ]) : (jobs_name[ PlayerInfo[playerid][pJob] ]), PlayerInfo[playerid][pName], playerid, text);
     if(PlayerInfo[playerid][pMember] > 0) 
@@ -23,6 +29,12 @@ CMD:rb(playerid, params[])
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rb [Текст]");
+
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
 
     new string[144];
     format(string, sizeof(string), "(( OOC: [R] %s %s[%d]: %s ))", (PlayerInfo[playerid][pMember] > 0) ? (PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ]) : (jobs_name[ PlayerInfo[playerid][pJob] ]), PlayerInfo[playerid][pName], playerid, text);
@@ -43,6 +55,12 @@ CMD:rfsb(playerid, params[])
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rfsb [Текст]");
 
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
+
     new string[144];
     format(string, sizeof(string), "[R] Внедр. сотрудник %s[%d]: %s", PlayerInfo[playerid][pName], playerid, text);
     SCMR(TEAM_FSB, green, string);
@@ -60,6 +78,12 @@ CMD:rbfsb(playerid, params[])
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /rbfsb [Текст]");
 
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
+
     new string[144];
     format(string, sizeof(string), "(( OOC: [R] Внедр. сотрудник %s[%d]: %s ))", PlayerInfo[playerid][pName], playerid, text);
 
@@ -75,6 +99,12 @@ CMD:d(playerid, params[])
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /d [Текст]");
+
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
 
     new string[144];
     format(string, sizeof(string), "[D] %s %s[%d]: %s", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid, text);
@@ -92,6 +122,12 @@ CMD:db(playerid, params[])
     if(PlayerInfo[playerid][pMute] > 0) return SCM(playerid, red, "В данный момент у Вас блокировка чата!");
 
     extract params -> new string: text[144]; else return SCM(playerid, yellow, "[Подсказка]: {FFFFFF}Используйте /db [Текст]");
+
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
 
     new string[144];
     format(string, sizeof(string), "(( OOC: [D] %s %s[%d]: %s ))", PlayerRank[ PlayerInfo[playerid][pMember] ][ PlayerInfo[playerid][pRang] ], PlayerInfo[playerid][pName], playerid, text);

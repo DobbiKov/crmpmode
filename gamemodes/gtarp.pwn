@@ -856,6 +856,7 @@ enum
 //------------[ ANTICHEAT] ---------------
 
 #include "../source/anticheat/new_anticheat.inc"
+#include "../source/anticheat/antiadvert.inc"
 // #include "../source/anticheat/anticheat.inc"
 //#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
@@ -2012,6 +2013,12 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
     if(!PlayerInfo[playerid][pLogin]) return 0;
+
+	if(CheckAdvertOtherSource(text))
+	{
+		SendAdminAntiAdvert(playerid, text);
+		return 0;
+	}
     
     if(text[0] == '.')
 	{
