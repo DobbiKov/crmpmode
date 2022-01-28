@@ -377,7 +377,7 @@ publics EndJobEndJob(playerid)
 	format(string, sizeof(string), "Ваш рабочий день завершен!");
 	SCM(playerid, blue, string);
 	
-	format(string, sizeof(string), "Заработанные Вами {"cyellow"}%d рублей {"cblue"}буду переведенны на ваш банковский счет!", PayJob[playerid]);
+	format(string, sizeof(string), "Заработанные Вами {"cyellow"}%d рублей {"cblue"}буду переведенны на ваш банковский счет.", PayJob[playerid]);
 	SCM(playerid, blue, string);
 
     DisablePlayerRaceCheckpoint(playerid);
@@ -391,6 +391,8 @@ publics EndJobEndJob(playerid)
 publics NextRouteCP(playerid)
 {
 	if(PlayerInfo[playerid][pJob] != Job_Bus) return -1;
+	if(!(job_car[BUS_CAR][0] <= player_job_vehicle_arend[playerid] <= job_car[BUS_CAR][1]))
+		return 1;
 
 	new route_step = bus_route_step[playerid];
 	bus_route_step[playerid] ++;

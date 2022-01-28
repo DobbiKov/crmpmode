@@ -3549,13 +3549,13 @@ CMD:end(playerid)
 	{
 		if(player_job_vehicle_arend[playerid] != -1)
 		{
-			format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d рублей{FFFFFF}!", PayJob[playerid]);
+			format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d руб.", PayJob[playerid]);
 			SPD(playerid, D_CMD_END_BUS, DIALOG_STYLE_MSGBOX, "{"cblue"}Автобус | Закончить работу", string, "Да", "Нет");
 		}
 	}
 	if(GetPVarInt(playerid, "cleaner_job") == 1)
 	{
-		format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d рублей{FFFFFF}!", PayJob[playerid]);
+		format(string, sizeof(string), "{FFFFFF}Вы уверенны что хотите завершить рабочий день?\nВаша зар. плата составит {"cblue"}%d руб.", PayJob[playerid]);
 		SPD(playerid, D_CMD_END_CLEANER, DIALOG_STYLE_MSGBOX, "{"cblue"}Автобус | Закончить работу", string, "Да", "Нет");
 	}
 	return 1;
