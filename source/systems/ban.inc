@@ -247,7 +247,7 @@ CMD:ban(playerid, params[])
 		    format(string, sizeof(string), "Администратор %s забанил игрока %s на %d дней. Причина: %s", PlayerInfo[playerid][pName], PlayerInfo[i][pName], time, reason);
 		    SCMTA(red, string);
 		    format(string, sizeof(string), "[IP: %s | Last IP: %s | Reg IP: %s]", PlayerInfo[playerid][pNewIp], PlayerInfo[playerid][pLastIP], PlayerInfo[i][pRegIP]);
-		    SCMTA(red, string);
+		    SCMA(red, string);
 
 			mysql_format(connects, string, sizeof(string), "INSERT INTO `nakazania` (`AdminName`, `Name`, `AdminId`, `AccountId`, `Date`, `Time`, `Reason`, `Type`) VALUES ('%s', '%s', '%d', '%d', '%s', '%d', '%s', 'ban')", 
 				PlayerInfo[playerid][pName], 
