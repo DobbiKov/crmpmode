@@ -2032,30 +2032,42 @@ public OnPlayerText(playerid, text[])
 		return 0;
 	}
 
+	if(GetPVarInt(playerid, "antiflood") > gettime())
+    {
+        SCM(playerid, red, "Не флудите!");
+		SetPVarInt(playerid, "antiflood", gettime()+1);
+        return 0;
+    }
+	SetPVarInt(playerid, "antiflood", gettime()+1);
 
 	if(PlayerInfo[playerid][pMute] > 0)
 	{
 	    SCM(playerid, green, !"В данный момент у Вас имеется блокировка чата. Время до сняти: /time");
 	    SetPlayerChatBubble(playerid, "Пытается что-то сказать", red, 30.0, 5000);
-		return 0;
 	}
-	else if(GetPVarInt(playerid, "antiflood") > gettime())
-    {
-        SCM(playerid, red, "Не флудите!");
-        SetPVarInt(playerid, "antiflood", gettime()+1);
-        return 0;
-    }
-    else if(strcmp(text, ")", true) == 0 || strcmp(text, "))", true) == 0)
+    else if(strcmp(text, ")", true) == 0)
 	{
 		cmd::me(playerid, "улыбается");
-		SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
 	}
-	else if(strcmp(text, "(", true) == 0 || strcmp(text, "((", true) == 0)
+    else if(strcmp(text, "xD", true) == 0 || strcmp(text, "xd", true) == 0 || strcmp(text, "чВ", true) == 0 || strcmp(text, "чв", true) == 0 || strcmp(text, "))", true) == 0)
+	{
+		cmd::me(playerid, "смеётся");
+	}
+	else if(strcmp(text, "(", true) == 0)
 	{
 		cmd::me(playerid, "грустит");
-		SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
+	}
+	else if(strcmp(text, "((", true) == 0)
+	{
+		cmd::me(playerid, "расстроился");
+	}
+	else if(strcmp(text, "+", true) == 0)
+	{
+		cmd::me(playerid, "согласен");
+	}
+	else if(strcmp(text, "-", true) == 0)
+	{
+		cmd::me(playerid, "не согласен");
 	}
 	else if(call_called[playerid] != -1)
 	{
@@ -2070,8 +2082,6 @@ public OnPlayerText(playerid, text[])
 	    new string[144];
 	    format(string, sizeof(string), "[Радиоцентр] %s %s: %s", GetPlayerRank(playerid), PlayerInfo[playerid][pName], text);
 	    SCMTA(0x66cc00AA, string);
-	    SetPVarInt(playerid, "antiflood", gettime()+1);
-		return 0;
 	}
 	else
 	{
@@ -2082,7 +2092,6 @@ public OnPlayerText(playerid, text[])
 		ProxDetector(30.0, playerid, stringer, 0xFFFFFFFF, 0xFFFFFFFF, 0xF5F5F5FF, 0xE6E6E6FF,0xB8B8B8FF);
 		ApplyAnimation(playerid, "PED", "IDLE_chat", 4.1, 0, 1, 1, 1, 1);
 		SetPlayerChatBubble(playerid, text, white, 30.0, 5000);
-		SetPVarInt(playerid, "antiflood", gettime()+1);
 	}
 	return 0;
 }
