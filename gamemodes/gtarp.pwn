@@ -53,6 +53,7 @@ L1:
 //#endif
 
 #include    <a_mysql>
+#include    <a_http>
 #include    <dc_cmd>
 #include    <streamer>
 #include	<float>
