@@ -2292,7 +2292,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	}
 	if(pickupid == HOSPITAL_PICK_EXIT)
 	{
-	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готоВы Вас выписать из больницы!");
+	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готовы Вас выписать из больницы!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1973.9240,1603.3750,15.7700);
 	    SetPlayerFacingAngle(playerid, 274.2161);
