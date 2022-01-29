@@ -229,6 +229,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						SCM(playerid, blue, !"¬ы успешно приобрели VIP на 7 дней за 60 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 7*86400;
+						PlayerInfo[playerid][pDonate] -= 60;
 						SaveAccounts(playerid);
 					}
 					case 1:{
@@ -236,6 +237,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						SCM(playerid, blue, !"¬ы успешно приобрели VIP на один мес€ц за 200 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 30*86400;
+						PlayerInfo[playerid][pDonate] -= 200;
 						SaveAccounts(playerid);
 					}
 					case 2:{
@@ -243,6 +245,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						SCM(playerid, blue, !"¬ы успешно приобрели VIP на один год за 600 кредитов.");
 						PlayerInfo[playerid][pVIP] += gettime() + 365*86400;
+						PlayerInfo[playerid][pDonate] -= 600;
 						SaveAccounts(playerid);
 					}
 				}
