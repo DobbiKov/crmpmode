@@ -123,22 +123,22 @@
 	
 
 
-    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б войти", white, 1945.6965, 2069.1343, 16.1989, 10.0, 0, 0);
-    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б выйти", white, 576.9778, 2121.6274, 1551.4600, 10.0, 0, 0);
+    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}чтоб войти", white, 1945.6965, 2069.1343, 16.1989, 10.0, 0, 0);
+    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}чтоб выйти", white, 576.9778, 2121.6274, 1551.4600, 10.0, 0, 0);
 
-    CreateDynamic3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б справить нужду", 0xFFFFFFFF, toilet_params[0][menu_x], toilet_params[0][menu_y], toilet_params[0][menu_z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
+    CreateDynamic3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}чтоб справить нужду", 0xFFFFFFFF, toilet_params[0][menu_x], toilet_params[0][menu_y], toilet_params[0][menu_z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 
 	for(new i = 0; i < sizeof(DiceInfo); i++) CreateDynamic3DTextLabel("{ffffff}Используйте: {"cblue"}/dice", 0xFFFFFFFF, DiceInfo[i][diceX], DiceInfo[i][diceY], DiceInfo[i][diceZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 
     Create3DTextLabel("Нажмите: {"cblue"}L.ALT", white, 1400.6801,1755.8474,4.1479, 50.0, 0, 0);
     Create3DTextLabel("Нажмите: {"cblue"}L.ALT", white, 1400.6577,1758.0184,-5.7436, 50.0, 0, 0);
 
-    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}что б уничтожить мешок с контрабандой", white, 1967.2764, -1944.4343, 25.1482, 50.0, 0, 0); //уничтожение контрабанды
+    Create3DTextLabel("Нажмите: {"cblue"}L.ALT {ffffff}чтоб уничтожить мешок с контрабандой", white, 1967.2764, -1944.4343, 25.1482, 50.0, 0, 0); //уничтожение контрабанды
 
-    Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}что б загрузить металл", white, 2371.0042,2006.6135,15.9900, 50.0, 0, 0);
-    Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}что б разгрузить металл", white, 1425.2693,1672.7239,15.4692, 50.0, 0, 0);
+    Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}чтоб загрузить металл", white, 2371.0042,2006.6135,15.9900, 50.0, 0, 0);
+    Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}чтоб разгрузить металл", white, 1425.2693,1672.7239,15.4692, 50.0, 0, 0);
 
-	Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}что б поставить номерной знак", white, 2428.5806,-1832.4991,19.0850, 10.0, 0, 0); //fsb numbers
+	Create3DTextLabel("{FFFFFF}Нажмите {"cblue"}'H' {FFFFFF}чтоб поставить номерной знак", white, 2428.5806,-1832.4991,19.0850, 10.0, 0, 0); //fsb numbers
 
 	new string_ammo[144];
 	format(string_ammo, sizeof(string_ammo), "{ffcc00}Склад\n\n{ffffff}Патроны: {ff9900}%d\n{ffffff}Металл: {ff9900}%d\n\n{ff4f00}Команды:\n{ffcc00}/getmet\n/putmet", REPOSITORY_ARMY_PATRON, REPOSITORY_ARMY_METALL);
