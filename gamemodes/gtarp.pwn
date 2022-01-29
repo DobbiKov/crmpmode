@@ -42,8 +42,11 @@ L1:
 
 #if defined MAX_PLAYERS
 	#undef MAX_PLAYERS
-	#define MAX_PLAYERS 50
-#else
+#endif 
+
+#if defined PRODUCTION
+	#define MAX_PLAYERS 500
+#elseif defined DEBUG
 	#define MAX_PLAYERS 50
 #endif
 
