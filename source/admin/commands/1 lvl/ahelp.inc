@@ -79,7 +79,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
                 new fmt_dialog[2048];
                 for(new i = 0; i < sizeof(Command7LVL); i++) strcat(fmt_dialog, Command7LVL[i]);
-                return SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды администратора 7 уровня", fmt_dialog, "Закрыть", "");
+                return SPD(playerid, D_NULL, DIALOG_STYLE_MSGBOX, "{"cblue"}Команды руководителя", fmt_dialog, "Закрыть", "");
             }
         }
     }

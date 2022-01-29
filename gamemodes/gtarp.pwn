@@ -998,6 +998,8 @@ enum
 #include "../source/admin/commands/6 lvl/asellcar.inc"
 #include "../source/admin/commands/6 lvl/asellbiz.inc"
 #include "../source/admin/commands/6 lvl/asellhome.inc"
+#include "../source/admin/commands/6 lvl/edithouse.inc"
+#include "../source/admin/commands/6 lvl/editbusiness.inc"
 #include "../source/admin/commands/6 lvl/settempnick.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"

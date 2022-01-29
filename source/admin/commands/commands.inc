@@ -127,7 +127,7 @@ new Command5LVL[12][] =
     {"{"cblue"}/lwarn {ffffff}- Выдать выговор лидеру организации\n"}
 };
 
-new Command6LVL[20][] = 
+new Command6LVL[22][] = 
 {
     {"{"cblue"}/setplayerskin {ffffff}- установить игроку постоянный скин\n"},
     {"{"cblue"}/setadmin {ffffff}- Поставить игрока на пост администратора\n"},
@@ -146,6 +146,8 @@ new Command6LVL[20][] =
     {"{"cblue"}/settempnick {ffffff}- Установить игроку временный ник\n"},
     {"{"cblue"}/givedonate {ffffff}- Выдать игроку кредиты\n"},
     {"{"cblue"}/setmoney {ffffff}- Установить определенное количество денег игроку\n"},
+    {"{"cblue"}/edithouse {ffffff}- Изменить данные дома.\n"},
+    {"{"cblue"}/editbusiness {ffffff}- Изменить данные бизнесса.\n"},
     {"{"cblue"}/asellcar {ffffff}- Продать транспорт другого игрока.\n"},
     {"{"cblue"}/asellbiz {ffffff}- Продать бизнесс другого игрока.\n"},
     {"{"cblue"}/asellhome {ffffff}- Продать дом другого игрока.\n"}
