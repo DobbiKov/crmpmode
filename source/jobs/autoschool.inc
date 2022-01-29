@@ -296,28 +296,28 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+		SetVehicleToRespawn(vehicleid);
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 2 && job_car[CATEG_B_CAR][0] <= newcar <= job_car[CATEG_B_CAR][1])
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+		SetVehicleToRespawn(vehicleid);
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 3 && job_car[CATEG_C_CAR][0] <= newcar <= job_car[CATEG_C_CAR][1])
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+		SetVehicleToRespawn(vehicleid);
 		DeletePVar(playerid, "lesson");
 	}
 	if(GetPVarInt(playerid, "lesson") == 4 && newcar == job_car[CATEG_D_CAR][0])
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+		SetVehicleToRespawn(vehicleid);
 		DeletePVar(playerid, "lesson");
 	}
 	#if	defined	ah__OnPlayerExitVehicle
