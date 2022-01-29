@@ -1,5 +1,5 @@
-#define DEBUG
-// #define PRODUCTION
+// #define DEBUG
+#define PRODUCTION
 main()
 {
 	new a[][] = {"Unarmed (Fist)","Brass K"};

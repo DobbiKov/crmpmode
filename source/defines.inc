@@ -11,17 +11,17 @@
     #define 	logssqldb       "gs29164"
 #endif
 
-#if defined DEBUG
-    #define 	sqlhost     "localhost"
-    #define 	sqluser     "root"
-    #define 	sqlpass     "Hello123456"
-    #define 	sqldb       "unigvacrmp"
+// #if defined DEBUG
+//     #define 	sqlhost     "localhost"
+//     #define 	sqluser     "root"
+//     #define 	sqlpass     "Hello123456"
+//     #define 	sqldb       "unigvacrmp"
 
-    #define 	logssqlhost     "localhost"
-    #define 	logssqluser     "root"
-    #define 	logssqlpass     "Hello123456"
-    #define 	logssqldb       "unigvacrmp"
-#endif
+//     #define 	logssqlhost     "localhost"
+//     #define 	logssqluser     "root"
+//     #define 	logssqlpass     "Hello123456"
+//     #define 	logssqldb       "unigvacrmp"
+// #endif
 
 // #define 	logssqlhost     "185.206.212.246"
 // #define 	logssqluser     "unigva"
