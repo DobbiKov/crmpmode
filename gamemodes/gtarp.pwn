@@ -1,5 +1,5 @@
-// #define DEBUG
-#define PRODUCTION
+#define DEBUG
+// #define PRODUCTION
 main()
 {
 	new a[][] = {"Unarmed (Fist)","Brass K"};
@@ -404,7 +404,9 @@ new
 	FSB_OFFICE_PICK,
 	FSB_GARAGE_PICK,
 	FSB_ROOF_PICK,
-	FSB_OFFICE_PICK_2;
+	FSB_OFFICE_PICK_2,
+	
+	KVART_EXIT_PICK;
 
 
 enum e_DIALOG_IDs 
@@ -2484,6 +2486,17 @@ public OnPlayerPickUpPickup(playerid, pickupid)
             return SCM(playerid, red, !"У Вас нет пропуска!");
 		ShowEnterDialog(playerid);
 	}
+	if(pickupid == KVART_EXIT_PICK)
+	{
+		foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
+		{
+			SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
+			SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
+			player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
+			FreezePlayer(playerid, 2000);
+			return player_in_kvart[playerid];
+		}
+	}
 	return 1;
 }
 
@@ -4341,5 +4354,11 @@ CMD:getpcarid(playerid)
 CMD:getunacweapon(playerid)
 {
 	return GivePlayerWeapon(playerid, 24, 10);
+}
+CMD:debdeb(playerid)
+{
+	new str[144];
+	format(str, sizeof(str), "%d ", player_in_kvart[playerid]);
+	SCM(playerid, white, str);
 }
 #endif
