@@ -9,7 +9,9 @@
     #define 	logssqluser     "gs29164"
     #define 	logssqlpass     "pZP4vqGLIQ"
     #define 	logssqldb       "gs29164"
-#elseif defined DEBUG
+#endif
+
+#if defined DEBUG
     #define 	sqlhost     "localhost"
     #define 	sqluser     "root"
     #define 	sqlpass     "Hello123456"
