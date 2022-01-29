@@ -107,11 +107,11 @@ publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, o
 
     foreach(new i : Player)
     {
-        if(!strcmp(PlayerInfo[i][pName], to_player, false))
+        if(!strcmp(PlayerInfo[i][pName], to_player))
         {
-            if(PlayerInfo[playerid][pCarID] != -1)
+            if(PlayerInfo[i][pCarID] == -1)
             {   
-                PlayerInfo[playerid][pCarID] = 1;
+                PlayerInfo[i][pCarID] = model_id;
                 return 1;
             }
         }

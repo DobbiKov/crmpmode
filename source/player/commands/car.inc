@@ -1,7 +1,7 @@
 CMD:car(playerid)
 {
-    if(PlayerInfo[playerid][pCarID] == -1)
-        return SCM(playerid, red, !"У Вас нет личного транспорта!");
+    // if(PlayerInfo[playerid][pCarID] == -1)
+    //     return SCM(playerid, red, !"У Вас нет личного транспорта!");
     new query[256];
     format(query, sizeof(query), "SELECT * FROM `ownable_cars` WHERE `owner_id` = '%d'", PlayerInfo[playerid][pID]);
     mysql_tquery(connects, query, "ShowCarListMySQL", "i", playerid);
@@ -36,7 +36,7 @@ publics ShowCarListMySQL(playerid)
         return ShowPlayerDialog(playerid, D_CAR_COMMAND, DIALOG_STYLE_LIST, !"{"cblue"}Ваш транспорт", string, !"Далее", !"Отмена");
     }
     else
-        return SCM(playerid, red, !"Ваш транспорт не был найден!");
+        return SCM(playerid, red, !"У вас нет личного транспорта!");
 }
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
