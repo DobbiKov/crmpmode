@@ -33,7 +33,7 @@
 // #define 	sqldb       "unigva"
 
 //*********** | ˜˜˜˜˜˜˜˜˜ | ***********//
-#define 	gamemode    "UNIGVA - Beta 0.7.0"
+#define 	gamemode    "UNIGVA - 0.7.0"
 #define     hostname    "[ Unigva RolePlay | Îòêğûòèå ]"
 #define     mapname     "Criminal Russia"
 #define     site_url    "unigva-rp.ru"
