@@ -116,7 +116,7 @@ publics SletHouseASellHouse(i, playerid)
         new houseoffmess[144];
         format(houseoffmess, sizeof(houseoffmess), "Ваш дом был продан государству администратором %s.", PlayerInfo[playerid][pName]);
 
-        new sql[512];
+        new sql[1024];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pHomeID` = '-1', `pHouseOffMess` = '%s' WHERE `pID` = '%d'", houseoffmess, player_id);
         mysql_tquery(connects, sql, "", "");
     }

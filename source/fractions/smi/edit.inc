@@ -36,7 +36,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(AD[i][ad_status] == 1) return SCM(playerid, red, "ќбъ€вление уже провер€етьс€ кем-то!");
                 if(AD[i][ad_status] == 2) return SCM(playerid, red, "ќбъ€вление уже проверено!");
                 SetPVarInt(playerid, "d_edits", i);
-				
+            
                 new string[100];
                 format(string, sizeof(string), "{"cblue"}%s", AD[i][ad_text]);
                 AD[GetPVarInt(playerid, "d_edits")][ad_status] = 1;

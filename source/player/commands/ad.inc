@@ -57,7 +57,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 AD[i][ad_text] = EOS;
                 new text[100];
                 GetPVarString(playerid, "ad_text", text, sizeof(text));
-                strcat(AD[i][ad_text], text);
+                // strcat(AD[i][ad_text], text);
+                format(AD[i][ad_text], 100, "%s", text);
 
                 PlayerInfo[playerid][pPhoneCash] -= GetPVarInt(playerid, "ad_price");
                 GiveSmiMoney(GetPVarInt(playerid, "ad_price"));

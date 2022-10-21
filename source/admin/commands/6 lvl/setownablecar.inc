@@ -105,5 +105,17 @@ publics setowncar_check_own_cars(playerid, to_player[], model_id, cost_oc_car, o
     format(query, sizeof(query), "Вы выдали игроку %s личный транспорт [Модель: %d] [Стоимость: %d]", to_player, model_id, cost_oc_car);
     SCM(playerid, white, query);
 
+    foreach(new i : Player)
+    {
+        if(!strcmp(PlayerInfo[i][pName], to_player))
+        {
+            if(PlayerInfo[i][pCarID] == -1)
+            {   
+                PlayerInfo[i][pCarID] = model_id;
+                return 1;
+            }
+        }
+    }
+
     return 1;
 }

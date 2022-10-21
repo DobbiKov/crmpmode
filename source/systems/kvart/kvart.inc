@@ -67,14 +67,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
         if(IsPlayerInRangeOfPoint(playerid, 1.0, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]))
         {
-            foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
-            {
-                SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
-                SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
-                player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
-                FreezePlayer(playerid, 2000);
-                return player_in_kvart[playerid];
-            }
+            // foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
+            // {
+            //     SCMTA(red, "Найден");
+            //     SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
+            //     SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
+            //     player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
+            //     FreezePlayer(playerid, 2000);
+            //     return player_in_kvart[playerid];
+            // }
         }
         else
         {
@@ -143,7 +144,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new j = GetPVarInt(playerid, "enter_kvart");
                 SetPlayerVirtualWorld(playerid, j);
                 FreezePlayer(playerid, 2000);
-                SetPlayerPos(playerid, kvart_params[0][kvart_exit_x], kvart_params[0][kvart_exit_y], kvart_params[0][kvart_exit_z]);
+                SetPlayerPos(playerid, kvart_params[0][kvart_enter_tp_x], kvart_params[0][kvart_enter_tp_y], kvart_params[0][kvart_enter_tp_z]);
+                SetPlayerFacingAngle(playerid, kvart_params[0][kvart_enter_tp_a]);
+                SetCameraBehindPlayer(playerid);
                 player_in_podezd[playerid] = -1;
                 return DeletePVar(playerid, "enter_kvart");
             }

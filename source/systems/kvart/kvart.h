@@ -15,10 +15,15 @@ enum kvart_params_info
     Float:kvart_exit_y,
     Float:kvart_exit_z,
     Float:kvart_exit_a,
+
+    Float:kvart_enter_tp_x,
+    Float:kvart_enter_tp_y,
+    Float:kvart_enter_tp_z,
+    Float:kvart_enter_tp_a,
 }
 new kvart_params[1][kvart_params_info] =
 {
-    {2000, -2303.8125,359.5068,-86.4541,182.8116,   -2294.8171,364.9778,-86.4541,359.8232}
+    {2000, -2303.8125,359.5068,-86.4541,182.8116,   -2294.8171,364.9778,-86.4541,359.8232, -2294.7996,362.7413,-86.4541,172.5622}
 };
 
 enum E_KVART_DATA

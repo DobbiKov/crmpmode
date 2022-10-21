@@ -42,7 +42,7 @@ publics SletBizABiz(i, playerid)
         new bizoffmess[144];
         format(bizoffmess, sizeof(bizoffmess), "Ваш бизнесс был продан администратором %s.", PlayerInfo[playerid][pName]);
 
-        new sql[512];
+        new sql[1024];
         format(sql, sizeof(sql), "UPDATE `accounts` SET `pBizID` = '-1', `pBizOffMess` = '%s', WHERE `pID` = '%d'", bizoffmess, player_id);
     }
     else

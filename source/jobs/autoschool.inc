@@ -31,7 +31,7 @@ static
 	    {1903.1064,2246.7146,15.7141},
 	    {1914.1827,2246.4639,15.7139} // 29
 	};
-
+new autoschool_car[MAX_PLAYERS];
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
@@ -71,29 +71,37 @@ public OnPlayerDisconnect(playerid, reason)
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
+		DestroyVehicle(autoschool_car[playerid]);
+		autoschool_car[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	if(GetPVarInt(playerid, "lesson") == 2)
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
+		DestroyVehicle(autoschool_car[playerid]);
+		autoschool_car[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	if(GetPVarInt(playerid, "lesson") == 3)
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
+		DestroyVehicle(autoschool_car[playerid]);
+		autoschool_car[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	if(GetPVarInt(playerid, "lesson") == 4)
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
+		DestroyVehicle(autoschool_car[playerid]);
+		autoschool_car[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	#if	defined	ah__OnPlayerDisconnect
 		return ah__OnPlayerDisconnect(playerid, reason);
@@ -292,33 +300,14 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 {
 	new newcar = vehicleid;
 
-	if(GetPVarInt(playerid, "lesson") == 1 && job_car[CATEG_A_CAR][0] <= newcar <= job_car[CATEG_A_CAR][1])
+	if(GetPVarInt(playerid, "lesson") > 0 && newcar == autoschool_car[playerid])
 	{
 		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 		DeletePVar(playerid, "lesson");
-	}
-	if(GetPVarInt(playerid, "lesson") == 2 && job_car[CATEG_B_CAR][0] <= newcar <= job_car[CATEG_B_CAR][1])
-	{
-		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-		DeletePVar(playerid, "lesson");
-	}
-	if(GetPVarInt(playerid, "lesson") == 3 && job_car[CATEG_C_CAR][0] <= newcar <= job_car[CATEG_C_CAR][1])
-	{
-		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-		DeletePVar(playerid, "lesson");
-	}
-	if(GetPVarInt(playerid, "lesson") == 4 && newcar == job_car[CATEG_D_CAR][0])
-	{
-		SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		DisablePlayerRaceCheckpoint(playerid);
-		SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-		DeletePVar(playerid, "lesson");
+		DestroyVehicle(autoschool_car[playerid]);
+		autoschool_car[playerid] = -1;
+		SetPlayerVirtualWorld(playerid, 0);
 	}
 	#if	defined	ah__OnPlayerExitVehicle
 		return ah__OnPlayerExitVehicle(playerid, vehicleid);
@@ -349,6 +338,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
+			SetPlayerVirtualWorld(playerid, playerid + 1000);
+			autoschool_car[playerid] = CreateVehicle(461, 1939.1744,2246.4094,15.3708,89.9513,3,3, 86400);
+			SetVehicleVirtualWorld(autoschool_car[playerid], GetPlayerVirtualWorld(playerid));
+			PutPlayerInVehicle(playerid, autoschool_car[playerid], 0);
+			vehicle[ autoschool_car[playerid] ][veh_fuel] = 80.0;
 			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
@@ -364,6 +358,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
+			SetPlayerVirtualWorld(playerid, playerid + 1000);
+			autoschool_car[playerid] = CreateVehicle(516, 1924.2289,2228.1021,15.7298,0.5742,3,0, 86400);
+			SetVehicleVirtualWorld(autoschool_car[playerid], GetPlayerVirtualWorld(playerid));
+			PutPlayerInVehicle(playerid, autoschool_car[playerid], 0);
+			vehicle[ autoschool_car[playerid] ][veh_fuel] = 80.0;
 			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
@@ -379,6 +378,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
+			SetPlayerVirtualWorld(playerid, playerid + 1000);
+			autoschool_car[playerid] = CreateVehicle(515, 1934.4994,2250.3352,16.3538,89.8652,3,3, 86400);
+			SetVehicleVirtualWorld(autoschool_car[playerid], GetPlayerVirtualWorld(playerid));
+			PutPlayerInVehicle(playerid, autoschool_car[playerid], 0);
+			vehicle[ autoschool_car[playerid] ][veh_fuel] = 80.0;
 			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
@@ -394,6 +398,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 		else
 		{
+			SetPlayerVirtualWorld(playerid, playerid + 1000);
+			autoschool_car[playerid] = CreateVehicle(483, 1909.6436,2235.8845,15.9755,359.6084,3,3, 86400);
+			SetVehicleVirtualWorld(autoschool_car[playerid], GetPlayerVirtualWorld(playerid));
+			PutPlayerInVehicle(playerid, autoschool_car[playerid], 0);
+			vehicle[ autoschool_car[playerid] ][veh_fuel] = 80.0;
 			SCM(playerid, blue, "Для сдачи экзамена, следуйте по маркерам соблюдая ПДД. Внимание! На экзамен Вам даётся {"cyellow"}10 минут{"cblue"}!");
 			pPressed[playerid] = 0;
 			SetPlayerRaceCheckpoint(playerid, 0, coord_exam[pPressed[playerid]][0], coord_exam[pPressed[playerid]][1], coord_exam[pPressed[playerid]][2], coord_exam[pPressed[playerid]+1][0], coord_exam[pPressed[playerid]+1][1], coord_exam[pPressed[playerid]+1][2], 5.0);
@@ -410,33 +419,14 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     }
     if(oldstate == PLAYER_STATE_DRIVER)
     {
-		if(GetPVarInt(playerid, "lesson") == 1 && job_car[CATEG_A_CAR][0] <= newcar <= job_car[CATEG_A_CAR][1])
+		if(GetPVarInt(playerid, "lesson") > 0 && newcar == autoschool_car[playerid])
 		{
 		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
 		    DisablePlayerRaceCheckpoint(playerid);
-	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
 			DeletePVar(playerid, "lesson");
-		}
-		if(GetPVarInt(playerid, "lesson") == 2 && job_car[CATEG_B_CAR][0] <= newcar <= job_car[CATEG_B_CAR][1])
-		{
-		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		    DisablePlayerRaceCheckpoint(playerid);
-	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-			DeletePVar(playerid, "lesson");
-		}
-		if(GetPVarInt(playerid, "lesson") == 3 && job_car[CATEG_C_CAR][0] <= newcar <= job_car[CATEG_C_CAR][1])
-		{
-		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		    DisablePlayerRaceCheckpoint(playerid);
-	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-			DeletePVar(playerid, "lesson");
-		}
-		if(GetPVarInt(playerid, "lesson") == 4 && newcar == job_car[CATEG_D_CAR][0])
-		{
-		    SCM(playerid, red, "К сожалению, Вы провалили экзамен на вождение.");
-		    DisablePlayerRaceCheckpoint(playerid);
-	        SetVehicleToRespawn(GetPlayerVehicleID(playerid));
-			DeletePVar(playerid, "lesson");
+			DestroyVehicle(autoschool_car[playerid]);
+			autoschool_car[playerid] = -1;
+			SetPlayerVirtualWorld(playerid, 0);
 		}
     }
     #if defined ah__OnPlayerStateChange
@@ -506,8 +496,10 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 				    SCM(playerid, red, "К сожалению Вы провалили экзамен на вождение!");
 				}
 				SaveAccounts(playerid);
-                SetVehicleToRespawn(GetPlayerVehicleID(playerid));
+				DestroyVehicle(autoschool_car[playerid]);
+				autoschool_car[playerid] = -1;
 				DeletePVar(playerid, "lesson");
+				SetPlayerVirtualWorld(playerid, 0);
 			}
 		}
     }

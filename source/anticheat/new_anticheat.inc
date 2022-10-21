@@ -30,17 +30,17 @@ stock ResultCheat(p, r)
 
     if(PlayerInfo[p][bAdmin] < 3)
 	{
-		ShowPlayerDialog
-		(
-			p, D_NULL, DIALOG_STYLE_MSGBOX,
-			"{"cblue"}Античит",
-			fmt_dialog,
-			"Закрыть", ""
-		);
+        ShowPlayerDialog
+        (
+            p, D_NULL, DIALOG_STYLE_MSGBOX,
+            "{"cblue"}Античит",
+            fmt_dialog,
+            "Закрыть", ""
+        );
 
-		format(string, sizeof(string), "{"cgrey"}[{"cred"}Анти-чит{"cgrey"}] <%s> подозреваемый %s(ID: %d) был кикнут по подозрению в читерстве [%s]", result, PlayerInfo[p][pName], p, AC_CODE_NAME[r]);
-		SCMA(red, string);
-	    NewKick(p);
+        format(string, sizeof(string), "{"cgrey"}[{"cred"}Анти-чит{"cgrey"}] <%s> подозреваемый %s(ID: %d) был кикнут по подозрению в читерстве [%s]", result, PlayerInfo[p][pName], p, AC_CODE_NAME[r]);
+        SCMA(red, string);
+        NewKick(p);
 	}
     return true;
 }

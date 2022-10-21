@@ -1,4 +1,5 @@
-#define DEBUG
+// #define DEBUG
+#define PRODUCTION
 main()
 {
 	new a[][] = {"Unarmed (Fist)","Brass K"};
@@ -41,8 +42,11 @@ L1:
 
 #if defined MAX_PLAYERS
 	#undef MAX_PLAYERS
-	#define MAX_PLAYERS 50
-#else
+#endif 
+
+#if defined PRODUCTION
+	#define MAX_PLAYERS 500
+#elseif defined DEBUG
 	#define MAX_PLAYERS 50
 #endif
 
@@ -400,7 +404,9 @@ new
 	FSB_OFFICE_PICK,
 	FSB_GARAGE_PICK,
 	FSB_ROOF_PICK,
-	FSB_OFFICE_PICK_2;
+	FSB_OFFICE_PICK_2,
+	
+	KVART_EXIT_PICK;
 
 
 enum e_DIALOG_IDs 
@@ -998,6 +1004,8 @@ enum
 #include "../source/admin/commands/6 lvl/asellcar.inc"
 #include "../source/admin/commands/6 lvl/asellbiz.inc"
 #include "../source/admin/commands/6 lvl/asellhome.inc"
+#include "../source/admin/commands/6 lvl/edithouse.inc"
+#include "../source/admin/commands/6 lvl/editbusiness.inc"
 #include "../source/admin/commands/6 lvl/settempnick.inc"
 
 #include "../source/admin/commands/7 lvl/restart.inc"
@@ -2286,7 +2294,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	}
 	if(pickupid == HOSPITAL_PICK_EXIT)
 	{
-	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готоВы Вас выписать из больницы!");
+	    if(PlayerInfo[playerid][pHOSPITAL] > 0) return SCM(playerid, red, "Мы еще не готовы Вас выписать из больницы!");
 	    FreezePlayer(playerid, 2000);
 	    SetPlayerPos(playerid, 1973.9240,1603.3750,15.7700);
 	    SetPlayerFacingAngle(playerid, 274.2161);
@@ -2478,6 +2486,17 @@ public OnPlayerPickUpPickup(playerid, pickupid)
             return SCM(playerid, red, !"У Вас нет пропуска!");
 		ShowEnterDialog(playerid);
 	}
+	if(pickupid == KVART_EXIT_PICK)
+	{
+		foreach(new i : Allkvart) if(player_in_kvart[playerid] == i)
+		{
+			SetPlayerPos(playerid, KvartPos[ KvartInfo[i][kvart_type] ][kvart_enter_pos_x], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_y], KvartPos[KvartInfo[i][kvart_type]][kvart_enter_pos_z]);
+			SetPlayerVirtualWorld(playerid, KvartInfo[i][kvart_pod_id]);
+			player_in_podezd[playerid] = KvartInfo[i][kvart_pod_id];
+			FreezePlayer(playerid, 2000);
+			return player_in_kvart[playerid];
+		}
+	}
 	return 1;
 }
 
@@ -2522,7 +2541,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			GetVehicleParamsEx(carid,engine,lights,alarm,doors,bonnet,boot,objective);
 			SetVehicleParamsEx(carid,engine,true,alarm,doors,bonnet,boot,objective);
-			Light{carid} = true;
+			Light{carid} = true; 
 		}
 		else
 		{
@@ -3512,7 +3531,7 @@ stock GiveMoney(p, money, reason[])
 	format(fmt_msg, sizeof(fmt_msg), "~%s~ %s%d rub", (money >= 0) ? "g" : "r", (money >= 0) ? "+" : "", money);
 	GameTextForPlayer(p, fmt_msg, 1500, 1);
 
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givemoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d-%02d-%02d %d:%02d')", PlayerInfo[p][pID], money, reason, ip, Day, Month, Year, Hour, Minute);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givemoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d')", PlayerInfo[p][pID], money, reason, ip, gettime());
 	mysql_tquery(connects, stringer);
 }
 
@@ -3529,10 +3548,10 @@ stock GiveBankMoney(p, money, reason[])
 	new ip[20];
 	GetPlayerIp(p, ip, sizeof(ip));
 	
-	new time[128];
-	format(time, sizeof(time), "%d-%02d-%02d %d:%02d", Day, Month, Year, Hour, Minute);
+	// new time[128];
+	// format(time, sizeof(time), "%d-%02d-%02d %d:%02d", Day, Month, Year, Hour, Minute);
 
-	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givebankmoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%s')", PlayerInfo[p][pID], money, reason, ip, time);
+	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givebankmoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d')", PlayerInfo[p][pID], money, reason, ip, gettime());
 	mysql_tquery(connects, stringer);
 }
 
@@ -4335,5 +4354,11 @@ CMD:getpcarid(playerid)
 CMD:getunacweapon(playerid)
 {
 	return GivePlayerWeapon(playerid, 24, 10);
+}
+CMD:debdeb(playerid)
+{
+	new str[144];
+	format(str, sizeof(str), "%d ", player_in_kvart[playerid]);
+	SCM(playerid, white, str);
 }
 #endif

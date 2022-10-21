@@ -31,15 +31,21 @@ publics minuteupdate()
     foreach(new i : Player)
     if(minutes == 5 || minutes == 15 || minutes == 30 || minutes == 45 || minutes == 55)
     {
+        new Float:health;
         setNeeds(i, need_toilet, getNeeds(i, need_toilet) - 5);
-        if(getNeeds(i, need_toilet) < 40) SCM(i, need, "Вы хотите в туалет!");
+        if(getNeeds(i, need_toilet) < 40) 
+        {
+            GetPlayerHealth(i, health);
+            PlayerInfo[i][pHP] = health - 3;
+            SetPlayerHealth(i, health - 3);
+            SCM(i, need, "Вы хотите в туалет!");
+        }
 
         setNeeds(i, need_eat, getNeeds(i, need_eat) - 4);
         if(getNeeds(i, need_eat) < 40) 
         {
             SCM(i, need, "Вы проголодались! Посетите столовую или купите чипсы в 24/7. Узнать состояние персонажа: /need");
             PlayerPlaySound(i, 40403, 0.0, 0.0, 0.0);
-            new Float:health;
             GetPlayerHealth(i, health);
             PlayerInfo[i][pHP] = health - 3;
             SetPlayerHealth(i, health - 3);
@@ -47,6 +53,9 @@ publics minuteupdate()
         setNeeds(i, need_drink, getNeeds(i, need_drink) - 3);
         if(getNeeds(i, need_drink) < 40)
         {
+            GetPlayerHealth(i, health);
+            PlayerInfo[i][pHP] = health - 3;
+            SetPlayerHealth(i, health - 3);
             SCM(i, need, "Вы хотите пить! Посетите столовую или купите пепси в 24/7. Узнать состояние персонажа: /need");
         }
 
