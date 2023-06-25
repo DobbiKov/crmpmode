@@ -39,3 +39,5 @@
 #include "../source/systems/disc_cuffed.inc"
 #include "../source/systems/autosalon.inc"
 #include "../source/systems/skills.inc"
+#include "../source/systems/hud.inc"
+#include "../source/systems/voice.inc"

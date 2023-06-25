@@ -1716,7 +1716,7 @@ stock SaveAccounts(playerid)
 
 public OnPlayerConnect(playerid)
 {
-	//SCM(playerid, -1, "ιξ"); //DEBUG
+	AddPlayerInHudCount();
     ClearAccount(playerid);
 	ClearProposition(playerid);
 	for(new i = 0; i < 100; i++)
@@ -1758,6 +1758,7 @@ public OnPlayerConnect(playerid)
 	LoadPlayerTextDraws(playerid);
 	ClearAnimations(playerid);
 	player_second_timer[playerid] = SetTimerEx("PlayerSecondTimer", 1000, true, "i", playerid);
+	ShowPlayerHudInterface(playerid);
 	/*
 	PlayerTimer[playerid][@_200] = SetTimerEx("@_200mc_PlayerTimer", 200, true, "d", playerid);
 	PlayerTimer[playerid][@_1000] = SetTimerEx("@_1000mc_PlayerTimer", 1000, true, "d", playerid);
@@ -1776,6 +1777,8 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+	HidePlayerHudInterface(playerid);
+	RemovePlayerInHudCount();
     TakeOffMask(playerid);
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
@@ -3533,6 +3536,8 @@ stock GiveMoney(p, money, reason[])
 
 	mysql_format(connects, stringer, sizeof(stringer), "INSERT INTO `givemoney` (`Nick`, `Money`, `Reason`, `ip`, `time`) VALUES ('%d', '%d', '%s', '%s', '%d')", PlayerInfo[p][pID], money, reason, ip, gettime());
 	mysql_tquery(connects, stringer);
+
+	UpdatePlayerMoneyInHud(p);
 }
 
 stock GiveBankMoney(p, money, reason[])
@@ -3771,6 +3776,7 @@ stock LoadPlayerTextDraws(playerid)
 	#include "../source/textdraws/bizwar.inc"
 	#include "../source/textdraws/anim.inc"
     #include "../source/textdraws/buyclothes.inc"
+    #include "../source/textdraws/kaif.inc"
 }
 stock IsAFSB(playerid)
 {
