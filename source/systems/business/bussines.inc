@@ -509,7 +509,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return 1;
             else
             {
-                if(!strlen(inputtext) || !IsNumeric(inputtext) || strlen(inputtext) != 6 || inputtext[0] == 0)
+                if(!strlen(inputtext) || !IsNumeric(inputtext) || strlen(inputtext) != 6 || inputtext[0] == 0 || strval(inputtext) == 777)
                 {
                     SPD
                     (
