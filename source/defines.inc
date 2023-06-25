@@ -1,14 +1,14 @@
 //************* | MYSQL | *************//
 #if defined PRODUCTION
     #define 	sqlhost     "localhost"
-    #define 	sqluser     "gs29164"
-    #define 	sqlpass     "pZP4vqGLIQ"
-    #define 	sqldb       "gs29164"
+    #define 	sqluser     "gs212822"
+    #define 	sqlpass     "CG9UywjDKmwM"
+    #define 	sqldb       "gs212822"
 
     #define 	logssqlhost     "localhost"
-    #define 	logssqluser     "gs29164"
-    #define 	logssqlpass     "pZP4vqGLIQ"
-    #define 	logssqldb       "gs29164"
+    #define 	logssqluser     "gs212822"
+    #define 	logssqlpass     "CG9UywjDKmwM"
+    #define 	logssqldb       "gs212822"
 #endif
 
 // #if defined DEBUG
