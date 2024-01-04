@@ -33,7 +33,7 @@ enum E_AC_INFO
 }
 new AntiCheatInfo[MAX_ANTICHEATS][E_AC_INFO];
 
-stock _ResultCheat(p, r)
+stock ResultCheat(p, r)
 {
 	if(GetPVarInt(p, "Cheater") == 1) return 1;
 
@@ -94,7 +94,7 @@ stock _ResultCheat(p, r)
 	}
     return true;
 }
-stock _ResultMessageCheat(p, r)
+stock ResultMessageCheat(p, r)
 {
 	if(GetPVarInt(p, "Cheater") == 1) return 1;
 	

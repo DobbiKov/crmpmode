@@ -758,56 +758,58 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 	 	case DIALOG_ANTICHEAT_SETTINGS: // Главное меню настроект анти-чита
         {
-            if(!response) // Если игрок закрыл диалог
-            {
-                pAntiCheatSettingsPage{playerid} = 0; // Присваиваем значение 0 переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
-                return 1; // Закрываем диалог
-            }
+			return SCM(playerid, red, "Temporary doesn't work!");
+            // if(!response) // Если игрок закрыл диалог
+            // {
+            //     pAntiCheatSettingsPage{playerid} = 0; // Присваиваем значение 0 переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+            //     return 1; // Закрываем диалог
+            // }
 
-            if(!strcmp(inputtext, AC_DIALOG_NEXT_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на следующую страницу
-            {
-                pAntiCheatSettingsPage{playerid}++; // Инкрементируем (прибавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
-            }
-            else if(!strcmp(inputtext, AC_DIALOG_PREVIOUS_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на предыдущую страницу
-            {
-                pAntiCheatSettingsPage{playerid}--; // Декрементируем (убавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
-            }
-            else // Если игрко выбрал какой-либо из кодов анти-чита
-            {
-                pAntiCheatSettingsEditCodeId[playerid] = pAntiCheatSettingsMenuListData[playerid][listitem]; // Присваиваем переменной, хранящей номер кода анти-чита, который редактирует игрок, номер кода, который он выбрал
-                return ShowPlayer_AntiCheatEditCode(playerid, pAntiCheatSettingsEditCodeId[playerid]); // Показываем игроку диалог настройки кода анти-чита
-            }
-            return ShowPlayer_AntiCheatSettings(playerid); // Относится к выбору следующей и предыдущей страницы. Заново показываем игроку главное меню настройки анти-чита.
+            // if(!strcmp(inputtext, AC_DIALOG_NEXT_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на следующую страницу
+            // {
+            //     pAntiCheatSettingsPage{playerid}++; // Инкрементируем (прибавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+            // }
+            // else if(!strcmp(inputtext, AC_DIALOG_PREVIOUS_PAGE_TEXT)) // Если игрок нажал на кнопку перелистывания на предыдущую страницу
+            // {
+            //     pAntiCheatSettingsPage{playerid}--; // Декрементируем (убавляем 1) значение переменной, хранящей номер страницы настроек анти-чита, на которой находится игрок
+            // }
+            // else // Если игрко выбрал какой-либо из кодов анти-чита
+            // {
+            //     pAntiCheatSettingsEditCodeId[playerid] = pAntiCheatSettingsMenuListData[playerid][listitem]; // Присваиваем переменной, хранящей номер кода анти-чита, который редактирует игрок, номер кода, который он выбрал
+            //     return ShowPlayer_AntiCheatEditCode(playerid, pAntiCheatSettingsEditCodeId[playerid]); // Показываем игроку диалог настройки кода анти-чита
+            // }
+            // return ShowPlayer_AntiCheatSettings(playerid); // Относится к выбору следующей и предыдущей страницы. Заново показываем игроку главное меню настройки анти-чита.
         }
         case DIALOG_ANTICHEAT_EDIT_CODE: // Меню настройки определённого кода анти-чита
         {
-            if(!response) // Если игрок закрыл диалог
-            {
-                pAntiCheatSettingsEditCodeId[playerid] = -1; // Присваиваем переменной, хранящей идентификатор (ID) кода анти-чита, который редактирует игрок, занчение -1
-                return ShowPlayer_AntiCheatSettings(playerid); // Показываем игроку главное меню настроек анти-чита
-            }
+			return SCM(playerid, red, "Temporary doesn't work!");
+            // if(!response) // Если игрок закрыл диалог
+            // {
+            //     pAntiCheatSettingsEditCodeId[playerid] = -1; // Присваиваем переменной, хранящей идентификатор (ID) кода анти-чита, который редактирует игрок, занчение -1
+            //     return ShowPlayer_AntiCheatSettings(playerid); // Показываем игроку главное меню настроек анти-чита
+            // }
 
-            new
-                item = pAntiCheatSettingsEditCodeId[playerid]; // Создаём локальную переменную item, которая примет значение кода анти-чита, который редактирует игрок
+            // new
+            //     item = pAntiCheatSettingsEditCodeId[playerid]; // Создаём локальную переменную item, которая примет значение кода анти-чита, который редактирует игрок
 
-            if(AC_CODE_TRIGGER_TYPE[item] == listitem) // Если игрок пытается присвоить коду уже присвоенный ему тип срабатывания
-                return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
+            // if(AC_CODE_TRIGGER_TYPE[item] == listitem) // Если игрок пытается присвоить коду уже присвоенный ему тип срабатывания
+            //     return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
 
-            if(AC_CODE_TRIGGER_TYPE[item] == AC_CODE_TRIGGER_TYPE_DISABLED && listitem != AC_CODE_TRIGGER_TYPE_DISABLED)
-                EnableAntiCheat(item, 1);
+            // if(AC_CODE_TRIGGER_TYPE[item] == AC_CODE_TRIGGER_TYPE_DISABLED && listitem != AC_CODE_TRIGGER_TYPE_DISABLED)
+            //     EnableAntiCheat(item, 1);
 
-            AC_CODE_TRIGGER_TYPE[item] = listitem; // Если же игрок выбрал другой тип срабатывания - присваиваем его переменной
+            // AC_CODE_TRIGGER_TYPE[item] = listitem; // Если же игрок выбрал другой тип срабатывания - присваиваем его переменной
 
-            new
-                sql_query[101 - 4 + 1 + 2];
+            // new
+            //     sql_query[101 - 4 + 1 + 2];
 
-            // Форматируем запрос об обновлении данных указаного кода анти-чита в базу данных
-            format(sql_query, sizeof(sql_query), "UPDATE "AC_TABLE_SETTINGS" SET `"AC_TABLE_FIELD_TRIGGER"` = '%d' WHERE `"AC_TABLE_FIELD_CODE"` = '%d'",
-                listitem,
-                item);
+            // // Форматируем запрос об обновлении данных указаного кода анти-чита в базу данных
+            // format(sql_query, sizeof(sql_query), "UPDATE "AC_TABLE_SETTINGS" SET `"AC_TABLE_FIELD_TRIGGER"` = '%d' WHERE `"AC_TABLE_FIELD_CODE"` = '%d'",
+            //     listitem,
+            //     item);
 
-            mysql_tquery(connects, sql_query); // Отправляем запрос в базу данных
-            return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
+            // mysql_tquery(connects, sql_query); // Отправляем запрос в базу данных
+            // return ShowPlayer_AntiCheatSettings(playerid); // Показываем главное меню настроек анти-чита
         }
 	}
 	#if	defined	apanel__OnDialogResponse
@@ -836,71 +838,72 @@ stock ShowAdminsOffline(playerid)
 }
 stock ShowAntiCheat(playerid)
 {
-	pAntiCheatSettingsPage{playerid} = 1; // Присваиваем переменной, хранящей номер страницы, на который находится игрок, значение 1 (т.е, теперь игрок на 1-ой странице) 
-	return ShowPlayer_AntiCheatSettings(playerid);
+	return SCM(playerid, red, "Temporary doesn't work!");
+	// pAntiCheatSettingsPage{playerid} = 1; // Присваиваем переменной, хранящей номер страницы, на который находится игрок, значение 1 (т.е, теперь игрок на 1-ой странице) 
+	// return ShowPlayer_AntiCheatSettings(playerid);
 
 }
-stock ShowPlayer_AntiCheatSettings(playerid)
-{
-    static
-        dialog_string[42 + 19 - 8 + (AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH + AC_MAX_TRIGGER_TYPE_NAME_LENGTH + 10)*AC_MAX_CODES_ON_PAGE] = EOS;
+// stock ShowPlayer_AntiCheatSettings(playerid)
+// {
+//     static
+//         dialog_string[42 + 19 - 8 + (AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH + AC_MAX_TRIGGER_TYPE_NAME_LENGTH + 10)*AC_MAX_CODES_ON_PAGE] = EOS;
 
-    new
-        triggeredCount = 0,
-        page = pAntiCheatSettingsPage{playerid},
-        next = 0,
-        index = 0;
+//     new
+//         triggeredCount = 0,
+//         page = pAntiCheatSettingsPage{playerid},
+//         next = 0,
+//         index = 0;
 
-    dialog_string = "";
+//     dialog_string = "";
 
-    for(new i = 0; i < AC_MAX_CODES; i++)
-    {
-        if(i >= (page * AC_MAX_CODES_ON_PAGE) && i < (page * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
-            next++;
+//     for(new i = 0; i < AC_MAX_CODES; i++)
+//     {
+//         if(i >= (page * AC_MAX_CODES_ON_PAGE) && i < (page * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
+//             next++;
 
-        if(i >= (page - 1) * AC_MAX_CODES_ON_PAGE && i < ((page - 1) * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
-        {
-            triggeredCount = AC_CODE_TRIGGERED_COUNT[i];
+//         if(i >= (page - 1) * AC_MAX_CODES_ON_PAGE && i < ((page - 1) * AC_MAX_CODES_ON_PAGE) + AC_MAX_CODES_ON_PAGE)
+//         {
+//             triggeredCount = AC_CODE_TRIGGERED_COUNT[i];
 
-            format(dialog_string, sizeof(dialog_string), "%s[#%s] %s {"cblue"}%s {ffffff}%d\n",
-                dialog_string,
-                AC_CODE[i],
-                AC_CODE_NAME[i],
-                AC_TRIGGER_TYPE_NAME[AC_CODE_TRIGGER_TYPE[i]],
-                triggeredCount);
+//             format(dialog_string, sizeof(dialog_string), "%s[#%s] %s {"cblue"}%s {ffffff}%d\n",
+//                 dialog_string,
+//                 AC_CODE[i],
+//                 AC_CODE_NAME[i],
+//                 AC_TRIGGER_TYPE_NAME[AC_CODE_TRIGGER_TYPE[i]],
+//                 triggeredCount);
 
-            pAntiCheatSettingsMenuListData[playerid][index++] = i;
-        }
-    }
+//             pAntiCheatSettingsMenuListData[playerid][index++] = i;
+//         }
+//     }
 
-    if(next)
-        strcat(dialog_string, ""AC_DIALOG_NEXT_PAGE_TEXT"\n");
+//     if(next)
+//         strcat(dialog_string, ""AC_DIALOG_NEXT_PAGE_TEXT"\n");
 
-    if(page > 1)
-        strcat(dialog_string, AC_DIALOG_PREVIOUS_PAGE_TEXT);
+//     if(page > 1)
+//         strcat(dialog_string, AC_DIALOG_PREVIOUS_PAGE_TEXT);
 
-    return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_SETTINGS, DIALOG_STYLE_LIST, !"Настройки анти-чита", dialog_string, !"Выбрать", !"Отмена");
-}
+//     return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_SETTINGS, DIALOG_STYLE_LIST, !"Настройки анти-чита", dialog_string, !"Выбрать", !"Отмена");
+// }
 
-// Функция показа меню редактирования типа срабатывания определённого кода в анти-чите
-stock ShowPlayer_AntiCheatEditCode(playerid, code)
-{
-    new
-        dialog_header[22 - 4 + AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH],
-        dialog_string[AC_MAX_TRIGGER_TYPE_NAME_LENGTH*AC_MAX_TRIGGER_TYPES];
+// // Функция показа меню редактирования типа срабатывания определённого кода в анти-чите
+// stock ShowPlayer_AntiCheatEditCode(playerid, code)
+// {
+//     new
+//         dialog_header[22 - 4 + AC_MAX_CODE_LENGTH + AC_MAX_CODE_NAME_LENGTH],
+//         dialog_string[AC_MAX_TRIGGER_TYPE_NAME_LENGTH*AC_MAX_TRIGGER_TYPES];
 
-    format(dialog_header, sizeof(dialog_header), "Код: %s | Название: %s", AC_CODE[code], AC_CODE_NAME[code]);
+//     format(dialog_header, sizeof(dialog_header), "Код: %s | Название: %s", AC_CODE[code], AC_CODE_NAME[code]);
 
-    for(new i = 0; i < AC_MAX_TRIGGER_TYPES; i++)
-    {
-        strcat(dialog_string, AC_TRIGGER_TYPE_NAME[i]);
+//     for(new i = 0; i < AC_MAX_TRIGGER_TYPES; i++)
+//     {
+//         strcat(dialog_string, AC_TRIGGER_TYPE_NAME[i]);
 
-        if(i + 1 != AC_MAX_TRIGGER_TYPES)
-            strcat(dialog_string, "\n");
-    }
+//         if(i + 1 != AC_MAX_TRIGGER_TYPES)
+//             strcat(dialog_string, "\n");
+//     }
 
-    return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_EDIT_CODE, DIALOG_STYLE_LIST, dialog_header, dialog_string, !"Выбрать", !"Назад");
-}
+//     return ShowPlayerDialog(playerid, DIALOG_ANTICHEAT_EDIT_CODE, DIALOG_STYLE_LIST, dialog_header, dialog_string, !"Выбрать", !"Назад");
+// }
 
 stock ShowSetZp(playerid)
 {

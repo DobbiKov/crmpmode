@@ -63,7 +63,7 @@ L1:
 #include	<float>
 #include	<sscanf2>
 #include    <foreach>
-#include    <nex-ac>
+// #include    <nex-ac>
 #include    <mxdate>
 #include    <regex>
 #include 	<crp>
@@ -838,7 +838,7 @@ enum
 //------------[ ANTICHEAT] ---------------
 //#include "../source/anticheat/sleepy_ac.h"
 //#include "../source/anticheat/sleepy_ac.inc"
-#include "../source/anticheat/new_anticheat.h"
+// #include "../source/anticheat/new_anticheat.h"
 
 // --------- [ œ≈–≈Ã≈ÕÕ€≈ ] --------------
 #include "../source/systems/mytk/mytk.h"
@@ -862,9 +862,9 @@ enum
 
 //------------[ ANTICHEAT] ---------------
 
-#include "../source/anticheat/new_anticheat.inc"
+// #include "../source/anticheat/new_anticheat.inc"
+#include "../source/anticheat/anticheat.inc"
 #include "../source/anticheat/antiadvert.inc"
-// #include "../source/anticheat/anticheat.inc"
 //#include "../source/anticheat/speedhack.inc"
 #include "../source/anticheat/weapon.inc"
 //#include "../source/anticheat/ac_flood_veh.inc"
@@ -1145,7 +1145,7 @@ public OnGameModeInit()
 	mysql_tquery(connects, "SELECT * FROM `toilets`", "LoadToilets", "");
 	mysql_tquery(connects, "SELECT * FROM `familys`", "LoadFamilys", "");
 	mysql_tquery(connects, "SELECT * FROM `apvote`", "LoadAPVotes", "");
-	UploadAntiCheatSettings();
+	// UploadAntiCheatSettings();
 	
     LoadGreenZones();
     
@@ -3328,10 +3328,10 @@ publics LoadAntiCheats()
 	{
 	    for(new i = 0; i < rows; i++)
 	    {
-	        // AntiCheatInfo[i][acID] = cache_get_field_content_int(i, "acID");
-	        // cache_get_field_content(i, "acName", AntiCheatInfo[i][acName], connects, 32);
-	        // AntiCheatInfo[i][acStatus] = cache_get_field_content_int(i, "acStatus");
-	        // Iter_Add(AllAntiCheats, i);
+	        AntiCheatInfo[i][acID] = cache_get_field_content_int(i, "acID");
+	        cache_get_field_content(i, "acName", AntiCheatInfo[i][acName], connects, 32);
+	        AntiCheatInfo[i][acStatus] = cache_get_field_content_int(i, "acStatus");
+	        Iter_Add(AllAntiCheats, i);
 	    }
         print("[UNIGVA] ¿ÌÚË˜Ú Á‡„ÛÊÂÌ!");
 	}
