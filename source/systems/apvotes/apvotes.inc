@@ -6,26 +6,26 @@
 
 stock ShowAPVotePanel(playerid)
 {
-    if(GetPVarInt(playerid, "donate_access") == 1) return SCM(playerid, red, !"Диалога ID 127 не обнаружено!");
+    if(GetPVarInt(playerid, "donate_access") == 1) return SCM(playerid, red, !"Г„ГЁГ Г«Г®ГЈГ  ID 127 Г­ГҐ Г®ГЎГ­Г Г°ГіГ¦ГҐГ­Г®!");
 
-    new open_close[64] = "{"cgreen"}открыто";
+    new open_close[64] = "{"cgreen"}Г®ГІГЄГ°Г»ГІГ®";
     if(VoteInfo[AP_VOTE_ID][voteIsOpen] == 0)
-        format(open_close, sizeof(open_close), "{"cred"}закрыто");
+        format(open_close, sizeof(open_close), "{"cred"}Г§Г ГЄГ°Г»ГІГ®");
     new string[512];
     format(string, sizeof(string), "\
-    {"cblue"}1. {ffffff}Название мероприятия ({"cblue"}%s{ffffff})\n\
-    {"cblue"}2. {ffffff}Достуный игровой уровень ({"cblue"}%d{ffffff})\n\
-    {"cblue"}3. {ffffff}Открыть/закрыть голосование (%s)\n\
-    {"cblue"}4. {ffffff}Изменить координаты голосования\n\
-    {"cblue"}5. {ffffff}Варианты ответов голосований\n\
-    {"cblue"}6. {ffffff}Очистить голосования игроков (для создания нового)\n\
-    {"cblue"}7. {ffffff}Посмотреть статистику голосов\n\
+    {"cblue"}1. {ffffff}ГЌГ Г§ГўГ Г­ГЁГҐ Г¬ГҐГ°Г®ГЇГ°ГЁГїГІГЁГї ({"cblue"}%s{ffffff})\n\
+    {"cblue"}2. {ffffff}Г„Г®Г±ГІГіГ­Г»Г© ГЁГЈГ°Г®ГўГ®Г© ГіГ°Г®ГўГҐГ­Гј ({"cblue"}%d{ffffff})\n\
+    {"cblue"}3. {ffffff}ГЋГІГЄГ°Г»ГІГј/Г§Г ГЄГ°Г»ГІГј ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГҐ (%s)\n\
+    {"cblue"}4. {ffffff}Г€Г§Г¬ГҐГ­ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї\n\
+    {"cblue"}5. {ffffff}Г‚Г Г°ГЁГ Г­ГІГ» Г®ГІГўГҐГІГ®Гў ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГ©\n\
+    {"cblue"}6. {ffffff}ГЋГ·ГЁГ±ГІГЁГІГј ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї ГЁГЈГ°Г®ГЄГ®Гў (Г¤Г«Гї Г±Г®Г§Г¤Г Г­ГЁГї Г­Г®ГўГ®ГЈГ®)\n\
+    {"cblue"}7. {ffffff}ГЏГ®Г±Г¬Г®ГІГ°ГҐГІГј Г±ГІГ ГІГЁГ±ГІГЁГЄГі ГЈГ®Г«Г®Г±Г®Гў\n\
     ",
     VoteInfo[AP_VOTE_ID][voteName],
     VoteInfo[AP_VOTE_ID][voteLvlAccess],
     open_close
     );
-    ShowPlayerDialog(playerid, D_APVOTES_SETTINGS, DIALOG_STYLE_LIST, !"{"cblue"}Настройки голосования", string, !"Далее", !"Назад");
+    ShowPlayerDialog(playerid, D_APVOTES_SETTINGS, DIALOG_STYLE_LIST, !"{"cblue"}ГЌГ Г±ГІГ°Г®Г©ГЄГЁ ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї", string, !"Г„Г Г«ГҐГҐ", !"ГЌГ Г§Г Г¤");
     return 1;
 }
 
@@ -62,7 +62,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             VoteInfo[AP_VOTE_ID][vote_Z] = posZ;
 
             SaveAPVotes(AP_VOTE_ID);
-            SCM(playerid, blue, !"Вы успешно изменили координаты голосования!");
+            SCM(playerid, blue, !"Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЁГ§Г¬ГҐГ­ГЁГ«ГЁ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї!");
             return ShowAPVotePanel(playerid);
         }
         case D_APVOTES_CHANGE_NAME:
@@ -72,7 +72,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(VoteInfo[AP_VOTE_ID][voteName], 64, "%s", inputtext);
 
             SaveAPVotes(AP_VOTE_ID);
-            SCM(playerid, blue, !"Вы успешно изменили название голосования!");
+            SCM(playerid, blue, !"Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЁГ§Г¬ГҐГ­ГЁГ«ГЁ Г­Г Г§ГўГ Г­ГЁГҐ ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї!");
             return ShowAPVotePanel(playerid);
         }
         case D_APVOTES_CHANGE_LVL_ACCESS:
@@ -82,7 +82,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             VoteInfo[AP_VOTE_ID][voteLvlAccess] = listitem + 1;
 
             SaveAPVotes(AP_VOTE_ID);
-            SCM(playerid, blue, !"Вы успешно изменили доступный уровень для голосования!");
+            SCM(playerid, blue, !"Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЁГ§Г¬ГҐГ­ГЁГ«ГЁ Г¤Г®Г±ГІГіГЇГ­Г»Г© ГіГ°Г®ГўГҐГ­Гј Г¤Г«Гї ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї!");
             return ShowAPVotePanel(playerid);
         }
         case D_APVOTES_VARS:
@@ -92,7 +92,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if(vote_totalvotevars[AP_VOTE_ID] >= 10)
                 {
-                    SCM(playerid, red, !"У Вас уже имеется 10 вариантов ответов для голосвания!");
+                    SCM(playerid, red, !"Г“ Г‚Г Г± ГіГ¦ГҐ ГЁГ¬ГҐГҐГІГ±Гї 10 ГўГ Г°ГЁГ Г­ГІГ®Гў Г®ГІГўГҐГІГ®Гў Г¤Г«Гї ГЈГ®Г«Г®Г±ГўГ Г­ГЁГї!");
                     return ShowAPVoteVars(playerid);
                 }
                 return ShowAPVoteCreateVar(playerid);
@@ -162,7 +162,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(query, sizeof(query), "SELECT * FROM `apvotevars` WHERE `vote_id` = '%d'", VoteInfo[vote_i][voteID]);
             mysql_tquery(connects, query, "LoadAPVoteVars", "i", vote_i);
             
-            SCM(playerid, blue, !"Вы успешно удалили данный вариант ответа!");
+            SCM(playerid, blue, !"Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГіГ¤Г Г«ГЁГ«ГЁ Г¤Г Г­Г­Г»Г© ГўГ Г°ГЁГ Г­ГІ Г®ГІГўГҐГІГ !");
 
             return ShowAPVotePanel(playerid);
         }
@@ -175,7 +175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             mysql_tquery(connects, query);
 
             new string[144];
-            format(string, sizeof(string), "[A] %s[%d] очистил голосования всех игроков.", PlayerInfo[playerid][pName], playerid);
+            format(string, sizeof(string), "[A] %s[%d] Г®Г·ГЁГ±ГІГЁГ« ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї ГўГ±ГҐГµ ГЁГЈГ°Г®ГЄГ®Гў.", PlayerInfo[playerid][pName], playerid);
             return SCMA(grey, string);
         }
     }
@@ -205,10 +205,10 @@ stock ShowAPVoteChangeCoords(playerid)
         playerid, 
         D_APVOTES_CHANGE_COORDS, 
         DIALOG_STYLE_MSGBOX, 
-        !"{"cblue"}Смена координат голосования", 
-        !"{ffffff}Вы желаете изменить координаты голосвания, на те, в которых Вы находитесь в данный момент?", 
-        !"Да", 
-        !"Нет"
+        !"{"cblue"}Г‘Г¬ГҐГ­Г  ГЄГ®Г®Г°Г¤ГЁГ­Г ГІ ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї", 
+        !"{ffffff}Г‚Г» Г¦ГҐГ«Г ГҐГІГҐ ГЁГ§Г¬ГҐГ­ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЈГ®Г«Г®Г±ГўГ Г­ГЁГї, Г­Г  ГІГҐ, Гў ГЄГ®ГІГ®Г°Г»Гµ Г‚Г» Г­Г ГµГ®Г¤ГЁГІГҐГ±Гј Гў Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІ?", 
+        !"Г„Г ", 
+        !"ГЌГҐГІ"
     );
     return 1;
 }
@@ -218,7 +218,7 @@ stock ShowAPVoteChangeLevelAccess(playerid)
     for(new i = 1; i <= 30; i++)
     {
         new temp_string[32];
-        format(temp_string, sizeof(temp_string), "{"cblue"}%d. {ffffff}%d уровень\n", i, i);
+        format(temp_string, sizeof(temp_string), "{"cblue"}%d. {ffffff}%d ГіГ°Г®ГўГҐГ­Гј\n", i, i);
         strcat(string, temp_string);
     }
     ShowPlayerDialog
@@ -226,10 +226,10 @@ stock ShowAPVoteChangeLevelAccess(playerid)
         playerid, 
         D_APVOTES_CHANGE_LVL_ACCESS, 
         DIALOG_STYLE_LIST, 
-        !"{"cblue"}Смена доступного уровня для голосвания", 
+        !"{"cblue"}Г‘Г¬ГҐГ­Г  Г¤Г®Г±ГІГіГЇГ­Г®ГЈГ® ГіГ°Г®ГўГ­Гї Г¤Г«Гї ГЈГ®Г«Г®Г±ГўГ Г­ГЁГї", 
         string, 
-        !"Сменить", 
-        !"Назад"
+        !"Г‘Г¬ГҐГ­ГЁГІГј", 
+        !"ГЌГ Г§Г Г¤"
     );
     return 1;
 }
@@ -241,20 +241,20 @@ stock ShowAPVoteChangeName(playerid)
         playerid, 
         D_APVOTES_CHANGE_NAME, 
         DIALOG_STYLE_INPUT, 
-        !"{"cblue"}Смена названия голосования", 
-        !"{ffffff}Вы желаете изменить название голосвания?\nВ таком случае введите новое название в полне ниже:", 
-        !"Сменить", 
-        !"Назад"
+        !"{"cblue"}Г‘Г¬ГҐГ­Г  Г­Г Г§ГўГ Г­ГЁГї ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї", 
+        !"{ffffff}Г‚Г» Г¦ГҐГ«Г ГҐГІГҐ ГЁГ§Г¬ГҐГ­ГЁГІГј Г­Г Г§ГўГ Г­ГЁГҐ ГЈГ®Г«Г®Г±ГўГ Г­ГЁГї?\nГ‚ ГІГ ГЄГ®Г¬ Г±Г«ГіГ·Г ГҐ ГўГўГҐГ¤ГЁГІГҐ Г­Г®ГўГ®ГҐ Г­Г Г§ГўГ Г­ГЁГҐ Гў ГЇГ®Г«Г­ГҐ Г­ГЁГ¦ГҐ:", 
+        !"Г‘Г¬ГҐГ­ГЁГІГј", 
+        !"ГЌГ Г§Г Г¤"
     );
     return 1;
 }
 
 stock ShowAPVoteVars(playerid)
 {
-    new string[1024] = "{"cgreen"}Создать новый вариант\n";
+    new string[1024] = "{"cgreen"}Г‘Г®Г§Г¤Г ГІГј Г­Г®ГўГ»Г© ГўГ Г°ГЁГ Г­ГІ\n";
 
     if(vote_totalvotevars[AP_VOTE_ID] >= 10)
-        format(string, sizeof(string), "{"cred"}У Вас уже имеется 10 вариантов\n");
+        format(string, sizeof(string), "{"cred"}Г“ Г‚Г Г± ГіГ¦ГҐ ГЁГ¬ГҐГҐГІГ±Гї 10 ГўГ Г°ГЁГ Г­ГІГ®Гў\n");
     
     for(new i = 0; i < MAX_APVOTEVARS; i++)
     {
@@ -266,7 +266,7 @@ stock ShowAPVoteVars(playerid)
         format(temp_string, sizeof(temp_string), "{ffffff}%s\n", VoteVarInfo[AP_VOTE_ID][i][voteVarName]);
         strcat(string, temp_string);
     }
-    ShowPlayerDialog(playerid, D_APVOTES_VARS, DIALOG_STYLE_LIST, !"{"cblue"}Варианты ответов голосования", string, !"Изменить", !"Назад");
+    ShowPlayerDialog(playerid, D_APVOTES_VARS, DIALOG_STYLE_LIST, !"{"cblue"}Г‚Г Г°ГЁГ Г­ГІГ» Г®ГІГўГҐГІГ®Гў ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї", string, !"Г€Г§Г¬ГҐГ­ГЁГІГј", !"ГЌГ Г§Г Г¤");
     return 1;
 }
 
@@ -277,10 +277,10 @@ stock ShowAPVoteCreateVar(playerid)
         playerid, 
         D_APVOTES_CREATE_VAR, 
         DIALOG_STYLE_INPUT, 
-        !"{"cblue"}Создание нового варианта ответа голосования", 
-        !"{ffffff}Введите новый вариант ответа:", 
-        !"Создать", 
-        !"Назад"
+        !"{"cblue"}Г‘Г®Г§Г¤Г Г­ГЁГҐ Г­Г®ГўГ®ГЈГ® ГўГ Г°ГЁГ Г­ГІГ  Г®ГІГўГҐГІГ  ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї", 
+        !"{ffffff}Г‚ГўГҐГ¤ГЁГІГҐ Г­Г®ГўГ»Г© ГўГ Г°ГЁГ Г­ГІ Г®ГІГўГҐГІГ :", 
+        !"Г‘Г®Г§Г¤Г ГІГј", 
+        !"ГЌГ Г§Г Г¤"
     );
     return 1;
 }
@@ -288,17 +288,17 @@ stock ShowAPVoteCreateVar(playerid)
 stock ShowAPVoteDeleteVar(playerid, vote_i, var_id)
 {
     new string[256];
-    format(string, sizeof(string), "{ffffff}Вы уверенны, что хотите удалить вариант ответа {"cblue"}%s{ffffff}?", VoteVarInfo[vote_i][var_id][voteVarName])
+    format(string, sizeof(string), "{ffffff}Г‚Г» ГіГўГҐГ°ГҐГ­Г­Г», Г·ГІГ® ГµГ®ГІГЁГІГҐ ГіГ¤Г Г«ГЁГІГј ГўГ Г°ГЁГ Г­ГІ Г®ГІГўГҐГІГ  {"cblue"}%s{ffffff}?", VoteVarInfo[vote_i][var_id][voteVarName]);
 
     ShowPlayerDialog
     (
         playerid, 
         D_APVOTES_DELETE_VAR, 
         DIALOG_STYLE_MSGBOX, 
-        !"{"cblue"}Удаление варианта ответа", 
+        !"{"cblue"}Г“Г¤Г Г«ГҐГ­ГЁГҐ ГўГ Г°ГЁГ Г­ГІГ  Г®ГІГўГҐГІГ ", 
         string, 
-        !"Да", 
-        !"Нет"
+        !"Г„Г ", 
+        !"ГЌГҐГІ"
     );
     return 1;
 }
@@ -306,7 +306,7 @@ stock ShowAPVoteDeleteVar(playerid, vote_i, var_id)
 stock ShowAPVoteChangeVarName(playerid, vote_i, var_id)
 {
     new title_string[128];
-    format(title_string, sizeof(title_string), "{"cblue"}%s", VoteVarInfo[vote_i][var_id][voteVarName])
+    format(title_string, sizeof(title_string), "{"cblue"}%s", VoteVarInfo[vote_i][var_id][voteVarName]);
 
     ShowPlayerDialog
     (
@@ -314,9 +314,9 @@ stock ShowAPVoteChangeVarName(playerid, vote_i, var_id)
         D_APVOTES_CHANGE_VAR_NAME, 
         DIALOG_STYLE_INPUT, 
         title_string, 
-        !"{ffffff}Введите новое название вариант ответа:", 
-        !"Изменить", 
-        !"Назад"
+        !"{ffffff}Г‚ГўГҐГ¤ГЁГІГҐ Г­Г®ГўГ®ГҐ Г­Г Г§ГўГ Г­ГЁГҐ ГўГ Г°ГЁГ Г­ГІ Г®ГІГўГҐГІГ :", 
+        !"Г€Г§Г¬ГҐГ­ГЁГІГј", 
+        !"ГЌГ Г§Г Г¤"
     );
     return 1;
 }
@@ -336,11 +336,11 @@ stock ShowAPVoteVarInfo(playerid, vote_i, var_id)
         DIALOG_STYLE_LIST, 
         title_string, 
         !"\
-        {"cblue"}1. {ffffff}Изменить название\n\
-        {"cblue"}2. {ffffff}Удалить вариант ответа\n\
+        {"cblue"}1. {ffffff}Г€Г§Г¬ГҐГ­ГЁГІГј Г­Г Г§ГўГ Г­ГЁГҐ\n\
+        {"cblue"}2. {ffffff}Г“Г¤Г Г«ГЁГІГј ГўГ Г°ГЁГ Г­ГІ Г®ГІГўГҐГІГ \n\
         ", 
-        !"Далее", 
-        !"Назад"
+        !"Г„Г Г«ГҐГҐ", 
+        !"ГЌГ Г§Г Г¤"
     );
     return 1;
 }
@@ -353,10 +353,10 @@ stock ShowAPVoteClearPlayerVotes(playerid)
         playerid, 
         D_APVOTES_CLEAR_PLAYER_VOTES, 
         DIALOG_STYLE_MSGBOX, 
-        !"{"cblue"}Очистка голосований", 
-        !"{ffffff}Вы желаете очистить голосования для всех игроков?", 
-        !"Да", 
-        !"Нет"
+        !"{"cblue"}ГЋГ·ГЁГ±ГІГЄГ  ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГ©", 
+        !"{ffffff}Г‚Г» Г¦ГҐГ«Г ГҐГІГҐ Г®Г·ГЁГ±ГІГЁГІГј ГЈГ®Г«Г®Г±Г®ГўГ Г­ГЁГї Г¤Г«Гї ГўГ±ГҐГµ ГЁГЈГ°Г®ГЄГ®Гў?", 
+        !"Г„Г ", 
+        !"ГЌГҐГІ"
     );
     return 1;
 }
@@ -382,7 +382,7 @@ publics ShowAPVotesStatsMysql(playerid, vote_i)
     new rows, fields;
     cache_get_data(rows, fields);
     if(!rows)
-        return SCM(playerid, red, !"Еще никто не проголосовал!");
+        return SCM(playerid, red, !"Г…Г№ГҐ Г­ГЁГЄГІГ® Г­ГҐ ГЇГ°Г®ГЈГ®Г«Г®Г±Г®ГўГ Г«!");
     
     new vote_stats[MAX_APVOTEVARS];
     new vote_var_id;
@@ -406,7 +406,7 @@ publics ShowAPVotesStatsMysql(playerid, vote_i)
             continue;
 
         new temp_string[128];
-        format(temp_string, sizeof(temp_string), "{ffffff}%s\t({"cblue"}%d голосов{ffffff})\n", VoteVarInfo[vote_i][i][voteVarName], vote_stats[i]);
+        format(temp_string, sizeof(temp_string), "{ffffff}%s\t({"cblue"}%d ГЈГ®Г«Г®Г±Г®Гў{ffffff})\n", VoteVarInfo[vote_i][i][voteVarName], vote_stats[i]);
         strcat(string, temp_string);
     }
 
@@ -415,9 +415,9 @@ publics ShowAPVotesStatsMysql(playerid, vote_i)
         playerid, 
         D_NULL, 
         DIALOG_STYLE_MSGBOX, 
-        !"{"cblue"}Статистика голосов", 
+        !"{"cblue"}Г‘ГІГ ГІГЁГ±ГІГЁГЄГ  ГЈГ®Г«Г®Г±Г®Гў", 
         string, 
-        !"Закрыть", 
+        !"Г‡Г ГЄГ°Г»ГІГј", 
         !""
     );
     return 1;
