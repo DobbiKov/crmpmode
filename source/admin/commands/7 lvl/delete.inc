@@ -13,11 +13,11 @@ CMD:delete(playerid, params[])
 {
 	if(PlayerInfo[playerid][bAdmin] < 7) return ShowCommandNotFound(playerid);
 
-	extract params -> new string: type_str[24], obj_id; else return SCM(playerid, blue, "[Подсказка] {ffffff}Введите: /delete [тип] [ID]");
+	extract params -> new string: type_str[24], obj_id; else return SCM(playerid, blue, "[ГЏГ®Г¤Г±ГЄГ Г§ГЄГ ] {ffffff}Г‚ГўГҐГ¤ГЁГІГҐ: /delete [ГІГЁГЇ] [ID]");
     
     new type = GetTypeIDOfDelete(type_str);
     if(type == DEL_TYPE_NONE)
-        return SCM(playerid, red, !"Вы указали неверный тип!");
+        return SCM(playerid, red, !"Г‚Г» ГіГЄГ Г§Г Г«ГЁ Г­ГҐГўГҐГ°Г­Г»Г© ГІГЁГЇ!");
     
     new temp_id = -1;
     switch(type)
@@ -37,26 +37,26 @@ CMD:delete(playerid, params[])
         case DEL_TYPE_RADAR:
             foreach(new i:AllRadars) if(RadarInfo[i][radar_id] == obj_id) temp_id = i;
 
-        default: return SCM(playerid, red, !"Вы ввели неверный ID");
+        default: return SCM(playerid, red, !"Г‚Г» ГўГўГҐГ«ГЁ Г­ГҐГўГҐГ°Г­Г»Г© ID");
     }
     if(temp_id == -1)
-        return SCM(playerid, red, !"M-Объекта данного типа с таким ID нет!");
+        return SCM(playerid, red, !"M-ГЋГЎГєГҐГЄГІГ  Г¤Г Г­Г­Г®ГЈГ® ГІГЁГЇГ  Г± ГІГ ГЄГЁГ¬ ID Г­ГҐГІ!");
 
     new type_name[24];
     GetDelNameByTypeID(type, type_name);
 
     new string[256];
-    format(string, sizeof(string), "{ffffff}Вы действительно желаете удалить m объект типа: {"cblue"}%s{ffffff} под ID {"cblue"}%d{ffffff}?", type_name, obj_id)
+    format(string, sizeof(string), "{ffffff}Г‚Г» Г¤ГҐГ©Г±ГІГўГЁГІГҐГ«ГјГ­Г® Г¦ГҐГ«Г ГҐГІГҐ ГіГ¤Г Г«ГЁГІГј m Г®ГЎГєГҐГЄГІ ГІГЁГЇГ : {"cblue"}%s{ffffff} ГЇГ®Г¤ ID {"cblue"}%d{ffffff}?", type_name, obj_id);
     
     ShowPlayerDialog
     (
         playerid, 
         D_ASK_DEL_MOBJ, 
         DIALOG_STYLE_MSGBOX, 
-        "{"cblue"}Удаление m объекта", 
+        "{"cblue"}Г“Г¤Г Г«ГҐГ­ГЁГҐ m Г®ГЎГєГҐГЄГІГ ", 
         string, 
-        "Да", 
-        "Нет"
+        "Г„Г ", 
+        "ГЌГҐГІ"
     );
 
     SetPVarInt(playerid, "del_mobj_type", type);
@@ -68,17 +68,17 @@ CMD:delete(playerid, params[])
 
 stock GetDelNameByTypeID(type, dest[])
 {
-    format(dest, 24, "%s", "ошибка");
+    format(dest, 24, "%s", "Г®ГёГЁГЎГЄГ ");
     switch(type)
     {
-        case DEL_TYPE_NONE: format(dest, 24, "%s", "ошибка");
-        case DEL_TYPE_HOUSE: format(dest, 24, "%s", "дом");
-        case DEL_TYPE_BIZ: format(dest, 24, "%s", "бизнесс");
-        case DEL_TYPE_KVART: format(dest, 24, "%s", "квартира");
-        case DEL_TYPE_POD: format(dest, 24, "%s", "подъезд");
-        case DEL_TYPE_ATM: format(dest, 24, "%s", "банкомат");
-        case DEL_TYPE_TOILET: format(dest, 24, "%s", "туалет");
-        case DEL_TYPE_RADAR: format(dest, 24, "%s", "радар");
+        case DEL_TYPE_NONE: format(dest, 24, "%s", "Г®ГёГЁГЎГЄГ ");
+        case DEL_TYPE_HOUSE: format(dest, 24, "%s", "Г¤Г®Г¬");
+        case DEL_TYPE_BIZ: format(dest, 24, "%s", "ГЎГЁГ§Г­ГҐГ±Г±");
+        case DEL_TYPE_KVART: format(dest, 24, "%s", "ГЄГўГ Г°ГІГЁГ°Г ");
+        case DEL_TYPE_POD: format(dest, 24, "%s", "ГЇГ®Г¤ГєГҐГ§Г¤");
+        case DEL_TYPE_ATM: format(dest, 24, "%s", "ГЎГ Г­ГЄГ®Г¬Г ГІ");
+        case DEL_TYPE_TOILET: format(dest, 24, "%s", "ГІГіГ Г«ГҐГІ");
+        case DEL_TYPE_RADAR: format(dest, 24, "%s", "Г°Г Г¤Г Г°");
     }
     return 1;
 }
@@ -223,7 +223,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     format(mysql_table, sizeof(mysql_table), "%s", "radars");
                     format(mysql_id_name, sizeof(mysql_id_name), "%s", "radar_id");
                 }
-                default: return SCM(playerid, red, !"Неизвестная ошибка с удаление m object'а.");
+                default: return SCM(playerid, red, !"ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г Гї Г®ГёГЁГЎГЄГ  Г± ГіГ¤Г Г«ГҐГ­ГЁГҐ m object'Г .");
             }
             new query[128];
             format(query, sizeof(query), "DELETE FROM `%s` WHERE `%s` = '%d'", mysql_table, mysql_id_name, obj_id);
@@ -233,7 +233,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             GetDelNameByTypeID(type, type_name);
 
             new string[144];
-            format(string, sizeof(string), "[A] Администратор %s[%d] удалил m-объект [тип: %s][id: %d]", PlayerInfo[playerid][pName], playerid, type_name, obj_id);
+            format(string, sizeof(string), "[A] ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° %s[%d] ГіГ¤Г Г«ГЁГ« m-Г®ГЎГєГҐГЄГІ [ГІГЁГЇ: %s][id: %d]", PlayerInfo[playerid][pName], playerid, type_name, obj_id);
             SCMA(grey, string);
             return 1;
         }
